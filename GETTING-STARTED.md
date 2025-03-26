@@ -18,7 +18,7 @@ yarn install
 yarn dev
 ```
 
-The dev server will be available at http://localhost:5173
+The dev server will be available at http://localhost:3002
 
 ## 2. Key Files to Understand
 
@@ -27,6 +27,7 @@ The dev server will be available at http://localhost:5173
 - `src/components/ui/` - Core UI components
 - `src/components/layouts/` - Application layout components
 - `src/components/features/` - Feature-specific components
+- `src/components/blocks/` - Marketing and content block components
 - `src/components/index.ts` - Component exports
 
 ## 3. Component Structure
@@ -38,14 +39,19 @@ src/components/
 ├── ui/                  # Core UI components
 ├── layouts/             # Layout components
 │   ├── application/     # Application shell layouts
-│   └── page/            # Page layout patterns
-├── features/            # Domain-specific components
-│   ├── auth/            # Authentication
-│   ├── brand/           # Brand management
-│   ├── dashboard/       # Dashboard components
-│   ├── editor/          # Content editors
-│   ├── marketing/       # Marketing components
-│   └── projects/        # Project management
+│   └── page/           # Page layout patterns
+├── features/           # Domain-specific components
+│   ├── auth/           # Authentication
+│   ├── brand/          # Brand management
+│   ├── dashboard/      # Dashboard components
+│   ├── editor/         # Content editors
+│   ├── marketing/      # Marketing components
+│   └── projects/       # Project management
+├── blocks/             # Marketing and content blocks
+│   ├── hero/           # Hero sections
+│   ├── features/       # Feature sections
+│   ├── testimonials/   # Testimonial sections
+│   └── pricing/        # Pricing sections
 └── [utility components] # Individual utility components
 ```
 
@@ -82,8 +88,9 @@ Our current development priorities are:
 1. **UI Components** - Complete the core UI components with theming
 2. **Layout Structure** - Implement application shells and page layouts
 3. **Feature Components** - Develop domain-specific feature components
-4. **Theming System** - Enhance theme switching and customization
-5. **Documentation** - Improve component documentation
+4. **Marketing Blocks** - Build and refine marketing content blocks
+5. **Theming System** - Enhance theme switching and customization
+6. **Documentation** - Improve component documentation
 
 ## 8. Component Implementation Pattern
 
@@ -116,15 +123,15 @@ export function Button({ className, variant = "default", ...props }: ButtonProps
 When implementing pages, use the layout components:
 
 ```tsx
-import { LightSidebarWithHeader } from "@/components/layouts/application/sidebar";
+import { DashboardLayout } from "@/components/layouts/DashboardLayout";
 
 export function DashboardPage() {
   return (
-    <LightSidebarWithHeader>
+    <DashboardLayout>
       <main>
         {/* Page content */}
       </main>
-    </LightSidebarWithHeader>
+    </DashboardLayout>
   );
 }
 ```
@@ -135,5 +142,6 @@ export function DashboardPage() {
 - [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
 - [Framer Motion Documentation](https://www.framer.com/motion/)
 - [React Router Documentation](https://reactrouter.com/en/main)
+- [Vite Documentation](https://vitejs.dev/)
 
 Happy coding! 
