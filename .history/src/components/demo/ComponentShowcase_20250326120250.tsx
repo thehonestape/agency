@@ -28,7 +28,7 @@ function Section({ id, title, description, children }: ShowcaseSection) {
 export function ComponentShowcase() {
   return (
     <main data-layout-content="true" className="flex-1 overflow-y-auto p-3 md:p-4 bg-surface-secondary/50 dark:bg-surface-secondary-dark/30">
-      <div data-layout-container="true" className="mx-auto w-full space-y-4">
+      <div data-layout-container="true" className="mx-auto w-full max-w-7xl space-y-4">
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Core Components */}
           <div className="card card-default" style={{ borderRadius: '16px', overflow: 'hidden', backgroundColor: 'rgb(255, 255, 255)', boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px', border: '1px solid rgb(229, 231, 235)' }}>

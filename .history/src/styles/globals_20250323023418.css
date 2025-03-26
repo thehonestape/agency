@@ -33,20 +33,6 @@
   --input: 214.3 31.8% 91.4%;
   --ring: 222.2 84% 4.9%;
   
-  /* Navigation Colors */
-  --nav-bg: 0 0% 100%;
-  --nav-border: 220 13% 91%;
-  --nav-text: 224 71% 4%;
-  --nav-text-hover: 221 83% 53%;
-  --nav-bg-hover: 213 100% 96%;
-  --nav-bg-active: 221 83% 53%;
-  --nav-text-active: 0 0% 100%;
-  --nav-icon: 215 16% 47%;
-  --nav-icon-active: 0 0% 100%;
-  --nav-icon-hover: 221 83% 53%;
-  --nav-section-text: 215 16% 47%;
-  --nav-count: 215 16% 47%;
-  
   /* Button specific colors - default to primary colors */
   --button-background: var(--primary);
   --button-text: var(--primary-foreground);
@@ -97,20 +83,6 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 212.7 26.8% 83.9%;
-  
-  /* Navigation Colors - Dark Mode */
-  --nav-bg: 222 47% 11%;
-  --nav-border: 217 33% 18%;
-  --nav-text: 210 40% 98%;
-  --nav-text-hover: 217 91% 60%;
-  --nav-bg-hover: 217 33% 18%;
-  --nav-bg-active: 217 91% 60%;
-  --nav-text-active: 222 47% 11%;
-  --nav-icon: 215 20% 65%;
-  --nav-icon-active: 222 47% 11%;
-  --nav-icon-hover: 217 91% 60%;
-  --nav-section-text: 215 20% 65%;
-  --nav-count: 215 20% 65%;
   
   /* Button colors for dark mode */
   --button-background: var(--primary);
