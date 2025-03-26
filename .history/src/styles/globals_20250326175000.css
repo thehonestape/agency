@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+@import "./fonts.css";
+
+/* Add any custom styles below */
+
+/**
+ * Base theme variables
+ * One uniform set of HSL variables to be used by both ThemeProvider and Tailwind
+ */
+:root {
+  /* Color System */
+  --primary: 210 100% 50%;           /* #00A9FF */
+  --primary-foreground: 210 40% 98%; /* #f8fafc */
+  --secondary: 250 83% 67%;          /* #6366f1 */
+  --secondary-foreground: 222 47% 11%; /* #0f172a */
+  --accent: 350 95% 60%;             /* #f43f5e */
+  --accent-foreground: 222 47% 11%;  /* #0f172a */
+  --background: 0 0% 100%;           /* #ffffff */
+  --foreground: 222 47% 11%;         /* #0f172a */
+  --card: 0 0% 100%;                 /* #ffffff */
+  --card-foreground: 222 47% 11%;    /* #0f172a */
+  --popover: 0 0% 100%;              /* #ffffff */
+  --popover-foreground: 222 47% 11%; /* #0f172a */
+  --muted: 210 40% 96%;              /* #f8fafc */
+  --muted-foreground: 215 16% 47%;   /* #64748b */
+  --border: 214 32% 91%;             /* #e2e8f0 */
+  --input: 214 32% 91%;              /* #e2e8f0 */
+  --destructive: 0 84% 60%;          /* #ef4444 */
+  --destructive-foreground: 210 40% 98%; /* #f8fafc */
+  --success: 142 76% 36%;            /* #22c55e */
+  --success-foreground: 210 40% 98%; /* #f8fafc */
+  --warning: 38 92% 50%;             /* #f59e0b */
+  --warning-foreground: 222 47% 11%; /* #0f172a */
+  --info: 221 83% 53%;               /* #3b82f6 */
+  --info-foreground: 210 40% 98%;    /* #f8fafc */
+  
+  /* UI Metrics */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 0.125rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.125rem);
+  --radius-xl: calc(var(--radius) + 0.25rem);
+  --radius-2xl: calc(var(--radius) + 0.5rem);
+  
+  /* Animation Timings */
+  --speed-fastest: 50ms;
+  --speed-fast: 100ms;
+  --speed-normal: 200ms;
+  --speed-slow: 300ms;
+  --speed-slowest: 500ms;
+  
+  /* Navigation Colors */
+  --nav-bg: 0 0% 100%;
+  --nav-border: 220 13% 91%;
+  --nav-text: 224 71% 4%;
+  --nav-text-hover: 221 83% 53%;
+  --nav-bg-hover: 213 100% 96%;
+  --nav-bg-active: 221 83% 53%;
+  --nav-text-active: 0 0% 100%;
+  --nav-icon: 215 16% 47%;
+  --nav-icon-active: 0 0% 100%;
+  --nav-icon-hover: 221 83% 53%;
+  --nav-section-text: 215 16% 47%;
+  --nav-count: 215 16% 47%;
+}
+
+/**
+ * Dark theme overrides
+ */
+.dark {
+  --primary: 210 100% 50%;           /* #3b82f6 */
+  --primary-foreground: 222 47% 11%; /* #0f172a */
+  --secondary: 217 33% 18%;          /* #334155 */
+  --secondary-foreground: 210 40% 98%; /* #f8fafc */
+  --accent: 217 33% 18%;             /* #334155 */
+  --accent-foreground: 210 40% 98%;  /* #f8fafc */
+  --background: 222 47% 11%;         /* #0f172a */
+  --foreground: 210 40% 98%;         /* #f8fafc */
+  --card: 222 47% 11%;               /* #0f172a */
+  --card-foreground: 210 40% 98%;    /* #f8fafc */
+  --popover: 222 47% 11%;            /* #0f172a */
+  --popover-foreground: 210 40% 98%; /* #f8fafc */
+  --muted: 217 33% 18%;              /* #334155 */
+  --muted-foreground: 215 20% 65%;   /* #94a3b8 */
+  --border: 217 33% 18%;             /* #334155 */
+  --input: 217 33% 18%;              /* #334155 */
+  --destructive: 0 63% 31%;          /* #7f1d1d */
+  --destructive-foreground: 210 40% 98%; /* #f8fafc */
+  --success: 142 71% 45%;            /* #15803d */
+  --success-foreground: 210 40% 98%; /* #f8fafc */
+  --warning: 48 96% 59%;             /* #eab308 */
+  --warning-foreground: 222 47% 11%; /* #0f172a */
+  --info: 217 91% 60%;               /* #3b82f6 */
+  --info-foreground: 210 40% 98%;    /* #f8fafc */
+  
+  /* Navigation Colors - Dark Mode */
+  --nav-bg: 222 47% 11%;
+  --nav-border: 217 33% 18%;
+  --nav-text: 210 40% 98%;
+  --nav-text-hover: 217 91% 60%;
+  --nav-bg-hover: 217 33% 18%;
+  --nav-bg-active: 217 91% 60%;
+  --nav-text-active: 222 47% 11%;
+  --nav-icon: 215 20% 65%;
+  --nav-icon-active: 222 47% 11%;
+  --nav-icon-hover: 217 91% 60%;
+  --nav-section-text: 215 20% 65%;
+  --nav-count: 215 20% 65%;
+}
+
+/* Global element styling */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Theme transitions */
+*:not(svg *, path) {
+  transition: 
+    background-color 200ms ease-in-out, 
+    color 200ms ease-in-out,
+    border-color 200ms ease-in-out;
+}
+
+/* Animation keyframes */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Visual feedback animations */
+@keyframes flash-update {
+  0% { outline-color: rgba(0, 0, 0, 0); }
+  50% { outline-color: hsl(var(--primary)); }
+  100% { outline-color: rgba(0, 0, 0, 0); }
+}
+
+.typography-updated {
+  outline: 2px solid rgba(0, 0, 0, 0);
+  outline-offset: 2px;
+  animation: flash-update 0.6s ease-in-out;
+}
+
+/* Focus state animations */
+@keyframes focus-pulse {
+  0%, 100% { outline-offset: 2px; }
+  50% { outline-offset: 4px; }
+}
+
+.focus-visible:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  animation: focus-pulse 2s ease-in-out infinite;
+}
+
+/* Spacing utilities */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* PageBuilder section styles */
+.section-container {
+  position: relative;
+  transition: all 200ms ease;
+}
+
+.section-container:hover {
+  z-index: 10;
+}
+
+.section-container:focus-within {
+  outline: 2px dashed hsl(var(--primary));
+  outline-offset: 4px;
+}
+
+/* Micro-interactions for interactive elements */
+.btn, button, a, input, select, textarea {
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* The rest of the file remains unchanged */ 

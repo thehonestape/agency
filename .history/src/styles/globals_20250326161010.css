@@ -1,0 +1,252 @@
+@import "./fonts.css";
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Base colors */
+    --color-primary: #00A9FF;
+    --color-secondary: #6366f1;
+    --color-accent: #f43f5e;
+    
+    /* UI colors */
+    --color-background: #ffffff;
+    --color-foreground: #0f172a;
+    --color-card: #ffffff;
+    --color-card-foreground: #0f172a;
+    --color-muted: #f8fafc;
+    --color-muted-foreground: #64748b;
+    --color-border: #e2e8f0;
+    --color-input: #e2e8f0;
+    
+    /* State colors */
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-success: #22c55e;
+    --color-success-foreground: #ffffff;
+    --color-warning: #f59e0b;
+    --color-warning-foreground: #0f172a;
+    --color-info: #3b82f6;
+    --color-info-foreground: #ffffff;
+    
+    /* Border radius */
+    --radius: 0.375rem;
+  }
+}
+
+/**
+ * Base theme variables - single source of truth
+ * All color values are in HSL for better browser compatibility
+ */
+:root {
+  /* Color System */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 222.2 47.4% 11.2%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --success: 142.1 76.2% 36.3%;
+  --success-foreground: 210 40% 98%;
+  --warning: 38 92% 50%;
+  --warning-foreground: 222.2 84% 4.9%;
+  --info: 221.2 83.2% 53.3%;
+  --info-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  
+  /* Navigation Colors */
+  --nav-bg: 0 0% 100%;
+  --nav-border: 220 13% 91%;
+  --nav-text: 224 71% 4%;
+  --nav-text-hover: 221 83% 53%;
+  --nav-bg-hover: 213 100% 96%;
+  --nav-bg-active: 221 83% 53%;
+  --nav-text-active: 0 0% 100%;
+  --nav-icon: 215 16% 47%;
+  --nav-icon-active: 0 0% 100%;
+  --nav-icon-hover: 221 83% 53%;
+  --nav-section-text: 215 16% 47%;
+  --nav-count: 215 16% 47%;
+  
+  /* Button specific colors - default to primary colors */
+  --button-background: var(--primary);
+  --button-text: var(--primary-foreground);
+  
+  /* UI Metrics */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  
+  /* Animation Timings */
+  --speed-fastest: 50ms;
+  --speed-fast: 100ms;
+  --speed-normal: 200ms;
+  --speed-slow: 300ms;
+  --speed-slowest: 500ms;
+}
+
+/**
+ * Dark theme overrides
+ * Only override the variables that change in dark mode
+ */
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --success: 142.1 70.6% 45.3%;
+  --success-foreground: 210 40% 98%;
+  --warning: 48 96.5% 58.8%;
+  --warning-foreground: 222.2 47.4% 11.2%;
+  --info: 217.2 91.2% 59.8%;
+  --info-foreground: 222.2 47.4% 11.2%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+  
+  /* Navigation Colors - Dark Mode */
+  --nav-bg: 222 47% 11%;
+  --nav-border: 217 33% 18%;
+  --nav-text: 210 40% 98%;
+  --nav-text-hover: 217 91% 60%;
+  --nav-bg-hover: 217 33% 18%;
+  --nav-bg-active: 217 91% 60%;
+  --nav-text-active: 222 47% 11%;
+  --nav-icon: 215 20% 65%;
+  --nav-icon-active: 222 47% 11%;
+  --nav-icon-hover: 217 91% 60%;
+  --nav-section-text: 215 20% 65%;
+  --nav-count: 215 20% 65%;
+  
+  /* Button colors for dark mode */
+  --button-background: var(--primary);
+  --button-text: var(--primary-foreground);
+  
+  /* Dark mode chart colors */
+  --chart-1: 255 86% 67%;
+  --chart-2: 170 75% 41%;
+  --chart-3: 48 96% 53%;
+  --chart-4: 283 85% 60%;
+  --chart-5: 12 76% 61%;
+}
+
+/* Global element styling */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Theme transitions */
+*:not(svg *, path) {
+  transition: 
+    background-color var(--speed-normal) ease-in-out, 
+    color var(--speed-normal) ease-in-out,
+    border-color var(--speed-normal) ease-in-out;
+}
+
+/* Animation keyframes */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Visual feedback animations */
+@keyframes flash-update {
+  0% { outline-color: rgba(0, 0, 0, 0); }
+  50% { outline-color: var(--color-primary); }
+  100% { outline-color: rgba(0, 0, 0, 0); }
+}
+
+.typography-updated {
+  outline: 2px solid rgba(0, 0, 0, 0);
+  outline-offset: 2px;
+  animation: flash-update 0.6s ease-in-out;
+}
+
+/* Focus state animations */
+@keyframes focus-pulse {
+  0%, 100% { outline-offset: 2px; }
+  50% { outline-offset: 4px; }
+}
+
+.focus-visible:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  animation: focus-pulse 2s ease-in-out infinite;
+}
+
+/* Spacing utilities */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* PageBuilder section styles */
+.section-container {
+  position: relative;
+  transition: all var(--speed-normal) ease;
+}
+
+.section-container:hover {
+  z-index: 10;
+}
+
+.section-container:focus-within {
+  outline: 2px dashed var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* Micro-interactions for interactive elements */
+.btn, button, a, input, select, textarea {
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: var(--speed-normal);
+}
+
+/* The rest of the file remains unchanged */ 

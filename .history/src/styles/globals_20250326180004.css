@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@import "./fonts.css";
+
+/* Add any custom styles below */
+
+/**
+ * Base theme variables
+ */
+:root {
+  /* Color System */
+  --primary: #00A9FF;
+  --primary-foreground: #ffffff;
+  --secondary: #6366f1;
+  --secondary-foreground: #ffffff;
+  --accent: #f43f5e;
+  --accent-foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+  --warning: #f59e0b;
+  --warning-foreground: #0f172a;
+  --info: #3b82f6;
+  --info-foreground: #ffffff;
+  
+  /* UI Metrics */
+  --radius: 0.5rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  
+  /* Animation Timings */
+  --speed-fastest: 50ms;
+  --speed-fast: 100ms;
+  --speed-normal: 200ms;
+  --speed-slow: 300ms;
+  --speed-slowest: 500ms;
+  
+  /* Navigation Colors */
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --nav-text: #0f172a;
+  --nav-text-hover: #3b82f6;
+  --nav-bg-hover: #f1f5f9;
+  --nav-bg-active: #3b82f6;
+  --nav-text-active: #ffffff;
+  --nav-icon: #64748b;
+  --nav-icon-active: #ffffff;
+  --nav-icon-hover: #3b82f6;
+  --nav-section-text: #64748b;
+  --nav-count: #64748b;
+}
+
+/**
+ * Dark theme overrides
+ */
+.dark {
+  --primary: #3b82f6;
+  --primary-foreground: #0f172a;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --accent: #f472b6;
+  --accent-foreground: #f8fafc;
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --border: #334155;
+  --input: #334155;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f8fafc;
+  --success: #15803d;
+  --success-foreground: #f8fafc;
+  --warning: #eab308;
+  --warning-foreground: #0f172a;
+  --info: #3b82f6;
+  --info-foreground: #f8fafc;
+  
+  /* Navigation Colors - Dark Mode */
+  --nav-bg: #0f172a;
+  --nav-border: #1e293b;
+  --nav-text: #f8fafc;
+  --nav-text-hover: #3b82f6;
+  --nav-bg-hover: #1e293b;
+  --nav-bg-active: #3b82f6;
+  --nav-text-active: #0f172a;
+  --nav-icon: #94a3b8;
+  --nav-icon-active: #0f172a;
+  --nav-icon-hover: #3b82f6;
+  --nav-section-text: #94a3b8;
+  --nav-count: #94a3b8;
+}
+
+/* Global element styling */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Theme transitions */
+*:not(svg *, path) {
+  transition: 
+    background-color 200ms ease-in-out, 
+    color 200ms ease-in-out,
+    border-color 200ms ease-in-out;
+}
+
+/* Animation keyframes */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Visual feedback animations */
+@keyframes flash-update {
+  0% { outline-color: rgba(0, 0, 0, 0); }
+  50% { outline-color: var(--primary); }
+  100% { outline-color: rgba(0, 0, 0, 0); }
+}
+
+.typography-updated {
+  outline: 2px solid rgba(0, 0, 0, 0);
+  outline-offset: 2px;
+  animation: flash-update 0.6s ease-in-out;
+}
+
+/* Focus state animations */
+@keyframes focus-pulse {
+  0%, 100% { outline-offset: 2px; }
+  50% { outline-offset: 4px; }
+}
+
+.focus-visible:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  animation: focus-pulse 2s ease-in-out infinite;
+}
+
+/* Spacing utilities */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* PageBuilder section styles */
+.section-container {
+  position: relative;
+  transition: all 200ms ease;
+}
+
+.section-container:hover {
+  z-index: 10;
+}
+
+.section-container:focus-within {
+  outline: 2px dashed var(--primary);
+  outline-offset: 4px;
+}
+
+/* Micro-interactions for interactive elements */
+.btn, button, a, input, select, textarea {
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* The rest of the file remains unchanged */ 
