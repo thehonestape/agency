@@ -31,7 +31,7 @@ export default {
         heading: ['var(--font-maison-neue)', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Map CSS variables to Tailwind color system - simpler approach with hex
+        // Map CSS variables to Tailwind color system - direct references to CSS variables
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
@@ -95,7 +95,7 @@ export default {
         // Button specific colors
         "button-background": "var(--button-background)",
         "button-text": "var(--button-text)",
-        // Branded colors for direct use without CSS variables
+        // Branded colors (direct hex values for better performance)
         brand: {
           primary: "#1F2937",
           secondary: "#6B7280",
@@ -104,7 +104,7 @@ export default {
           'primary-darker': "#0A0F16",
           'primary-light': "#374151",
         },
-        // Tremor-specific colors (keeping these as direct hex values)
+        // Tremor-specific colors (direct hex values)
         tremor: {
           brand: {
             faint: "#eff6ff", // blue-50
