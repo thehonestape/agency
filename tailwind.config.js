@@ -31,70 +31,70 @@ export default {
         heading: ['var(--font-maison-neue)', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Map CSS variables to Tailwind color system
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        // Map CSS variables to Tailwind color system - simpler approach with hex
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
         },
         destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "var(--destructive)",
+          foreground: "var(--destructive-foreground)",
         },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "var(--popover)",
+          foreground: "var(--popover-foreground)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "var(--card)",
+          foreground: "var(--card-foreground)",
         },
         success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
+          DEFAULT: "var(--success)",
+          foreground: "var(--success-foreground)",
         },
         info: {
-          DEFAULT: "hsl(var(--info))",
-          foreground: "hsl(var(--info-foreground))",
+          DEFAULT: "var(--info)",
+          foreground: "var(--info-foreground)",
         },
         warning: {
-          DEFAULT: "hsl(var(--warning))",
-          foreground: "hsl(var(--warning-foreground))",
+          DEFAULT: "var(--warning)",
+          foreground: "var(--warning-foreground)",
         },
         // Navigation Colors
         nav: {
-          bg: "hsl(var(--nav-bg))",
-          border: "hsl(var(--nav-border))",
-          text: "hsl(var(--nav-text))",
-          "text-hover": "hsl(var(--nav-text-hover))",
-          "bg-hover": "hsl(var(--nav-bg-hover))",
-          "bg-active": "hsl(var(--nav-bg-active))",
-          "text-active": "hsl(var(--nav-text-active))",
-          icon: "hsl(var(--nav-icon))",
-          "icon-active": "hsl(var(--nav-icon-active))",
-          "icon-hover": "hsl(var(--nav-icon-hover))",
-          "section-text": "hsl(var(--nav-section-text))",
-          count: "hsl(var(--nav-count))",
+          bg: "var(--nav-bg)",
+          border: "var(--nav-border)",
+          text: "var(--nav-text)",
+          "text-hover": "var(--nav-text-hover)",
+          "bg-hover": "var(--nav-bg-hover)",
+          "bg-active": "var(--nav-bg-active)",
+          "text-active": "var(--nav-text-active)",
+          icon: "var(--nav-icon)",
+          "icon-active": "var(--nav-icon-active)",
+          "icon-hover": "var(--nav-icon-hover)",
+          "section-text": "var(--nav-section-text)",
+          count: "var(--nav-count)",
         },
         // Button specific colors
-        "button-background": "hsl(var(--button-background, var(--primary)))",
-        "button-text": "hsl(var(--button-text, var(--primary-foreground)))",
+        "button-background": "var(--button-background)",
+        "button-text": "var(--button-text)",
         // Branded colors for direct use without CSS variables
         brand: {
           primary: "#1F2937",
@@ -104,7 +104,7 @@ export default {
           'primary-darker': "#0A0F16",
           'primary-light': "#374151",
         },
-        // Tremor-specific colors
+        // Tremor-specific colors (keeping these as direct hex values)
         tremor: {
           brand: {
             faint: "#eff6ff", // blue-50

@@ -10,8 +10,9 @@ export interface HSLColor {
 }
 
 // Helper to convert HSL object to CSS HSL string
+// Format for Tailwind v4: "h s% l%" (no hsl() wrapper)
 export const hslToString = (hsl: HSLColor): string => {
-  return `${hsl.h} ${hsl.s}% ${hsl.l}%`;
+  return `${Math.round(hsl.h)} ${Math.round(hsl.s)}% ${Math.round(hsl.l)}%`;
 };
 
 // Core color tokens as HSL values
