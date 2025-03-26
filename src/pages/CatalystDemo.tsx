@@ -1,171 +1,159 @@
 import React from "react";
 import { DashboardLayout } from "../components/layouts/DashboardLayout";
-import { BrandContainer } from "../components/brand/BrandContainer";
-import { BrandGrid } from "../components/brand/BrandGrid";
-import { BrandHeading } from "../components/brand/BrandHeading";
-import { BrandText } from "../components/brand/BrandText";
-import { BrandCard, CardContent, CardHeader, CardTitle } from "../components/brand/BrandCard";
-import { BrandSwitcher } from "../components/brand/BrandSwitcher";
-import { useBrand } from "../components/brand/BrandProvider";
-
-// Import directly from catalyst components to avoid type issues
-import { Button } from "../components/catalyst/button";
-import { Badge } from "../components/catalyst/badge";
-import { Avatar } from "../components/catalyst/avatar";
-import { Divider } from "../components/catalyst/divider";
-
-// Import our new Alert component
-import { Alert, AlertTitle, AlertDescription } from "../components/ui/alert";
-
-// Import icons for alerts
+import { Heading, Text } from "../components/ui/typography";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../components/ui/Card";
+import { Button } from "../components/ui/button";
 import { 
-  FiInfo, 
-  FiAlertCircle, 
-  FiCheckCircle, 
-  FiAlertTriangle 
+  FiLayout as Layout,
+  FiUsers as Users,
+  FiSettings as Settings,
+  FiActivity as Activity,
+  FiBarChart as BarChart,
+  FiCalendar as Calendar,
+  FiBell as Bell,
+  FiMail as Mail
 } from "react-icons/fi";
 
-export function CatalystDemo() {
-  const { currentBrand } = useBrand();
+// Navigation sections
+const navigation = [
+  {
+    name: "Overview",
+    href: "/catalyst",
+    icon: Layout,
+  },
+  {
+    name: "Team",
+    href: "/catalyst/team",
+    icon: Users,
+  },
+  {
+    name: "Analytics",
+    href: "/catalyst/analytics",
+    icon: BarChart,
+  },
+  {
+    name: "Calendar",
+    href: "/catalyst/calendar",
+    icon: Calendar,
+  },
+  {
+    name: "Settings",
+    href: "/catalyst/settings",
+    icon: Settings,
+  }
+];
 
+const sections = [
+  {
+    title: "Notifications",
+    items: [
+      {
+        name: "Messages",
+        href: "#",
+        icon: Mail,
+      },
+      {
+        name: "Alerts",
+        href: "#",
+        icon: Bell,
+      }
+    ]
+  }
+];
+
+export default function CatalystDemo() {
   return (
-    <DashboardLayout>
-      <BrandContainer maxWidth="xl" padding="md">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <BrandHeading level={1}>Catalyst UI Demo</BrandHeading>
-            <BrandText size="lg" color="muted">
-              Showing integration of Catalyst UI with the {currentBrand?.name || "brand"} system
-            </BrandText>
+    <DashboardLayout
+      navigation={navigation}
+      sections={sections}
+    >
+      <div className="space-y-8">
+        <section>
+          <div className="flex items-center justify-between">
+            <div>
+              <Heading as="h1" size="h1">Catalyst Demo</Heading>
+              <Text className="text-muted-foreground">Explore the Catalyst system</Text>
+            </div>
+            <Button>
+              <Activity className="mr-2 h-4 w-4" />
+              View Activity
+            </Button>
           </div>
-          <div className="mt-2">
-            <BrandSwitcher variant="dropdown" label="Select Brand" />
+        </section>
+
+        <section>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Getting Started</CardTitle>
+                <CardDescription>Quick start guide</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Text className="text-sm text-muted-foreground">
+                  Follow these steps to get started with Catalyst:
+                </Text>
+                <ol className="mt-4 space-y-2 text-sm">
+                  <li className="flex items-center">
+                    <span className="mr-2">1.</span>
+                    <Text>Set up your profile</Text>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="mr-2">2.</span>
+                    <Text>Configure your preferences</Text>
+                  </li>
+                  <li className="flex items-center">
+                    <span className="mr-2">3.</span>
+                    <Text>Start adding your projects</Text>
+                  </li>
+                </ol>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Activity</CardTitle>
+                <CardDescription>Your latest updates</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Users className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <Text className="font-medium">Welcome to Catalyst</Text>
+                      <Text className="text-sm text-muted-foreground">Get started by exploring the features</Text>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Quick Actions</CardTitle>
+                <CardDescription>Common tasks</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Button variant="outline" className="w-full justify-start">
+                    <Layout className="mr-2 h-4 w-4" />
+                    Create Project
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start">
+                    <Users className="mr-2 h-4 w-4" />
+                    Invite Team
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-
-        {/* Button Examples */}
-        <BrandCard className="mb-8">
-          <CardHeader>
-            <CardTitle>
-              <BrandHeading level={4}>Catalyst Buttons</BrandHeading>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-wrap gap-4">
-            <Button>Default Button</Button>
-            <Button color="blue">Blue Button</Button>
-            <Button color="green">Green Button</Button>
-            <Button color="red">Red Button</Button>
-            <Button color="amber">Amber Button</Button>
-            <Button outline>Outline Button</Button>
-            <Button plain>Plain Button</Button>
-          </CardContent>
-        </BrandCard>
-
-        {/* Alert Examples */}
-        <BrandCard className="mb-8">
-          <CardHeader>
-            <CardTitle>
-              <BrandHeading level={4}>Alert Components</BrandHeading>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Alert variant="info">
-              <FiInfo className="h-4 w-4" />
-              <AlertTitle>Information</AlertTitle>
-              <AlertDescription>
-                This is an informational message with important details.
-              </AlertDescription>
-            </Alert>
-            
-            <Alert variant="success">
-              <FiCheckCircle className="h-4 w-4" />
-              <AlertTitle>Success</AlertTitle>
-              <AlertDescription>
-                Your action was completed successfully without any issues.
-              </AlertDescription>
-            </Alert>
-            
-            <Alert variant="warning">
-              <FiAlertTriangle className="h-4 w-4" />
-              <AlertTitle>Warning</AlertTitle>
-              <AlertDescription>
-                There are some issues that need your attention before proceeding.
-              </AlertDescription>
-            </Alert>
-            
-            <Alert variant="destructive">
-              <FiAlertCircle className="h-4 w-4" />
-              <AlertTitle>Error</AlertTitle>
-              <AlertDescription>
-                There was a problem with your submission. Please check the form.
-              </AlertDescription>
-            </Alert>
-            
-            <Alert variant="muted">
-              <AlertTitle>Note</AlertTitle>
-              <AlertDescription>
-                This is a subtle notification that doesn't require immediate attention.
-              </AlertDescription>
-            </Alert>
-          </CardContent>
-        </BrandCard>
-
-        {/* Badge Examples */}
-        <BrandGrid columns={2} gap="md">
-          <BrandCard>
-            <CardHeader>
-              <CardTitle>
-                <BrandHeading level={4}>Catalyst Badges</BrandHeading>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-4">
-              <Badge>Default</Badge>
-              <Badge color="blue">Blue</Badge>
-              <Badge color="green">Green</Badge>
-              <Badge color="red">Red</Badge>
-              <Badge color="yellow">Yellow</Badge>
-              <Badge color="purple">Purple</Badge>
-            </CardContent>
-          </BrandCard>
-
-          {/* Avatar Examples */}
-          <BrandCard>
-            <CardHeader>
-              <CardTitle>
-                <BrandHeading level={4}>Catalyst Avatars</BrandHeading>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex items-center gap-4">
-              <Avatar
-                src="https://placehold.co/100x100/1A365D/FFFFFF?text=AB"
-                alt="User AB"
-              />
-              <Avatar
-                src="https://placehold.co/100x100/74C69D/FFFFFF?text=CD"
-                alt="User CD"
-              />
-              <Avatar
-                src="https://placehold.co/100x100/0072CE/FFFFFF?text=EF"
-                alt="User EF"
-              />
-              <div className="flex items-center justify-center h-10 w-10 rounded-full bg-blue-500 text-white">
-                JD
-              </div>
-              <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-500 text-white">
-                KL
-              </div>
-            </CardContent>
-          </BrandCard>
-        </BrandGrid>
-
-        <Divider className="my-8" />
-
-        <BrandText>
-          This page demonstrates the integration of Catalyst UI components with our brand system.
-          The components adapt to the current brand's styling when possible, making it easy to
-          build consistent user interfaces across different brands.
-        </BrandText>
-      </BrandContainer>
+        </section>
+      </div>
     </DashboardLayout>
   );
 } 

@@ -1,6 +1,7 @@
-import { Card } from '../component-system'
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/Card'
 import { Heading, Text } from '../components/ui/typography'
 import { DashboardLayout } from '../components/layouts/DashboardLayout'
+import { ThemeProvider } from '../components/ui/theme'
 import { 
   FiLayout as LayoutDashboard, 
   FiFolder as FolderOpen, 
@@ -15,18 +16,12 @@ import {
   FiBox as Box,
   FiSliders as Sliders,
   FiMessageCircle as MessageCircle,
-  FiFlag as Flag,
-  FiTarget as Target,
-  FiImage as Image,
-  FiArchive as Archive,
-  FiMap as Map,
-  FiFileText as FileText,
   FiPlus as Plus,
-  FiStar as Star,
-  FiGrid as LayoutGrid,
+  FiFileText as FileText,
   FiType as Typography,
   FiEdit3 as Paintbrush,
-  FiDroplet as Droplet
+  FiDroplet as Droplet,
+  FiGrid as LayoutGrid
 } from "react-icons/fi"
 
 const colorTokens = [
@@ -60,15 +55,9 @@ const navigation = [
     count: "3"
   },
   {
-    name: "Brand Builder",
-    href: "/brands/builder",
-    icon: Layers,
-    count: "12"
-  },
-  {
     name: "Assets",
     href: "/assets",
-    icon: Image,
+    icon: Layers,
     count: "24"
   },
   {
@@ -94,26 +83,6 @@ const sections = [
         href: "/documents/new",
         icon: FileText,
         initial: "ND"
-      }
-    ]
-  },
-  {
-    title: "Brand Framework",
-    items: [
-      {
-        name: "Brands",
-        href: "/brands",
-        icon: Palette
-      },
-      {
-        name: "Workhorse Brand",
-        href: "/brands/workhorse",
-        icon: Layers
-      },
-      {
-        name: "Brand Analytics",
-        href: "/brand-analytics",
-        icon: BarChart
       }
     ]
   },
@@ -156,12 +125,7 @@ const sections = [
     title: "UI",
     items: [
       {
-        name: "Catalyst UI",
-        href: "/catalyst-demo",
-        icon: Box
-      },
-      {
-        name: "Themed UI",
+        name: "Theme Demo",
         href: "/theme-demo",
         icon: Sliders
       },
@@ -174,11 +138,6 @@ const sections = [
         name: "Component Showcase",
         href: "/components/showcase",
         icon: Box
-      },
-      {
-        name: "Style Tile",
-        href: "/style-tile",
-        icon: Palette
       },
       {
         name: "UI Blocks",
@@ -194,11 +153,6 @@ const sections = [
         name: "Settings",
         href: "/settings",
         icon: Settings
-      },
-      {
-        name: "Sitemap",
-        href: "/sitemap",
-        icon: Map
       }
     ]
   }
@@ -206,44 +160,57 @@ const sections = [
 
 export default function DemoPage() {
   return (
-    <DashboardLayout navigation={navigation} sections={sections}>
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <Card>
-          <div className="flex flex-col space-y-1.5 p-6">
-            <Heading size="h3">Typography</Heading>
-          </div>
-          <div className="p-6 pt-0 space-y-4">
-            {typographyExamples.map(({ size, label, description }) => (
-              <div key={label} className="space-y-1">
-                <Heading size={size}>{label}</Heading>
-                <Text size="sm" variant="muted">{description}</Text>
-              </div>
-            ))}
-            <div className="space-y-1">
-              <Text>Body text that flows naturally and provides a comfortable reading experience for your users. Good typography makes content both readable and scannable.</Text>
-              <Text size="sm" variant="muted">Base / Regular / Leading-normal</Text>
+    <ThemeProvider defaultMode="light">
+      <DashboardLayout
+        navigation={navigation}
+        sections={sections}
+      >
+        <div className="space-y-8">
+          {/* Color System */}
+          <section>
+            <Heading as="h2" size="h2" className="mb-4">Color System</Heading>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {colorTokens.map((token) => (
+                <Card key={token.name} className="p-4">
+                  <div className={`h-24 rounded-md ${token.class} mb-2`} />
+                  <Text className={token.textClass}>{token.name}</Text>
+                </Card>
+              ))}
             </div>
-          </div>
-        </Card>
+          </section>
 
-        <Card>
-          <div className="flex flex-col space-y-1.5 p-6">
-            <Heading size="h3">Colors</Heading>
-          </div>
-          <div className="p-6 pt-0">
-            <div className="grid grid-cols-2 gap-4">
-              {colorTokens.map(({ name, class: className, textClass }) => (
-                <div key={name}>
-                  <div className={`h-10 w-full rounded-md flex items-center justify-center ${className} ${textClass}`}>
-                    <Text size="sm">{name}</Text>
-                  </div>
-                  <Text size="xs" variant="muted" className="mt-1">{name}</Text>
+          {/* Typography */}
+          <section>
+            <Heading as="h2" size="h2" className="mb-4">Typography</Heading>
+            <div className="space-y-4">
+              {typographyExamples.map((example) => (
+                <div key={example.size} className="space-y-1">
+                  <Heading as={example.size} size={example.size}>
+                    {example.label}
+                  </Heading>
+                  <Text className="text-muted-foreground">{example.description}</Text>
                 </div>
               ))}
             </div>
-          </div>
-        </Card>
-      </div>
-    </DashboardLayout>
+          </section>
+
+          {/* Component Examples */}
+          <section>
+            <Heading as="h2" size="h2" className="mb-4">Component Examples</Heading>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Card Title</CardTitle>
+                  <CardDescription>Card Description</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Text>This is a sample card component with proper theming.</Text>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+        </div>
+      </DashboardLayout>
+    </ThemeProvider>
   )
 } 

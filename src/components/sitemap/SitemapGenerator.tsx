@@ -1,206 +1,197 @@
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { BrandHeading } from '../brand/BrandHeading';
-import { BrandText } from '../brand/BrandText';
-import { BrandCard, CardContent, CardHeader, CardTitle } from '../brand/BrandCard';
-import { BrandStyledButton } from '../brand/BrandStyledButton';
-import { BrandContainer } from '../brand/BrandContainer';
-import { FiDownload, FiShare2 } from 'react-icons/fi';
-import { defaultSiteStructure } from './defaultSiteStructure';
+import React from 'react';
+import { DashboardLayout } from '../layouts/DashboardLayout';
+import { Heading, Text } from '../ui/typography';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
+import { Button } from '../ui/button';
+import { 
+  FiLayout as Layout,
+  FiUsers as Users,
+  FiSettings as Settings,
+  FiActivity as Activity,
+  FiBarChart as BarChart,
+  FiCalendar as Calendar,
+  FiBell as Bell,
+  FiMail as Mail,
+  FiDownload as Download
+} from "react-icons/fi";
 
-// Define the site structure types
-export interface SiteNode {
-  name: string;
-  path?: string;
-  children?: SiteNode[];
-}
+// Navigation sections
+const navigation = [
+  {
+    name: "Overview",
+    href: "/sitemap",
+    icon: Layout,
+  },
+  {
+    name: "Editor",
+    href: "/sitemap/editor",
+    icon: Activity,
+  },
+  {
+    name: "Generator",
+    href: "/sitemap/generator",
+    icon: BarChart,
+  }
+];
 
-export interface SiteStructure {
+const sections = [
+  {
+    title: "Notifications",
+    items: [
+      {
+        name: "Messages",
+        href: "#",
+        icon: Mail,
+      },
+      {
+        name: "Alerts",
+        href: "#",
+        icon: Bell,
+      }
+    ]
+  }
+];
+
+interface SiteStructure {
   name: string;
   path: string;
-  children: SiteNode[];
+  children: {
+    name: string;
+    children?: {
+      name: string;
+      path: string;
+    }[];
+  }[];
 }
 
 interface SitemapGeneratorProps {
   customSiteStructure?: SiteStructure;
 }
 
-const colors = {
-  node: '#1A2B5F',
-  text: '#FFFFFF',
-  line: '#708090',
-  background: '#F7F7F7',
-  highlight: '#FF6B6B'
+const defaultSiteStructure: SiteStructure = {
+  name: "Home",
+  path: "/",
+  children: [
+    {
+      name: "About",
+      children: [
+        { name: "Our Story", path: "/about/story" },
+        { name: "Team", path: "/about/team" },
+        { name: "Careers", path: "/about/careers" }
+      ]
+    },
+    {
+      name: "Services",
+      children: [
+        { name: "Web Development", path: "/services/web" },
+        { name: "Mobile Apps", path: "/services/mobile" },
+        { name: "Design", path: "/services/design" }
+      ]
+    },
+    {
+      name: "Contact",
+      children: [
+        { name: "Get in Touch", path: "/contact" },
+        { name: "Support", path: "/contact/support" }
+      ]
+    }
+  ]
 };
 
 export function SitemapGenerator({ customSiteStructure }: SitemapGeneratorProps) {
-  const svgRef = useRef<SVGSVGElement>(null);
-  
-  // Use provided custom structure or fallback to default
   const siteStructure = customSiteStructure || defaultSiteStructure;
 
-  // Function to download the SVG
-  const downloadSvg = () => {
-    if (!svgRef.current) return;
-    
-    const svgData = new XMLSerializer().serializeToString(svgRef.current);
-    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-    const svgUrl = URL.createObjectURL(svgBlob);
-    
-    const downloadLink = document.createElement('a');
-    downloadLink.href = svgUrl;
-    downloadLink.download = 'workhorse-sitemap.svg';
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+  const downloadSitemapJSON = () => {
+    const jsonString = JSON.stringify(siteStructure, null, 2);
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'sitemap.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
-  // Calculate dimensions
-  const width = 1200;
-  const height = 800;
-  const margin = { top: 50, right: 50, bottom: 50, left: 50 };
-  const nodeRadius = 12;
-  const levelHeight = 100;
-
-  // Render the sitemap visualization
   return (
-    <BrandContainer>
+    <DashboardLayout
+      navigation={navigation}
+      sections={sections}
+    >
       <div className="space-y-8">
-        <div className="flex justify-between items-center">
-          <div>
-            <BrandHeading level={1}>Workhorse Sitemap</BrandHeading>
-            <BrandText color="muted">
-              Visual representation of the application structure
-            </BrandText>
-          </div>
-          <div className="flex gap-2">
-            <BrandStyledButton onClick={downloadSvg}>
-              <FiDownload className="mr-2" />
-              Download SVG
-            </BrandStyledButton>
-          </div>
-        </div>
-
-        <BrandCard className="overflow-x-auto">
-          <CardContent>
-            <svg 
-              ref={svgRef} 
-              width={width} 
-              height={height} 
-              viewBox={`0 0 ${width} ${height}`}
-              style={{ background: colors.background }}
-            >
-              {/* Root Node */}
-              <g transform={`translate(${width / 2}, ${margin.top})`}>
-                <circle r={nodeRadius} fill={colors.node} />
-                <text y={-20} textAnchor="middle" fill={colors.node} fontSize="14px" fontWeight="bold">
-                  {siteStructure.name}
-                </text>
-                
-                {/* Level 1 Nodes - Main Categories */}
-                {siteStructure.children.map((category, i) => {
-                  const total = siteStructure.children.length;
-                  const angle = ((i / total) * 2 * Math.PI) - (Math.PI / 2);
-                  const radius = 150;
-                  const x = Math.cos(angle) * radius;
-                  const y = Math.sin(angle) * radius + levelHeight;
-                  
-                  return (
-                    <g key={`category-${i}`}>
-                      {/* Line from root to category */}
-                      <line 
-                        x1={0} 
-                        y1={0} 
-                        x2={x} 
-                        y2={y} 
-                        stroke={colors.line} 
-                        strokeWidth={1.5} 
-                      />
-                      
-                      {/* Category Node */}
-                      <g transform={`translate(${x}, ${y})`}>
-                        <circle r={nodeRadius} fill={colors.node} />
-                        <text y={-15} textAnchor="middle" fill={colors.node} fontSize="12px" fontWeight="bold">
-                          {category.name}
-                        </text>
-                        
-                        {/* Level 2 Nodes - Pages */}
-                        {category.children && category.children.map((page, j) => {
-                          const pageTotal = category.children.length;
-                          const spreadAngle = Math.PI / 2; // 90 degrees spread
-                          const startAngle = angle - (spreadAngle / 2);
-                          const pageAngle = startAngle + ((j / (pageTotal - 1 || 1)) * spreadAngle);
-                          const pageRadius = 100;
-                          const pageX = Math.cos(pageAngle) * pageRadius;
-                          const pageY = Math.sin(pageAngle) * pageRadius;
-                          
-                          return (
-                            <g key={`page-${i}-${j}`}>
-                              {/* Line from category to page */}
-                              <line 
-                                x1={0} 
-                                y1={0} 
-                                x2={pageX} 
-                                y2={pageY} 
-                                stroke={colors.line} 
-                                strokeWidth={1} 
-                              />
-                              
-                              {/* Page Node */}
-                              <g transform={`translate(${pageX}, ${pageY})`}>
-                                <circle r={8} fill={page.path === '/brands/workhorse' ? colors.highlight : colors.node} />
-                                <text 
-                                  y={-10} 
-                                  textAnchor={pageAngle > Math.PI ? "end" : "start"}
-                                  fill={colors.node} 
-                                  fontSize="10px"
-                                  transform={`rotate(${pageAngle > Math.PI ? 30 : -30})`}
-                                >
-                                  {page.name}
-                                </text>
-                              </g>
-                            </g>
-                          );
-                        })}
-                      </g>
-                    </g>
-                  );
-                })}
-              </g>
-            </svg>
-          </CardContent>
-        </BrandCard>
-
-        <BrandCard>
-          <CardHeader>
-            <CardTitle>
-              <BrandHeading level={3}>Site Structure</BrandHeading>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {siteStructure.children.map((category, i) => (
-                <div key={`list-${i}`} className="border-b pb-4 last:border-0 last:pb-0">
-                  <BrandText weight="medium" className="mb-2">{category.name}</BrandText>
-                  <ul className="grid grid-cols-2 gap-2">
-                    {category.children && category.children.map((page, j) => (
-                      <li key={`list-item-${i}-${j}`}>
-                        {page.path ? (
-                          <Link to={page.path} className="text-primary hover:underline">
-                            {page.name}
-                          </Link>
-                        ) : (
-                          <BrandText>{page.name}</BrandText>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+        <section>
+          <div className="flex items-center justify-between">
+            <div>
+              <Heading as="h1" size="h1">Sitemap Generator</Heading>
+              <Text className="text-muted-foreground">Generate and export your sitemap</Text>
             </div>
-          </CardContent>
-        </BrandCard>
+            <Button onClick={downloadSitemapJSON}>
+              <Download className="mr-2 h-4 w-4" />
+              Export JSON
+            </Button>
+          </div>
+        </section>
+
+        <section>
+          <Card className="overflow-x-auto">
+            <CardHeader>
+              <CardTitle>Generated Sitemap</CardTitle>
+              <CardDescription>XML format for search engines</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg overflow-x-auto">
+                {`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${window.location.origin}${siteStructure.path}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+${siteStructure.children.map(category => 
+  category.children?.map(page => `
+  <url>
+    <loc>${window.location.origin}${page.path}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`
+  ).join('')
+).join('')}
+</urlset>`}
+              </pre>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Site Structure</CardTitle>
+              <CardDescription>Visual representation of your website organization</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {siteStructure.children.map(category => (
+                  <div key={category.name} className="border rounded-lg p-4">
+                    <Text className="font-medium mb-2">{category.name}</Text>
+                    <div className="space-y-2 ml-4">
+                      {category.children?.map(page => (
+                        <div key={page.path}>
+                          <Text>{page.name}</Text>
+                          <Text className="text-sm text-muted-foreground">{page.path}</Text>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </div>
-    </BrandContainer>
+    </DashboardLayout>
   );
-} 
+}
+
+export { defaultSiteStructure };
+export type { SiteStructure }; 

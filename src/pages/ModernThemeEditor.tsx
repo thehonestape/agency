@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useTheme as useComponentTheme, Theme } from '../component-system';
+import { useTheme, ThemeProvider } from '../lib/theme-context';
+import { Theme } from '../lib/theme-registry';
 import { 
   Button, 
   Container, 
   Card, 
 } from '../component-system';
-import { ThemeProvider } from '../components/theme-provider';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { ArrowLeft, Type, Palette, Grid, Sun, Moon, Code, Layers, LayoutGrid, Save, Copy, Download } from 'lucide-react';
 import { BrandThemeGenerator } from '../components/themes/generators/BrandThemeGenerator';
@@ -211,7 +211,7 @@ const CodeViewer = ({ theme }: { theme: Theme }) => {
 };
 
 const ModernThemeEditor = () => {
-  const { theme, setTheme } = useComponentTheme();
+  const { currentTheme, setCurrentThemeId } = useTheme();
   const [previewTheme, setPreviewTheme] = useState<Theme | null>(null);
   const [activeTab, setActiveTab] = useState('brand');
   const [previewMode, setPreviewMode] = useState<'light' | 'dark'>('light');
@@ -219,9 +219,10 @@ const ModernThemeEditor = () => {
   
   const handleThemeGenerated = (newTheme: Theme) => {
     setPreviewTheme(newTheme);
+    setCurrentThemeId(newTheme.metadata.id);
   };
   
-  const displayTheme = previewTheme || theme;
+  const displayTheme = previewTheme || currentTheme;
   
   // Navigation items for the side nav
   const navItems = [
@@ -253,140 +254,137 @@ const ModernThemeEditor = () => {
   ];
   
   return (
-    <AppShell forceLightMode={true}>
-      <SideNav items={navItems} />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <TopBar title="Theme System" />
-        
-        <div className="flex-1 overflow-auto p-6">
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center',
-            marginBottom: '2rem',
-            gap: '1rem'
-          }}>
-            <Button variant="ghost" onClick={() => window.history.back()}>
-              <ArrowLeft size={16} />
-              <span style={{ marginLeft: '0.5rem' }}>Back</span>
-            </Button>
-            <h1 style={{ 
-              fontSize: '2rem', 
-              fontWeight: 'bold',
-              margin: 0
-            }}>
-              Brand to Theme Generator
-            </h1>
-          </div>
-
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '400px 1fr',
-            gap: '2rem',
-            alignItems: 'start'
-          }}>
-            {/* Left Sidebar */}
-            <div>
-              <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="brand">
-                    <Palette size={16} />
-                    <span className="ml-2">Brand</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="advanced">
-                    <Grid size={16} />
-                    <span className="ml-2">Advanced</span>
-                  </TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="brand" className="mt-4">
-                  <BrandThemeGenerator 
-                    onThemeGenerated={handleThemeGenerated}
-                  />
-                </TabsContent>
-
-                <TabsContent value="advanced" className="mt-4">
-                  <Card variant="elevated">
-                    <div style={{ padding: '1.5rem' }}>
-                      <h3 style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
-                        Advanced Theme Settings
-                      </h3>
-                      <p>
-                        This panel would include advanced theme configuration options
-                        like component-specific overrides, CSS generation, etc.
-                      </p>
-                    </div>
-                  </Card>
-                </TabsContent>
-              </Tabs>
-            </div>
+    <ThemeProvider defaultThemeId="salient">
+      <div className="min-h-screen bg-background">
+        <AppShell forceLightMode={true}>
+          <SideNav items={navItems} />
+          <div className="flex flex-col flex-1 overflow-hidden">
+            <TopBar title="Theme System" />
             
-            {/* Right Preview */}
-            <div>
-              <Tabs value={rightTab} onValueChange={setRightTab}>
-                <TabsList className="w-full flex justify-between mb-4">
-                  <div className="flex">
-                    <TabsTrigger value="preview" className="rounded-l-md rounded-r-none border-r-0">
-                      <Layers size={16} />
-                      <span className="ml-2">Preview</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="code" className="rounded-l-none rounded-r-md border-l-0">
-                      <Code size={16} />
-                      <span className="ml-2">Code</span>
-                    </TabsTrigger>
-                  </div>
+            <div className="flex-1 overflow-auto p-6">
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center',
+                marginBottom: '2rem',
+                gap: '1rem'
+              }}>
+                <Button variant="ghost" onClick={() => window.history.back()}>
+                  <ArrowLeft size={16} />
+                  <span style={{ marginLeft: '0.5rem' }}>Back</span>
+                </Button>
+                <h1 style={{ 
+                  fontSize: '2rem', 
+                  fontWeight: 'bold',
+                  margin: 0
+                }}>
+                  Brand to Theme Generator
+                </h1>
+              </div>
+
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: '400px 1fr',
+                gap: '2rem',
+                alignItems: 'start'
+              }}>
+                {/* Left Sidebar */}
+                <div>
+                  <Tabs value={activeTab} onValueChange={setActiveTab}>
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="brand">
+                        <Palette size={16} />
+                        <span className="ml-2">Brand</span>
+                      </TabsTrigger>
+                      <TabsTrigger value="advanced">
+                        <Grid size={16} />
+                        <span className="ml-2">Advanced</span>
+                      </TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="brand" className="mt-4">
+                      <BrandThemeGenerator 
+                        onThemeGenerated={handleThemeGenerated}
+                      />
+                    </TabsContent>
+
+                    <TabsContent value="advanced" className="mt-4">
+                      <Card variant="elevated">
+                        <div style={{ padding: '1.5rem' }}>
+                          <h3 style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
+                            Advanced Theme Settings
+                          </h3>
+                          <p>
+                            This panel would include advanced theme configuration options
+                            like component-specific overrides, CSS generation, etc.
+                          </p>
+                        </div>
+                      </Card>
+                    </TabsContent>
+                  </Tabs>
+                </div>
+                
+                {/* Right Preview */}
+                <div>
+                  <Tabs value={rightTab} onValueChange={setRightTab}>
+                    <TabsList className="w-full flex justify-between mb-4">
+                      <div className="flex">
+                        <TabsTrigger value="preview" className="rounded-l-md rounded-r-none border-r-0">
+                          <Layers size={16} />
+                          <span className="ml-2">Preview</span>
+                        </TabsTrigger>
+                        <TabsTrigger value="code" className="rounded-l-none rounded-r-md border-l-0">
+                          <Code size={16} />
+                          <span className="ml-2">Code</span>
+                        </TabsTrigger>
+                      </div>
+                      
+                      <div className="flex border rounded-md">
+                        <Button 
+                          variant={previewMode === 'light' ? 'secondary' : 'ghost'} 
+                          size="sm"
+                          className="rounded-l-md rounded-r-none border-r"
+                          onClick={() => setPreviewMode('light')}
+                        >
+                          <Sun size={16} />
+                        </Button>
+                        <Button 
+                          variant={previewMode === 'dark' ? 'secondary' : 'ghost'} 
+                          size="sm"
+                          className="rounded-l-none rounded-r-md"
+                          onClick={() => setPreviewMode('dark')}
+                        >
+                          <Moon size={16} />
+                        </Button>
+                      </div>
+                    </TabsList>
+
+                    <TabsContent value="preview">
+                      <ThemePreview theme={displayTheme?.tokens} colorMode={previewMode} />
+                    </TabsContent>
+
+                    <TabsContent value="code">
+                      <CodeViewer theme={displayTheme?.tokens} />
+                    </TabsContent>
+                  </Tabs>
                   
-                  <div className="flex border rounded-md">
-                    <Button 
-                      variant={previewMode === 'light' ? 'secondary' : 'ghost'} 
-                      size="sm"
-                      className="rounded-l-md rounded-r-none border-r"
-                      onClick={() => setPreviewMode('light')}
-                    >
-                      <Sun size={16} />
+                  <div className="mt-6 flex justify-end">
+                    <Button variant="outline" className="mr-2">
+                      <Save size={16} className="mr-2" />
+                      Save as Preset
                     </Button>
-                    <Button 
-                      variant={previewMode === 'dark' ? 'secondary' : 'ghost'} 
-                      size="sm"
-                      className="rounded-l-none rounded-r-md"
-                      onClick={() => setPreviewMode('dark')}
-                    >
-                      <Moon size={16} />
+                    <Button variant="primary">
+                      <Download size={16} className="mr-2" />
+                      Export Theme
                     </Button>
                   </div>
-                </TabsList>
-
-                <TabsContent value="preview">
-                  <ThemePreview theme={displayTheme} colorMode={previewMode} />
-                </TabsContent>
-
-                <TabsContent value="code">
-                  <CodeViewer theme={displayTheme} />
-                </TabsContent>
-              </Tabs>
-              
-              <div className="mt-6 flex justify-end">
-                <Button variant="outline" className="mr-2">
-                  <Save size={16} className="mr-2" />
-                  Save as Preset
-                </Button>
-                <Button variant="primary">
-                  <Download size={16} className="mr-2" />
-                  Export Theme
-                </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </AppShell>
       </div>
-    </AppShell>
+    </ThemeProvider>
   );
 };
 
-// Wrap with ThemeProvider if used standalone
-const ModernThemeEditorWithTheme = () => (
-  <ThemeProvider defaultTheme="light" storageKey="theme-editor-theme">
-    <ModernThemeEditor />
-  </ThemeProvider>
-);
-
-export default ModernThemeEditorWithTheme; 
+export default ModernThemeEditor; 

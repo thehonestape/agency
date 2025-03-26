@@ -19,10 +19,10 @@ export { default as FeatureCard } from '../components/blocks/features/FeatureCar
 export { default as FeatureSection } from '../components/blocks/features/FeatureSection';
 
 // Theme System
-export { ThemeProvider, useTheme } from '../themes/providers/ThemeProvider';
+export { ThemeProvider, useTheme } from '../lib/theme-context';
 export { getThemeValue, getCssVar, getThemeClass } from '../hooks/useTheme';
-export { default as salientTheme } from '../themes/salient/theme.config';
-export { default as protocolTheme } from '../themes/protocol/theme.config';
+export { salientTheme } from '../lib/theme-adapters/salient-adapter';
+export { protocolTheme } from '../lib/theme-adapters/protocol-adapter';
 export { generateThemeFromBrand, applyThemeToDom } from '../themes/generators/brandToTheme';
 export type { Theme, ThemeMode } from '../themes/types';
 export type { BrandData } from '../themes/generators/brandToTheme';

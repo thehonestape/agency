@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useTheme } from '@/components/theme-provider'
+import { useTheme } from './theme'
 import clsx from 'clsx'
 import {
   Select,
@@ -61,7 +61,7 @@ export function ThemeSelector({
   triggerClassName,
   ...props 
 }: ThemeSelectorProps) {
-  const { theme, setTheme, availableThemes } = useTheme()
+  const { mode, setMode } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   // Only show after mounted to prevent hydration mismatch
@@ -74,23 +74,18 @@ export function ThemeSelector({
   }
 
   // Get the appropriate icon based on current theme
-  const getThemeIcon = (currentTheme: string) => {
-    if (currentTheme === 'light' || (currentTheme === 'system' && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  const getThemeIcon = (currentMode: string) => {
+    if (currentMode === 'light' || (currentMode === 'system' && !window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       return <LightIcon className="h-4 w-4 text-foreground" />
     }
     return <DarkIcon className="h-4 w-4 text-foreground" />
   }
 
-  // Filter to only include built-in themes (light, dark, system)
-  const builtInThemes = themes.filter(t => 
-    availableThemes.includes(t.value)
-  )
-
   return (
     <div className={clsx("relative", className)} {...props}>
       <Select
-        value={theme}
-        onValueChange={value => setTheme(value)}
+        value={mode}
+        onValueChange={value => setMode(value as "light" | "dark" | "system")}
       >
         <SelectTrigger 
           className={clsx(
@@ -102,11 +97,11 @@ export function ThemeSelector({
           aria-label="Select theme"
         >
           <SelectValue>
-            {getThemeIcon(theme)}
+            {getThemeIcon(mode)}
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
-          {builtInThemes.map((theme) => (
+          {themes.map((theme) => (
             <SelectItem 
               key={theme.value} 
               value={theme.value}

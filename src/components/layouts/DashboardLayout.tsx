@@ -114,7 +114,7 @@ export function DashboardLayout({ children, navigation = [], sections = [] }: Da
           sidebarCollapsed={sidebarCollapsed}
         />
         
-        <main data-layout-content className="flex-1 overflow-y-auto p-3 md:p-4 bg-surface-secondary/50 dark:bg-surface-secondary-dark/30">
+        <main data-layout-content className="flex-1 overflow-y-auto p-3 md:p-4 bg-background">
           <div data-layout-container className="mx-auto w-full space-y-4">
             {children}
           </div>

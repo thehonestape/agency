@@ -32,7 +32,11 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ]
 
-export function DarkSidebarWithHeader() {
+interface DarkSidebarWithHeaderProps {
+  children: React.ReactNode;
+}
+
+export function DarkSidebarWithHeader({ children }: DarkSidebarWithHeaderProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -266,9 +270,7 @@ export function DarkSidebarWithHeader() {
 
         <main className="py-10">
           <div className="px-4 sm:px-6 lg:px-8">
-            <div className="h-96 rounded-lg border-2 border-dashed border-gray-300 p-4 text-center flex items-center justify-center">
-              <p className="text-gray-500">Main content area</p>
-            </div>
+            {children}
           </div>
         </main>
       </div>

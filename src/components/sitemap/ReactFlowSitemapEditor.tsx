@@ -14,13 +14,62 @@ import ReactFlow, {
   Panel
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { BrandHeading } from '../brand/BrandHeading';
-import { BrandText } from '../brand/BrandText';
-import { BrandCard, CardContent, CardHeader, CardTitle } from '../brand/BrandCard';
-import { BrandStyledButton } from '../brand/BrandStyledButton';
-import { BrandContainer } from '../brand/BrandContainer';
-import { FiPlus, FiTrash, FiDownload, FiUpload, FiSave } from 'react-icons/fi';
+import { DashboardLayout } from '../layouts/DashboardLayout';
+import { Heading, Text } from '../ui/typography';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { 
+  FiLayout as Layout,
+  FiUsers as Users,
+  FiSettings as Settings,
+  FiActivity as Activity,
+  FiBarChart as BarChart,
+  FiCalendar as Calendar,
+  FiBell as Bell,
+  FiMail as Mail,
+  FiPlus as Plus,
+  FiTrash2 as Trash,
+  FiEdit2 as Edit
+} from "react-icons/fi";
 import { defaultSiteStructure } from './defaultSiteStructure';
+
+// Navigation sections
+const navigation = [
+  {
+    name: "Overview",
+    href: "/sitemap",
+    icon: Layout,
+  },
+  {
+    name: "Editor",
+    href: "/sitemap/editor",
+    icon: Activity,
+  },
+  {
+    name: "Generator",
+    href: "/sitemap/generator",
+    icon: BarChart,
+  }
+];
+
+const sections = [
+  {
+    title: "Notifications",
+    items: [
+      {
+        name: "Messages",
+        href: "#",
+        icon: Mail,
+      },
+      {
+        name: "Alerts",
+        href: "#",
+        icon: Bell,
+      }
+    ]
+  }
+];
 
 // Define custom node component for sitemap nodes
 const SiteMapNode = ({ data }: { data: any }) => {
@@ -176,14 +225,17 @@ const flowToSiteStructure = (nodes: Node[], edges: Edge[]): SiteStructure => {
   return structure;
 };
 
-export function ReactFlowSitemapEditor() {
+export default function ReactFlowSitemapEditor() {
   // Load initial nodes and edges from the default site structure
   const initialFlow = siteStructureToFlow(defaultSiteStructure);
   
   const [nodes, setNodes, onNodesChange] = useNodesState(initialFlow.nodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialFlow.edges);
   const [siteStructure, setSiteStructure] = useState<SiteStructure>(defaultSiteStructure);
-  
+  const [newNodeName, setNewNodeName] = useState('');
+  const [newNodePath, setNewNodePath] = useState('');
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
+
   const onConnect = useCallback(
     (params: Edge | Connection) => setEdges((eds) => addEdge({ ...params, animated: false }, eds)),
     [setEdges]
@@ -313,88 +365,121 @@ export function ReactFlowSitemapEditor() {
     fileInputRef.current?.click();
   };
 
+  const addNode = () => {
+    if (!newNodeName.trim()) return;
+
+    const newNode: Node = {
+      id: Date.now().toString(),
+      data: { label: newNodeName },
+      position: {
+        x: Math.random() * 500,
+        y: Math.random() * 500,
+      },
+    };
+
+    setNodes((nds) => [...nds, newNode]);
+    setNewNodeName('');
+  };
+
+  const deleteNode = (nodeId: string) => {
+    setNodes((nds) => nds.filter((node) => node.id !== nodeId));
+    setEdges((eds) => eds.filter((edge) => edge.source !== nodeId && edge.target !== nodeId));
+  };
+
+  const updateNode = () => {
+    if (!selectedNode || !newNodeName.trim()) return;
+
+    setNodes((nds) =>
+      nds.map((node) => {
+        if (node.id === selectedNode.id) {
+          return {
+            ...node,
+            data: { ...node.data, label: newNodeName },
+          };
+        }
+        return node;
+      })
+    );
+
+    setSelectedNode(null);
+    setNewNodeName('');
+  };
+
   return (
-    <BrandContainer>
-      <div className="space-y-4">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <BrandHeading level={1}>Interactive Sitemap</BrandHeading>
-            <BrandText color="muted">
-              Drag nodes to rearrange. Connect nodes to create new relationships.
-            </BrandText>
+    <DashboardLayout
+      navigation={navigation}
+      sections={sections}
+    >
+      <div className="space-y-8">
+        <section>
+          <div className="flex items-center justify-between">
+            <div>
+              <Heading as="h1" size="h1">Interactive Sitemap</Heading>
+              <Text className="text-muted-foreground">Create and edit your site structure visually</Text>
+            </div>
           </div>
-          
-          <div className="flex gap-2">
-            <BrandStyledButton variant="outline" onClick={addCategory}>
-              <FiPlus className="mr-2" />
-              Add Category
-            </BrandStyledButton>
-            
-            <BrandStyledButton variant="outline" onClick={saveSiteStructure}>
-              <FiSave className="mr-2" />
-              Save
-            </BrandStyledButton>
-            
-            <BrandStyledButton variant="outline" onClick={exportSiteStructure}>
-              <FiDownload className="mr-2" />
-              Export
-            </BrandStyledButton>
-            
-            <BrandStyledButton variant="outline" onClick={triggerImport}>
-              <FiUpload className="mr-2" />
-              Import
-            </BrandStyledButton>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={importSiteStructure}
-              accept=".json"
-              style={{ display: 'none' }}
-            />
-          </div>
-        </div>
-        
-        <div className="border rounded-md" style={{ height: '80vh' }}>
-          <ReactFlowProvider>
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              nodeTypes={nodeTypes}
-              fitView
-              attributionPosition="bottom-right"
-            >
-              <Background />
-              <Controls />
-              <MiniMap />
-              
-              <Panel position="top-right" className="bg-white p-2 rounded shadow-md">
-                <div className="text-sm">
-                  <div className="font-medium mb-1">Quick Actions:</div>
-                  <ul className="space-y-1">
-                    <li>• Double-click empty space to create a new node</li>
-                    <li>• Drag between nodes to connect</li>
-                    <li>• Highlighted nodes are current pages</li>
-                  </ul>
+        </section>
+
+        <section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Visual Editor</CardTitle>
+              <CardDescription>Drag and drop to organize your site structure</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[600px]">
+                <ReactFlow
+                  nodes={nodes}
+                  edges={edges}
+                  onNodesChange={onNodesChange}
+                  onEdgesChange={onEdgesChange}
+                  onConnect={onConnect}
+                  onNodeClick={(_, node) => setSelectedNode(node)}
+                  fitView
+                >
+                  <Background />
+                  <Controls />
+                </ReactFlow>
+              </div>
+
+              <div className="mt-4 space-y-4">
+                <div className="flex gap-2">
+                  <Input
+                    placeholder="Node name"
+                    value={newNodeName}
+                    onChange={(e) => setNewNodeName(e.target.value)}
+                  />
+                  <Input
+                    placeholder="Node path"
+                    value={newNodePath}
+                    onChange={(e) => setNewNodePath(e.target.value)}
+                  />
+                  {selectedNode ? (
+                    <Button onClick={updateNode}>
+                      <Edit className="mr-2 h-4 w-4" />
+                      Update Node
+                    </Button>
+                  ) : (
+                    <Button onClick={addNode}>
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add Node
+                    </Button>
+                  )}
+                  {selectedNode && (
+                    <Button
+                      variant="destructive"
+                      onClick={() => deleteNode(selectedNode.id)}
+                    >
+                      <Trash className="mr-2 h-4 w-4" />
+                      Delete Node
+                    </Button>
+                  )}
                 </div>
-              </Panel>
-            </ReactFlow>
-          </ReactFlowProvider>
-        </div>
-        
-        <BrandCard>
-          <CardHeader>
-            <CardTitle>Current Site Structure</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <pre className="max-h-80 overflow-auto p-4 bg-gray-100 rounded text-xs">
-              {JSON.stringify(siteStructure, null, 2)}
-            </pre>
-          </CardContent>
-        </BrandCard>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </div>
-    </BrandContainer>
+    </DashboardLayout>
   );
 } 

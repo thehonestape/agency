@@ -1,14 +1,75 @@
 import React, { useState, useEffect } from 'react';
-import { BrandHeading } from '../brand/BrandHeading';
-import { BrandText } from '../brand/BrandText';
-import { BrandCard, CardContent, CardHeader, CardTitle } from '../brand/BrandCard';
-import { BrandStyledButton } from '../brand/BrandStyledButton';
-import { BrandContainer } from '../brand/BrandContainer';
-import { FiPlus, FiTrash, FiEdit2, FiSave, FiDownload, FiEye } from 'react-icons/fi';
+import { DashboardLayout } from '../layouts/DashboardLayout';
+import { Heading, Text } from '../ui/typography';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../ui/Card';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { 
+  FiLayout as Layout,
+  FiUsers as Users,
+  FiSettings as Settings,
+  FiActivity as Activity,
+  FiBarChart as BarChart,
+  FiCalendar as Calendar,
+  FiBell as Bell,
+  FiMail as Mail,
+  FiPlus as Plus,
+  FiTrash2 as Trash,
+  FiEdit2 as Edit
+} from "react-icons/fi";
 import { SitemapGenerator, SiteStructure } from './SitemapGenerator';
 import { defaultSiteStructure } from './defaultSiteStructure';
 
-export function SitemapEditor() {
+// Navigation sections
+const navigation = [
+  {
+    name: "Overview",
+    href: "/sitemap",
+    icon: Layout,
+  },
+  {
+    name: "Editor",
+    href: "/sitemap/editor",
+    icon: Activity,
+  },
+  {
+    name: "Generator",
+    href: "/sitemap/generator",
+    icon: BarChart,
+  }
+];
+
+const sections = [
+  {
+    title: "Notifications",
+    items: [
+      {
+        name: "Messages",
+        href: "#",
+        icon: Mail,
+      },
+      {
+        name: "Alerts",
+        href: "#",
+        icon: Bell,
+      }
+    ]
+  }
+];
+
+interface Category {
+  id: string;
+  name: string;
+  pages: Page[];
+}
+
+interface Page {
+  id: string;
+  name: string;
+  path: string;
+}
+
+export default function SitemapEditor() {
   const [siteStructure, setSiteStructure] = useState<SiteStructure>(defaultSiteStructure);
   const [previewMode, setPreviewMode] = useState(false);
   const [editingCategory, setEditingCategory] = useState<number | null>(null);
@@ -16,6 +77,8 @@ export function SitemapEditor() {
   const [newCategoryName, setNewCategoryName] = useState('');
   const [newPageName, setNewPageName] = useState('');
   const [newPagePath, setNewPagePath] = useState('');
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   // Load saved sitemap from localStorage if available
   useEffect(() => {
@@ -35,27 +98,21 @@ export function SitemapEditor() {
   }, [siteStructure]);
 
   const addCategory = () => {
-    if (!newCategoryName.trim()) return;
-    
-    setSiteStructure(prev => ({
-      ...prev,
-      children: [
-        ...prev.children,
+    if (newCategoryName.trim()) {
+      setCategories([
+        ...categories,
         {
+          id: Date.now().toString(),
           name: newCategoryName,
-          children: []
+          pages: []
         }
-      ]
-    }));
-    
-    setNewCategoryName('');
+      ]);
+      setNewCategoryName('');
+    }
   };
 
-  const deleteCategory = (index: number) => {
-    setSiteStructure(prev => ({
-      ...prev,
-      children: prev.children.filter((_, i) => i !== index)
-    }));
+  const deleteCategory = (categoryId: string) => {
+    setCategories(categories.filter(category => category.id !== categoryId));
   };
 
   const startEditingCategory = (index: number) => {
@@ -83,46 +140,39 @@ export function SitemapEditor() {
     setNewCategoryName('');
   };
 
-  const addPage = (categoryIndex: number) => {
-    if (!newPageName.trim() || !newPagePath.trim()) return;
-    
-    setSiteStructure(prev => {
-      const newChildren = [...prev.children];
-      const category = {...newChildren[categoryIndex]};
-      
-      category.children = [
-        ...(category.children || []),
-        {
-          name: newPageName,
-          path: newPagePath
+  const addPage = () => {
+    if (selectedCategory && newPageName.trim() && newPagePath.trim()) {
+      setCategories(categories.map(category => {
+        if (category.id === selectedCategory.id) {
+          return {
+            ...category,
+            pages: [
+              ...category.pages,
+              {
+                id: Date.now().toString(),
+                name: newPageName,
+                path: newPagePath
+              }
+            ]
+          };
         }
-      ];
-      
-      newChildren[categoryIndex] = category;
-      
-      return {
-        ...prev,
-        children: newChildren
-      };
-    });
-    
-    setNewPageName('');
-    setNewPagePath('');
+        return category;
+      }));
+      setNewPageName('');
+      setNewPagePath('');
+    }
   };
 
-  const deletePage = (categoryIndex: number, pageIndex: number) => {
-    setSiteStructure(prev => {
-      const newChildren = [...prev.children];
-      const category = {...newChildren[categoryIndex]};
-      
-      category.children = category.children?.filter((_, i) => i !== pageIndex);
-      newChildren[categoryIndex] = category;
-      
-      return {
-        ...prev,
-        children: newChildren
-      };
-    });
+  const deletePage = (categoryId: string, pageId: string) => {
+    setCategories(categories.map(category => {
+      if (category.id === categoryId) {
+        return {
+          ...category,
+          pages: category.pages.filter(page => page.id !== pageId)
+        };
+      }
+      return category;
+    }));
   };
 
   const startEditingPage = (categoryIndex: number, pageIndex: number) => {
@@ -174,225 +224,220 @@ export function SitemapEditor() {
 
   if (previewMode) {
     return (
-      <BrandContainer>
-        <div className="mb-4 flex justify-between items-center">
-          <BrandHeading level={1}>Sitemap Preview</BrandHeading>
-          <BrandStyledButton variant="outline" onClick={() => setPreviewMode(false)}>
-            <FiEdit2 className="mr-2" />
-            Back to Editor
-          </BrandStyledButton>
+      <DashboardLayout
+        navigation={navigation}
+        sections={sections}
+      >
+        <div className="space-y-8">
+          <section>
+            <div className="flex items-center justify-between">
+              <div>
+                <Heading as="h1" size="h1">Sitemap Preview</Heading>
+                <Text className="text-muted-foreground">
+                  Preview your site structure
+                </Text>
+              </div>
+              <Button variant="outline" onClick={() => setPreviewMode(false)}>
+                <Edit className="mr-2 h-4 w-4" />
+                Back to Editor
+              </Button>
+            </div>
+          </section>
+          
+          <SitemapGenerator customSiteStructure={siteStructure} />
         </div>
-        
-        <SitemapGenerator customSiteStructure={siteStructure} />
-      </BrandContainer>
+      </DashboardLayout>
     );
   }
 
   return (
-    <BrandContainer>
+    <DashboardLayout
+      navigation={navigation}
+      sections={sections}
+    >
       <div className="space-y-8">
-        <div className="flex justify-between items-center">
-          <div>
-            <BrandHeading level={1}>Sitemap Editor</BrandHeading>
-            <BrandText color="muted">
-              Create and edit your site structure visually
-            </BrandText>
+        <section>
+          <div className="flex items-center justify-between">
+            <div>
+              <Heading as="h1" size="h1">Sitemap Editor</Heading>
+              <Text className="text-muted-foreground">Edit your website structure</Text>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => setPreviewMode(true)}>
+                <Activity className="mr-2 h-4 w-4" />
+                Preview
+              </Button>
+              <Button onClick={downloadSitemapJSON}>
+                <BarChart className="mr-2 h-4 w-4" />
+                Export JSON
+              </Button>
+            </div>
           </div>
-          <div className="flex gap-2">
-            <BrandStyledButton variant="outline" onClick={() => setPreviewMode(true)}>
-              <FiEye className="mr-2" />
-              Preview
-            </BrandStyledButton>
-            <BrandStyledButton onClick={downloadSitemapJSON}>
-              <FiDownload className="mr-2" />
-              Export JSON
-            </BrandStyledButton>
-          </div>
-        </div>
+        </section>
 
-        <BrandCard>
-          <CardHeader>
-            <CardTitle>
-              <BrandHeading level={3}>Site Structure</BrandHeading>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              {/* Main site details */}
-              <div className="border p-4 rounded-md">
-                <div className="flex items-center mb-2">
-                  <label htmlFor="root-name" className="mr-2">
-                    <BrandText weight="medium">Root:</BrandText>
-                  </label>
-                  <input 
-                    id="root-name"
-                    type="text" 
-                    className="border rounded px-2 py-1 flex-grow" 
-                    value={siteStructure.name}
-                    onChange={(e) => setSiteStructure(prev => ({...prev, name: e.target.value}))}
-                    aria-label="Root name"
-                  />
-                </div>
-                <div className="flex items-center">
-                  <label htmlFor="root-path" className="mr-2">
-                    <BrandText weight="medium">Path:</BrandText>
-                  </label>
-                  <input 
-                    id="root-path"
-                    type="text" 
-                    className="border rounded px-2 py-1 flex-grow" 
-                    value={siteStructure.path}
-                    onChange={(e) => setSiteStructure(prev => ({...prev, path: e.target.value}))}
-                    aria-label="Root path"
-                  />
-                </div>
-              </div>
-
-              {/* Add category form */}
-              <div className="border p-4 rounded-md bg-gray-50">
-                <BrandText weight="medium" className="mb-2">Add New Category</BrandText>
-                <div className="flex gap-2">
-                  <label htmlFor="new-category-name" className="sr-only">New Category Name</label>
-                  <input 
-                    id="new-category-name"
-                    type="text" 
-                    className="border rounded px-2 py-1 flex-grow" 
-                    placeholder="Category Name" 
-                    value={newCategoryName}
-                    onChange={(e) => setNewCategoryName(e.target.value)}
-                  />
-                  <BrandStyledButton onClick={addCategory} size="sm">
-                    <FiPlus className="mr-1" />
-                    Add
-                  </BrandStyledButton>
-                </div>
-              </div>
-
-              {/* Categories */}
-              {siteStructure.children.map((category, categoryIndex) => (
-                <div key={`category-${categoryIndex}`} className="border p-4 rounded-md">
-                  {/* Category header */}
-                  <div className="flex justify-between items-center mb-4 border-b pb-2">
-                    {editingCategory === categoryIndex ? (
-                      <div className="flex items-center gap-2 flex-grow">
-                        <label htmlFor={`edit-category-${categoryIndex}`} className="sr-only">Edit Category Name</label>
-                        <input 
-                          id={`edit-category-${categoryIndex}`}
-                          type="text" 
-                          className="border rounded px-2 py-1 flex-grow" 
-                          value={newCategoryName}
-                          onChange={(e) => setNewCategoryName(e.target.value)}
-                          aria-label="Edit category name"
-                        />
-                        <BrandStyledButton variant="outline" size="sm" onClick={saveEditingCategory}>
-                          <FiSave className="mr-1" />
-                          Save
-                        </BrandStyledButton>
-                      </div>
-                    ) : (
-                      <BrandText weight="medium">{category.name}</BrandText>
-                    )}
-                    
-                    <div className="flex gap-2">
-                      {editingCategory !== categoryIndex && (
-                        <BrandStyledButton variant="outline" size="sm" onClick={() => startEditingCategory(categoryIndex)}>
-                          <FiEdit2 className="mr-1" />
-                          Edit
-                        </BrandStyledButton>
-                      )}
-                      <BrandStyledButton variant="destructive" size="sm" onClick={() => deleteCategory(categoryIndex)}>
-                        <FiTrash className="mr-1" />
-                        Delete
-                      </BrandStyledButton>
-                    </div>
+        <section>
+          <Card>
+            <CardHeader>
+              <CardTitle>Site Structure</CardTitle>
+              <CardDescription>Organize your website pages and categories</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Main site details */}
+                <div className="border p-4 rounded-md">
+                  <div className="flex items-center mb-2">
+                    <label htmlFor="root-name" className="mr-2">
+                      <Text className="font-medium">Root:</Text>
+                    </label>
+                    <Input 
+                      id="root-name"
+                      type="text" 
+                      className="border rounded px-2 py-1 flex-grow" 
+                      value={siteStructure.name}
+                      onChange={(e) => setSiteStructure(prev => ({...prev, name: e.target.value}))}
+                      aria-label="Root name"
+                    />
                   </div>
-                  
-                  {/* Pages */}
-                  <div className="space-y-3 mb-4">
-                    {category.children?.map((page, pageIndex) => (
-                      <div key={`page-${categoryIndex}-${pageIndex}`} className="flex justify-between items-center border-b pb-2 last:border-0">
-                        {editingPage?.categoryIndex === categoryIndex && editingPage?.pageIndex === pageIndex ? (
-                          <div className="flex flex-col gap-2 flex-grow">
-                            <label htmlFor={`edit-page-name-${categoryIndex}-${pageIndex}`} className="sr-only">Edit Page Name</label>
-                            <input 
-                              id={`edit-page-name-${categoryIndex}-${pageIndex}`}
+                  <div className="flex items-center">
+                    <label htmlFor="root-path" className="mr-2">
+                      <Text className="font-medium">Path:</Text>
+                    </label>
+                    <Input 
+                      id="root-path"
+                      type="text" 
+                      className="border rounded px-2 py-1 flex-grow" 
+                      value={siteStructure.path}
+                      onChange={(e) => setSiteStructure(prev => ({...prev, path: e.target.value}))}
+                      aria-label="Root path"
+                    />
+                  </div>
+                </div>
+
+                {/* Add category form */}
+                <div className="border p-4 rounded-md bg-gray-50">
+                  <Text className="font-medium mb-2">Add New Category</Text>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Category name"
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                    />
+                    <Button onClick={addCategory}>
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add Category
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Categories */}
+                <div className="space-y-4">
+                  {categories.map((category, categoryIndex) => (
+                    <div key={category.id} className="border rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        {editingCategory === categoryIndex ? (
+                          <div className="flex items-center gap-2 flex-grow">
+                            <label htmlFor={`edit-category-${categoryIndex}`} className="sr-only">Edit Category Name</label>
+                            <Input
+                              id={`edit-category-${categoryIndex}`}
                               type="text" 
-                              className="border rounded px-2 py-1" 
-                              placeholder="Page Name" 
+                              className="border rounded px-2 py-1 flex-grow" 
+                              value={newCategoryName}
+                              onChange={(e) => setNewCategoryName(e.target.value)}
+                              aria-label="Edit category name"
+                            />
+                            <Button variant="outline" size="sm" onClick={saveEditingCategory}>
+                              <Edit className="mr-1 h-4 w-4" />
+                              Save
+                            </Button>
+                          </div>
+                        ) : (
+                          <Text className="font-medium">{category.name}</Text>
+                        )}
+                        
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => deleteCategory(category.id)}
+                        >
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      
+                      {/* Pages */}
+                      <div className="space-y-2 ml-4">
+                        {category.pages.map((page, pageIndex) => (
+                          <div key={page.id} className="flex items-center justify-between">
+                            {editingPage?.categoryIndex === categoryIndex && editingPage?.pageIndex === pageIndex ? (
+                              <div className="flex flex-col gap-2 flex-grow">
+                                <label htmlFor={`edit-page-name-${categoryIndex}-${pageIndex}`} className="sr-only">Edit Page Name</label>
+                                <Input
+                                  id={`edit-page-name-${categoryIndex}-${pageIndex}`}
+                                  type="text" 
+                                  className="border rounded px-2 py-1" 
+                                  placeholder="Page Name" 
+                                  value={newPageName}
+                                  onChange={(e) => setNewPageName(e.target.value)}
+                                />
+                                <label htmlFor={`edit-page-path-${categoryIndex}-${pageIndex}`} className="sr-only">Edit Page Path</label>
+                                <Input
+                                  id={`edit-page-path-${categoryIndex}-${pageIndex}`}
+                                  type="text" 
+                                  className="border rounded px-2 py-1" 
+                                  placeholder="Path (e.g. /about)" 
+                                  value={newPagePath}
+                                  onChange={(e) => setNewPagePath(e.target.value)}
+                                />
+                                <Button variant="outline" size="sm" onClick={saveEditingPage}>
+                                  <Edit className="mr-1 h-4 w-4" />
+                                  Save
+                                </Button>
+                              </div>
+                            ) : (
+                              <div className="flex-grow">
+                                <Text>{page.name}</Text>
+                                <Text className="text-sm text-muted-foreground">{page.path}</Text>
+                              </div>
+                            )}
+                            
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => deletePage(category.id, page.id)}
+                            >
+                              <Trash className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+
+                        {/* Add page form */}
+                        <div className="mt-4">
+                          <Text className="font-medium mb-2">Add Page to {category.name}</Text>
+                          <div className="flex gap-2">
+                            <Input
+                              placeholder="Page name"
                               value={newPageName}
                               onChange={(e) => setNewPageName(e.target.value)}
                             />
-                            <label htmlFor={`edit-page-path-${categoryIndex}-${pageIndex}`} className="sr-only">Edit Page Path</label>
-                            <input 
-                              id={`edit-page-path-${categoryIndex}-${pageIndex}`}
-                              type="text" 
-                              className="border rounded px-2 py-1" 
-                              placeholder="Path (e.g. /about)" 
+                            <Input
+                              placeholder="Page path"
                               value={newPagePath}
                               onChange={(e) => setNewPagePath(e.target.value)}
                             />
-                            <BrandStyledButton variant="outline" size="sm" onClick={saveEditingPage}>
-                              <FiSave className="mr-1" />
-                              Save
-                            </BrandStyledButton>
+                            <Button onClick={addPage}>
+                              <Plus className="mr-2 h-4 w-4" />
+                              Add Page
+                            </Button>
                           </div>
-                        ) : (
-                          <div className="flex-grow">
-                            <BrandText>{page.name}</BrandText>
-                            <BrandText color="muted" className="text-xs">{page.path}</BrandText>
-                          </div>
-                        )}
-                        
-                        <div className="flex gap-2">
-                          {!(editingPage?.categoryIndex === categoryIndex && editingPage?.pageIndex === pageIndex) && (
-                            <BrandStyledButton variant="outline" size="sm" onClick={() => startEditingPage(categoryIndex, pageIndex)}>
-                              <FiEdit2 className="mr-1" />
-                              Edit
-                            </BrandStyledButton>
-                          )}
-                          <BrandStyledButton variant="destructive" size="sm" onClick={() => deletePage(categoryIndex, pageIndex)}>
-                            <FiTrash className="mr-1" />
-                            Delete
-                          </BrandStyledButton>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                  
-                  {/* Add page form */}
-                  <div className="border p-3 rounded-md bg-gray-50">
-                    <BrandText weight="medium" className="mb-2">Add Page to {category.name}</BrandText>
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor={`new-page-name-${categoryIndex}`} className="sr-only">New Page Name</label>
-                      <input 
-                        id={`new-page-name-${categoryIndex}`}
-                        type="text" 
-                        className="border rounded px-2 py-1" 
-                        placeholder="Page Name" 
-                        value={newPageName}
-                        onChange={(e) => setNewPageName(e.target.value)}
-                      />
-                      <label htmlFor={`new-page-path-${categoryIndex}`} className="sr-only">New Page Path</label>
-                      <input 
-                        id={`new-page-path-${categoryIndex}`}
-                        type="text" 
-                        className="border rounded px-2 py-1" 
-                        placeholder="Path (e.g. /about)" 
-                        value={newPagePath}
-                        onChange={(e) => setNewPagePath(e.target.value)}
-                      />
-                      <BrandStyledButton onClick={() => addPage(categoryIndex)} size="sm">
-                        <FiPlus className="mr-1" />
-                        Add Page
-                      </BrandStyledButton>
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </BrandCard>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
       </div>
-    </BrandContainer>
+    </DashboardLayout>
   );
 } 

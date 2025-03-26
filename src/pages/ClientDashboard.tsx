@@ -16,7 +16,7 @@ import {
 } from '@tremor/react';
 import { Calendar, FileText, MessageSquare, CreditCard, Clock, FileCheck, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { ThemeProvider } from '../components/theme-provider';
+import { ThemeProvider } from '../lib/theme-context';
 import { DashboardCard } from '../components/dashboard/DashboardCard';
 import { DashboardGrid } from '../components/dashboard/DashboardGrid';
 
@@ -64,7 +64,7 @@ export default function ClientDashboard() {
   const pendingInvoices = clientInvoices.filter(i => i.status === 'Pending').length;
   
   return (
-    <ThemeProvider defaultTheme="light" storageKey="wrkhrsco-theme">
+    <ThemeProvider defaultThemeId="salient">
       <div className="flex flex-col min-h-screen bg-[hsl(var(--background))]" data-theme="wrkhrsco">
         {/* Header */}
         <header className="px-6 py-4 border-b border-[hsl(var(--border))] flex justify-between items-center">

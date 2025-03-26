@@ -1,7 +1,6 @@
 import { FiMenu, FiSearch, FiBell, FiPlus, FiHelpCircle, FiX } from "react-icons/fi";
 import { Button } from "../ui/button";
 import { ThemeSwitcher } from "../ui/theme-switcher";
-import { BrandSwitcher } from "../brand/BrandSwitcher";
 import { cn } from "../../lib/utils";
 import { useState, useEffect } from "react";
 
@@ -21,8 +20,6 @@ export function TopBar({ onMobileMenuToggle, sidebarCollapsed }: TopBarProps) {
     const path = window.location.pathname;
     if (path.includes('projects')) {
       setPageTitle('Projects');
-    } else if (path.includes('brands')) {
-      setPageTitle('Brand Management');
     } else if (path.includes('assets')) {
       setPageTitle('Assets');
     } else {
@@ -91,11 +88,6 @@ export function TopBar({ onMobileMenuToggle, sidebarCollapsed }: TopBarProps) {
           >
             <FiSearch className="h-4 w-4" />
           </Button>
-          
-          {/* Brand switcher with cleaner interface */}
-          <div className="hidden md:block border-l border-gray-200 dark:border-gray-800 pl-2 ml-0.5">
-            <BrandSwitcher variant="inline" label="" />
-          </div>
           
           {/* Theme switcher */}
           <ThemeSwitcher />

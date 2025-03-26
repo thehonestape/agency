@@ -17,7 +17,7 @@ import {
 } from '@tremor/react';
 import { Calendar, Clock, FileType, Layers, Users } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { ThemeProvider } from '../components/theme-provider';
+import { ThemeProvider } from '../lib/theme-context';
 import { DashboardCard } from '../components/dashboard/DashboardCard';
 import { DashboardGrid } from '../components/dashboard/DashboardGrid';
 
@@ -68,8 +68,8 @@ export default function DesignerDashboard() {
   const avgHoursPerDay = totalHours / timeTracking.length;
   
   return (
-    <ThemeProvider defaultTheme="light" storageKey="wrkhrsco-theme">
-      <div className="flex flex-col min-h-screen bg-[hsl(var(--background))]" data-theme="wrkhrsco">
+    <ThemeProvider defaultThemeId="salient">
+      <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="px-6 py-4 border-b border-[hsl(var(--border))] flex justify-between items-center">
           <div>

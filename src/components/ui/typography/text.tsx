@@ -2,7 +2,7 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../../lib/utils";
 
-const textVariants = cva("text-[hsl(var(--foreground-base))]", {
+const textVariants = cva("text-foreground", {
   variants: {
     size: {
       xs: "text-xs",
@@ -35,12 +35,12 @@ const textVariants = cva("text-[hsl(var(--foreground-base))]", {
     },
     variant: {
       default: "",
-      muted: "text-[hsl(var(--foreground-muted))]",
-      accent: "text-[hsl(var(--foreground-accent))]",
-      success: "text-[hsl(var(--status-success))]",
-      error: "text-[hsl(var(--status-error))]",
-      warning: "text-[hsl(var(--status-warning))]",
-      info: "text-[hsl(var(--status-info))]",
+      muted: "text-muted-foreground",
+      accent: "text-accent-foreground",
+      success: "text-success-foreground",
+      error: "text-destructive-foreground",
+      warning: "text-warning-foreground",
+      info: "text-info-foreground",
     },
     spacing: {
       normal: "tracking-normal",

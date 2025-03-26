@@ -1,6 +1,5 @@
 import { cn } from "../../lib/utils";
 import { Link, useLocation } from "react-router-dom";
-import { Logo } from "../brand/Logo";
 import { 
   FiLayout as LayoutDashboard, 
   FiFolder as FolderOpen, 
@@ -123,7 +122,7 @@ export function SideNav({ collapsed, onToggle, navigation = [], sections = [] }:
   return (
     <div data-nav-root className="flex h-full flex-col bg-nav-bg">
       <div data-nav-header className="flex h-14 shrink-0 items-center px-3">
-        <Logo className="h-6 w-auto" />
+        <span className="text-lg font-semibold text-nav-text">UI Kit</span>
       </div>
       
       <nav data-nav-content className="flex flex-1 flex-col overflow-y-auto">

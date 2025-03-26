@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../../lib/utils";
 
 const headingVariants = cva(
-  "font-heading font-semibold tracking-tight text-[hsl(var(--foreground-base))]",
+  "font-heading font-semibold tracking-tight text-foreground",
   {
     variants: {
       size: {
@@ -35,8 +35,8 @@ const headingVariants = cva(
       },
       variant: {
         default: "",
-        muted: "text-[hsl(var(--foreground-muted))]",
-        accent: "text-[hsl(var(--foreground-accent))]",
+        muted: "text-muted-foreground",
+        accent: "text-accent-foreground",
       },
       spacing: {
         normal: "tracking-tight",
