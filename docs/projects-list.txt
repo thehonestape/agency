@@ -1,0 +1,174 @@
+// src/components/projects/projects-list.tsx
+import Link from "next/link"
+import { formatDate, t } from "@/lib/utils"
+import { 
+  Clock, 
+  MoreHorizontal, 
+  Users,
+  Calendar 
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { 
+  Card, 
+  CardContent, 
+  CardFooter,
+  CardHeader,
+  CardTitle 
+} from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+// This would come from your API in a real implementation
+const mockProjects = [
+  {
+    id: "1",
+    name: "Spring Exhibition 2025",
+    client: "Metropolitan Museum",
+    status: "active",
+    phase: "discovery",
+    startDate: "2025-01-15",
+    dueDate: "2025-04-01",
+    progress: 25,
+    team: [
+      { id: "u1", name: "Emma Stone", avatar: "/avatars/emma.jpg", initials: "ES" },
+      { id: "u2", name: "James Wilson", avatar: "/avatars/james.jpg", initials: "JW" },
+      { id: "u3", name: "Sarah Miller", avatar: "/avatars/sarah.jpg", initials: "SM" },
+    ]
+  },
+  {
+    id: "2",
+    name: "Member Engagement Program",
+    client: "NYC Museum of Art",
+    status: "active",
+    phase: "design",
+    startDate: "2024-12-10",
+    dueDate: "2025-03-15",
+    progress: 60,
+    team: [
+      { id: "u2", name: "James Wilson", avatar: "/avatars/james.jpg", initials: "JW" },
+      { id: "u4", name: "Alex Johnson", avatar: "/avatars/alex.jpg", initials: "AJ" },
+    ]
+  },
+  {
+    id: "3",
+    name: "Digital Collection Launch",
+    client: "Pacific Science Museum",
+    status: "active", 
+    phase: "development",
+    startDate: "2024-11-05",
+    dueDate: "2025-02-28",
+    progress: 85,
+    team: [
+      { id: "u1", name: "Emma Stone", avatar: "/avatars/emma.jpg", initials: "ES" },
+      { id: "u3", name: "Sarah Miller", avatar: "/avatars/sarah.jpg", initials: "SM" },
+      { id: "u5", name: "Michael Brown", avatar: "/avatars/michael.jpg", initials: "MB" },
+    ]
+  },
+  {
+    id: "4",
+    name: "Annual Gala Materials",
+    client: "Foundation for Modern Arts",
+    status: "completed",
+    phase: "completed",
+    startDate: "2024-09-01",
+    dueDate: "2024-12-15",
+    progress: 100,
+    team: [
+      { id: "u2", name: "James Wilson", avatar: "/avatars/james.jpg", initials: "JW" },
+      { id: "u4", name: "Alex Johnson", avatar: "/avatars/alex.jpg", initials: "AJ" },
+    ]
+  }
+]
+
+// Progress bar component
+function ProgressBar({ value }: { value: number }) {
+  return (
+    <div className="w-full bg-gray-200 rounded-full h-2">
+      <div 
+        className="bg-brand-accent h-2 rounded-full" 
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  )
+}
+
+// Phase badge component
+function PhaseBadge({ phase, clientType }: { phase: string, clientType: string }) {
+  const phaseColors = {
+    discovery: "bg-blue-100 text-blue-800",
+    definition: "bg-purple-100 text-purple-800",
+    design: "bg-pink-100 text-pink-800",
+    development: "bg-orange-100 text-orange-800",
+    completed: "bg-green-100 text-green-800",
+  }
+  
+  const color = phaseColors[phase as keyof typeof phaseColors] || "bg-gray-100 text-gray-800"
+  
+  return (
+    <Badge className={color}>
+      {t(`phase_${phase}`, clientType)}
+    </Badge>
+  )
+}
+
+interface ProjectsListProps {
+  status?: string;
+  phase?: string;
+  clientType: string;
+}
+
+export function ProjectsList({ status, phase, clientType }: ProjectsListProps) {
+  // In a real app, you would fetch data from an API
+  const filteredProjects = mockProjects.filter(project => {
+    if (status && project.status !== status) return false
+    if (phase && project.phase !== phase) return false
+    return true
+  })
+  
+  if (filteredProjects.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500">No projects found.</p>
+        <Button className="mt-4" variant="brand">
+          Create New {t('project', clientType)}
+        </Button>
+      </div>
+    )
+  }
+  
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {filteredProjects.map(project => (
+        <Link href={`/projects/${project.id}`} key={project.id}>
+          <Card className="h-full hover:shadow-md transition-shadow">
+            <CardHeader className="pb-2">
+              <div className="flex justify-between items-start">
+                <CardTitle className="text-lg">{project.name}</CardTitle>
+                <Button variant="ghost" size="icon">
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-sm text-gray-500">{project.client}</p>
+            </CardHeader>
+            <CardContent className="pb-4">
+              <div className="space-y-4">
+                <div className="flex justify-between text-sm">
+                  <PhaseBadge phase={project.phase} clientType={clientType} />
+                  <span className="text-gray-500">{project.progress}% complete</span>
+                </div>
+                
+                <ProgressBar value={project.progress} />
+                
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="flex items-center">
+                    <Calendar className="h-4 w-4 mr-2 text-gray-500" />
+                    <span>{formatDate(project.startDate)}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                    <span>{formatDate(project.dueDate)}</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+            <Car

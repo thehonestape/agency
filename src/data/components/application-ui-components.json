@@ -1,0 +1,359 @@
+{
+  "categories": [
+    {
+      "id": "application-ui",
+      "name": "Application Ui",
+      "sections": [
+        {
+          "name": "Application Shells",
+          "components": [
+            {
+              "name": "Stacked Layouts",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/stacked",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Sidebar Layouts",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/sidebar",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Multi-Column Layouts",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/application-shells/multi-column",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Headings",
+          "components": [
+            {
+              "name": "Page Headings",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/headings/page-headings",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Card Headings",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/headings/card-headings",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Section Headings",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/headings/section-headings",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Data Display",
+          "components": [
+            {
+              "name": "Description Lists",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/data-display/description-lists",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Stats",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/data-display/stats",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Calendars",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/data-display/calendars",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Lists",
+          "components": [
+            {
+              "name": "Stacked Lists",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/lists/stacked-lists",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Tables",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/lists/tables",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Grid Lists",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/lists/grid-lists",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Feeds",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/lists/feeds",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Forms",
+          "components": [
+            {
+              "name": "Form Layouts",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/form-layouts",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Input Groups",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/input-groups",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Select Menus",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/select-menus",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Sign-in and Registration",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/sign-in-forms",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Textareas",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/textareas",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Radio Groups",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/radio-groups",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Checkboxes",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/checkboxes",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Toggles",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/toggles",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Action Panels",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/action-panels",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Comboboxes",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/forms/comboboxes",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Feedback",
+          "components": [
+            {
+              "name": "Alerts",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/feedback/alerts",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Empty States",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/feedback/empty-states",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Navigation",
+          "components": [
+            {
+              "name": "Navbars",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/navbars",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Pagination",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/pagination",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Tabs",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/tabs",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Vertical Navigation",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/vertical-navigation",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Sidebar Navigation",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/sidebar-navigation",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Breadcrumbs",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/breadcrumbs",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Progress Bars",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/progress-bars",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Command Palettes",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/navigation/command-palettes",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Overlays",
+          "components": [
+            {
+              "name": "Modal Dialogs",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/overlays/modal-dialogs",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Drawers",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/overlays/drawers",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Notifications",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/overlays/notifications",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Elements",
+          "components": [
+            {
+              "name": "Avatars",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/elements/avatars",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Badges",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/elements/badges",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Dropdowns",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/elements/dropdowns",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Buttons",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/elements/buttons",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Button Groups",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/elements/button-groups",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Layout",
+          "components": [
+            {
+              "name": "Containers",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/layout/containers",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Cards",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/layout/cards",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "List containers",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/layout/list-containers",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Media Objects",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/layout/media-objects",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Dividers",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/layout/dividers",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Page Examples",
+          "components": [
+            {
+              "name": "Home Screens",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/page-examples/home-screens",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Detail Screens",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/page-examples/detail-screens",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Settings Screens",
+              "url": "https://tailwindcss.com/plus/ui-blocks/application-ui/page-examples/settings-screens",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

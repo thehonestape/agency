@@ -1,0 +1,168 @@
+{
+  "categories": [
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "sections": [
+        {
+          "name": "Page Sections",
+          "components": [
+            {
+              "name": "Hero Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/heroes",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Feature Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/feature-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "CTA Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/cta-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Bento Grids",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/bento-grids",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Pricing Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/pricing",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Header Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/header",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Newsletter Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/newsletter-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Stats",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/stats-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Testimonials",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/testimonials",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Blog Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/blog-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Contact Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/contact-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Team Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/team-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Content Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/content-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Logo Clouds",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/logo-clouds",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "FAQs",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/faq-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Footers",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/sections/footers",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Elements",
+          "components": [
+            {
+              "name": "Headers",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/elements/headers",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Flyout Menus",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/elements/flyout-menus",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Banners",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/elements/banners",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Feedback",
+          "components": [
+            {
+              "name": "404 Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/feedback/404-pages",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Page Examples",
+          "components": [
+            {
+              "name": "Landing Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/page-examples/landing-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Pricing Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/page-examples/pricing-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "About Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/marketing/page-examples/about-pages",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

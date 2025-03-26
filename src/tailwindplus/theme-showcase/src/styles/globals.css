@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0ea5e9;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --accent: #f8fafc;
+  --accent-foreground: #0f172a;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+}
+
+/* Theme-specific styles */
+@layer components {
+  /* Protocol Theme */
+  .theme-protocol .protocol-button {
+    @apply rounded-full bg-emerald-500 py-1 px-3 text-white hover:bg-emerald-600 transition-colors;
+  }
+  
+  .theme-protocol .protocol-header {
+    @apply bg-white dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-800;
+  }
+  
+  .theme-protocol .protocol-card {
+    @apply bg-white dark:bg-zinc-900 rounded-lg shadow-md border border-zinc-100 dark:border-zinc-800;
+  }
+  
+  .theme-protocol .protocol-hero {
+    @apply bg-gradient-to-b from-emerald-50 to-white dark:from-zinc-900 dark:to-zinc-900;
+  }
+  
+  .theme-protocol .protocol-footer {
+    @apply bg-zinc-50 dark:bg-zinc-900 border-t border-zinc-100 dark:border-zinc-800;
+  }
+  
+  /* Salient Theme */
+  .theme-salient .salient-button {
+    @apply rounded-md bg-blue-600 py-2 px-4 text-white hover:bg-blue-700 transition-colors;
+  }
+  
+  .theme-salient .salient-header {
+    @apply bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800;
+  }
+  
+  .theme-salient .salient-card {
+    @apply bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-200 dark:border-slate-800;
+  }
+  
+  .theme-salient .salient-hero {
+    @apply bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800;
+  }
+  
+  .theme-salient .salient-footer {
+    @apply bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800;
+  }
+  
+  /* Studio Theme */
+  .theme-studio .studio-button {
+    @apply rounded-none bg-black py-2 px-6 text-white hover:bg-zinc-800 transition-colors;
+  }
+  
+  .theme-studio .studio-header {
+    @apply bg-white dark:bg-black border-b border-zinc-200 dark:border-zinc-800;
+  }
+  
+  .theme-studio .studio-card {
+    @apply bg-white dark:bg-black rounded-none shadow-none border border-zinc-200 dark:border-zinc-800;
+  }
+  
+  .theme-studio .studio-hero {
+    @apply bg-white dark:bg-black;
+  }
+  
+  .theme-studio .studio-footer {
+    @apply bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800;
+  }
+  
+  /* Radiant Theme */
+  .theme-radiant .radiant-button {
+    @apply rounded-full bg-purple-600 py-2 px-6 text-white hover:bg-purple-700 transition-colors;
+  }
+  
+  .theme-radiant .radiant-header {
+    @apply bg-white dark:bg-purple-950 border-b border-purple-100 dark:border-purple-900;
+  }
+  
+  .theme-radiant .radiant-card {
+    @apply bg-white dark:bg-purple-950 rounded-2xl shadow-lg border border-purple-100 dark:border-purple-900;
+  }
+  
+  .theme-radiant .radiant-hero {
+    @apply bg-gradient-to-br from-purple-100 via-fuchsia-100 to-pink-100 dark:from-purple-950 dark:via-fuchsia-950 dark:to-pink-950;
+  }
+  
+  .theme-radiant .radiant-footer {
+    @apply bg-purple-50 dark:bg-purple-950 border-t border-purple-100 dark:border-purple-900;
+  }
+  
+  /* Commit Theme */
+  .theme-commit .commit-button {
+    @apply rounded-md bg-emerald-600 py-2 px-4 text-white hover:bg-emerald-700 transition-colors;
+  }
+  
+  .theme-commit .commit-header {
+    @apply bg-white dark:bg-emerald-950 border-b border-emerald-100 dark:border-emerald-900;
+  }
+  
+  .theme-commit .commit-card {
+    @apply bg-white dark:bg-emerald-950 rounded-lg shadow-md border border-emerald-100 dark:border-emerald-900;
+  }
+  
+  .theme-commit .commit-hero {
+    @apply bg-gradient-to-b from-emerald-100 to-teal-50 dark:from-emerald-950 dark:to-teal-950;
+  }
+  
+  .theme-commit .commit-footer {
+    @apply bg-emerald-50 dark:bg-emerald-950 border-t border-emerald-100 dark:border-emerald-900;
+  }
+  
+  /* Keynote Theme */
+  .theme-keynote .keynote-button {
+    @apply rounded-lg bg-amber-500 py-2 px-5 text-white hover:bg-amber-600 transition-colors;
+  }
+  
+  .theme-keynote .keynote-header {
+    @apply bg-white dark:bg-amber-950 border-b border-amber-100 dark:border-amber-900;
+  }
+  
+  .theme-keynote .keynote-card {
+    @apply bg-white dark:bg-amber-950 rounded-lg shadow-md border border-amber-100 dark:border-amber-900;
+  }
+  
+  .theme-keynote .keynote-hero {
+    @apply bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-950 dark:to-yellow-950;
+  }
+  
+  .theme-keynote .keynote-footer {
+    @apply bg-amber-50 dark:bg-amber-950 border-t border-amber-100 dark:border-amber-900;
+  }
+  
+  /* Pocket Theme */
+  .theme-pocket .pocket-button {
+    @apply rounded-full bg-red-500 py-2 px-6 text-white hover:bg-red-600 transition-colors;
+  }
+  
+  .theme-pocket .pocket-header {
+    @apply bg-white dark:bg-red-950 border-b border-red-100 dark:border-red-900;
+  }
+  
+  .theme-pocket .pocket-card {
+    @apply bg-white dark:bg-red-950 rounded-xl shadow-lg border border-red-100 dark:border-red-900;
+  }
+  
+  .theme-pocket .pocket-hero {
+    @apply bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-950 dark:to-orange-950;
+  }
+  
+  .theme-pocket .pocket-footer {
+    @apply bg-red-50 dark:bg-red-950 border-t border-red-100 dark:border-red-900;
+  }
+  
+  /* Primer Theme */
+  .theme-primer .primer-button {
+    @apply rounded-md bg-blue-500 py-2 px-4 text-white hover:bg-blue-600 transition-colors;
+  }
+  
+  .theme-primer .primer-header {
+    @apply bg-white dark:bg-blue-950 border-b border-blue-100 dark:border-blue-900;
+  }
+  
+  .theme-primer .primer-card {
+    @apply bg-white dark:bg-blue-950 rounded-lg shadow-md border border-blue-100 dark:border-blue-900;
+  }
+  
+  .theme-primer .primer-hero {
+    @apply bg-gradient-to-b from-blue-50 to-sky-50 dark:from-blue-950 dark:to-sky-950;
+  }
+  
+  .theme-primer .primer-footer {
+    @apply bg-blue-50 dark:bg-blue-950 border-t border-blue-100 dark:border-blue-900;
+  }
+  
+  /* Transmit Theme */
+  .theme-transmit .transmit-button {
+    @apply rounded-md bg-indigo-500 py-2 px-4 text-white hover:bg-indigo-600 transition-colors;
+  }
+  
+  .theme-transmit .transmit-header {
+    @apply bg-white dark:bg-indigo-950 border-b border-indigo-100 dark:border-indigo-900;
+  }
+  
+  .theme-transmit .transmit-card {
+    @apply bg-white dark:bg-indigo-950 rounded-lg shadow-md border border-indigo-100 dark:border-indigo-900;
+  }
+  
+  .theme-transmit .transmit-hero {
+    @apply bg-gradient-to-r from-indigo-50 to-violet-50 dark:from-indigo-950 dark:to-violet-950;
+  }
+  
+  .theme-transmit .transmit-footer {
+    @apply bg-indigo-50 dark:bg-indigo-950 border-t border-indigo-100 dark:border-indigo-900;
+  }
+} 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="450" viewBox="0 0 800 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="450" fill="white"/>
+  
+  <!-- Container -->
+  <rect x="100" y="75" width="600" height="300" rx="4" fill="#F9FAFB"/>
+  
+  <!-- Title -->
+  <rect x="200" y="125" width="400" height="16" rx="2" fill="#1F2937"/>
+  <rect x="250" y="150" width="300" height="16" rx="2" fill="#1F2937"/>
+  
+  <!-- Description -->
+  <rect x="175" y="200" width="450" height="8" rx="2" fill="#6B7280"/>
+  <rect x="200" y="215" width="400" height="8" rx="2" fill="#6B7280"/>
+  <rect x="225" y="230" width="350" height="8" rx="2" fill="#6B7280"/>
+  
+  <!-- Buttons -->
+  <rect x="300" y="280" width="100" height="36" rx="4" fill="#3B82F6"/>
+  <rect x="420" y="280" width="80" height="36" rx="4" fill="white" stroke="#E5E7EB"/>
+</svg>

@@ -1,0 +1,146 @@
+{
+  "categories": [
+    {
+      "id": "ecommerce",
+      "name": "Ecommerce",
+      "sections": [
+        {
+          "name": "Components",
+          "components": [
+            {
+              "name": "Product Overviews",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/product-overviews",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Product Lists",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/product-lists",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Category Previews",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/category-previews",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Shopping Carts",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/shopping-carts",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Category Filters",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/category-filters",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Product Quickviews",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/product-quickviews",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Product Features",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/product-features",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Store Navigation",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/store-navigation",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Promo Sections",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/promo-sections",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Checkout Forms",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/checkout-forms",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Reviews",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/reviews",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Order Summaries",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/order-summaries",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Order History",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/order-history",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Incentives",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/components/incentives",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        },
+        {
+          "name": "Page Examples",
+          "components": [
+            {
+              "name": "Storefront Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/storefront-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Product Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/product-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Category Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/category-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Shopping Cart Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/shopping-cart-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Checkout Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/checkout-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Order Detail Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/order-detail-pages",
+              "count": 0,
+              "type": "component"
+            },
+            {
+              "name": "Order History Pages",
+              "url": "https://tailwindcss.com/plus/ui-blocks/ecommerce/page-examples/order-history-pages",
+              "count": 0,
+              "type": "component"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

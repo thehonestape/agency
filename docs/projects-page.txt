@@ -1,0 +1,54 @@
+// src/app/(dashboard)/projects/page.tsx
+import { Suspense } from "react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ProjectsList } from "@/components/projects/projects-list"
+import { ProjectsHeader } from "@/components/projects/projects-header"
+import { ProjectsSkeleton } from "@/components/projects/projects-skeleton"
+import { 
+  useClientType, 
+  useTerminology 
+} from "@/hooks/use-terminology"
+
+export default function ProjectsPage() {
+  // In a real implementation, these would come from context
+  const clientType = "museum" // Example: could be museum, wellness, etc.
+  
+  return (
+    <div className="space-y-6">
+      <ProjectsHeader clientType={clientType} />
+      
+      <Tabs defaultValue="active" className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-4">
+          <TabsTrigger value="active">Active</TabsTrigger>
+          <TabsTrigger value="discovery">Discovery</TabsTrigger>
+          <TabsTrigger value="design">Design</TabsTrigger>
+          <TabsTrigger value="completed">Completed</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="active" className="mt-6">
+          <Suspense fallback={<ProjectsSkeleton />}>
+            <ProjectsList status="active" clientType={clientType} />
+          </Suspense>
+        </TabsContent>
+        
+        <TabsContent value="discovery" className="mt-6">
+          <Suspense fallback={<ProjectsSkeleton />}>
+            <ProjectsList status="active" phase="discovery" clientType={clientType} />
+          </Suspense>
+        </TabsContent>
+        
+        <TabsContent value="design" className="mt-6">
+          <Suspense fallback={<ProjectsSkeleton />}>
+            <ProjectsList status="active" phase="design" clientType={clientType} />
+          </Suspense>
+        </TabsContent>
+        
+        <TabsContent value="completed" className="mt-6">
+          <Suspense fallback={<ProjectsSkeleton />}>
+            <ProjectsList status="completed" clientType={clientType} />
+          </Suspense>
+        </TabsContent>
+      </Tabs>
+    </div>
+  )
+}

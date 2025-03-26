@@ -1,0 +1,12 @@
+{
+  "name": "next-polyfills-es",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./link": "./next-link.mjs",
+    "./router": "./next-router.mjs",
+    "./image": "./next-image.mjs",
+    "./head": "./next-head.mjs"
+  }
+} 
