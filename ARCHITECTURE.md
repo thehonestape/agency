@@ -56,7 +56,6 @@ Our component architecture follows a layered approach that combines traditional 
 - `data-display/` - Data display patterns
 
 #### Domain Components
-- `brand/` - Brand management
 - `dashboard/` - Dashboard components
 - `ecommerce/` - E-commerce components
 - `marketing/` - Marketing components

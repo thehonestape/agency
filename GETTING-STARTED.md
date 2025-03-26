@@ -42,7 +42,6 @@ src/components/
 │   └── page/           # Page layout patterns
 ├── features/           # Domain-specific components
 │   ├── auth/           # Authentication
-│   ├── brand/          # Brand management
 │   ├── dashboard/      # Dashboard components
 │   ├── editor/         # Content editors
 │   ├── marketing/      # Marketing components

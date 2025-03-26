@@ -26,7 +26,6 @@ src/components/
 │   └── page/            # Page-specific layouts
 ├── features/            # Domain-specific feature components
 │   ├── auth/            # Authentication components
-│   ├── brand/           # Brand management components
 │   ├── dashboard/       # Dashboard components
 │   ├── editor/          # Content editor components
 │   ├── marketing/       # Marketing components
@@ -61,7 +60,6 @@ These define the structure of the application:
 
 These implement domain-specific functionality:
 - Authentication (login, registration)
-- Brand management (brand details, assets)
 - Dashboard (analytics, metrics, reports)
 - Editor (rich text editing, content creation)
 - Marketing (landing pages, hero sections)
