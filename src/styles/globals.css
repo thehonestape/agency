@@ -1,4 +1,5 @@
 @import "./fonts.css";
+@config "../tailwind.config.js";
 
 /**
  * Base theme variables - single source of truth
