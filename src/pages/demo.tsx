@@ -243,11 +243,25 @@ export default function DemoPage() {
 
         {/* Main content */}
         <main className="lg:pl-72">
-          <div className="xl:pr-96">
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
-              {/* Main area content */}
-              <div className="rounded-lg border-2 border-dashed border-border p-4 h-96 flex items-center justify-center">
-                <p className="text-muted-foreground">Main content area</p>
+          <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            {/* Main area content */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Left column */}
+              <div className="rounded-lg border border-border bg-card p-6">
+                <h2 className="text-2xl font-semibold mb-4">Left Column</h2>
+                <p className="text-muted-foreground">
+                  This is the left column content. We've removed the xl:pr-96 padding to allow
+                  for a proper two-column layout in the main area.
+                </p>
+              </div>
+
+              {/* Right column */}
+              <div className="rounded-lg border border-border bg-card p-6">
+                <h2 className="text-2xl font-semibold mb-4">Right Column</h2>
+                <p className="text-muted-foreground">
+                  This is the right column content. The layout uses CSS Grid to create responsive
+                  columns that stack on mobile.
+                </p>
               </div>
             </div>
           </div>
