@@ -115,7 +115,7 @@ export function DashboardLayout({ children, navigation = [], sections = [] }: Da
         />
         
         <main data-layout-content className="flex-1 overflow-y-auto p-3 md:p-4 bg-surface-secondary/50 dark:bg-surface-secondary-dark/30">
-          <div data-layout-container className="mx-auto w-full max-w-7xl space-y-4">
+          <div data-layout-container className="mx-auto w-full space-y-4">
             {children}
           </div>
         </main>
