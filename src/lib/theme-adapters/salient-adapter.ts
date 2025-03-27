@@ -138,18 +138,24 @@ export const salientTheme: Theme = {
       
       /* Base colors */
       --primary: #3b82f6;
+      --primary-foreground: #ffffff;
       --secondary: #6366f1;
+      --secondary-foreground: #ffffff;
       --accent: #f43f5e;
+      --accent-foreground: #ffffff;
       
       /* UI colors */
       --background: #ffffff;
       --foreground: #18181b;
       --card: #ffffff;
       --card-foreground: #18181b;
+      --popover: #ffffff;
+      --popover-foreground: #18181b;
       --muted: #f4f4f5;
       --muted-foreground: #71717a;
       --border: #e4e4e7;
       --input: #e4e4e7;
+      --ring: #3b82f6;
       
       /* State colors */
       --destructive: #ef4444;
@@ -170,10 +176,22 @@ export const salientTheme: Theme = {
       --foreground: #fafafa;
       --card: #27272a;
       --card-foreground: #fafafa;
+      --popover: #27272a;
+      --popover-foreground: #fafafa;
       --muted: #3f3f46;
       --muted-foreground: #a1a1aa;
       --border: #52525b;
       --input: #52525b;
+      --ring: #7dd3fc;
+      
+      --destructive: #7f1d1d;
+      --destructive-foreground: #fafafa;
+      --success: #15803d;
+      --success-foreground: #fafafa;
+      --warning: #854d0e;
+      --warning-foreground: #fafafa;
+      --info: #0e7490;
+      --info-foreground: #fafafa;
     }
   `,
 }; 

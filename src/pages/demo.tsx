@@ -1,7 +1,8 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../components/ui/Card'
 import { Heading, Text } from '../components/ui/typography'
 import { DashboardLayout } from '../components/layouts/DashboardLayout'
-import { ThemeProvider } from '../components/ui/theme'
+import { ThemeProvider } from '../lib/theme-context'
+import { ThemeColorDisplay } from '../components/ui/ThemeColorDisplay'
 import { 
   FiLayout as LayoutDashboard, 
   FiFolder as FolderOpen, 
@@ -160,7 +161,7 @@ const sections = [
 
 export default function DemoPage() {
   return (
-    <ThemeProvider defaultMode="light">
+    <ThemeProvider defaultThemeId="salient">
       <DashboardLayout
         navigation={navigation}
         sections={sections}
@@ -169,14 +170,7 @@ export default function DemoPage() {
           {/* Color System */}
           <section>
             <Heading as="h2" size="h2" className="mb-4">Color System</Heading>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {colorTokens.map((token) => (
-                <Card key={token.name} className="p-4">
-                  <div className={`h-24 rounded-md ${token.class} mb-2`} />
-                  <Text className={token.textClass}>{token.name}</Text>
-                </Card>
-              ))}
-            </div>
+            <ThemeColorDisplay />
           </section>
 
           {/* Typography */}

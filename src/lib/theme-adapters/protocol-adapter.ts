@@ -138,18 +138,24 @@ export const protocolTheme: Theme = {
       
       /* Base colors */
       --primary: #0070f3;
+      --primary-foreground: #ffffff;
       --secondary: #6b7280;
+      --secondary-foreground: #ffffff;
       --accent: #f472b6;
+      --accent-foreground: #ffffff;
       
       /* UI colors */
       --background: #ffffff;
       --foreground: #111827;
       --card: #ffffff;
       --card-foreground: #111827;
+      --popover: #ffffff;
+      --popover-foreground: #111827;
       --muted: #f3f4f6;
       --muted-foreground: #6b7280;
       --border: #e5e7eb;
       --input: #e5e7eb;
+      --ring: #0070f3;
       
       /* State colors */
       --destructive: #ef4444;
@@ -170,10 +176,22 @@ export const protocolTheme: Theme = {
       --foreground: #f3f4f6;
       --card: #1f2937;
       --card-foreground: #f3f4f6;
+      --popover: #1f2937;
+      --popover-foreground: #f3f4f6;
       --muted: #374151;
       --muted-foreground: #d1d5db;
       --border: #4b5563;
       --input: #4b5563;
+      --ring: #38bdf8;
+      
+      --destructive: #7f1d1d;
+      --destructive-foreground: #f3f4f6;
+      --success: #15803d;
+      --success-foreground: #f3f4f6;
+      --warning: #854d0e;
+      --warning-foreground: #f3f4f6;
+      --info: #0e7490;
+      --info-foreground: #f3f4f6;
     }
   `,
 }; 
