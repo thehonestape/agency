@@ -1,6 +1,7 @@
 import { FiMenu, FiSearch, FiBell, FiPlus, FiHelpCircle, FiX } from "react-icons/fi";
 import { Button } from "../ui/button";
 import { ThemeSwitcher } from "../ui/theme-switcher";
+import { ThemeVariantSelector } from "../ui/ThemeVariantSelector";
 import { cn } from "../../lib/utils";
 import { useState, useEffect } from "react";
 
@@ -47,6 +48,12 @@ export function TopBar({ onMobileMenuToggle, sidebarCollapsed }: TopBarProps) {
           <h1 className="text-base font-semibold hidden md:block">{pageTitle}</h1>
         </div>
         
+        {/* Center section: theme variant selector */}
+        <div className="hidden md:flex items-center justify-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">Theme:</span>
+          <ThemeVariantSelector />
+        </div>
+        
         {/* Right section: search, actions, and user tools */}
         <div className="flex items-center gap-1.5 md:gap-2">
           {/* Search input with animation and proper layout */}
@@ -88,6 +95,11 @@ export function TopBar({ onMobileMenuToggle, sidebarCollapsed }: TopBarProps) {
           >
             <FiSearch className="h-4 w-4" />
           </Button>
+          
+          {/* Mobile theme selector (compact version) */}
+          <div className="md:hidden">
+            <ThemeVariantSelector triggerClassName="!min-w-0 w-10 h-10 !p-0 !justify-center !gap-0" />
+          </div>
           
           {/* Theme switcher */}
           <ThemeSwitcher />
