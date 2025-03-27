@@ -1,15 +1,16 @@
 import { Theme } from '../theme-registry';
 import Button from '../../components/protocol/Button';
 import Card from '../../components/protocol/Card';
+import { colorTokens, hslToString } from '../../components/ui/theme/tokens';
 
 // Protocol theme definition
 export const protocolTheme: Theme = {
   metadata: {
     id: 'protocol',
     name: 'Protocol',
-    description: 'A clean, professional theme with sharp edges and bold typography',
+    description: 'A clean and professional theme with sharp edges and subtle gradients',
     category: 'business',
-    tags: ['modern', 'professional', 'clean'],
+    tags: ['professional', 'sharp', 'clean'],
   },
   components: {
     Button,
@@ -21,44 +22,34 @@ export const protocolTheme: Theme = {
   tokens: {
     colors: {
       // Base colors
-      primary: '#0070f3',
-      secondary: '#6b7280',
-      accent: '#f472b6',
+      primary: hslToString(colorTokens.primary[600]),
+      secondary: hslToString(colorTokens.secondary[600]),
+      accent: hslToString(colorTokens.accent[600]),
       
       // UI colors
-      background: '#ffffff',
-      foreground: '#111827',
-      card: '#ffffff',
-      'card-foreground': '#111827',
-      muted: '#f3f4f6',
-      'muted-foreground': '#6b7280',
-      border: '#e5e7eb',
-      input: '#e5e7eb',
+      background: hslToString(colorTokens.neutral[50]),
+      foreground: hslToString(colorTokens.neutral[900]),
+      card: hslToString(colorTokens.neutral[50]),
+      'card-foreground': hslToString(colorTokens.neutral[900]),
+      muted: hslToString(colorTokens.neutral[100]),
+      'muted-foreground': hslToString(colorTokens.neutral[500]),
+      border: hslToString(colorTokens.neutral[200]),
+      input: hslToString(colorTokens.neutral[200]),
       
       // State colors
-      destructive: '#ef4444',
-      'destructive-foreground': '#ffffff',
-      success: '#22c55e',
-      'success-foreground': '#ffffff',
-      warning: '#f59e0b',
-      'warning-foreground': '#1a202c',
-      info: '#3b82f6',
-      'info-foreground': '#ffffff',
-      
-      // Dark mode colors
-      'dark-background': '#1a202c',
-      'dark-foreground': '#f3f4f6',
-      'dark-card': '#1f2937',
-      'dark-card-foreground': '#f3f4f6',
-      'dark-muted': '#374151',
-      'dark-muted-foreground': '#d1d5db',
-      'dark-border': '#4b5563',
-      'dark-input': '#4b5563',
+      destructive: hslToString(colorTokens.error[600]),
+      'destructive-foreground': hslToString(colorTokens.neutral[50]),
+      success: hslToString(colorTokens.success[600]),
+      'success-foreground': hslToString(colorTokens.neutral[50]),
+      warning: hslToString(colorTokens.warning[600]),
+      'warning-foreground': hslToString(colorTokens.neutral[900]),
+      info: hslToString(colorTokens.info[600]),
+      'info-foreground': hslToString(colorTokens.neutral[50]),
     },
     typography: {
       fontFamily: {
         sans: 'Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif',
-        mono: 'Menlo, Monaco, Consolas, "Liberation Mono", monospace',
+        mono: 'SF Mono, Menlo, Consolas, Monaco, monospace',
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1rem' }],
@@ -110,6 +101,7 @@ export const protocolTheme: Theme = {
       96: '24rem',
     },
     borderRadius: {
+      none: '0px',
       sm: '0.125rem',
       DEFAULT: '0.25rem',
       md: '0.375rem',
@@ -134,64 +126,78 @@ export const protocolTheme: Theme = {
     /* Protocol Theme CSS Variables */
     :root {
       --font-sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      --font-mono: Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --font-mono: SF Mono, Menlo, Consolas, Monaco, monospace;
       
       /* Base colors */
-      --primary: #0070f3;
-      --primary-foreground: #ffffff;
-      --secondary: #6b7280;
-      --secondary-foreground: #ffffff;
-      --accent: #f472b6;
-      --accent-foreground: #ffffff;
+      --background: ${hslToString(colorTokens.neutral[50])};
+      --foreground: ${hslToString(colorTokens.neutral[900])};
+      --card: ${hslToString(colorTokens.neutral[50])};
+      --card-foreground: ${hslToString(colorTokens.neutral[900])};
+      --primary: ${hslToString(colorTokens.primary[600])};
+      --primary-foreground: ${hslToString(colorTokens.neutral[50])};
+      --secondary: ${hslToString(colorTokens.secondary[600])};
+      --secondary-foreground: ${hslToString(colorTokens.neutral[50])};
+      --accent: ${hslToString(colorTokens.accent[600])};
+      --accent-foreground: ${hslToString(colorTokens.neutral[50])};
+      --muted: ${hslToString(colorTokens.neutral[100])};
+      --muted-foreground: ${hslToString(colorTokens.neutral[500])};
       
       /* UI colors */
-      --background: #ffffff;
-      --foreground: #111827;
-      --card: #ffffff;
-      --card-foreground: #111827;
-      --popover: #ffffff;
-      --popover-foreground: #111827;
-      --muted: #f3f4f6;
-      --muted-foreground: #6b7280;
-      --border: #e5e7eb;
-      --input: #e5e7eb;
-      --ring: #0070f3;
+      --border: ${hslToString(colorTokens.neutral[200])};
+      --input: ${hslToString(colorTokens.neutral[200])};
+      --ring: ${hslToString(colorTokens.primary[600])};
+      --popover: ${hslToString(colorTokens.neutral[50])};
+      --popover-foreground: ${hslToString(colorTokens.neutral[900])};
       
       /* State colors */
-      --destructive: #ef4444;
-      --destructive-foreground: #ffffff;
-      --success: #22c55e;
-      --success-foreground: #ffffff;
-      --warning: #f59e0b;
-      --warning-foreground: #1a202c;
-      --info: #3b82f6;
-      --info-foreground: #ffffff;
+      --destructive: ${hslToString(colorTokens.error[600])};
+      --destructive-foreground: ${hslToString(colorTokens.neutral[50])};
+      --success: ${hslToString(colorTokens.success[600])};
+      --success-foreground: ${hslToString(colorTokens.neutral[50])};
+      --warning: ${hslToString(colorTokens.warning[600])};
+      --warning-foreground: ${hslToString(colorTokens.neutral[900])};
+      --info: ${hslToString(colorTokens.info[600])};
+      --info-foreground: ${hslToString(colorTokens.neutral[50])};
       
       /* Border radius */
       --radius: 0.25rem;
+      --radius-sm: 0.125rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
     }
     
     .dark {
-      --background: #1a202c;
-      --foreground: #f3f4f6;
-      --card: #1f2937;
-      --card-foreground: #f3f4f6;
-      --popover: #1f2937;
-      --popover-foreground: #f3f4f6;
-      --muted: #374151;
-      --muted-foreground: #d1d5db;
-      --border: #4b5563;
-      --input: #4b5563;
-      --ring: #38bdf8;
+      --background: ${hslToString(colorTokens.neutral[950])};
+      --foreground: ${hslToString(colorTokens.neutral[50])};
+      --card: ${hslToString(colorTokens.neutral[900])};
+      --card-foreground: ${hslToString(colorTokens.neutral[50])};
+      --primary: ${hslToString(colorTokens.primary[400])};
+      --primary-foreground: ${hslToString(colorTokens.neutral[900])};
+      --secondary: ${hslToString(colorTokens.secondary[400])};
+      --secondary-foreground: ${hslToString(colorTokens.neutral[900])};
+      --accent: ${hslToString(colorTokens.accent[400])};
+      --accent-foreground: ${hslToString(colorTokens.neutral[900])};
+      --muted: ${hslToString(colorTokens.neutral[800])};
+      --muted-foreground: ${hslToString(colorTokens.neutral[400])};
       
-      --destructive: #7f1d1d;
-      --destructive-foreground: #f3f4f6;
-      --success: #15803d;
-      --success-foreground: #f3f4f6;
-      --warning: #854d0e;
-      --warning-foreground: #f3f4f6;
-      --info: #0e7490;
-      --info-foreground: #f3f4f6;
+      /* UI colors */
+      --border: ${hslToString(colorTokens.neutral[800])};
+      --input: ${hslToString(colorTokens.neutral[800])};
+      --ring: ${hslToString(colorTokens.primary[400])};
+      --popover: ${hslToString(colorTokens.neutral[900])};
+      --popover-foreground: ${hslToString(colorTokens.neutral[50])};
+      
+      /* State colors */
+      --destructive: ${hslToString(colorTokens.error[900])};
+      --destructive-foreground: ${hslToString(colorTokens.neutral[50])};
+      --success: ${hslToString(colorTokens.success[900])};
+      --success-foreground: ${hslToString(colorTokens.neutral[50])};
+      --warning: ${hslToString(colorTokens.warning[900])};
+      --warning-foreground: ${hslToString(colorTokens.neutral[50])};
+      --info: ${hslToString(colorTokens.info[900])};
+      --info-foreground: ${hslToString(colorTokens.neutral[50])};
     }
   `,
 }; 

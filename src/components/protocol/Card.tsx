@@ -1,11 +1,34 @@
 import React from 'react';
-import { Card as BaseCard, CardProps as BaseCardProps } from '../../components/adaptable/Card';
+import { cn } from '@/lib/utils';
 
-// Protocol card component
-const Card = (props: BaseCardProps) => {
-  // Protocol specific styling can be added here
-  // For now, we'll just use the base card component
-  return <BaseCard {...props} />;
-};
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: 'default' | 'outline' | 'ghost';
+}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant = 'default', ...props }, ref) => {
+    const baseStyles = 'rounded';
+    
+    const variants = {
+      default: 'bg-card text-card-foreground shadow-sm',
+      outline: 'border border-border',
+      ghost: 'hover:bg-accent hover:text-accent-foreground',
+    };
+    
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          baseStyles,
+          variants[variant],
+          className
+        )}
+        {...props}
+      />
+    );
+  }
+);
+
+Card.displayName = 'Card';
 
 export default Card; 
