@@ -1,5 +1,7 @@
 import { type ColorTokens, type SpacingTokens, type TypographyTokens } from '@/lib/theme-adapters/types';
 
+export type ContainerName = 'default' | 'narrow' | 'wide';
+
 export interface NavigationItem {
   id: string;
   label: string;
@@ -21,7 +23,7 @@ export interface BaseShellProps {
   layout?: {
     type: 'stacked' | 'sidebar' | 'multi-column';
     container?: {
-      name?: string;
+      name?: ContainerName;
       query?: string;
     };
   };
@@ -44,6 +46,14 @@ export interface BaseShellProps {
 
   // Common className prop
   className?: string;
+
+  // Variants for responsive design
+  variants?: {
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+  };
 }
 
 // Stacked layout props
@@ -51,6 +61,11 @@ export interface StackedShellProps extends BaseShellProps {
   layout: {
     type: 'stacked';
   } & BaseShellProps['layout'];
+  
+  // Page header props
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
 }
 
 // Sidebar layout props
@@ -59,6 +74,11 @@ export interface SidebarShellProps extends BaseShellProps {
     type: 'sidebar';
     sidebarWidth?: string;
   } & BaseShellProps['layout'];
+
+  // Page header props
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
 }
 
 // Multi-column layout props
@@ -71,4 +91,9 @@ export interface MultiColumnShellProps extends BaseShellProps {
       right?: { width?: string };
     };
   } & BaseShellProps['layout'];
+
+  // Page header props
+  title?: string;
+  description?: string;
+  children?: React.ReactNode;
 } 

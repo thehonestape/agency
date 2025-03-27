@@ -1,11 +1,11 @@
-import { type BaseShellProps } from './types';
+import { type BaseShellProps, type ContainerName } from './types';
 import { cn } from '@/lib/utils';
 
 type Density = 'compact' | 'comfortable' | 'spacious';
 type LayoutType = 'stacked' | 'sidebar' | 'multi-column';
 
 export function composeShellStyles(props: BaseShellProps) {
-  const { theme, layout, density = 'comfortable' } = props;
+  const { theme, layout, density = 'comfortable', variants } = props;
   
   return {
     // Base styles
@@ -29,6 +29,13 @@ export function composeShellStyles(props: BaseShellProps) {
       comfortable: 'gap-4',
       spacious: 'gap-6',
     }[density as Density],
+    
+    // Container styles
+    container: {
+      default: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
+      narrow: 'max-w-3xl mx-auto px-4 sm:px-6 lg:px-8',
+      wide: 'max-w-full mx-auto px-4 sm:px-6 lg:px-8',
+    } as const,
     
     // Navigation styles
     navigation: {
@@ -95,6 +102,14 @@ export function composeShellStyles(props: BaseShellProps) {
         theme?.colors?.border ? `border-${theme.colors.border}` : "border-border"
       ),
     },
+
+    // Responsive variants
+    variants: {
+      sm: variants?.sm,
+      md: variants?.md,
+      lg: variants?.lg,
+      xl: variants?.xl,
+    },
   };
 }
 
@@ -106,7 +121,10 @@ export function composeStackedShellStyles(props: BaseShellProps) {
     // Stacked-specific styles
     stacked: {
       container: "flex flex-col min-h-screen",
-      header: baseStyles.content.header,
+      header: cn(
+        baseStyles.content.header,
+        "bg-white shadow"
+      ),
       main: cn(
         "flex-1 overflow-auto",
         baseStyles.content.main
