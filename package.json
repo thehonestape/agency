@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "exports": {
+    "./postcss.config.cjs": "./postcss.config.cjs",
+    "./tailwind.config.cjs": "./tailwind.config.cjs"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -47,8 +51,6 @@
     "@sanity/client": "^6.28.3",
     "@supabase/supabase-js": "^2.49.1",
     "@tailwindcss/cli": "^4.0.14",
-    "@tailwindcss/postcss": "^4.0.14",
-    "@tailwindcss/vite": "^4.0.14",
     "@tiptap/extension-color": "^2.11.5",
     "@tiptap/extension-highlight": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
@@ -56,6 +58,7 @@
     "@types/chroma-js": "^3.1.1",
     "@types/dompurify": "^3.0.5",
     "@types/uuid": "^10.0.0",
+    "autoprefixer": "^9.8.8",
     "chroma-js": "^3.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -66,7 +69,7 @@
     "lucide-react": "^0.363.0",
     "next-themes": "^0.4.6",
     "openai": "^4.87.4",
-    "postcss": "^8.5.3",
+    "postcss": "^7.0.39",
     "prettier": "^3.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -78,7 +81,7 @@
     "reactflow": "^11.11.4",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss": "^4.0.14",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-fluid-type": "^2.0.7",
     "uuid": "^11.1.0"

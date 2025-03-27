@@ -1,33 +1,9 @@
 @import "./fonts.css";
-@import "./theme.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html,
-  body {
-    @apply min-h-screen;
-    @apply text-foreground bg-background;
-  }
-
-  body {
-    @apply max-w-full overflow-x-hidden;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  * {
-    @apply box-border;
-  }
-}
-
-/**
- * Base theme variables - single source of truth
- * Using hex color values for better compatibility
- */
 :root {
   /* Color System */
   --background: #ffffff;
@@ -70,7 +46,7 @@
   --nav-section-text: #6b7280;
   --nav-count: #6b7280;
   
-  /* Button specific colors - default to primary colors */
+  /* Button specific colors */
   --button-background: var(--primary);
   --button-text: var(--primary-foreground);
   
@@ -90,10 +66,6 @@
   --speed-slowest: 500ms;
 }
 
-/**
- * Dark theme overrides
- * Only override the variables that change in dark mode
- */
 .dark {
   --background: #0f172a;
   --foreground: #f8fafc;
@@ -134,17 +106,27 @@
   --nav-icon-hover: #3b82f6;
   --nav-section-text: #94a3b8;
   --nav-count: #94a3b8;
-  
-  /* Button colors for dark mode */
-  --button-background: var(--primary);
-  --button-text: var(--primary-foreground);
-  
-  /* Dark mode chart colors */
-  --chart-1: #818cf8;
-  --chart-2: #34d399;
-  --chart-3: #fbbf24;
-  --chart-4: #c084fc;
-  --chart-5: #f87171;
+}
+
+@layer base {
+  html,
+  body {
+    min-height: 100vh;
+    color: var(--foreground);
+    background-color: var(--background);
+  }
+
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 /* Theme transitions */
@@ -195,28 +177,3 @@
 .space-y-4 > * + * {
   margin-top: 1rem;
 }
-
-/* PageBuilder section styles */
-.section-container {
-  position: relative;
-  transition: all var(--speed-normal) ease;
-}
-
-.section-container:hover {
-  z-index: 10;
-}
-
-.section-container:focus-within {
-  outline: 2px dashed var(--primary);
-  opacity: 0.3;
-  outline-offset: 4px;
-}
-
-/* Micro-interactions for interactive elements */
-.btn, button, a, input, select, textarea {
-  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: var(--speed-normal);
-}
-
-/* The rest of the file remains unchanged */ 
