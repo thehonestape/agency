@@ -23,9 +23,10 @@ export { ThemeProvider, useTheme } from '../lib/theme-context';
 export { getThemeValue, getCssVar, getThemeClass } from '../hooks/useTheme';
 export { salientTheme } from '../lib/theme-adapters/salient-adapter';
 export { protocolTheme } from '../lib/theme-adapters/protocol-adapter';
-export { generateThemeFromBrand, applyThemeToDom } from '../themes/generators/brandToTheme';
+// Removed brand theme generator - to be replaced with new implementation
+// export { generateThemeFromBrand, applyThemeToDom } from '../themes/generators/brandToTheme';
 export type { Theme, ThemeMode } from '../themes/types';
-export type { BrandData } from '../themes/generators/brandToTheme';
+// export type { BrandData } from '../themes/generators/brandToTheme';
 
 // Component Composition
 export { 

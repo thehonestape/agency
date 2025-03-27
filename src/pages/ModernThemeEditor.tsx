@@ -8,7 +8,6 @@ import {
 } from '../component-system';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { ArrowLeft, Type, Palette, Grid, Sun, Moon, Code, Layers, LayoutGrid, Save, Copy, Download } from 'lucide-react';
-import { BrandThemeGenerator } from '../components/themes/generators/BrandThemeGenerator';
 import { AppShell } from '../components/core/layout/AppShell';
 import { SideNav } from '../components/patterns/navigation/SideNav';
 import { TopBar } from '../components/patterns/navigation/TopBar';
@@ -302,9 +301,18 @@ const ModernThemeEditor = () => {
                     </TabsList>
 
                     <TabsContent value="brand" className="mt-4">
-                      <BrandThemeGenerator 
-                        onThemeGenerated={handleThemeGenerated}
-                      />
+                      <Card variant="elevated">
+                        <div className="p-6">
+                          <h3 className="font-bold mb-4">Theme Generator</h3>
+                          <p className="mb-4">The BrandThemeGenerator has been removed. A new color system implementation is coming soon.</p>
+                          <Button variant="primary" onClick={() => {
+                            // Placeholder functionality
+                            alert('New theme generator coming soon!');
+                          }}>
+                            Generate Sample Theme
+                          </Button>
+                        </div>
+                      </Card>
                     </TabsContent>
 
                     <TabsContent value="advanced" className="mt-4">
