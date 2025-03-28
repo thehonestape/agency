@@ -1,179 +1,67 @@
-import { useState, Suspense, lazy } from 'react'
-import { Route, Routes, Navigate, Outlet, Link } from 'react-router-dom'
-import { DarkNavWithWhitePageHeader } from './components/application-shells/stacked'
-import { DarkSidebarWithHeader } from './components/application-shells/sidebar'
-import { OrganizationList } from './components/OrganizationList'
-import { CreateOrganizationForm } from './components/CreateOrganizationForm'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './components/ui/Card'
-import { Button } from './components/ui/button'
-import { FiPlus } from 'react-icons/fi'
-import RootLayout from './components/layouts/RootLayout'
-import LoadingState from './components/animation/LoadingState'
-import ErrorBoundary from './components/ErrorBoundary'
-import { DashboardExample } from './components/dashboard'
-import { ThemeToggle } from './components/theme-toggle'
-import AIChatDashboard from './pages/AIChatDashboard'
-import StyleTilePage from './pages/StyleTilePage'
-import UIBlocksPage from './pages/UIBlocksPage'
-import UIBlocksDemo from './pages/UIBlocksDemo'
-import UIBlocksDocumentation from './pages/UIBlocksDocumentation'
-import PreviewImageGenerator from './components/PreviewImageGenerator'
-import ThemeEditorPage from './pages/ThemeEditorPage'
-import ComponentDemo from './pages/ComponentDemo'
-import AdminRoute from './components/auth/AdminRoute'
-import DashboardPage from './pages/admin/DashboardPage'
-import EditorDemo from './pages/editor/EditorDemo'
-import BlockNoteDemo from './pages/editor/BlockNoteDemo'
-import './App.css'
-import SimpleComponentGallery from './SimpleComponentGallery'
-import ColorSystemTest from './components/demo/ColorSystemTest'
-
-// Lazy load pages for better performance
-const HomePage = lazy(() => import('./pages/HomePage'))
-const WorkPage = lazy(() => import('./pages/WorkPage'))
-const PricingPage = lazy(() => import('./pages/PricingPage'))
-const ServicesPage = lazy(() => import('./pages/ServicesPage'))
-const StudioPage = lazy(() => import('./pages/StudioPage'))
-const OnboardingPage = lazy(() => import('./pages/OnboardingPage'))
-const DefaultDashboardPage = lazy(() => import('./pages/DefaultDashboardPage'))
-const SitemapPage = lazy(() => import('./pages/SitemapPage'))
-const SitemapEditorPage = lazy(() => import('./pages/SitemapEditorPage'))
-const BlockEditorDemo = lazy(() => import('./pages/BlockEditorDemo'))
-const AdvancedBlockEditorDemo = lazy(() => import('./pages/AdvancedBlockEditorDemo'))
-const TypographyFlowDemo = lazy(() => import('./pages/TypographyFlowDemo'))
-const ThemeShowcasePage = lazy(() => import('./pages/ThemeShowcasePage'))
-const DataExplorerPage = lazy(() => import('./pages/DataExplorerPage'))
-const DesignerDashboard = lazy(() => import('./pages/DesignerDashboard'))
-const ClientDashboard = lazy(() => import('./pages/ClientDashboard'))
-const ComponentShowcase = lazy(() => import('./pages/ComponentShowcase'))
-const ComponentGenerator = lazy(() => import('./pages/ComponentGenerator'))
-const FeatureShowcase = lazy(() => import('./pages/FeatureShowcase'))
-const ModernThemeEditor = lazy(() => import('./pages/ModernThemeEditor'))
-const DemoPage = lazy(() => import('./pages/demo'))
-const StandaloneShowcase = lazy(() => import('./pages/standalone-showcase'))
-const CleanComponentShowcase = lazy(() => import('./pages/CleanComponentShowcase'))
-const AppShowcase = lazy(() => import('./pages/app-showcase'))
-const TwoColumnShowcase = lazy(() => import('./pages/two-column-showcase'))
-
-// Fix lazy imports by removing the .ProjectsPage and .ProjectView properties
-const ProjectsPage = lazy(() => import('./pages/ProjectsPage'))
-const ProjectManagementPage = lazy(() => 
-  import('./pages/ProjectManagementPage').then(module => ({ default: module.ProjectManagementPage }))
-)
-const ProjectView = lazy(() => import('./pages/ProjectView'))
-const ProjectCollaborationPage = lazy(() => import('./pages/ProjectCollaborationPage'))
-const Dashboard = lazy(() => import('./pages/Dashboard'))
-
-// Import the TailwindComponentBrowser and TailwindComponentViewer
-const TailwindComponentsPage = lazy(() => 
-  import('./components/TailwindComponentBrowser').then(module => ({ default: module.default }))
-)
-const TailwindComponentViewer = lazy(() => 
-  import('./components/TailwindComponentViewer').then(module => ({ default: module.default }))
-)
-
-// Lazy load for wrapped version
-const ComponentGalleryPage = lazy(() => import('./pages/SimpleComponentGallery'))
-
-// Wrap it with the same layout used for other pages
-const WrappedComponentGallery = () => (
-  <DarkNavWithWhitePageHeader>
-    <ComponentGalleryPage />
-  </DarkNavWithWhitePageHeader>
-);
-
-// Layout component for the app
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return (
-    <div className="app-container">
-      <header className="app-header">
-        <h1>Agency</h1>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/components">Component Gallery</Link></li>
-          </ul>
-        </nav>
-      </header>
-      <main className="app-main">
-        {children}
-      </main>
-      <footer className="app-footer">
-        <p>&copy; {new Date().getFullYear()} Agency. All rights reserved.</p>
-      </footer>
-    </div>
-  );
-};
-
-// Home page component
-const Home: React.FC = () => {
-  return (
-    <div className="home-page">
-      <h2>Welcome to Agency</h2>
-      <p>This is a demo app showcasing our component library.</p>
-      <p>
-        <Link to="/components" className="cta-button">
-          View Component Gallery
-        </Link>
-      </p>
-    </div>
-  );
-};
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import ErrorBoundary from './components/ui/feedback/ErrorBoundary';
+import HomePage from './pages/HomePage';
+import ComponentExplorer from './pages/ComponentExplorer';
+import DashboardLayout from './layouts/DashboardLayout';
+import MainLayout from './layouts/MainLayout';
+import Dashboard from './pages/Dashboard';
+import ComponentsPage from './pages/ComponentsPage';
+import DesignSystemPage from './pages/DesignSystemPage';
+import ThemeDemoPage from './pages/ThemeDemoPage';
+import DesignSystemDocsPage from './pages/DesignSystemDocsPage';
+import ViewSwitcherPage from './pages/ViewSwitcherPage';
+import ViewSwitcherDemo from './pages/ViewSwitcherDemo';
+import StandaloneViewDemo from './pages/StandaloneViewDemo';
+import SimpleDemoPage from './views/SimpleDemoPage';
+import FullViewExample from './views/FullViewExample';
+import DesignSystem from './pages/DesignSystem';
 
 function App() {
   return (
     <ErrorBoundary>
-      <Suspense fallback={<LoadingState />}>
+      <Suspense fallback={<div className="p-4">Loading...</div>}>
         <Routes>
-          {/* Add test route for color system */}
-          <Route path="/color-test" element={
-            <DarkNavWithWhitePageHeader>
-              <ColorSystemTest />
-            </DarkNavWithWhitePageHeader>
-          } />
+          {/* Design System Route (Default) */}
+          <Route path="/" element={<DesignSystem />} />
           
-          {/* Component Gallery Routes */}
-          <Route path="/component-gallery" element={<SimpleComponentGallery />} />
-          <Route path="/gallery" element={<SimpleComponentGallery />} />
-          
-          {/* Direct routes to component showcases */}
-          <Route path="/demo" element={<DemoPage />} />
-          <Route path="/showcase" element={<StandaloneShowcase />} />
-          <Route path="/clean-showcase" element={<CleanComponentShowcase />} />
-          <Route path="/app-showcase" element={<AppShowcase />} />
-          <Route path="/two-column-showcase" element={<TwoColumnShowcase />} />
-
-          {/* Admin Routes - Using DarkSidebarWithHeader */}
-          <Route path="/admin" element={
-            <AdminRoute>
-              <DarkSidebarWithHeader>
-                <Outlet />
-              </DarkSidebarWithHeader>
-            </AdminRoute>
-          }>
-            <Route index element={<DashboardPage />} />
-            <Route path=":brandId">
-              <Route path="design" element={<div>Design Page</div>} />
-              <Route path="story" element={<div>Story Page</div>} />
-              <Route path="digital" element={<div>Digital Page</div>} />
-              <Route path="social" element={<div>Social Page</div>} />
-              <Route path="business" element={<div>Business Page</div>} />
-            </Route>
-            <Route path="settings" element={<div>Settings Page</div>} />
+          {/* Public Routes - Marketing/Sales Pages */}
+          <Route element={<MainLayout />}>
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/work" element={<div>Work Page</div>} />
+            <Route path="/pricing" element={<div>Pricing Page</div>} />
+            <Route path="/services" element={<div>Services Page</div>} />
+            <Route path="/studio" element={<div>Studio Page</div>} />
+            <Route path="/onboarding" element={<div>Onboarding Page</div>} />
+            <Route path="/demo" element={<div>Demo Page</div>} />
+            <Route path="/theme" element={<ThemeDemoPage />} />
+            <Route path="/components" element={<ComponentExplorer />} />
+            <Route path="/design-docs" element={<DesignSystemDocsPage />} />
+            <Route path="/view-switcher" element={<ViewSwitcherPage />} />
+            <Route path="/view-switcher-demo" element={<ViewSwitcherDemo />} />
+            <Route path="/standalone-demo" element={<StandaloneViewDemo />} />
+            <Route path="/simple-demo" element={<SimpleDemoPage />} />
+            <Route path="/simple-views" element={<SimpleDemoPage />} />
+            <Route path="/full-view-demo" element={<FullViewExample />} />
           </Route>
 
-          {/* Non-Admin Routes - Using DarkNavWithWhitePageHeader */}
-          <Route element={
-            <DarkNavWithWhitePageHeader>
-              <Outlet />
-            </DarkNavWithWhitePageHeader>
-          }>
-            {/* Marketing/Public Routes */}
-            <Route path="/work" element={<WorkPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/studio" element={<StudioPage />} />
-            <Route path="/onboarding" element={<OnboardingPage />} />
+          {/* Dashboard Routes with unified layout */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/projects" element={<div>Projects Dashboard</div>} />
+            <Route path="/dashboard/team" element={<div>Team Management</div>} />
+            <Route path="/dashboard/analytics" element={<div>Analytics Dashboard</div>} />
+            <Route path="/dashboard/components" element={<ComponentsPage />} />
+
+            {/* Design System Pages */}
+            <Route path="/dashboard/design" element={<DesignSystemPage />} />
+            <Route path="/dashboard/design/theme" element={<ThemeDemoPage />} />
+            <Route path="/dashboard/design/docs" element={<DesignSystemDocsPage />} />
+            <Route path="/dashboard/design/view-switcher" element={<ViewSwitcherDemo />} />
+
+            <Route path="/dashboard/settings" element={<div>Settings Page</div>} />
+            <Route path="/dashboard/docs" element={<div>Documentation</div>} />
+            <Route path="/dashboard/help" element={<div>Help & Support</div>} />
           </Route>
         </Routes>
       </Suspense>
@@ -181,4 +69,4 @@ function App() {
   );
 }
 
-export default App 
+export default App;
