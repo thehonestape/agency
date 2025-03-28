@@ -1,18 +1,28 @@
-import React from "react";
-import { FiMoon, FiSun } from "react-icons/fi";
-import { Button } from "./button";
-import { cn } from "../../lib/utils";
-import { useTheme } from "../../lib/theme-context";
+import React from 'react';
+import { Button } from './button';
+import { Moon, Sun } from 'lucide-react';
 
-export function ThemeSwitcher({ className }: { className?: string }) {
-  const { currentTheme } = useTheme();
-  
-  // Check if we're in dark mode based on the current theme's background color
-  const isDarkMode = currentTheme?.tokens?.colors?.background === '#18181b';
-  
-  // For simplicity, toggle between light and dark mode
+export const ThemeSwitcher = () => {
+  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
+
+  React.useEffect(() => {
+    // Check if user has a theme preference in localStorage
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    } else if (prefersDark) {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
   const toggleTheme = () => {
-    // This is a placeholder for actual theme switching
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
     document.documentElement.classList.toggle('dark');
   };
 
@@ -21,10 +31,13 @@ export function ThemeSwitcher({ className }: { className?: string }) {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className={cn("w-9 h-9 rounded-full", className)}
-      aria-label="Toggle theme"
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
     >
-      {!isDarkMode ? <FiSun className="h-5 w-5" /> : <FiMoon className="h-5 w-5" />}
+      {theme === 'light' ? (
+        <Moon className="h-5 w-5" />
+      ) : (
+        <Sun className="h-5 w-5" />
+      )}
     </Button>
   );
-} 
+}; 

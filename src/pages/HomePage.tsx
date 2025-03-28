@@ -2,105 +2,81 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/button';
-import { ThemeToggle } from '../components/theme-toggle';
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 border-b bg-background">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold">Workhorse</h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <nav className="hidden md:flex items-center space-x-4">
-              <Link to="/" className="text-sm font-medium hover:text-primary">Home</Link>
-              <Link to="/dashboard" className="text-sm font-medium hover:text-primary">Dashboard</Link>
-              <Link to="/projects" className="text-sm font-medium hover:text-primary">Projects</Link>
-              <Link to="/brands/demo" className="text-sm font-medium hover:text-primary">Brands</Link>
-            </nav>
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-      
-      <main className="container py-8">
-        <div className="flex flex-col gap-4 text-center mb-12">
-          <h1 className="text-4xl font-bold tracking-tight">Welcome to Workhorse</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Access your brand management dashboard, AI assistant, and project tools all in one place.
+    <main className="py-8">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold tracking-tight">Semantic Component System</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
+            A modern, accessible, and themeable component system built with React and Tailwind CSS.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>AI Chat Dashboard</CardTitle>
+              <CardTitle>Component Library</CardTitle>
               <CardDescription>
-                Chat with your brand AI assistant and get insights for your projects
+                Explore our collection of semantic UI components
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                The AI Chat Dashboard provides real-time brand analysis, content suggestions, and market insights
-                through a conversational interface.
+                Browse through our comprehensive set of components, from basic primitives to complex patterns.
+                Each component is built with accessibility and theming in mind.
               </p>
             </CardContent>
             <CardFooter>
               <Button asChild className="w-full">
-                <Link to="/dashboard/ai">Open AI Dashboard</Link>
+                <Link to="/components">View Components</Link>
               </Button>
             </CardFooter>
           </Card>
           
           <Card>
             <CardHeader>
-              <CardTitle>Projects</CardTitle>
+              <CardTitle>Theme System</CardTitle>
               <CardDescription>
-                Manage and organize your creative projects
+                Customize and manage your design system
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Create, track, and collaborate on projects with team members and clients. Monitor progress
-                and ensure deadlines are met.
+                Create and manage themes with our HSL-based color system. Preview and switch between themes
+                in real-time.
               </p>
             </CardContent>
             <CardFooter>
               <Button asChild variant="outline" className="w-full">
-                <Link to="/projects">View Projects</Link>
+                <Link to="/theme">Theme Editor</Link>
               </Button>
             </CardFooter>
           </Card>
           
           <Card>
             <CardHeader>
-              <CardTitle>Brand Management</CardTitle>
+              <CardTitle>Interactive Demo</CardTitle>
               <CardDescription>
-                Create and manage brand identities
+                See components in action
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Design, develop, and maintain consistent brand experiences across all touchpoints. Access brand
-                guidelines, assets, and analytics.
+                Experience our component system through interactive examples and live demos.
+                Test different variants and see how components adapt to different themes.
               </p>
             </CardContent>
             <CardFooter>
               <Button asChild variant="outline" className="w-full">
-                <Link to="/brands/demo">Explore Brands</Link>
+                <Link to="/demo">View Demo</Link>
               </Button>
             </CardFooter>
           </Card>
         </div>
-      </main>
-      
-      <footer className="border-t bg-background">
-        <div className="container py-6 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Workhorse. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+      </div>
+    </main>
   );
 };
 

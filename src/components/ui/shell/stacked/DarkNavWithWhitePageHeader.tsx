@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { type StackedShellProps } from '../types';
 import { composeStackedShellStyles } from '../compose';
 import { cn } from '@/lib/utils';
+import { ThemeSwitcher } from '../../theme-switcher';
 
 const navigation = [
   { id: 'dashboard', label: 'Dashboard', href: '/dashboard', active: true },
@@ -47,148 +48,69 @@ export function DarkNavWithWhitePageHeader({
   });
 
   return (
-    <div className={cn(
-      styles.stacked.container,
-      styles.base.background,
-      styles.density,
-      layout?.container?.name && styles.container[layout.container.name],
-      variants?.sm,
-      variants?.md,
-      variants?.lg,
-      variants?.xl,
-      className
-    )}>
+    <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <header className={cn(
-        "bg-gray-900",
-        styles.stacked.header
-      )}>
-        <nav className={cn(
-          "mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8",
-          styles.navigation?.top?.nav
-        )} aria-label="Global">
-          <div className="flex lg:flex-1">
-            <Link to="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <Link
-                key={item.id}
-                to={item.href || '#'}
-                className={cn(
-                  "text-sm font-semibold leading-6",
-                  item.active
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
-                )}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link
-              to="/profile"
-              className="text-sm font-semibold leading-6 text-white"
-            >
-              Your profile <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
-        </nav>
-        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-          <div className="fixed inset-0 z-10" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
-            <div className="flex items-center justify-between">
-              <Link to="/" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=white"
-                  alt=""
-                />
-              </Link>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-400"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/25">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.id}
-                      to={item.href || '#'}
-                      className={cn(
-                        "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7",
-                        item.active
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-300 hover:bg-gray-800 hover:text-white"
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-                <div className="py-6">
-                  {userNavigation.map((item) => (
-                    <Link
-                      key={item.id}
-                      to={item.href || '#'}
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-300 hover:bg-gray-800 hover:text-white"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
+      <nav className="bg-card border-b">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 justify-between">
+            <div className="flex">
+              <div className="flex flex-shrink-0 items-center">
+                <Link to="/" className="text-xl font-bold text-primary">
+                  Agency
+                </Link>
+              </div>
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <Link
+                  to="/work"
+                  className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-muted-foreground hover:border-primary hover:text-foreground"
+                >
+                  Work
+                </Link>
+                <Link
+                  to="/pricing"
+                  className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-muted-foreground hover:border-primary hover:text-foreground"
+                >
+                  Pricing
+                </Link>
+                <Link
+                  to="/services"
+                  className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-muted-foreground hover:border-primary hover:text-foreground"
+                >
+                  Services
+                </Link>
+                <Link
+                  to="/studio"
+                  className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-muted-foreground hover:border-primary hover:text-foreground"
+                >
+                  Studio
+                </Link>
               </div>
             </div>
-          </Dialog.Panel>
-        </Dialog>
-      </header>
-
-      {/* Page Header */}
-      <header className={cn(
-        "bg-white shadow",
-        styles.stacked.header
-      )}>
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900">{title}</h1>
-              <p className="mt-1 text-sm text-gray-500">{description}</p>
+            <div className="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
+              <ThemeSwitcher />
+              <Link
+                to="/onboarding"
+                className="rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+              >
+                Get Started
+              </Link>
             </div>
           </div>
+        </div>
+      </nav>
+
+      {/* Page Header */}
+      <header className="bg-card shadow">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            Welcome to Agency
+          </h1>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className={cn(
-        "py-10",
-        styles.stacked.main
-      )}>
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <main>
+        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           {children}
         </div>
       </main>

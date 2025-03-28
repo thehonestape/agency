@@ -7,7 +7,6 @@ import './styles/fonts.css'
 import './styles/tremor.css'
 import './styles/blocknote.css'
 import { ThemeProvider } from './lib/theme-context'
-import { AIAssistantProvider } from './components/ai/AIAssistantProvider'
 import { registerAllThemes } from './lib/theme-adapters/register-all-themes'
 
 // Register all themes on application startup
@@ -25,9 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider defaultThemeId="salient">
-        <AIAssistantProvider>
-          <App />
-        </AIAssistantProvider>
+        <App />
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

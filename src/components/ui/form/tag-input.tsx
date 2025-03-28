@@ -52,6 +52,8 @@ const tagVariants = cva(
   }
 );
 
+export { tagInputVariants, tagVariants };
+
 type TagInputSize = "sm" | "md" | "lg";
 type TagInputVariant = "default" | "subtle" | "muted" | "inverse";
 
@@ -89,22 +91,23 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
     ...props 
   }, ref) => {
     const [inputValue, setInputValue] = React.useState("");
+    const safeValue = Array.isArray(value) ? value : [];
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter" || e.key === ",") {
         e.preventDefault();
         const newTag = inputValue.trim();
-        if (newTag && (!maxTags || value.length < maxTags)) {
-          onChange?.([...value, newTag]);
+        if (newTag && (!maxTags || safeValue.length < maxTags)) {
+          onChange?.([...safeValue, newTag]);
           setInputValue("");
         }
-      } else if (e.key === "Backspace" && !inputValue && value.length > 0) {
-        onChange?.(value.slice(0, -1));
+      } else if (e.key === "Backspace" && !inputValue && safeValue.length > 0) {
+        onChange?.(safeValue.slice(0, -1));
       }
     };
 
     const removeTag = (tagToRemove: string) => {
-      onChange?.(value.filter(tag => tag !== tagToRemove));
+      onChange?.(safeValue.filter(tag => tag !== tagToRemove));
     };
 
     return (
@@ -130,7 +133,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           </div>
         )}
         <div className={cn(tagInputVariants({ size, variant, container, className }))}>
-          {value.map((tag) => (
+          {safeValue.map((tag) => (
             <span
               key={tag}
               className={cn(tagVariants({ variant }))}
@@ -156,7 +159,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={value.length === 0 ? placeholder : undefined}
+            placeholder={safeValue.length === 0 ? placeholder : undefined}
             className="flex-1 bg-transparent outline-none"
             {...props}
           />
@@ -168,4 +171,4 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 
 TagInput.displayName = "TagInput";
 
-export { TagInput, tagInputVariants, tagVariants }; 
+export { TagInput }; 

@@ -7,13 +7,11 @@ const dateTimePickerVariants = cva(
   "flex w-full items-center gap-2",
   {
     variants: {
-      // Size variants
       size: {
         sm: "h-8",
         md: "h-10",
         lg: "h-12",
       },
-      // State variants
       state: {
         default: "",
         error: "border-error focus-visible:ring-error",
@@ -21,28 +19,24 @@ const dateTimePickerVariants = cva(
         warning: "border-warning focus-visible:ring-warning",
         info: "border-info focus-visible:ring-info",
       },
-      // Visual variants
       variant: {
         default: "bg-background",
         subtle: "bg-subtle",
         muted: "bg-muted",
         inverse: "bg-inverse",
       },
-      // Border variants
       border: {
         none: "border-0",
         subtle: "border-subtle",
         default: "border-default",
         strong: "border-2 border-default",
       },
-      // Shadow variants
       shadow: {
         none: "shadow-none",
         sm: "shadow-sm",
         md: "shadow-md",
         lg: "shadow-lg",
       },
-      // Container query support
       container: {
         true: "@container",
         false: "",
@@ -91,6 +85,8 @@ const dateTimeIconVariants = cva(
   }
 );
 
+export { dateTimePickerVariants, dateTimeInputVariants, dateTimeIconVariants };
+
 export interface DateTimePickerProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
     VariantProps<typeof dateTimePickerVariants> {
@@ -122,8 +118,8 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
     format = "YYYY-MM-DDTHH:mm",
     min,
     max,
-    step = showSeconds ? 1 : 60,
     showSeconds = false,
+    step = showSeconds ? 1 : 60,
     value,
     onChange,
     ...props 
@@ -193,4 +189,4 @@ const DateTimePicker = React.forwardRef<HTMLInputElement, DateTimePickerProps>(
 
 DateTimePicker.displayName = "DateTimePicker";
 
-export { DateTimePicker, dateTimePickerVariants, dateTimeInputVariants, dateTimeIconVariants }; 
+export { DateTimePicker }; 

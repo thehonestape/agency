@@ -1,11 +1,9 @@
 export * from './authService';
 export * from './organizationService';
-export * from './brandService';
 export * from './projectService';
 export * from './assetService';
 export * from './aiService';
 export * from './storageService';
-export { brandMemoryService } from './brandMemoryService';
 export * from './userService';
 
 // Import analyticsService with explicit exports to avoid naming conflicts

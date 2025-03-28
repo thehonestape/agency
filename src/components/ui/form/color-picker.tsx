@@ -170,7 +170,7 @@ const ColorPicker = React.forwardRef<HTMLInputElement, ColorPickerProps>(
       }
     };
 
-    const colorValue = value as string;
+    const colorValue = value as string || '#000000';
     const hsl = hexToHSL(colorValue);
     const rgb = hexToRGB(colorValue);
 
