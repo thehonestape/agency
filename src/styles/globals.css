@@ -1,14 +1,135 @@
 @import "./fonts.css";
 @import "./theme.css";
 @import "tailwindcss";
+@import "./base.css";
 
 /* Define utility classes to map to our CSS variables */
 @utilities {
+  /* Background Colors */
   .bg-background {
     background-color: var(--background);
   }
+  .bg-foreground {
+    background-color: var(--foreground);
+  }
+  .bg-card {
+    background-color: var(--card);
+  }
+  .bg-popover {
+    background-color: var(--popover);
+  }
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  .bg-muted {
+    background-color: var(--muted);
+  }
+  .bg-destructive {
+    background-color: var(--destructive);
+  }
+  .bg-success {
+    background-color: var(--success);
+  }
+  .bg-warning {
+    background-color: var(--warning);
+  }
+  .bg-info {
+    background-color: var(--info);
+  }
+
+  /* Text Colors */
   .text-foreground {
     color: var(--foreground);
+  }
+  .text-background {
+    color: var(--background);
+  }
+  .text-card-foreground {
+    color: var(--card-foreground);
+  }
+  .text-popover-foreground {
+    color: var(--popover-foreground);
+  }
+  .text-primary-foreground {
+    color: var(--primary-foreground);
+  }
+  .text-secondary-foreground {
+    color: var(--secondary-foreground);
+  }
+  .text-accent-foreground {
+    color: var(--accent-foreground);
+  }
+  .text-muted-foreground {
+    color: var(--muted-foreground);
+  }
+  .text-destructive-foreground {
+    color: var(--destructive-foreground);
+  }
+  .text-success-foreground {
+    color: var(--success-foreground);
+  }
+  .text-warning-foreground {
+    color: var(--warning-foreground);
+  }
+  .text-info-foreground {
+    color: var(--info-foreground);
+  }
+
+  /* Border Colors */
+  .border-border {
+    border-color: var(--border);
+  }
+  .border-input {
+    border-color: var(--input);
+  }
+  .border-primary {
+    border-color: var(--primary);
+  }
+  .border-secondary {
+    border-color: var(--secondary);
+  }
+  .border-destructive {
+    border-color: var(--destructive);
+  }
+  .border-success {
+    border-color: var(--success);
+  }
+  .border-warning {
+    border-color: var(--warning);
+  }
+  .border-info {
+    border-color: var(--info);
+  }
+
+  /* Ring Colors */
+  .ring-ring {
+    --tw-ring-color: var(--ring);
+  }
+  .ring-primary {
+    --tw-ring-color: var(--primary);
+  }
+  .ring-destructive {
+    --tw-ring-color: var(--destructive);
+  }
+
+  /* Border Radius */
+  .rounded-theme {
+    border-radius: var(--radius);
+  }
+  .rounded-theme-sm {
+    border-radius: var(--radius-sm);
+  }
+  .rounded-theme-md {
+    border-radius: var(--radius-md);
+  }
+  .rounded-theme-lg {
+    border-radius: var(--radius-lg);
   }
 }
 
@@ -84,3 +205,5 @@
 .space-y-4 > * + * {
   margin-top: 1rem;
 }
+
+/* Additional global styles can go here */
