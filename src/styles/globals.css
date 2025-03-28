@@ -1,14 +1,26 @@
 @import "./fonts.css";
+@import "./theme.css";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Define utility classes to map to our CSS variables */
+@utilities {
+  .bg-background {
+    background-color: var(--background);
+  }
+  .text-foreground {
+    color: var(--foreground);
+  }
+}
+
+/* Let's use the automatic source detection instead of explicit patterns */
+/* Remove all @source directives that were causing issues */
 
 @layer base {
   html,
   body {
     min-height: 100vh;
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 
   body {
