@@ -41,17 +41,17 @@ function adjustLightness(hex: string, amount: number): string {
  */
 function generateColorScale(baseColor: string): Record<string, string> {
   const scales = {
-    50: 0.95,
-    100: 0.9,
-    200: 0.85,
-    300: 0.75,
-    400: 0.65,
-    500: 1,    // Base color
-    600: 0.45,
-    700: 0.35,
-    800: 0.25,
-    900: 0.2,
-    950: 0.15,
+    50: 3.0,    // Lightest - multiplies RGB values to make them lighter
+    100: 2.5,
+    200: 2.0,
+    300: 1.75,
+    400: 1.25,
+    500: 1.0,   // Base color - no adjustment
+    600: 0.75,
+    700: 0.6,
+    800: 0.45,
+    900: 0.3,
+    950: 0.15,  // Darkest - reduces RGB values to make them darker
   };
 
   return Object.entries(scales).reduce((acc, [key, value]) => ({
