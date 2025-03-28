@@ -8,18 +8,27 @@ export type ThemeMode = 'light' | 'dark';
 export interface ThemeColors {
   // Base colors
   primary: string;
+  'primary-foreground': string;
   secondary: string;
+  'secondary-foreground': string;
   accent: string;
+  'accent-foreground': string;
   
   // UI colors
   background: string;
+  'background-foreground': string;
   foreground: string;
   card: string;
   'card-foreground': string;
   muted: string;
   'muted-foreground': string;
   border: string;
+  'border-foreground': string;
   input: string;
+  'input-foreground': string;
+  popover: string;
+  'popover-foreground': string;
+  ring: string;
   
   // State colors
   destructive: string;
@@ -30,23 +39,145 @@ export interface ThemeColors {
   'warning-foreground': string;
   info: string;
   'info-foreground': string;
+
+  // Button colors
+  'button-background': string;
+  'button-text': string;
+  
+  // Navigation colors
+  'nav-bg': string;
+  'nav-border': string;
+  'nav-text': string;
+  'nav-text-hover': string;
+  'nav-bg-hover': string;
+  'nav-bg-active': string;
+  'nav-text-active': string;
+  'nav-icon': string;
+  'nav-icon-active': string;
+  'nav-icon-hover': string;
+  'nav-section-text': string;
+  'nav-count': string;
+
+  // Color scales
+  [key: `primary-${string}`]: string;
+  [key: `secondary-${string}`]: string;
+  [key: `accent-${string}`]: string;
 }
 
 export interface ThemeTypography {
   fontFamily: {
-    sans: string;
-    mono: string;
+    // Core fonts
+    sans: string;      // Primary sans-serif font (used for body text)
+    display: string;   // Display/heading font
+    mono: string;      // Monospace font (used for code)
+    
+    // Optional alternative fonts
+    sansAlt?: string;  // Alternative sans-serif font
+    serif?: string;    // Optional serif font
+    serifAlt?: string; // Optional alternative serif font
   };
   fontSize: {
-    xs: [string, { lineHeight: string }];
-    sm: [string, { lineHeight: string }];
-    base: [string, { lineHeight: string }];
-    lg: [string, { lineHeight: string }];
-    xl: [string, { lineHeight: string }];
-    '2xl': [string, { lineHeight: string }];
-    '3xl': [string, { lineHeight: string }];
-    '4xl': [string, { lineHeight: string }];
-    '5xl': [string, { lineHeight: string }];
+    // Base sizes with consistent line height and letter spacing
+    xs: string;
+    sm: string;
+    base: string;
+    lg: string;
+    xl: string;
+    '2xl': string;
+    '3xl': string;
+    '4xl': string;
+    '5xl': string;
+  };
+  lineHeight: {
+    // Consistent line heights across the system
+    none: string;
+    tight: string;
+    snug: string;
+    normal: string;
+    relaxed: string;
+    loose: string;
+  };
+  letterSpacing: {
+    // Consistent letter spacing across the system
+    tighter: string;
+    tight: string;
+    normal: string;
+    wide: string;
+    wider: string;
+    widest: string;
+  };
+  fontFeatureSettings: {
+    // Core OpenType features
+    ligatures: boolean;        // Standard ligatures
+    kerning: boolean;          // Kerning
+    contextual: boolean;       // Contextual alternates
+
+    // Numbers
+    oldstyleNums: boolean;     // Old-style numbers
+    liningNums: boolean;       // Lining numbers
+    tabularNums: boolean;      // Tabular numbers
+    proportionalNums: boolean; // Proportional numbers
+
+    // Fractions and ordinals
+    diagonalFractions: boolean; // Diagonal fractions
+    ordinal: boolean;          // Ordinal numbers
+
+    // Special characters
+    slashedZero: boolean;      // Slashed zero
+
+    // Stylistic features
+    stylistic: boolean;        // Stylistic alternates
+    swash: boolean;           // Swash variants
+    titling: boolean;         // Titling alternates
+  };
+  fontVariationSettings: {
+    // Variable font settings
+    weight: number;    // Font weight (100-900)
+    width: number;     // Font width (25-200)
+    slant: number;     // Font slant (-10 to 10)
+    optical: number;   // Optical size
+    grade: number;     // Grade (for different screen densities)
+  };
+  // Typography scale configuration
+  scale: {
+    base: number;      // Base font size (default: 16)
+    ratio: number;     // Scale ratio (default: 1.25)
+    unit: string;      // Unit for font sizes (default: 'rem')
+  };
+  // Spacing system
+  spacing: {
+    // Text block spacing
+    paragraph: string;    // Space between paragraphs
+    heading: string;      // Space after headings
+    list: string;        // Space between list items
+    
+    // Text block settings
+    maxWidth: string;     // Maximum line length
+    indent: string;       // First line indent
+  };
+  // Component-specific settings
+  components: {
+    // Heading styles
+    heading: {
+      fontFamily: string;
+      fontWeight: string;
+      lineHeight: string;
+      letterSpacing: string;
+    };
+    // Link styles
+    link: {
+      color: string;
+      decoration: string;
+      hoverColor: string;
+      hoverDecoration: string;
+    };
+    // Code styles
+    code: {
+      fontSize: string;
+      padding: string;
+      borderRadius: string;
+      backgroundColor: string;
+    };
   };
 }
 
@@ -75,6 +206,14 @@ export interface ThemeShadows {
   xl: string;
 }
 
+export interface ThemeSpeeds {
+  fastest: string;
+  fast: string;
+  normal: string;
+  slow: string;
+  slowest: string;
+}
+
 export interface Theme {
   name: string;
   colors: ThemeColors;
@@ -82,16 +221,27 @@ export interface Theme {
   spacing: ThemeSpacing;
   radius: ThemeRadius;
   shadows: ThemeShadows;
+  speeds: ThemeSpeeds;
 }
 
+/**
+ * Brand-based theme generator configuration
+ */
 export interface ThemeConfig {
   primaryColor: string;
   secondaryColor?: string;
   accentColor?: string;
   mode?: ThemeMode;
   fontFamily?: {
-    sans?: string;
-    mono?: string;
+    // Core fonts
+    sans?: string;      // Primary sans-serif font (used for body text)
+    display?: string;   // Display/heading font
+    mono?: string;      // Monospace font (used for code)
+    
+    // Optional alternative fonts
+    sansAlt?: string;   // Alternative sans-serif font
+    serif?: string;     // Optional serif font
+    serifAlt?: string;  // Optional alternative serif font
   };
   baseSpacing?: number;
   baseRadius?: number;
