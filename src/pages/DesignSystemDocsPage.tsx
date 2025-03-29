@@ -19,6 +19,10 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui';
+import { Heading, SubHeading, Text, Code, Kbd } from '@/components/ui/typography';
+import { Callout } from '@/components/ui/Callout';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui';
+import { ColorScale } from '@/components/ui/ColorScale';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import {
@@ -357,103 +361,347 @@ const DesignSystemDocsPage: React.FC = () => {
           </Card>
         </div>
         
-        <h3 className="text-2xl font-bold mt-8 mb-4">UI Component Inventory</h3>
+        <h3 className="text-2xl font-bold mt-8 mb-6">Component Showcase</h3>
         
-        <h4 className="text-lg font-semibold mt-6 mb-3">Basic Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">Button</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Card</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Label</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Badge</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Avatar</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ScrollArea</Badge>
-        </div>
+        <ComponentPreview title="Basic Components">
+          <div className="grid gap-8">
+            <div className="flex flex-wrap gap-4 items-center">
+              <UI.Button variant="default">Button</UI.Button>
+              <UI.Button variant="secondary">Secondary</UI.Button>
+              <UI.Button variant="outline">Outline</UI.Button>
+              <UI.Button variant="ghost">Ghost</UI.Button>
+            </div>
+
+            <div className="flex flex-wrap gap-4 items-center">
+              <Badge>Badge</Badge>
+              <Badge variant="secondary">Secondary</Badge>
+              <Badge variant="outline">Outline</Badge>
+              <Badge variant="destructive">Destructive</Badge>
+            </div>
+
+            <div className="flex flex-wrap gap-4 items-center">
+              <UI.Avatar>
+                <img src="https://github.com/shadcn.png" alt="User" className="rounded-full" />
+              </UI.Avatar>
+              <UI.Avatar>
+                <span className="flex h-full w-full items-center justify-center rounded-full bg-muted">AB</span>
+              </UI.Avatar>
+              <UI.Avatar>
+                <span className="flex h-full w-full items-center justify-center rounded-full bg-primary text-primary-foreground">JD</span>
+              </UI.Avatar>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview title="Typography Components">
+          <div className="grid gap-6">
+            <Heading>Heading Component</Heading>
+            <SubHeading level={1}>SubHeading Level 1</SubHeading>
+            <SubHeading level={2}>SubHeading Level 2</SubHeading>
+            <Text>Standard Text Component for paragraphs and content</Text>
+            <Text variant="muted">Muted Text Variant</Text>
+            <div className="flex gap-4 items-center">
+              <Code>console.log('Code Component')</Code>
+              <Kbd>Ctrl</Kbd>+<Kbd>C</Kbd>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview title="Form Components">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <UI.Label htmlFor="example-input">Text Input</UI.Label>
+                <UI.Form.Input id="example-input" placeholder="Enter text here" />
+              </div>
+              
+              <div className="space-y-2">
+                <UI.Label htmlFor="example-textarea">Textarea</UI.Label>
+                <UI.Form.Textarea id="example-textarea" placeholder="Enter multiple lines of text" />
+              </div>
+              
+              <div className="space-y-4">
+                <UI.Label htmlFor="example-select">Select</UI.Label>
+                <Select>
+                  <SelectTrigger id="example-select">
+                    <SelectValue placeholder="Select an option" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="option1">Option 1</SelectItem>
+                    <SelectItem value="option2">Option 2</SelectItem>
+                    <SelectItem value="option3">Option 3</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="flex flex-col gap-4">
+                <div className="flex items-center space-x-2">
+                  <UI.Form.Checkbox id="example-checkbox" />
+                  <UI.Label htmlFor="example-checkbox">Checkbox</UI.Label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <UI.Form.Switch id="example-switch" />
+                  <UI.Label htmlFor="example-switch">Switch</UI.Label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <UI.Form.Radio value="option1" id="option1" name="example-radio" />
+                  <UI.Label htmlFor="option1">Radio Option 1</UI.Label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <UI.Form.Radio value="option2" id="option2" name="example-radio" />
+                  <UI.Label htmlFor="option2">Radio Option 2</UI.Label>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <UI.Label htmlFor="example-slider">Slider</UI.Label>
+                <UI.Form.Slider id="example-slider" defaultValue={[50]} max={100} step={1} />
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview title="Feedback Components">
+          <div className="grid gap-6">
+            <Alert>
+              <AlertTitle>Default Alert</AlertTitle>
+              <AlertDescription>This is a standard alert message providing information to users.</AlertDescription>
+            </Alert>
+            
+            <Alert variant="destructive">
+              <AlertTitle>Error Alert</AlertTitle>
+              <AlertDescription>This alert indicates an error or critical information.</AlertDescription>
+            </Alert>
+            
+            <UI.Banner>
+              This is a banner message that appears at the top of the page
+            </UI.Banner>
+            
+            <Callout className="mt-4">
+              <div className="text-sm font-medium mb-1">Callout Component</div>
+              <div className="text-sm text-muted-foreground">Used to highlight important information</div>
+            </Callout>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview title="Dialog Components">
+          <div className="grid gap-6">
+            <Tabs defaultValue="tab1" className="max-w-md">
+              <TabsList>
+                <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+                <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+                <TabsTrigger value="tab3">Tab 3</TabsTrigger>
+              </TabsList>
+              <TabsContent value="tab1" className="p-4 bg-muted/30 rounded-md mt-2">
+                Content for Tab 1
+              </TabsContent>
+              <TabsContent value="tab2" className="p-4 bg-muted/30 rounded-md mt-2">
+                Content for Tab 2
+              </TabsContent>
+              <TabsContent value="tab3" className="p-4 bg-muted/30 rounded-md mt-2">
+                Content for Tab 3
+              </TabsContent>
+            </Tabs>
+            
+            <div className="flex flex-wrap gap-4">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <UI.Button variant="outline">Open Dialog</UI.Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Dialog Title</DialogTitle>
+                    <DialogDescription>
+                      This is a description of the dialog content.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="py-4">Dialog content goes here</div>
+                  <DialogFooter>
+                    <UI.Button>Save Changes</UI.Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+              
+              <div className="relative inline-block">
+                <UI.Button variant="outline">Dropdown Menu</UI.Button>
+                <div className="hidden absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div className="py-1">
+                    <div className="px-4 py-2 text-sm text-gray-700 border-b">
+                      <div className="font-medium">Account</div>
+                      <div className="text-xs text-muted-foreground">Manage your account settings</div>
+                    </div>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview title="Marketing Components">
+          <div className="grid gap-8">
+            <div className="p-6 bg-muted/30 rounded-lg border border-dashed border-border">
+              <div className="text-center space-y-4">
+                <h3 className="text-2xl font-bold">Hero Component</h3>
+                <p className="text-muted-foreground max-w-md mx-auto">This demonstrates a simplified version of the HeroBasic component</p>
+                <div className="flex justify-center gap-4">
+                  <UI.Button>Get Started</UI.Button>
+                  <UI.Button variant="outline">Learn More</UI.Button>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Feature 1</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">Description of feature one with details about what it offers.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Feature 2</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">Description of feature two with details about what it offers.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Feature 3</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">Description of feature three with details about what it offers.</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </ComponentPreview>
+
+        <ComponentPreview title="Advanced Components">
+          <div className="grid gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Card Component</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>Cards are used to group related content and actions</p>
+              </CardContent>
+            </Card>
+            
+            <ColorScale steps={5} startColor="rgb(14, 116, 144)" endColor="rgb(186, 230, 253)" className="h-8 rounded-md overflow-hidden" />
+          </div>
+        </ComponentPreview>
         
-        <h4 className="text-lg font-semibold mt-6 mb-3">Form Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">Input</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Select</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Checkbox</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Radio</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Textarea</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Switch</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Slider</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ColorPicker</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">DatePicker</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">TimePicker</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">DateTimePicker</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">MonthPicker</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">TagInput</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">RatingInput</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">RangeInput</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">PasswordInput</Badge>
-        </div>
+        <h3 className="text-2xl font-bold mt-12 mb-4">Full Component Inventory</h3>
         
-        <h4 className="text-lg font-semibold mt-6 mb-3">Feedback Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">Alert</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Banner</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormError</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormSuccess</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormWarning</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormLoading</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Callout</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Toast</Badge>
-        </div>
-        
-        <h4 className="text-lg font-semibold mt-6 mb-3">Dialog Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">Dialog</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Dropdown</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Tabs</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Sheet</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Combobox</Badge>
-        </div>
-        
-        <h4 className="text-lg font-semibold mt-6 mb-3">Typography Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">Heading</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">SubHeading</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Text</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Code</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">Kbd</Badge>
-        </div>
-        
-        <h4 className="text-lg font-semibold mt-6 mb-3">Layout Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormGroup</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormSection</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormRow</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FormGrid</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">AppShell</Badge>
-        </div>
-        
-        <h4 className="text-lg font-semibold mt-6 mb-3">Marketing Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">HeroBasic</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">FeatureSection</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">CTASection</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">PricingSection</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">StatsSection</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">TestimonialSection</Badge>
-        </div>
-        
-        <h4 className="text-lg font-semibold mt-6 mb-3">Theme Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeSwitcher</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeSelector</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeVariantSelector</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeColorDisplay</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeTester</Badge>
-        </div>
-        
-        <h4 className="text-lg font-semibold mt-6 mb-3">Advanced Components</h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
-          <Badge variant="outline" className="px-3 py-1 justify-center">BlockEditor</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">AdvancedBlockEditor</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ComponentView</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">UIBlockPreview</Badge>
-          <Badge variant="outline" className="px-3 py-1 justify-center">ColorScale</Badge>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Basic Components</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ul className="list-disc pl-6 space-y-1">
+                <li>Button</li>
+                <li>Card</li>
+                <li>Label</li>
+                <li>Badge</li>
+                <li>Avatar</li>
+                <li>ScrollArea</li>
+              </ul>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Form Components</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ul className="list-disc pl-6 space-y-1 text-sm">
+                <li>Input</li>
+                <li>Select</li>
+                <li>Checkbox</li>
+                <li>Radio</li>
+                <li>Textarea</li>
+                <li>Switch</li>
+                <li>Slider</li>
+                <li>ColorPicker</li>
+                <li>DatePicker</li>
+              </ul>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Feedback Components</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ul className="list-disc pl-6 space-y-1">
+                <li>Alert</li>
+                <li>Banner</li>
+                <li>FormError</li>
+                <li>FormSuccess</li>
+                <li>FormWarning</li>
+                <li>Callout</li>
+                <li>Toast</li>
+              </ul>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Dialog Components</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ul className="list-disc pl-6 space-y-1">
+                <li>Dialog</li>
+                <li>Dropdown</li>
+                <li>Tabs</li>
+                <li>Sheet</li>
+                <li>Combobox</li>
+              </ul>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Typography Components</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ul className="list-disc pl-6 space-y-1">
+                <li>Heading</li>
+                <li>SubHeading</li>
+                <li>Text</li>
+                <li>Code</li>
+                <li>Kbd</li>
+              </ul>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-base">Marketing Components</CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0">
+              <ul className="list-disc pl-6 space-y-1">
+                <li>HeroBasic</li>
+                <li>FeatureSection</li>
+                <li>CTASection</li>
+                <li>PricingSection</li>
+                <li>StatsSection</li>
+                <li>TestimonialSection</li>
+              </ul>
+            </CardContent>
+          </Card>
         </div>
       </Section>
 
