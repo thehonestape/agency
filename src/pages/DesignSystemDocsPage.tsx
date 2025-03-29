@@ -912,7 +912,7 @@ const DesignSystemDocsPage: React.FC = () => {
             <div className="mb-6 pb-4 border-b border-border">
               <div className="flex items-center justify-between">
                 <span className="font-medium">Theme</span>
-                <ThemeToggle />
+                <UI.ThemeSwitcher />
               </div>
             </div>
             
