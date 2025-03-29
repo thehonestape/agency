@@ -482,8 +482,7 @@ const DesignSystemDocsPage: React.FC = () => {
               This is a banner message that appears at the top of the page
             </UI.Banner>
             
-            <Callout className="mt-4">
-              <div className="text-sm font-medium mb-1">Callout Component</div>
+            <Callout title="Important Information" className="mt-4">
               <div className="text-sm text-muted-foreground">Used to highlight important information</div>
             </Callout>
           </div>
@@ -598,7 +597,7 @@ const DesignSystemDocsPage: React.FC = () => {
               </CardContent>
             </Card>
             
-            <ColorScale steps={5} startColor="rgb(14, 116, 144)" endColor="rgb(186, 230, 253)" className="h-8 rounded-md overflow-hidden" />
+            <div className="bg-gradient-to-r from-primary/80 to-primary/20 h-8 rounded-md overflow-hidden"></div>
           </div>
         </ComponentPreview>
         
