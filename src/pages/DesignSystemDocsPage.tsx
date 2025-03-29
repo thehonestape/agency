@@ -357,22 +357,104 @@ const DesignSystemDocsPage: React.FC = () => {
           </Card>
         </div>
         
-        <ComponentPreview title="Component Registry" description="Our system includes 25+ registered components">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <Badge variant="outline" className="px-3 py-1 justify-center">Button</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Input</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Textarea</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Checkbox</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Switch</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Select</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Card</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Heading</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Text</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Alert</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Badge</Badge>
-            <Badge variant="outline" className="px-3 py-1 justify-center">Avatar</Badge>
-          </div>
-        </ComponentPreview>
+        <h3 className="text-2xl font-bold mt-8 mb-4">UI Component Inventory</h3>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Basic Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">Button</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Card</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Label</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Badge</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Avatar</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ScrollArea</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Form Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">Input</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Select</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Checkbox</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Radio</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Textarea</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Switch</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Slider</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ColorPicker</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">DatePicker</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">TimePicker</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">DateTimePicker</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">MonthPicker</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">TagInput</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">RatingInput</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">RangeInput</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">PasswordInput</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Feedback Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">Alert</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Banner</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormError</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormSuccess</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormWarning</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormLoading</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Callout</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Toast</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Dialog Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">Dialog</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Dropdown</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Tabs</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Sheet</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Combobox</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Typography Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">Heading</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">SubHeading</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Text</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Code</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">Kbd</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Layout Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormGroup</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormSection</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormRow</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FormGrid</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">AppShell</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Marketing Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">HeroBasic</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">FeatureSection</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">CTASection</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">PricingSection</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">StatsSection</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">TestimonialSection</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Theme Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeSwitcher</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeSelector</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeVariantSelector</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeColorDisplay</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ThemeTester</Badge>
+        </div>
+        
+        <h4 className="text-lg font-semibold mt-6 mb-3">Advanced Components</h4>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-6">
+          <Badge variant="outline" className="px-3 py-1 justify-center">BlockEditor</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">AdvancedBlockEditor</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ComponentView</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">UIBlockPreview</Badge>
+          <Badge variant="outline" className="px-3 py-1 justify-center">ColorScale</Badge>
+        </div>
       </Section>
 
       {/* Buttons */}
