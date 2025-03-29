@@ -149,21 +149,24 @@ const DesignSystemDocsPage: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
-  // Example colors - updated with hex values for Tailwind v4
+  // Example colors - updated with RGB values for Tailwind v4
   const themeColors: ColorInfo[] = [
-    { name: "Background", bg: "bg-background", value: "#ffffff" },
-    { name: "Foreground", bg: "bg-foreground", value: "#0f172a" },
-    { name: "Primary", bg: "bg-primary", value: "#0e7490" },
-    { name: "Secondary", bg: "bg-secondary", value: "#f1f5f9" },
-    { name: "Accent", bg: "bg-accent", value: "#f59e0b" },
+    { name: "Background", bg: "bg-background", value: "255 255 255" },
+    { name: "Foreground", bg: "bg-foreground", value: "15 23 42" },
+    { name: "Primary", bg: "bg-primary", value: "14 116 144" },
+    { name: "Secondary", bg: "bg-secondary", value: "241 245 249" },
+    { name: "Accent", bg: "bg-accent", value: "245 158 11" },
   ];
 
   const uiColors: ColorInfo[] = [
-    { name: "Card", bg: "bg-card", value: "#ffffff" },
-    { name: "Muted", bg: "bg-muted", value: "#f1f5f9" },
-    { name: "Destructive", bg: "bg-destructive", value: "#ef4444" },
-    { name: "Border", bg: "bg-border", value: "#e2e8f0" },
-    { name: "Ring", bg: "bg-ring", value: "#0ea5e9" },
+    { name: "Card", bg: "bg-card", value: "255 255 255" },
+    { name: "Muted", bg: "bg-muted", value: "241 245 249" },
+    { name: "Destructive", bg: "bg-destructive", value: "239 68 68" },
+    { name: "Success", bg: "bg-success", value: "34 197 94" },
+    { name: "Warning", bg: "bg-warning", value: "245 158 11" },
+    { name: "Info", bg: "bg-info", value: "59 130 246" },
+    { name: "Border", bg: "bg-border", value: "226 232 240" },
+    { name: "Ring", bg: "bg-ring", value: "14 165 233" },
   ];
 
   // Observer for sections
@@ -227,8 +230,14 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="colors" 
         title="Colors" 
-        description="Our color system is designed to be accessible, consistent, and flexible across different contexts and devices."
+        description="Our color system is designed to be accessible, consistent, and flexible across different contexts and devices. Colors are defined using RGB space-separated values format for Tailwind v4 compatibility."
       >
+        <Alert className="mb-6">
+          <AlertTitle>Tailwind v4 RGB Format</AlertTitle>
+          <AlertDescription>
+            Our theme uses Tailwind v4's RGB color format (space-separated values) for enhanced opacity handling and color transformations.
+          </AlertDescription>
+        </Alert>
         <ColorPalette title="Theme Colors" colors={themeColors} />
         <ColorPalette title="UI Colors" colors={uiColors} />
       </Section>
@@ -314,56 +323,91 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="components" 
         title="Components" 
-        description="Our component library provides reusable UI elements that follow best practices for accessibility and usability."
+        description="Our design system includes a comprehensive set of UI components organized by category."
       >
-        <div className="mb-8">
-          <p className="text-lg mb-4">Components are organized by category for easy reference:</p>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              "Buttons & Actions", 
-              "Form & Inputs", 
-              "Feedback & Alerts", 
-              "Navigation & Menus", 
-              "Layout & Structure", 
-              "Data Display"
-            ].map((category) => (
-              <Card key={category} className="hover:shadow-md transition-shadow duration-200">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <div className="h-3 w-3 rounded-full bg-primary"></div>
-                  <span>{category}</span>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <Card className="bg-background hover:bg-muted/50 transition-colors">
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-2 mb-2">
+                <CubeIcon className="h-5 w-5 text-primary" />
+                <h3 className="font-medium">UI Components</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Core building blocks for interfaces</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-background hover:bg-muted/50 transition-colors">
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-2 mb-2">
+                <DocumentTextIcon className="h-5 w-5 text-primary" />
+                <h3 className="font-medium">Typography</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Headings, text, and formatting</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-background hover:bg-muted/50 transition-colors">
+            <CardContent className="p-6">
+              <div className="flex items-center space-x-2 mb-2">
+                <SwatchIcon className="h-5 w-5 text-primary" />
+                <h3 className="font-medium">Theme System</h3>
+              </div>
+              <p className="text-sm text-muted-foreground">Themed colors and variants</p>
+            </CardContent>
+          </Card>
         </div>
+        
+        <ComponentPreview title="Component Registry" description="Our system includes 25+ registered components">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <Badge variant="outline" className="px-3 py-1 justify-center">Button</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Input</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Textarea</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Checkbox</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Switch</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Select</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Card</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Heading</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Text</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Alert</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Badge</Badge>
+            <Badge variant="outline" className="px-3 py-1 justify-center">Avatar</Badge>
+          </div>
+        </ComponentPreview>
       </Section>
 
       {/* Buttons */}
       <Section 
         id="buttons" 
         title="Buttons" 
-        description="Buttons communicate actions that users can take and are essential interactive elements."
+        description="Interactive elements with multiple variants, sizes, and states."
       >
-        <ComponentPreview 
-          title="Button Variants" 
-          description="Different button styles for various contexts."
-        >
+        <ComponentPreview title="Button Variants">
           <div className="flex flex-wrap gap-4">
-            <UI.Button variant="default">Primary</UI.Button>
+            <UI.Button variant="default">Default</UI.Button>
             <UI.Button variant="secondary">Secondary</UI.Button>
             <UI.Button variant="outline">Outline</UI.Button>
-            <UI.Button variant="ghost">Link Button</UI.Button>
+            <UI.Button variant="ghost">Ghost</UI.Button>
+            <UI.Button variant="destructive">Destructive</UI.Button>
+            <UI.Button variant="link">Link</UI.Button>
           </div>
         </ComponentPreview>
         
-        <ComponentPreview 
-          title="Button Sizes" 
-          description="Buttons in different sizes for various use cases."
-        >
-          <div className="flex items-center flex-wrap gap-4">
-            <UI.Button size="sm">Small</UI.Button>
-            <UI.Button size="default">Medium</UI.Button>
-            <UI.Button size="lg">Large</UI.Button>
+        <ComponentPreview title="Button Sizes">
+          <div className="flex flex-wrap items-center gap-4">
+            <UI.Button variant="default" size="sm">Small</UI.Button>
+            <UI.Button variant="default" size="default">Default</UI.Button>
+            <UI.Button variant="default" size="lg">Large</UI.Button>
+            <UI.Button variant="default" size="icon">
+              <MagnifyingGlassIcon className="h-4 w-4" />
+            </UI.Button>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Button States">
+          <div className="flex flex-wrap gap-4">
+            <UI.Button variant="default">Normal</UI.Button>
+            <UI.Button variant="default" disabled>Disabled</UI.Button>
+            <UI.Button variant="default" loading>Loading</UI.Button>
           </div>
         </ComponentPreview>
       </Section>
@@ -372,39 +416,41 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="inputs" 
         title="Inputs" 
-        description="Form inputs allow users to enter data and make selections."
+        description="Form controls for user input."
       >
-        <ComponentPreview 
-          title="Text Input" 
-          description="Basic text input field."
-        >
-          <div className="max-w-md space-y-2">
+        <ComponentPreview title="Text Input">
+          <div className="grid gap-4 max-w-md">
             <UI.Label htmlFor="email">Email</UI.Label>
-            <UI.Form.Input 
-              id="email" 
-              type="email" 
-              placeholder="Enter your email"
-            />
+            <UI.Form.Input id="email" placeholder="Enter your email" />
           </div>
         </ComponentPreview>
         
-        <ComponentPreview 
-          title="Select" 
-          description="Dropdown selection component."
-        >
-          <div className="max-w-md space-y-2">
-            <UI.Label htmlFor="country">Country</UI.Label>
+        <ComponentPreview title="Select">
+          <div className="grid gap-4 max-w-md">
+            <UI.Label htmlFor="framework">Framework</UI.Label>
             <Select>
-              <SelectTrigger id="country">
-                <SelectValue placeholder="Select a country" />
+              <SelectTrigger id="framework">
+                <SelectValue placeholder="Select a framework" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="us">United States</SelectItem>
-                <SelectItem value="ca">Canada</SelectItem>
-                <SelectItem value="mx">Mexico</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
+                <SelectItem value="react">React</SelectItem>
+                <SelectItem value="vue">Vue</SelectItem>
+                <SelectItem value="svelte">Svelte</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Checkbox and Switch">
+          <div className="flex gap-8">
+            <div className="flex items-center space-x-2">
+              <UI.Form.Checkbox id="terms" />
+              <UI.Label htmlFor="terms">Accept terms</UI.Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <UI.Form.Switch id="notifications" />
+              <UI.Label htmlFor="notifications">Notifications</UI.Label>
+            </div>
           </div>
         </ComponentPreview>
       </Section>
@@ -413,21 +459,21 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="feedback" 
         title="Feedback" 
-        description="Feedback components communicate system status, errors, warnings, and other important information."
+        description="Components that provide feedback to users."
       >
-        <ComponentPreview 
-          title="Alert" 
-          description="Alerts communicate important information to users."
-        >
-          <div className="space-y-4">
-            <Alert variant="success">
-              <AlertTitle>Success</AlertTitle>
-              <AlertDescription>Successfully saved changes</AlertDescription>
+        <ComponentPreview title="Alerts">
+          <div className="grid gap-4">
+            <Alert>
+              <AlertTitle>Note</AlertTitle>
+              <AlertDescription>
+                This is a standard alert message.
+              </AlertDescription>
             </Alert>
-            
             <Alert variant="destructive">
               <AlertTitle>Error</AlertTitle>
-              <AlertDescription>There was an error processing your request</AlertDescription>
+              <AlertDescription>
+                This is an error alert message.
+              </AlertDescription>
             </Alert>
           </div>
         </ComponentPreview>
@@ -437,26 +483,23 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="navigation" 
         title="Navigation" 
-        description="Navigation components help users move between different views and sections."
+        description="Components that help users navigate."
       >
-        <ComponentPreview 
-          title="Tabs" 
-          description="Tabbed navigation for content organization."
-        >
-          <Tabs defaultValue="overview">
+        <ComponentPreview title="Tabs">
+          <Tabs defaultValue="account" className="max-w-md">
             <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="account">Account</TabsTrigger>
+              <TabsTrigger value="password">Password</TabsTrigger>
               <TabsTrigger value="settings">Settings</TabsTrigger>
-              <TabsTrigger value="notifications">Notifications</TabsTrigger>
             </TabsList>
-            <TabsContent value="overview">
-              <p className="text-muted-foreground mt-4">Overview content goes here</p>
+            <TabsContent value="account" className="p-4">
+              Account settings and preferences.
             </TabsContent>
-            <TabsContent value="settings">
-              <p className="text-muted-foreground mt-4">Settings content goes here</p>
+            <TabsContent value="password" className="p-4">
+              Change your password here.
             </TabsContent>
-            <TabsContent value="notifications">
-              <p className="text-muted-foreground mt-4">Notifications content goes here</p>
+            <TabsContent value="settings" className="p-4">
+              Application settings.
             </TabsContent>
           </Tabs>
         </ComponentPreview>
@@ -466,12 +509,9 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="utilities" 
         title="Utilities" 
-        description="Utility classes help with common styling needs and maintaining consistency."
+        description="Utility components for common needs."
       >
-        <ComponentPreview 
-          title="Badges" 
-          description="Badge utilities for displaying statuses and metadata."
-        >
+        <ComponentPreview title="Badges">
           <div className="flex flex-wrap gap-4">
             <Badge>Default</Badge>
             <Badge variant="secondary">Secondary</Badge>
