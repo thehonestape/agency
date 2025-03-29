@@ -1,42 +1,23 @@
 import React from 'react';
 import { Button } from './button';
 import { Moon, Sun } from 'lucide-react';
+import { useTheme } from '@/lib/theme-context';
 
 export const ThemeSwitcher = () => {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
-
-  React.useEffect(() => {
-    // Check if user has a theme preference in localStorage
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    } else if (prefersDark) {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark');
-  };
+  // Use the global theme context instead of local state
+  const { isDarkMode, toggleDarkMode } = useTheme();
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={toggleTheme}
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} theme`}
+      onClick={toggleDarkMode}
+      aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} theme`}
     >
-      {theme === 'light' ? (
-        <Moon className="h-5 w-5" />
-      ) : (
+      {isDarkMode ? (
         <Sun className="h-5 w-5" />
+      ) : (
+        <Moon className="h-5 w-5" />
       )}
     </Button>
   );
