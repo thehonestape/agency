@@ -25,6 +25,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { ColorScale } from '@/components/ui/ColorScale';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
+import { ThemeToggle } from '@/components/ui/theme/theme-toggle';
 import {
   Bars3Icon,
   XMarkIcon,
@@ -907,7 +908,16 @@ const DesignSystemDocsPage: React.FC = () => {
         {/* Sidebar */}
         <aside className="hidden md:block border-r border-border h-[calc(100vh-3.5rem)] sticky top-14 overflow-y-auto p-4 bg-background">
           <nav>
-            <p className="font-medium mb-4">On this page</p>
+            {/* Add Theme Toggle above navigation */}
+            <div className="mb-6 pb-4 border-b border-border">
+              <div className="flex items-center justify-between">
+                <span className="font-medium">Theme</span>
+                <ThemeToggle />
+              </div>
+            </div>
+            
+            {/* Change "On this page" to "Design" */}
+            <p className="font-medium mb-4">Design</p>
             <ul className="space-y-1">
               {sections.map((section) => (
                 <li key={section.id}>
@@ -926,20 +936,6 @@ const DesignSystemDocsPage: React.FC = () => {
                 </li>
               ))}
             </ul>
-            
-            <div className="border-t mt-6 pt-4">
-              <p className="font-medium mb-2">Theme Settings</p>
-              <div className="inline-flex h-8 items-center justify-center rounded-md border px-2 text-sm font-medium">
-                <button
-                  aria-label="Toggle dark mode"
-                  className="inline-flex h-5 w-10 shrink-0 cursor-pointer items-center rounded-full border border-border p-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:border-primary bg-background"
-                >
-                  <span className="flex h-3 w-3 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm">
-                    <span className="sr-only">Light</span>
-                  </span>
-                </button>
-              </div>
-            </div>
           </nav>
         </aside>
 
