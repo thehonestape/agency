@@ -37,6 +37,13 @@ import {
   CommandLineIcon,
   BellIcon,
   MagnifyingGlassIcon,
+  BuildingLibraryIcon,
+  ArrowsPointingOutIcon,
+  CursorArrowRaysIcon,
+  DocumentDuplicateIcon,
+  ExclamationTriangleIcon,
+  MapIcon,
+  WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
 
 // Type definitions for navigation sections
@@ -135,18 +142,20 @@ const ComponentPreview: React.FC<{
 
 // Main Design System Documentation component
 const DesignSystemDocsPage: React.FC = () => {
-  // Define sections with icons
-  const sections: Section[] = [
+  // Define documentation sections with icons
+  const sections = [
     { id: "intro", title: "Introduction", icon: DocumentTextIcon },
+    { id: "foundations", title: "Foundations", icon: BuildingLibraryIcon },
     { id: "colors", title: "Colors", icon: SwatchIcon },
     { id: "typography", title: "Typography", icon: DocumentTextIcon },
-    { id: "spacing", title: "Spacing & Layout", icon: ViewColumnsIcon },
+    { id: "spacing", title: "Spacing", icon: ArrowsPointingOutIcon },
     { id: "components", title: "Components", icon: CubeIcon },
-    { id: "buttons", title: "Buttons", icon: CubeIcon },
-    { id: "inputs", title: "Inputs", icon: CubeIcon },
-    { id: "feedback", title: "Feedback", icon: BellIcon },
-    { id: "navigation", title: "Navigation", icon: CubeIcon },
-    { id: "utilities", title: "Utilities", icon: CommandLineIcon },
+    { id: "buttons", title: "Buttons", icon: CursorArrowRaysIcon },
+    { id: "inputs", title: "Inputs", icon: DocumentDuplicateIcon },
+    { id: "feedback", title: "Feedback", icon: ExclamationTriangleIcon },
+    { id: "navigation", title: "Navigation", icon: MapIcon },
+    { id: "utilities", title: "Utilities", icon: WrenchScrewdriverIcon },
+    { id: "themes", title: "Theming", icon: PaintBrushIcon },
   ];
 
   // State for active section and mobile menu
@@ -221,57 +230,518 @@ const DesignSystemDocsPage: React.FC = () => {
       <Section 
         id="intro" 
         title="Design System Documentation" 
-        description="This comprehensive guide details our component library, design tokens, and usage guidelines for building consistent interfaces."
+        description="A comprehensive guide to our design language, components, and principles for building consistent interfaces."
       >
         <Alert className="mb-6">
           <AlertTitle>Design System v1.0</AlertTitle>
           <AlertDescription>
-            Built with Tailwind v4 and a focus on accessibility, customization, and developer experience.
+            Built with Tailwind v4 and focused on accessibility, modularity, and developer experience.
           </AlertDescription>
         </Alert>
+
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Design Principles</CardTitle>
+            <CardDescription>The core values that guide our design decisions</CardDescription>
+          </CardHeader>
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                <ConsistencyIcon className="h-5 w-5 text-primary" /> 
+                Consistency
+              </h3>
+              <p className="text-muted-foreground">
+                Use common patterns and established components to create intuitive, familiar experiences.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                <AccessibilityIcon className="h-5 w-5 text-primary" /> 
+                Accessibility
+              </h3>
+              <p className="text-muted-foreground">
+                Design for everyone, ensuring our interfaces meet or exceed WCAG 2.1 AA standards.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                <ModularityIcon className="h-5 w-5 text-primary" /> 
+                Modularity
+              </h3>
+              <p className="text-muted-foreground">
+                Build with composable pieces that scale across products and adapt to different contexts.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                <PerformanceIcon className="h-5 w-5 text-primary" /> 
+                Performance
+              </h3>
+              <p className="text-muted-foreground">
+                Create lightweight, optimized interfaces that load quickly and run smoothly.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <ComponentPreview title="System Structure">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Card className="bg-background hover:bg-muted/20 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-2 mb-2">
+                  <BuildingLibraryIcon className="h-5 w-5 text-primary" />
+                  <h3 className="font-medium">Foundations</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Colors, typography, spacing, and other design tokens</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background hover:bg-muted/20 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-2 mb-2">
+                  <CubeIcon className="h-5 w-5 text-primary" />
+                  <h3 className="font-medium">Components</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Reusable UI building blocks for interfaces</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="bg-background hover:bg-muted/20 transition-colors">
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-2 mb-2">
+                  <WrenchScrewdriverIcon className="h-5 w-5 text-primary" />
+                  <h3 className="font-medium">Patterns</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Common combinations and solutions to UX problems</p>
+              </CardContent>
+            </Card>
+          </div>
+        </ComponentPreview>
+      </Section>
+
+      {/* Foundations Section */}
+      <Section 
+        id="foundations" 
+        title="Foundations" 
+        description="The core building blocks of our design system - colors, typography, spacing, and other design tokens."
+      >
+        <ComponentPreview title="Design Tokens">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <h3 className="font-medium">What are Design Tokens?</h3>
+              <p className="text-muted-foreground">
+                Design tokens are the visual design atoms of the design system — 
+                specifically, they are named entities that store visual design attributes. 
+              </p>
+              <p className="text-muted-foreground">
+                They are used in place of hard-coded values to ensure flexibility and consistency 
+                across all product experiences.
+              </p>
+            </div>
+            <div className="bg-muted p-4 rounded-md">
+              <code className="text-sm">
+                <pre className="text-muted-foreground">
+{`{
+  "colors": {
+    "primary": {
+      "500": "2 96% 49%",
+      "600": "2 90% 42%"
+    }
+  },
+  "spacing": {
+    "4": "1rem",
+    "8": "2rem"
+  }
+}`}
+                </pre>
+              </code>
+            </div>
+          </div>
+        </ComponentPreview>
       </Section>
 
       {/* Colors */}
       <Section 
         id="colors" 
         title="Colors" 
-        description="Our color system is designed to be accessible, consistent, and flexible across different contexts and devices. Colors are defined using RGB space-separated values format for Tailwind v4 compatibility."
+        description="Our color system is designed to be accessible, consistent, and flexible across different contexts and devices."
       >
         <Alert className="mb-6">
           <AlertTitle>Tailwind v4 RGB Format</AlertTitle>
           <AlertDescription>
-            Our theme uses Tailwind v4's RGB color format (space-separated values) for enhanced opacity handling and color transformations.
+            Our colors use Tailwind v4's RGB format (space-separated values) to support opacity manipulation and color transformations.
           </AlertDescription>
         </Alert>
-        <ColorPalette title="Theme Colors" colors={themeColors} />
-        <ColorPalette title="UI Colors" colors={uiColors} />
+        
+        <ComponentPreview title="Primary Colors">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Primary colors are the main brand colors used throughout the interface. They represent the brand identity and are used for primary actions and key UI elements.
+            </p>
+            <div className="grid grid-cols-11 gap-2">
+              {['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'].map((shade) => (
+                <div key={shade} className="text-center">
+                  <div 
+                    className={`h-14 rounded-md mb-2 shadow-sm`}
+                    style={{ 
+                      backgroundColor: `rgb(var(--primary-${shade}))`,
+                      color: parseInt(shade) > 500 ? 'white' : 'black'
+                    }}
+                  >
+                    <div className="h-full flex items-center justify-center font-mono text-xs">
+                      {shade}
+                    </div>
+                  </div>
+                  <span className="text-xs text-muted-foreground">--primary-{shade}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Semantic Colors">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Semantic colors communicate purpose and meaning across the interface. They provide visual cues about the nature of elements and actions.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--primary)', color: 'var(--primary-foreground)' }}>
+                  Primary
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used for primary buttons, links, and active states
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--secondary)', color: 'var(--secondary-foreground)' }}>
+                  Secondary
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used for secondary actions and supporting elements
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--accent)', color: 'var(--accent-foreground)' }}>
+                  Accent
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used for accent elements and highlighting
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}>
+                  Muted
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used for backgrounds and subtle UI elements
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Status Colors">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Status colors communicate state and provide feedback. They help users understand the status of actions, components, or information.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--success)', color: 'var(--success-foreground)' }}>
+                  Success
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used to indicate successful operations
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--warning)', color: 'var(--warning-foreground)' }}>
+                  Warning
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used to indicate caution or potential issues
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--destructive)', color: 'var(--destructive-foreground)' }}>
+                  Destructive
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used to indicate errors or destructive actions
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--info)', color: 'var(--info-foreground)' }}>
+                  Info
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Used to communicate information
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Accessibility">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Our color system is designed to meet WCAG 2.1 AA accessibility standards for color contrast. Always ensure sufficient contrast between text and background colors.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-medium mb-3">Good Contrast</h3>
+                <div className="space-y-4">
+                  <div className="p-4 bg-primary rounded-md text-primary-foreground">
+                    This text has good contrast against the primary background.
+                  </div>
+                  <div className="p-4 bg-destructive rounded-md text-destructive-foreground">
+                    This text has good contrast against the destructive background.
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3 className="font-medium mb-3">Text Colors</h3>
+                <div className="space-y-4">
+                  <div className="p-2">
+                    <p className="text-foreground">Default text (--foreground)</p>
+                  </div>
+                  <div className="p-2">
+                    <p className="text-muted-foreground">Muted text (--muted-foreground)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
       </Section>
 
       {/* Typography */}
       <Section 
         id="typography" 
         title="Typography" 
-        description="Typography establishes hierarchy, enhances readability, and creates a consistent brand expression."
+        description="Our typography system establishes visual hierarchy, improves readability, and creates a consistent experience across interfaces."
       >
-        <TypographyExample name="Heading 1" className="text-4xl font-bold">
-          The quick brown fox jumps over the lazy dog
-        </TypographyExample>
+        <ComponentPreview title="Font Family">
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-medium mb-3">Primary Font: Maison Neue</h3>
+                <p className="text-muted-foreground mb-2">
+                  Our primary font for all UI elements and content. It's modern, legible, and works well at all sizes.
+                </p>
+                <div className="p-3 bg-muted/30 rounded-md">
+                  <code className="text-sm text-muted-foreground">font-[var(--font-maison-neue)]</code>
+                </div>
+              </div>
+              <div>
+                <h3 className="font-medium mb-3">Monospace: Maison Neue Mono</h3>
+                <p className="text-muted-foreground mb-2">
+                  Used for code samples, technical content, and where monospaced characters are needed.
+                </p>
+                <div className="p-3 bg-muted/30 rounded-md">
+                  <code className="text-sm text-muted-foreground">font-[var(--font-maison-neue-mono)]</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
         
-        <TypographyExample name="Heading 2" className="text-3xl font-bold">
-          The quick brown fox jumps over the lazy dog
-        </TypographyExample>
+        <ComponentPreview title="Type Scale">
+          <div className="space-y-4">
+            <p className="text-muted-foreground mb-4">
+              Our type scale is fluid and responsive, automatically adjusting text sizes based on screen size while maintaining proper visual hierarchy.
+            </p>
+            
+            <div className="space-y-6">
+              <div className="pb-4 border-b border-border">
+                <div className="text-8xl mb-2">Display</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>8xl (text-8xl)</span>
+                  <span>Fluid sizing for responsive layouts</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-7xl mb-2">Heading 1</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>7xl (text-7xl)</span>
+                  <span>Page titles, hero sections</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-6xl mb-2">Heading 2</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>6xl (text-6xl)</span>
+                  <span>Section headers, content dividers</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-5xl mb-2">Heading 3</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>5xl (text-5xl)</span>
+                  <span>Subsection headers</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-4xl mb-2">Heading 4</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>4xl (text-4xl)</span>
+                  <span>Minor section headers, card titles</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-3xl mb-2">Heading 5</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>3xl (text-3xl)</span>
+                  <span>Panel titles, group headers</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-2xl mb-2">Heading 6</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>2xl (text-2xl)</span>
+                  <span>Small section headers</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-xl mb-2">Large Text</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>xl (text-xl)</span>
+                  <span>Introductory paragraphs, pullquotes</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-lg mb-2">Medium Text</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>lg (text-lg)</span>
+                  <span>Emphasized body text, important information</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-base mb-2">Body Text</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>base (text-base)</span>
+                  <span>Default paragraph text</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-sm mb-2">Small Text</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>sm (text-sm)</span>
+                  <span>Helper text, captions, metadata</span>
+                </div>
+              </div>
+              
+              <div className="pb-4 border-b border-border">
+                <div className="text-xs mb-2">Extra Small Text</div>
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>xs (text-xs)</span>
+                  <span>Legal text, fine print, footnotes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
         
-        <TypographyExample name="Heading 3" className="text-2xl font-bold">
-          The quick brown fox jumps over the lazy dog
-        </TypographyExample>
+        <ComponentPreview title="Font Weights">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Font weights help establish hierarchy and emphasis in your content.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="font-bold text-xl mb-2">Bold (700)</div>
+                <div className="text-muted-foreground">
+                  Used for headlines, emphasizing important text, and primary UI elements.
+                  <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                    <code className="text-sm">font-bold</code>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="font-semibold text-xl mb-2">Semibold (600)</div>
+                <div className="text-muted-foreground">
+                  Used for subheadings, buttons, and interactive elements.
+                  <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                    <code className="text-sm">font-semibold</code>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="font-medium text-xl mb-2">Medium (500)</div>
+                <div className="text-muted-foreground">
+                  Used for section titles, emphasized paragraphs, and navigation items.
+                  <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                    <code className="text-sm">font-medium</code>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="font-normal text-xl mb-2">Regular (400)</div>
+                <div className="text-muted-foreground">
+                  Used for body text, standard paragraphs, and most UI text.
+                  <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                    <code className="text-sm">font-normal</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
         
-        <TypographyExample name="Paragraph" className="text-base">
-          The quick brown fox jumps over the lazy dog. This sentence contains all the letters of the English alphabet, making it perfect for showing typeface examples.
-        </TypographyExample>
-        
-        <TypographyExample name="Small Text" className="text-sm text-muted-foreground">
-          The quick brown fox jumps over the lazy dog
-        </TypographyExample>
+        <ComponentPreview title="Typography Components">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Our typography components provide consistent styling and proper semantic HTML elements.
+            </p>
+            
+            <div className="space-y-6">
+              <div>
+                <Heading>Heading Component</Heading>
+                <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                  <code className="text-sm text-muted-foreground">{`<Heading>Page Title</Heading>`}</code>
+                </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  The Heading component supports variants (h1-h6), sizes, alignments, and weights.
+                </div>
+              </div>
+              
+              <div>
+                <SubHeading level={1}>SubHeading Component Level 1</SubHeading>
+                <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                  <code className="text-sm text-muted-foreground">{`<SubHeading level={1}>Subtitle</SubHeading>`}</code>
+                </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  The SubHeading component creates semantic subtitles with appropriate styling.
+                </div>
+              </div>
+              
+              <div>
+                <Text>Text Component for paragraphs and general content</Text>
+                <div className="mt-2 p-2 bg-muted/30 rounded-md">
+                  <code className="text-sm text-muted-foreground">{`<Text>Paragraph content</Text>`}</code>
+                </div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  The Text component supports various sizes, weights, and states.
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
       </Section>
 
       {/* Spacing & Layout */}
@@ -280,46 +750,118 @@ const DesignSystemDocsPage: React.FC = () => {
         title="Spacing & Layout" 
         description="Our spacing system creates visual rhythm and hierarchy while ensuring responsive layouts across devices."
       >
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-4">Spacing Scale</h3>
-          <Card>
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                {[1, 2, 3, 4, 6, 8, 12, 16].map((space) => (
-                  <div key={space} className="flex items-center">
-                    <div className="h-8 bg-primary/20 rounded-sm" style={{ width: `${space * 0.25}rem` }}></div>
-                    <Badge variant="outline" className="ml-4">
-                      <span className="font-mono">space-{space}</span>
-                      <span className="text-muted-foreground ml-2">({space * 0.25}rem)</span>
-                    </Badge>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        
-        <ComponentPreview 
-          title="Container" 
-          description="The container centers content horizontally with responsive padding."
-        >
-          <div className="border border-dashed border-border rounded-md p-6">
-            <div className="w-full bg-muted text-center p-4 rounded">
-              <Badge variant="outline" className="bg-background">Container content</Badge>
+        <ComponentPreview title="Spacing Scale">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Our spacing scale is based on a 4px grid (0.25rem). This consistent spacing system helps create visual balance and harmony across interfaces.
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24].map((space) => (
+                <div key={space} className="flex items-center">
+                  <div 
+                    className="h-8 bg-primary/20 mr-4" 
+                    style={{ width: `${space * 0.25}rem` }}
+                  ></div>
+                  <span className="text-sm font-mono text-muted-foreground">space-{space} ({space * 0.25}rem)</span>
+                </div>
+              ))}
             </div>
           </div>
         </ComponentPreview>
         
-        <ComponentPreview 
-          title="Grid System" 
-          description="Use our responsive grid system for layouts."
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="bg-muted p-4 rounded text-center">
-                Column {item}
+        <ComponentPreview title="Layout Components">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Our layout components provide consistent spacing and alignment while adapting to different screen sizes.
+            </p>
+            
+            <div>
+              <h3 className="font-medium mb-3">Container</h3>
+              <p className="text-muted-foreground mb-3">
+                Provides a centered content area with responsive padding.
+              </p>
+              <div className="border border-dashed border-border rounded-md p-6 mb-3">
+                <div className="w-full bg-muted text-center p-4 rounded">
+                  <Badge variant="outline" className="bg-background">Container content</Badge>
+                </div>
               </div>
-            ))}
+              <div className="p-2 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground">{`<div className="container mx-auto px-4">Content</div>`}</code>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Grid System">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Our responsive grid system adjusts columns based on screen size, making layouts fluid and adaptable.
+            </p>
+            
+            <div>
+              <h3 className="font-medium mb-3">Basic Grid</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="bg-muted p-4 rounded text-center">
+                    Column {item}
+                  </div>
+                ))}
+              </div>
+              <div className="p-2 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground">{`<div className="grid grid-cols-1 md:grid-cols-3 gap-4">...</div>`}</code>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-medium mb-3">Complex Grid</h3>
+              <div className="grid grid-cols-12 gap-4 mb-3">
+                <div className="col-span-12 md:col-span-6 lg:col-span-8 bg-muted p-4 rounded text-center">
+                  Main Content
+                </div>
+                <div className="col-span-12 md:col-span-6 lg:col-span-4 bg-muted p-4 rounded text-center">
+                  Sidebar
+                </div>
+              </div>
+              <div className="p-2 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground">{`<div className="grid grid-cols-12 gap-4">
+  <div className="col-span-12 md:col-span-6 lg:col-span-8">...</div>
+  <div className="col-span-12 md:col-span-6 lg:col-span-4">...</div>
+</div>`}</code>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Flexbox Layout">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              Flexbox layouts provide powerful alignment options for one-dimensional layouts.
+            </p>
+            
+            <div>
+              <h3 className="font-medium mb-3">Horizontal Stack</h3>
+              <div className="flex flex-wrap gap-4 items-center mb-3">
+                <div className="bg-muted p-4 rounded">Item 1</div>
+                <div className="bg-muted p-4 rounded">Item 2</div>
+                <div className="bg-muted p-4 rounded">Item 3</div>
+              </div>
+              <div className="p-2 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground">{`<div className="flex flex-wrap gap-4 items-center">...</div>`}</code>
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-medium mb-3">Vertical Stack</h3>
+              <div className="flex flex-col gap-4 mb-3">
+                <div className="bg-muted p-4 rounded">Item 1</div>
+                <div className="bg-muted p-4 rounded">Item 2</div>
+                <div className="bg-muted p-4 rounded">Item 3</div>
+              </div>
+              <div className="p-2 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground">{`<div className="flex flex-col gap-4">...</div>`}</code>
+              </div>
+            </div>
           </div>
         </ComponentPreview>
       </Section>
@@ -847,6 +1389,116 @@ const DesignSystemDocsPage: React.FC = () => {
             <Badge variant="secondary">Secondary</Badge>
             <Badge variant="outline">Outline</Badge>
             <Badge variant="destructive">Destructive</Badge>
+          </div>
+        </ComponentPreview>
+      </Section>
+
+      {/* Theming */}
+      <Section 
+        id="themes" 
+        title="Theming" 
+        description="Our theming system allows for easy customization and consistent application of visual styles across your product."
+      >
+        <ComponentPreview title="Theme Modes">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              The design system supports light and dark modes, with automatic detection of system preferences.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <h3 className="font-medium">Light Mode</h3>
+                <div className="bg-card border border-border p-4 rounded-lg">
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="font-semibold">Light Theme</div>
+                    <Badge variant="outline">Default</Badge>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-sm text-muted-foreground">Optimized for daytime usage and high-contrast environments.</p>
+                    <div className="flex gap-2 mt-3">
+                      <div className="h-6 w-6 rounded-full bg-primary"></div>
+                      <div className="h-6 w-6 rounded-full bg-secondary"></div>
+                      <div className="h-6 w-6 rounded-full bg-accent"></div>
+                      <div className="h-6 w-6 rounded-full bg-muted"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <h3 className="font-medium">Dark Mode</h3>
+                <div className="bg-black border border-zinc-800 p-4 rounded-lg text-white">
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="font-semibold">Dark Theme</div>
+                    <Badge variant="outline" className="border-zinc-700 text-zinc-300">Alternate</Badge>
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-sm text-zinc-400">Ideal for low-light environments and reduced eye strain.</p>
+                    <div className="flex gap-2 mt-3">
+                      <div className="h-6 w-6 rounded-full bg-blue-500"></div>
+                      <div className="h-6 w-6 rounded-full bg-zinc-800"></div>
+                      <div className="h-6 w-6 rounded-full bg-pink-500"></div>
+                      <div className="h-6 w-6 rounded-full bg-zinc-700"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Theme Switching">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              The ThemeSwitcher component provides a simple way to toggle between light and dark modes.
+            </p>
+            
+            <div className="p-6 border border-border rounded-lg bg-card">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="font-medium mb-2">Theme Toggle</h3>
+                  <p className="text-sm text-muted-foreground">Click the button to switch themes:</p>
+                </div>
+                <UI.ThemeSwitcher />
+              </div>
+              
+              <div className="mt-6 p-3 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground">{`<UI.ThemeSwitcher />`}</code>
+              </div>
+            </div>
+          </div>
+        </ComponentPreview>
+        
+        <ComponentPreview title="Custom Themes">
+          <div className="space-y-6">
+            <p className="text-muted-foreground mb-4">
+              The design system supports custom themes through CSS variables, allowing you to create branded experiences.
+            </p>
+            
+            <div className="space-y-4">
+              <h3 className="font-medium">How to Create a Custom Theme</h3>
+              
+              <ol className="list-decimal list-inside space-y-3 text-muted-foreground ml-4">
+                <li>Define CSS custom properties for your theme colors</li>
+                <li>Create a theme selector mechanism</li>
+                <li>Apply your theme using CSS classes or data attributes</li>
+              </ol>
+              
+              <div className="mt-4 p-4 bg-muted/30 rounded-md">
+                <code className="text-sm text-muted-foreground whitespace-pre">{`/* Example theme definition */
+:root[data-theme="blue"] {
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  /* ... other variables */
+}
+
+:root[data-theme="green"] {
+  --primary: #10b981;
+  --primary-foreground: #ffffff;
+  /* ... other variables */
+}`}</code>
+              </div>
+            </div>
           </div>
         </ComponentPreview>
       </Section>
