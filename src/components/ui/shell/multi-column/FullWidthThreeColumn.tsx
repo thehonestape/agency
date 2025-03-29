@@ -44,9 +44,16 @@ export function FullWidthThreeColumn({
     theme, 
     density, 
     layout,
-    navigation: { type: 'side', items: navigation, ...navConfig },
+    navigation: { 
+      type: 'side', 
+      items: navConfig?.items || navigation,
+    },
     variants 
   });
+
+  // Use the custom navigation items if provided, otherwise fallback to default
+  const sideNavItems = navConfig?.items || navigation;
+  const useDefaultNav = !navConfig?.items;
 
   return (
     <div className={cn(styles.multiColumn.container, className)}>
@@ -108,10 +115,10 @@ export function FullWidthThreeColumn({
                     <ul role="list" className="flex flex-1 flex-col gap-y-7">
                       <li>
                         <ul role="list" className="-mx-2 space-y-1">
-                          {navigation.map((item) => (
+                          {sideNavItems.map((item) => (
                             <li key={item.id}>
                               <Link
-                                to={item.href}
+                                to={item.href || '#'}
                                 className={cn(
                                   item.active
                                     ? 'bg-gray-800 text-white'
@@ -125,23 +132,25 @@ export function FullWidthThreeColumn({
                           ))}
                         </ul>
                       </li>
-                      <li className="mt-auto">
-                        <ul role="list" className="-mx-2 space-y-1">
-                          {userNavigation.map((item) => (
-                            <li key={item.id}>
-                              <Link
-                                to={item.href}
-                                className={cn(
-                                  'text-gray-400 hover:text-white hover:bg-gray-800',
-                                  'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                                )}
-                              >
-                                {item.label}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </li>
+                      {useDefaultNav && (
+                        <li className="mt-auto">
+                          <ul role="list" className="-mx-2 space-y-1">
+                            {userNavigation.map((item) => (
+                              <li key={item.id}>
+                                <Link
+                                  to={item.href}
+                                  className={cn(
+                                    'text-gray-400 hover:text-white hover:bg-gray-800',
+                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                  )}
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </li>
+                      )}
                     </ul>
                   </nav>
                 </div>
@@ -152,60 +161,69 @@ export function FullWidthThreeColumn({
       </Transition.Root>
 
       {/* Static sidebar for desktop */}
-      <div className={cn(
-        "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col",
-        layout.columns.left?.width || styles.multiColumn.left
-      )}>
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
-          <div className="flex h-16 shrink-0 items-center">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=white"
-              alt="Your Company"
-            />
+      {navConfig?.items ? (
+        // This is an empty div that prevents layout shift but doesn't show navigation
+        <div className={cn(
+          "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col",
+          layout.columns.left?.width || styles.multiColumn.left
+        )}></div>
+      ) : (
+        <div className={cn(
+          "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col",
+          layout.columns.left?.width || styles.multiColumn.left
+        )}>
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4">
+            <div className="flex h-16 shrink-0 items-center">
+              <img
+                className="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                alt="Your Company"
+              />
+            </div>
+            <nav className="flex flex-1 flex-col">
+              <ul role="list" className="flex flex-1 flex-col gap-y-7">
+                <li>
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {sideNavItems.map((item) => (
+                      <li key={item.id}>
+                        <Link
+                          to={item.href || '#'}
+                          className={cn(
+                            item.active
+                              ? 'bg-gray-800 text-white'
+                              : 'text-gray-400 hover:text-white hover:bg-gray-800',
+                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                          )}
+                        >
+                          {'icon' in item && item.icon ? item.icon : null}
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+                <li className="mt-auto">
+                  <ul role="list" className="-mx-2 space-y-1">
+                    {userNavigation.map((item) => (
+                      <li key={item.id}>
+                        <Link
+                          to={item.href}
+                          className={cn(
+                            'text-gray-400 hover:text-white hover:bg-gray-800',
+                            'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <nav className="flex flex-1 flex-col">
-            <ul role="list" className="flex flex-1 flex-col gap-y-7">
-              <li>
-                <ul role="list" className="-mx-2 space-y-1">
-                  {navigation.map((item) => (
-                    <li key={item.id}>
-                      <Link
-                        to={item.href}
-                        className={cn(
-                          item.active
-                            ? 'bg-gray-800 text-white'
-                            : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                          'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-              <li className="mt-auto">
-                <ul role="list" className="-mx-2 space-y-1">
-                  {userNavigation.map((item) => (
-                    <li key={item.id}>
-                      <Link
-                        to={item.href}
-                        className={cn(
-                          'text-gray-400 hover:text-white hover:bg-gray-800',
-                          'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-                        )}
-                      >
-                        {item.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </nav>
         </div>
-      </div>
+      )}
 
       {/* Main content */}
       <div className={cn("lg:pl-72", styles.multiColumn.main)}>
