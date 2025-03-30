@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
   CardContent,
+  CardDescription,
   Badge,
   Alert,
   AlertTitle,
@@ -13,6 +14,9 @@ import {
   TabsList,
   TabsTrigger,
   TabsContent,
+  Input,
+  Label,
+  Button,
   Select,
   SelectTrigger,
   SelectValue,
@@ -44,6 +48,9 @@ import {
   ExclamationTriangleIcon,
   MapIcon,
   WrenchScrewdriverIcon,
+  CheckCircleIcon,
+  UserGroupIcon,
+  BoltIcon,
 } from '@heroicons/react/24/outline';
 
 // Type definitions for navigation sections
@@ -247,7 +254,7 @@ const DesignSystemDocsPage: React.FC = () => {
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <ConsistencyIcon className="h-5 w-5 text-primary" /> 
+                <CheckCircleIcon className="h-5 w-5 text-primary" /> 
                 Consistency
               </h3>
               <p className="text-muted-foreground">
@@ -256,7 +263,7 @@ const DesignSystemDocsPage: React.FC = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <AccessibilityIcon className="h-5 w-5 text-primary" /> 
+                <UserGroupIcon className="h-5 w-5 text-primary" /> 
                 Accessibility
               </h3>
               <p className="text-muted-foreground">
@@ -265,7 +272,7 @@ const DesignSystemDocsPage: React.FC = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <ModularityIcon className="h-5 w-5 text-primary" /> 
+                <CubeIcon className="h-5 w-5 text-primary" /> 
                 Modularity
               </h3>
               <p className="text-muted-foreground">
@@ -274,7 +281,7 @@ const DesignSystemDocsPage: React.FC = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-                <PerformanceIcon className="h-5 w-5 text-primary" /> 
+                <BoltIcon className="h-5 w-5 text-primary" /> 
                 Performance
               </h3>
               <p className="text-muted-foreground">
@@ -373,7 +380,10 @@ const DesignSystemDocsPage: React.FC = () => {
           </AlertDescription>
         </Alert>
         
-        <ComponentPreview title="Primary Colors">
+        <ColorPalette title="Theme Colors" colors={themeColors} />
+        <ColorPalette title="UI Colors" colors={uiColors} />
+        
+        <ComponentPreview title="Primary Color Scale">
           <div className="space-y-6">
             <p className="text-muted-foreground mb-4">
               Primary colors are the main brand colors used throughout the interface. They represent the brand identity and are used for primary actions and key UI elements.
@@ -384,7 +394,7 @@ const DesignSystemDocsPage: React.FC = () => {
                   <div 
                     className={`h-14 rounded-md mb-2 shadow-sm`}
                     style={{ 
-                      backgroundColor: `rgb(var(--primary-${shade}))`,
+                      backgroundColor: `rgb(var(--primary-${shade}, var(--primary)))`,
                       color: parseInt(shade) > 500 ? 'white' : 'black'
                     }}
                   >
@@ -399,6 +409,99 @@ const DesignSystemDocsPage: React.FC = () => {
           </div>
         </ComponentPreview>
         
+        <ComponentPreview title="Complete Color Scales">
+          <div className="space-y-10">
+            <div className="space-y-2">
+              <h3 className="text-lg font-medium">Blue Theme - Primary Scale</h3>
+              <div className="grid grid-cols-11 gap-1">
+                {['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'].map((shade) => (
+                  <div key={shade} className="text-center">
+                    <div 
+                      className="h-12 rounded-md mb-1"
+                      style={{ 
+                        backgroundColor: shade === '50' ? 'rgb(239 246 255)' : 
+                                        shade === '100' ? 'rgb(219 234 254)' :
+                                        shade === '200' ? 'rgb(191 219 254)' :
+                                        shade === '300' ? 'rgb(147 197 253)' :
+                                        shade === '400' ? 'rgb(96 165 250)' :
+                                        shade === '500' ? 'rgb(59 130 246)' :
+                                        shade === '600' ? 'rgb(37 99 235)' :
+                                        shade === '700' ? 'rgb(29 78 216)' :
+                                        shade === '800' ? 'rgb(30 64 175)' :
+                                        shade === '900' ? 'rgb(30 58 138)' : 'rgb(23 37 84)',
+                        color: parseInt(shade) > 400 ? 'white' : 'black'
+                      }}
+                    >
+                      <div className="h-full flex items-center justify-center text-xs">{shade}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <h3 className="text-lg font-medium">Green Theme - Primary Scale</h3>
+              <div className="grid grid-cols-11 gap-1">
+                {['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'].map((shade) => (
+                  <div key={shade} className="text-center">
+                    <div 
+                      className="h-12 rounded-md mb-1"
+                      style={{ 
+                        backgroundColor: shade === '50' ? 'rgb(240 253 244)' : 
+                                        shade === '100' ? 'rgb(220 252 231)' :
+                                        shade === '200' ? 'rgb(187 247 208)' :
+                                        shade === '300' ? 'rgb(134 239 172)' :
+                                        shade === '400' ? 'rgb(74 222 128)' :
+                                        shade === '500' ? 'rgb(34 197 94)' :
+                                        shade === '600' ? 'rgb(22 163 74)' :
+                                        shade === '700' ? 'rgb(21 128 61)' :
+                                        shade === '800' ? 'rgb(22 101 52)' :
+                                        shade === '900' ? 'rgb(20 83 45)' : 'rgb(5 46 22)',
+                        color: parseInt(shade) > 500 ? 'white' : 'black'
+                      }}
+                    >
+                      <div className="h-full flex items-center justify-center text-xs">{shade}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <h3 className="text-lg font-medium">Zinc Theme - Primary Scale</h3>
+              <div className="grid grid-cols-11 gap-1">
+                {['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'].map((shade) => (
+                  <div key={shade} className="text-center">
+                    <div 
+                      className="h-12 rounded-md mb-1"
+                      style={{ 
+                        backgroundColor: shade === '50' ? 'rgb(250 250 250)' : 
+                                        shade === '100' ? 'rgb(244 244 245)' :
+                                        shade === '200' ? 'rgb(228 228 231)' :
+                                        shade === '300' ? 'rgb(212 212 216)' :
+                                        shade === '400' ? 'rgb(161 161 170)' :
+                                        shade === '500' ? 'rgb(113 113 122)' :
+                                        shade === '600' ? 'rgb(82 82 91)' :
+                                        shade === '700' ? 'rgb(63 63 70)' :
+                                        shade === '800' ? 'rgb(39 39 42)' :
+                                        shade === '900' ? 'rgb(24 24 27)' : 'rgb(9 9 11)',
+                        color: parseInt(shade) > 400 ? 'white' : 'black'
+                      }}
+                    >
+                      <div className="h-full flex items-center justify-center text-xs">{shade}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <p className="text-sm text-muted-foreground mt-6">
+              Each theme has a complete color scale from 50 to 950, providing flexibility for different contrast needs
+              and visual hierarchies. The 500 shade is used as the primary default color.
+            </p>
+          </div>
+        </ComponentPreview>
+        
         <ComponentPreview title="Semantic Colors">
           <div className="space-y-6">
             <p className="text-muted-foreground mb-4">
@@ -406,7 +509,7 @@ const DesignSystemDocsPage: React.FC = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--primary)', color: 'var(--primary-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--primary))', color: 'rgb(var(--primary-foreground))' }}>
                   Primary
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -414,7 +517,7 @@ const DesignSystemDocsPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--secondary)', color: 'var(--secondary-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--secondary))', color: 'rgb(var(--secondary-foreground))' }}>
                   Secondary
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -422,7 +525,7 @@ const DesignSystemDocsPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--accent)', color: 'var(--accent-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--accent))', color: 'rgb(var(--accent-foreground))' }}>
                   Accent
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -430,7 +533,7 @@ const DesignSystemDocsPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--muted))', color: 'rgb(var(--muted-foreground))' }}>
                   Muted
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -448,7 +551,7 @@ const DesignSystemDocsPage: React.FC = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--success)', color: 'var(--success-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--success))', color: 'rgb(var(--success-foreground))' }}>
                   Success
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -456,7 +559,7 @@ const DesignSystemDocsPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--warning)', color: 'var(--warning-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--warning))', color: 'rgb(var(--warning-foreground))' }}>
                   Warning
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -464,7 +567,7 @@ const DesignSystemDocsPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--destructive)', color: 'var(--destructive-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--destructive))', color: 'rgb(var(--destructive-foreground))' }}>
                   Destructive
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -472,7 +575,7 @@ const DesignSystemDocsPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="p-6 rounded-md" style={{ backgroundColor: 'var(--info)', color: 'var(--info-foreground)' }}>
+                <div className="p-6 rounded-md" style={{ backgroundColor: 'rgb(var(--info))', color: 'rgb(var(--info-foreground))' }}>
                   Info
                 </div>
                 <div className="text-sm text-muted-foreground">
@@ -483,33 +586,113 @@ const DesignSystemDocsPage: React.FC = () => {
           </div>
         </ComponentPreview>
         
-        <ComponentPreview title="Accessibility">
+        <ComponentPreview title="Theme Variations">
           <div className="space-y-6">
             <p className="text-muted-foreground mb-4">
-              Our color system is designed to meet WCAG 2.1 AA accessibility standards for color contrast. Always ensure sufficient contrast between text and background colors.
+              Our design system supports multiple theme variations that can be applied using the data-theme attribute.
+              Each theme comes in both light and dark modes that can be toggled with the theme switcher.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-medium mb-3">Good Contrast</h3>
-                <div className="space-y-4">
-                  <div className="p-4 bg-primary rounded-md text-primary-foreground">
-                    This text has good contrast against the primary background.
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Blue Theme */}
+              <div className="space-y-4">
+                <Card className="p-4 overflow-hidden">
+                  <h3 className="font-medium mb-2">Blue Theme (Light)</h3>
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(14 165 233)' }}>P</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(241 245 249)' }}>S</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(245 158 11)' }}>A</div>
                   </div>
-                  <div className="p-4 bg-destructive rounded-md text-destructive-foreground">
-                    This text has good contrast against the destructive background.
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(34 197 94)', color: 'white' }}>✓</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(245 158 11)', color: 'white' }}>!</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(239 68 68)', color: 'white' }}>×</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(59 130 246)', color: 'white' }}>i</div>
                   </div>
-                </div>
+                  <p className="text-sm text-muted-foreground mt-3">data-theme="blue-light"</p>
+                </Card>
+                <Card className="p-4 overflow-hidden" style={{ backgroundColor: '#1e293b', color: 'white' }}>
+                  <h3 className="font-medium mb-2">Blue Theme (Dark)</h3>
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(56 189 248)', color: 'black' }}>P</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(51 65 85)' }}>S</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(251 191 36)', color: 'black' }}>A</div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(74 222 128)', color: 'black' }}>✓</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(251 191 36)', color: 'black' }}>!</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(239 68 68)', color: 'white' }}>×</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(96 165 250)', color: 'black' }}>i</div>
+                  </div>
+                  <p className="text-sm text-muted-foreground/70 mt-3">data-theme="blue-dark"</p>
+                </Card>
               </div>
-              <div>
-                <h3 className="font-medium mb-3">Text Colors</h3>
-                <div className="space-y-4">
-                  <div className="p-2">
-                    <p className="text-foreground">Default text (--foreground)</p>
+              
+              {/* Green Theme */}
+              <div className="space-y-4">
+                <Card className="p-4 overflow-hidden">
+                  <h3 className="font-medium mb-2">Green Theme (Light)</h3>
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(34 197 94)' }}>P</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(240 253 244)' }}>S</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(245 158 11)' }}>A</div>
                   </div>
-                  <div className="p-2">
-                    <p className="text-muted-foreground">Muted text (--muted-foreground)</p>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(34 197 94)', color: 'white' }}>✓</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(245 158 11)', color: 'white' }}>!</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(239 68 68)', color: 'white' }}>×</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(59 130 246)', color: 'white' }}>i</div>
                   </div>
-                </div>
+                  <p className="text-sm text-muted-foreground mt-3">data-theme="green-light"</p>
+                </Card>
+                <Card className="p-4 overflow-hidden" style={{ backgroundColor: '#052e16', color: 'white' }}>
+                  <h3 className="font-medium mb-2">Green Theme (Dark)</h3>
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(74 222 128)', color: 'black' }}>P</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(22 101 52)' }}>S</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(251 191 36)', color: 'black' }}>A</div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(74 222 128)', color: 'black' }}>✓</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(251 191 36)', color: 'black' }}>!</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(239 68 68)', color: 'white' }}>×</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(96 165 250)', color: 'black' }}>i</div>
+                  </div>
+                  <p className="text-sm text-muted-foreground/70 mt-3">data-theme="green-dark"</p>
+                </Card>
+              </div>
+              
+              {/* Zinc Theme */}
+              <div className="space-y-4">
+                <Card className="p-4 overflow-hidden">
+                  <h3 className="font-medium mb-2">Zinc Theme (Light)</h3>
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(113 113 122)' }}>P</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(244 244 245)' }}>S</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(113 113 122)' }}>A</div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(34 197 94)', color: 'white' }}>✓</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(245 158 11)', color: 'white' }}>!</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(239 68 68)', color: 'white' }}>×</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(59 130 246)', color: 'white' }}>i</div>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-3">data-theme="zinc-light"</p>
+                </Card>
+                <Card className="p-4 overflow-hidden" style={{ backgroundColor: '#18181b', color: 'white' }}>
+                  <h3 className="font-medium mb-2">Zinc Theme (Dark)</h3>
+                  <div className="flex gap-2 mb-2">
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(161 161 170)', color: 'black' }}>P</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium text-white" style={{ backgroundColor: 'rgb(39 39 42)' }}>S</div>
+                    <div className="h-10 w-10 rounded-full flex items-center justify-center text-xs font-medium" style={{ backgroundColor: 'rgb(161 161 170)', color: 'black' }}>A</div>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(74 222 128)', color: 'black' }}>✓</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(251 191 36)', color: 'black' }}>!</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(239 68 68)', color: 'white' }}>×</div>
+                    <div className="h-6 w-6 rounded flex items-center justify-center text-[10px]" style={{ backgroundColor: 'rgb(96 165 250)', color: 'black' }}>i</div>
+                  </div>
+                  <p className="text-sm text-muted-foreground/70 mt-3">data-theme="zinc-dark"</p>
+                </Card>
               </div>
             </div>
           </div>
@@ -1013,12 +1196,14 @@ const DesignSystemDocsPage: React.FC = () => {
           <div className="grid gap-6">
             <Alert>
               <AlertTitle>Default Alert</AlertTitle>
-              <AlertDescription>This is a standard alert message providing information to users.</AlertDescription>
+              <AlertDescription>
+                This is a standard alert message providing information to users.</AlertDescription>
             </Alert>
             
             <Alert variant="destructive">
               <AlertTitle>Error Alert</AlertTitle>
-              <AlertDescription>This alert indicates an error or critical information.</AlertDescription>
+              <AlertDescription>
+                This alert indicates an error or critical information.</AlertDescription>
             </Alert>
             
             <UI.Banner>
