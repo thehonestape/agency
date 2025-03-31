@@ -78,6 +78,9 @@ const NavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
             className 
           })
         )}
+        data-component="nav-link"
+        data-state={state}
+        aria-current={state === "active" ? "page" : undefined}
         {...props}
       />
     );

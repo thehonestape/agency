@@ -1,7 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { fontVariables } from "@/fonts";
 
 const textVariants = cva(
   "select-none font-[var(--font-maison-neue)]",
@@ -62,6 +61,12 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
       <p
         ref={ref}
         className={cn(textVariants({ variant, size, state, align, weight, className }))}
+        data-component="text"
+        data-text-variant={variant}
+        data-text-size={size}
+        data-text-state={state}
+        data-text-align={align}
+        data-text-weight={weight}
         {...props}
       />
     );

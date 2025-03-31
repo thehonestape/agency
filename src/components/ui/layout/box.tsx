@@ -193,11 +193,43 @@ export interface BoxProps
 }
 
 const Box = React.forwardRef<HTMLDivElement, BoxProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({ 
+    className, 
+    display,
+    position,
+    padding,
+    margin,
+    background,
+    border,
+    shadow,
+    rounded,
+    overflow,
+    container,
+    zIndex,
+    width,
+    height,
+    visibility,
+    opacity,
+    cursor,
+    pointerEvents,
+    userSelect,
+    asChild = false, 
+    ...props 
+  }, ref) => {
     return (
       <Base
         ref={ref}
         className={cn(boxVariants({ className }))}
+        data-component="box"
+        data-box-display={display}
+        data-box-position={position}
+        data-box-padding={padding}
+        data-box-margin={margin}
+        data-box-rounded={rounded}
+        data-box-shadow={shadow}
+        data-box-z-index={zIndex}
+        data-box-width={width}
+        data-box-height={height}
         {...props}
       />
     );

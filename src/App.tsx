@@ -10,6 +10,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 import FullViewExample from './views/FullViewExample';
 import DesignSystem from './pages/DesignSystem';
 import ThemeDemoPage from './pages/ThemeDemoPage';
+import DesignDocsPage from './pages/design-docs';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
           {/* Design System Route */}
           <Route path="/design-system" element={<DesignSystem />} />
           <Route path="/theme-demo" element={<ThemeDemoPage />} />
-          <Route path="/design-docs" element={<DesignSystemDocsPage />} />
+          <Route path="/design-docs" element={<DesignDocsPage />} />
           
           {/* Public Routes - Marketing/Sales Pages */}
           <Route element={<MainLayout />}>

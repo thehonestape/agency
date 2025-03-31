@@ -120,6 +120,12 @@ const Grid = React.forwardRef<HTMLDivElement, GridProps>(
       <div
         ref={ref}
         className={cn(gridVariants({ gap, columns, rows, flow, align, justify, container, background, border, rounded, className }))}
+        data-component="grid"
+        data-grid-columns={columns}
+        data-grid-gap={gap}
+        data-grid-flow={flow}
+        data-grid-align={align}
+        data-grid-justify={justify}
         {...props}
       />
     );
@@ -242,6 +248,13 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       <div
         ref={ref}
         className={cn(gridItemVariants({ colSpan, rowSpan, colStart, rowStart, selfAlign, selfJustify, background, border, rounded, className }))}
+        data-component="grid-item"
+        data-grid-col-span={colSpan}
+        data-grid-row-span={rowSpan}
+        data-grid-col-start={colStart}
+        data-grid-row-start={rowStart}
+        data-grid-self-align={selfAlign}
+        data-grid-self-justify={selfJustify}
         {...props}
       />
     );

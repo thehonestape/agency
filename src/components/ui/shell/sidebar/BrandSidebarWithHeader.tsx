@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ export function BrandSidebarWithHeader({
     <div className={cn(styles.sidebar.container, className)}>
       {/* Mobile sidebar */}
       <Transition.Root show={sidebarOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
+        <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen} data-component="mobile-sidebar" aria-modal="true">
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -55,7 +55,7 @@ export function BrandSidebarWithHeader({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-900/80" />
+            <div className="fixed inset-0 bg-gray-900/80" data-component="mobile-sidebar-backdrop" />
           </Transition.Child>
 
           <div className="fixed inset-0 flex">
@@ -79,7 +79,12 @@ export function BrandSidebarWithHeader({
                   leaveTo="opacity-0"
                 >
                   <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                    <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
+                    <button 
+                      type="button" 
+                      className="-m-2.5 p-2.5" 
+                      onClick={() => setSidebarOpen(false)}
+                      aria-label="Close sidebar"
+                    >
                       <span className="sr-only">Close sidebar</span>
                       <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                     </button>
@@ -89,7 +94,7 @@ export function BrandSidebarWithHeader({
                 <div className={cn(
                   "flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4",
                   styles.sidebar.sidebar
-                )}>
+                )} data-component="mobile-sidebar-panel" role="navigation" aria-label="Mobile Navigation">
                   <div className="flex h-16 shrink-0 items-center">
                     <img
                       className="h-8 w-auto"
@@ -111,6 +116,8 @@ export function BrandSidebarWithHeader({
                                     : 'text-indigo-200 hover:text-white hover:bg-indigo-700',
                                   'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                 )}
+                                data-nav-item={item.id}
+                                aria-current={item.active ? "page" : undefined}
                               >
                                 {item.label}
                               </Link>
@@ -128,6 +135,7 @@ export function BrandSidebarWithHeader({
                                   'text-indigo-200 hover:text-white hover:bg-indigo-700',
                                   'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                 )}
+                                data-nav-item={item.id}
                               >
                                 {item.label}
                               </Link>
@@ -148,7 +156,7 @@ export function BrandSidebarWithHeader({
       <div className={cn(
         "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:flex-col",
         layout.sidebarWidth || styles.sidebar.sidebar
-      )}>
+      )} data-component="sidebar" role="navigation" aria-label="Main Navigation">
         <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
           <div className="flex h-16 shrink-0 items-center">
             <img
@@ -171,6 +179,8 @@ export function BrandSidebarWithHeader({
                             : 'text-indigo-200 hover:text-white hover:bg-indigo-700',
                           'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                         )}
+                        data-nav-item={item.id}
+                        aria-current={item.active ? "page" : undefined}
                       >
                         {item.label}
                       </Link>
@@ -188,6 +198,7 @@ export function BrandSidebarWithHeader({
                           'text-indigo-200 hover:text-white hover:bg-indigo-700',
                           'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                         )}
+                        data-nav-item={item.id}
                       >
                         {item.label}
                       </Link>
@@ -202,11 +213,14 @@ export function BrandSidebarWithHeader({
 
       {/* Main content */}
       <div className={cn("lg:pl-72", styles.sidebar.content)}>
-        <div className={cn("sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8", styles.sidebar.header)}>
+        <div className={cn("sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8", styles.sidebar.header)} data-component="header" role="banner">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
             onClick={() => setSidebarOpen(true)}
+            aria-expanded={sidebarOpen}
+            aria-controls="mobile-navigation"
+            aria-label="Open sidebar"
           >
             <span className="sr-only">Open sidebar</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -225,7 +239,7 @@ export function BrandSidebarWithHeader({
           </div>
         </div>
 
-        <main className={cn("py-10", styles.sidebar.main)}>
+        <main className={cn("py-10", styles.sidebar.main)} data-component="main-content" role="main">
           <div className="px-4 sm:px-6 lg:px-8">
             {children}
           </div>

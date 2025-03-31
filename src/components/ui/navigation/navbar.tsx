@@ -87,6 +87,9 @@ const Navbar = React.forwardRef<HTMLElement, NavbarProps>(
             className 
           })
         )}
+        data-component="navbar"
+        role="navigation"
+        aria-label="Main Navigation"
         {...props}
       />
     );

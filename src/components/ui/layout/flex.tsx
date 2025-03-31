@@ -170,6 +170,14 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>(
             className 
           })
         )}
+        data-component="flex"
+        data-flex-direction={direction}
+        data-flex-wrap={wrap}
+        data-flex-align={align}
+        data-flex-justify={justify}
+        data-flex-gap={gap}
+        data-flex-padding={padding}
+        data-flex-margin={margin}
         {...props}
       />
     );

@@ -74,6 +74,11 @@ const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
             className 
           })
         )}
+        data-component="form-label"
+        data-form-label-size={size}
+        data-form-label-weight={weight}
+        data-form-label-color={textColor}
+        data-form-label-container={container}
         {...props}
       />
     );

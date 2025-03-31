@@ -6,10 +6,12 @@ interface NavItem {
   icon?: ReactNode;
   href?: string;
   active?: boolean;
+  onClick?: () => void;
   items?: {
     label: string;
     href?: string;
     active?: boolean;
+    onClick?: () => void;
   }[];
 }
 
@@ -36,17 +38,35 @@ export const SideNav: React.FC<SideNavProps> = ({ items }) => {
 
                 <div className="space-y-1">
                   {group.items?.map((item, itemIndex) => (
-                    <Link
-                      key={itemIndex}
-                      to={item.href || '#'}
-                      className={`group flex items-center rounded-md px-2 py-2 text-sm font-medium ${
-                        item.active
-                          ? 'bg-primary text-primary-foreground'
-                          : 'text-foreground hover:bg-muted hover:text-primary'
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
+                    item.onClick ? (
+                      <a
+                        key={itemIndex}
+                        href={item.href || '#'}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          item.onClick?.();
+                        }}
+                        className={`group flex items-center rounded-md px-2 py-2 text-sm font-medium ${
+                          item.active
+                            ? 'bg-primary text-primary-foreground'
+                            : 'text-foreground hover:bg-muted hover:text-primary'
+                        }`}
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        key={itemIndex}
+                        to={item.href || '#'}
+                        className={`group flex items-center rounded-md px-2 py-2 text-sm font-medium ${
+                          item.active
+                            ? 'bg-primary text-primary-foreground'
+                            : 'text-foreground hover:bg-muted hover:text-primary'
+                        }`}
+                      >
+                        {item.label}
+                      </Link>
+                    )
                   ))}
                 </div>
               </div>

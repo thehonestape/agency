@@ -1,7 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { fontVariables } from "@/fonts";
 
 const headingVariants = cva(
   "tracking-tight select-none font-[var(--font-maison-neue)]",
@@ -80,17 +79,25 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       }
     };
 
+    const resolvedSize = getDefaultSize();
+
     return (
       <Component
         ref={ref}
         className={cn(headingVariants({ 
           variant, 
-          size: getDefaultSize(), 
+          size: resolvedSize, 
           state, 
           align, 
           weight, 
           className 
         }))}
+        data-component="heading"
+        data-heading-level={variant}
+        data-heading-size={resolvedSize}
+        data-heading-state={state}
+        data-heading-align={align}
+        data-heading-weight={weight}
         {...props}
       />
     );
@@ -144,6 +151,8 @@ const SubHeading = React.forwardRef<HTMLHeadingElement, SubHeadingProps>(
         state={state}
         align={align}
         className={combinedClassName}
+        data-component="subheading"
+        data-subheading-level={level}
         {...props}
       />
     );

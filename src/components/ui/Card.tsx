@@ -51,6 +51,10 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       className={cn(cardVariants({ variant, density, interactive, className }))}
+      data-component="card"
+      data-card-variant={variant}
+      data-card-density={density}
+      data-card-interactive={interactive}
       {...props}
     />
   )
@@ -76,7 +80,13 @@ interface CardHeaderProps
 
 const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ className, density, ...props }, ref) => (
-    <div ref={ref} className={cn(headerVariants({ density, className }))} {...props} />
+    <div
+      ref={ref}
+      className={cn(headerVariants({ density, className }))}
+      data-component="card-header"
+      data-card-density={density}
+      {...props}
+    />
   )
 );
 CardHeader.displayName = 'CardHeader';
@@ -103,7 +113,13 @@ interface CardTitleProps
 
 const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ className, size, ...props }, ref) => (
-    <h3 ref={ref} className={cn(titleVariants({ size, className }))} {...props} />
+    <h3
+      ref={ref}
+      className={cn(titleVariants({ size, className }))}
+      data-component="card-title"
+      data-text-size={size}
+      {...props}
+    />
   )
 );
 CardTitle.displayName = 'CardTitle';
@@ -127,7 +143,13 @@ interface CardDescriptionProps
 
 const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   ({ className, size, ...props }, ref) => (
-    <p ref={ref} className={cn(descriptionVariants({ size, className }))} {...props} />
+    <p
+      ref={ref}
+      className={cn(descriptionVariants({ size, className }))}
+      data-component="card-description"
+      data-text-size={size}
+      {...props}
+    />
   )
 );
 CardDescription.displayName = 'CardDescription';
@@ -151,7 +173,13 @@ interface CardContentProps
 
 const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
   ({ className, density, ...props }, ref) => (
-    <div ref={ref} className={cn(contentVariants({ density, className }))} {...props} />
+    <div
+      ref={ref}
+      className={cn(contentVariants({ density, className }))}
+      data-component="card-content"
+      data-card-density={density}
+      {...props}
+    />
   )
 );
 CardContent.displayName = 'CardContent';
@@ -182,7 +210,14 @@ interface CardFooterProps
 
 const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   ({ className, density, align, ...props }, ref) => (
-    <div ref={ref} className={cn(footerVariants({ density, align, className }))} {...props} />
+    <div
+      ref={ref}
+      className={cn(footerVariants({ density, align, className }))}
+      data-component="card-footer"
+      data-card-density={density}
+      data-card-align={align}
+      {...props}
+    />
   )
 );
 CardFooter.displayName = 'CardFooter';

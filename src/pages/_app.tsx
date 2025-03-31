@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { NextPage } from 'next';
 import { ReactElement, ReactNode } from 'react';
 import { ThemeProvider } from '@/lib/ThemeProvider';
+import { initBaselineGridDebug } from '@/lib/utils';
 
 // Styles
 import '@/styles/globals.css';
@@ -20,6 +21,11 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
+
+  // Initialize baseline grid debug mode
+  useEffect(() => {
+    initBaselineGridDebug();
+  }, []);
 
   return (
     <>

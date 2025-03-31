@@ -240,6 +240,7 @@ const Base = React.forwardRef<HTMLDivElement, BaseProps>(
             className 
           })
         )}
+        data-component="base"
         {...props}
       />
     );

@@ -296,3 +296,118 @@ export function generateThemeColors(baseColors: {
     'ring': primary,
   };
 }
+
+/**
+ * Toggle visual debugging for the baseline grid semantic layer
+ * This function adds a colored outline to all elements with data-component attributes
+ * and displays the component name and its semantic attributes
+ */
+export function toggleBaselineGridDebug(enabled: boolean = true): void {
+  if (typeof window === 'undefined') return;
+  
+  // Remove existing debug styles
+  const existingStyle = document.getElementById('baseline-grid-debug-styles');
+  if (existingStyle) {
+    existingStyle.remove();
+  }
+  
+  if (!enabled) return;
+  
+  // Create style element
+  const style = document.createElement('style');
+  style.id = 'baseline-grid-debug-styles';
+  
+  // Add debug styles
+  style.innerHTML = `
+    [data-component] {
+      outline: 2px dashed rgba(65, 135, 240, 0.7) !important;
+      position: relative !important;
+    }
+    
+    [data-component]:hover {
+      outline: 2px solid rgba(65, 135, 240, 1) !important;
+    }
+    
+    [data-component]:hover::before {
+      content: attr(data-component);
+      position: absolute;
+      top: -20px;
+      left: 0;
+      background: #0077ff;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      font-family: monospace;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    
+    [data-component]:hover::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 119, 255, 0.1),
+        rgba(0, 119, 255, 0.1) 8px,
+        rgba(65, 135, 240, 0.05) 8px,
+        rgba(65, 135, 240, 0.05) 16px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    /* Grid component specific */
+    [data-component="grid"] {
+      outline: 2px dashed rgba(255, 105, 180, 0.7) !important;
+    }
+    
+    [data-component="grid"]:hover {
+      outline: 2px solid rgba(255, 105, 180, 1) !important;
+    }
+    
+    [data-component="grid"]:hover::after {
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 105, 180, 0.1),
+        rgba(255, 105, 180, 0.1) 8px,
+        rgba(255, 105, 180, 0.05) 8px,
+        rgba(255, 105, 180, 0.05) 16px
+      );
+    }
+    
+    /* Stack component specific */
+    [data-component="stack"], [data-component="hstack"], [data-component="vstack"] {
+      outline: 2px dashed rgba(50, 205, 50, 0.7) !important;
+    }
+    
+    [data-component="stack"]:hover, [data-component="hstack"]:hover, [data-component="vstack"]:hover {
+      outline: 2px solid rgba(50, 205, 50, 1) !important;
+    }
+  `;
+  
+  // Add style to head
+  document.head.appendChild(style);
+  
+  console.log('Baseline grid debug mode enabled. Add ?debug=grid to URL to enable on page load.');
+}
+
+/**
+ * Initialize baseline grid debug mode from URL parameter
+ * Usage: Add ?debug=grid to the URL to enable debug mode
+ */
+export function initBaselineGridDebug(): void {
+  if (typeof window === 'undefined') return;
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  const debugMode = urlParams.get('debug');
+  
+  if (debugMode === 'grid') {
+    toggleBaselineGridDebug(true);
+    console.log('Baseline grid debug mode enabled via URL parameter');
+  }
+}

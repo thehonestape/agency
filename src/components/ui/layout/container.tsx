@@ -112,6 +112,8 @@ const Container = React.forwardRef<HTMLDivElement, ContainerProps>(
             className 
           })
         )}
+        data-component="container"
+        data-container-size={size}
         {...props}
       />
     );
