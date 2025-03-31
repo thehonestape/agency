@@ -424,7 +424,7 @@ const DesignDocsPage = () => {
                         
                         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="border p-4 rounded-md">
-                            <h4 className="text-lg font-semibold mb-2">Lockups & Patterns</h4>
+                            <h4 className="text-lg font-medium">Lockups & Patterns</h4>
                             <p className="text-base">
                               Consistent text combinations for common UI elements:
                             </p>
@@ -437,7 +437,7 @@ const DesignDocsPage = () => {
                           </div>
                           
                           <div className="border p-4 rounded-md">
-                            <h4 className="text-lg font-semibold mb-2">System Extensibility</h4>
+                            <h4 className="text-lg font-medium">System Extensibility</h4>
                             <p className="text-base">
                               Ways to extend the typography system:
                             </p>
@@ -491,7 +491,7 @@ const DesignDocsPage = () => {
                         <div className="space-y-6">
                           <div className="border p-4 rounded-md">
                             <h1 className="text-4xl">Heading 1</h1>
-                            <div className="flex items-center mt-2 text-muted-foreground">
+                            <div className="mt-3 text-base text-muted-foreground">
                               <span className="px-2 py-1 bg-background rounded text-sm">4xl</span>
                               <span className="mx-2">•</span>
                               <span className="px-2 py-1 bg-background rounded text-sm">Normal weight</span>
@@ -502,7 +502,7 @@ const DesignDocsPage = () => {
                           
                           <div className="border p-4 rounded-md">
                             <h2 className="text-3xl">Heading 2</h2>
-                            <div className="flex items-center mt-2 text-muted-foreground">
+                            <div className="mt-3 text-base text-muted-foreground">
                               <span className="px-2 py-1 bg-background rounded text-sm">3xl</span>
                               <span className="mx-2">•</span>
                               <span className="px-2 py-1 bg-background rounded text-sm">Normal weight</span>
@@ -513,7 +513,7 @@ const DesignDocsPage = () => {
                           
                           <div className="border p-4 rounded-md">
                             <h3 className="text-2xl">Heading 3</h3>
-                            <div className="flex items-center mt-2 text-muted-foreground">
+                            <div className="mt-3 text-base text-muted-foreground">
                               <span className="px-2 py-1 bg-background rounded text-sm">2xl</span>
                               <span className="mx-2">•</span>
                               <span className="px-2 py-1 bg-background rounded text-sm">Normal weight</span>
@@ -526,7 +526,7 @@ const DesignDocsPage = () => {
                         <div className="space-y-6">
                           <div className="border p-4 rounded-md">
                             <h4 className="text-xl">Heading 4</h4>
-                            <div className="flex items-center mt-2 text-muted-foreground">
+                            <div className="mt-3 text-base text-muted-foreground">
                               <span className="px-2 py-1 bg-background rounded text-sm">xl</span>
                               <span className="mx-2">•</span>
                               <span className="px-2 py-1 bg-background rounded text-sm">Normal weight</span>
@@ -537,7 +537,7 @@ const DesignDocsPage = () => {
                           
                           <div className="border p-4 rounded-md">
                             <h5 className="text-lg">Heading 5</h5>
-                            <div className="flex items-center mt-2 text-muted-foreground">
+                            <div className="mt-3 text-base text-muted-foreground">
                               <span className="px-2 py-1 bg-background rounded text-sm">lg</span>
                               <span className="mx-2">•</span>
                               <span className="px-2 py-1 bg-background rounded text-sm">Normal weight</span>
@@ -548,7 +548,7 @@ const DesignDocsPage = () => {
                           
                           <div className="border p-4 rounded-md">
                             <h6 className="text-base">Heading 6</h6>
-                            <div className="flex items-center mt-2 text-muted-foreground">
+                            <div className="mt-3 text-base text-muted-foreground">
                               <span className="px-2 py-1 bg-background rounded text-sm">base</span>
                               <span className="mx-2">•</span>
                               <span className="px-2 py-1 bg-background rounded text-sm">Normal weight</span>
@@ -734,6 +734,420 @@ const DesignDocsPage = () => {
 // Incorrect: Using div instead of proper heading
 <div className="text-3xl font-medium">
   This should be a heading
+</div>`}
+                              </pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </Section>
+
+              {/* Colors Section */}
+              <Section
+                id="colors"
+                title="Colors"
+                description="Color system and palette for consistent visual language"
+              >
+                <div className="space-y-8">
+                  {/* Color Philosophy */}
+                  <Card id="colors-philosophy">
+                    <CardHeader>
+                      <CardTitle>Color Philosophy</CardTitle>
+                      <CardDescription>Our approach to color is built on flexibility, semantic meaning, and accessibility</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="prose dark:prose-invert max-w-none">
+                        <p className="text-lg mb-4">
+                          Our color system is designed as a layered architecture that separates base colors from their semantic application, enabling consistent theming and customization.
+                        </p>
+                        
+                        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                          <div className="space-y-2">
+                            <h4 className="font-medium">Core Principles</h4>
+                            <ul className="text-sm space-y-2">
+                              <li><strong>Layered Architecture:</strong> Base colors are separate from semantic tokens</li>
+                              <li><strong>Context-Driven:</strong> Colors have meaning based on their context</li>
+                              <li><strong>Accessible:</strong> All color combinations meet WCAG AA standards</li>
+                              <li><strong>Themeable:</strong> Easy to customize for different brand identities</li>
+                              <li><strong>Dark Mode Support:</strong> All colors have light and dark variants</li>
+                            </ul>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h4 className="font-medium">Implementation Approach</h4>
+                            <ul className="text-sm space-y-2">
+                              <li><strong>HSL Format:</strong> Colors defined in HSL for better manipulation</li>
+                              <li><strong>CSS Variables:</strong> Exposed as CSS variables for easy theming</li>
+                              <li><strong>Tailwind Integration:</strong> Available as Tailwind utility classes</li>
+                              <li><strong>Semantic Naming:</strong> Named by purpose, not visual appearance</li>
+                              <li><strong>Component Tokens:</strong> Component-specific color tokens</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Color System Architecture */}
+                  <Card id="colors-system">
+                    <CardHeader>
+                      <CardTitle>System Architecture</CardTitle>
+                      <CardDescription>How our color system is structured for flexibility and consistency</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="prose dark:prose-invert max-w-none">
+                        <p className="text-lg mb-4">
+                          Our color system follows a three-layer architecture that separates base colors from their application, enabling consistent theming and customization.
+                        </p>
+                        
+                        <div className="bg-muted p-6 rounded-md mb-6">
+                          <h4 className="text-xl font-medium mb-3">Three-Layer Architecture</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="bg-background p-4 rounded-md border">
+                              <div className="text-lg font-medium mb-2">1. Base Colors</div>
+                              <p className="text-sm">Raw color values without semantic meaning</p>
+                              <div className="mt-3 text-xs">
+                                <code>blue.500: "217 91% 60%"</code><br />
+                                <code>gray.200: "220 13% 91%"</code><br />
+                                <code>red.600: "0 72% 51%"</code>
+                              </div>
+                            </div>
+                            <div className="bg-background p-4 rounded-md border">
+                              <div className="text-lg font-medium mb-2">2. Semantic Tokens</div>
+                              <p className="text-sm">Mapping base colors to their UI purpose</p>
+                              <div className="mt-3 text-xs">
+                                <code>primary: blue.600</code><br />
+                                <code>background: white/gray.950</code><br />
+                                <code>error: red.600/red.500</code>
+                              </div>
+                            </div>
+                            <div className="bg-background p-4 rounded-md border">
+                              <div className="text-lg font-medium mb-2">3. Component Tokens</div>
+                              <p className="text-sm">Component-specific color applications</p>
+                              <div className="mt-3 text-xs">
+                                <code>button.primary: primary</code><br />
+                                <code>card.background: background</code><br />
+                                <code>alert.error: error</code>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-muted p-6 rounded-md">
+                          <h4 className="text-xl font-medium mb-3">Benefits of This Approach</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="bg-background p-4 rounded-md">
+                              <div className="text-lg font-medium mb-2">Theme Customization</div>
+                              <p className="text-sm">Change only base colors to create an entirely new theme while maintaining semantic relationships</p>
+                            </div>
+                            <div className="bg-background p-4 rounded-md">
+                              <div className="text-lg font-medium mb-2">Dark Mode Support</div>
+                              <p className="text-sm">Semantic tokens have both light and dark values, making dark mode implementation straightforward</p>
+                            </div>
+                            <div className="bg-background p-4 rounded-md">
+                              <div className="text-lg font-medium mb-2">Consistency</div>
+                              <p className="text-sm">Ensures consistent color usage across the entire interface</p>
+                            </div>
+                            <div className="bg-background p-4 rounded-md">
+                              <div className="text-lg font-medium mb-2">Maintainability</div>
+                              <p className="text-sm">Easier to update and maintain as the system grows</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Base Colors */}
+                  <Card id="colors-palette">
+                    <CardHeader>
+                      <CardTitle>Base Color Palette</CardTitle>
+                      <CardDescription>The foundation colors that serve as building blocks for our system</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-lg mb-6">
+                        Our base palette consists of carefully crafted color scales in HSL format. Each scale includes 11 steps from 50 (lightest) to 950 (darkest).
+                      </p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        {/* Gray Scale */}
+                        <div className="border rounded-md overflow-hidden">
+                          <div className="p-4 border-b bg-muted/30">
+                            <h4 className="text-lg font-medium">Gray Scale</h4>
+                            <p className="text-sm text-muted-foreground">Neutral colors for text, backgrounds, and borders</p>
+                          </div>
+                          <div className="p-4 flex flex-wrap gap-2">
+                            <div className="h-8 w-8 rounded bg-gray-50 border"></div>
+                            <div className="h-8 w-8 rounded bg-gray-100 border"></div>
+                            <div className="h-8 w-8 rounded bg-gray-200 border"></div>
+                            <div className="h-8 w-8 rounded bg-gray-300 border"></div>
+                            <div className="h-8 w-8 rounded bg-gray-400 border"></div>
+                            <div className="h-8 w-8 rounded bg-gray-500 border"></div>
+                            <div className="h-8 w-8 rounded bg-gray-600 border text-white flex items-center justify-center text-xs">600</div>
+                            <div className="h-8 w-8 rounded bg-gray-700 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-gray-800 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-gray-900 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-gray-950 border text-white"></div>
+                          </div>
+                        </div>
+
+                        {/* Blue Scale */}
+                        <div className="border rounded-md overflow-hidden">
+                          <div className="p-4 border-b bg-muted/30">
+                            <h4 className="text-lg font-medium">Blue Scale</h4>
+                            <p className="text-sm text-muted-foreground">Primary brand color for interactive elements</p>
+                          </div>
+                          <div className="p-4 flex flex-wrap gap-2">
+                            <div className="h-8 w-8 rounded bg-blue-50 border"></div>
+                            <div className="h-8 w-8 rounded bg-blue-100 border"></div>
+                            <div className="h-8 w-8 rounded bg-blue-200 border"></div>
+                            <div className="h-8 w-8 rounded bg-blue-300 border"></div>
+                            <div className="h-8 w-8 rounded bg-blue-400 border"></div>
+                            <div className="h-8 w-8 rounded bg-blue-500 border"></div>
+                            <div className="h-8 w-8 rounded bg-blue-600 border text-white flex items-center justify-center text-xs">600</div>
+                            <div className="h-8 w-8 rounded bg-blue-700 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-blue-800 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-blue-900 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-blue-950 border text-white"></div>
+                          </div>
+                        </div>
+
+                        {/* Green Scale */}
+                        <div className="border rounded-md overflow-hidden">
+                          <div className="p-4 border-b bg-muted/30">
+                            <h4 className="text-lg font-medium">Green Scale</h4>
+                            <p className="text-sm text-muted-foreground">Success states and positive indicators</p>
+                          </div>
+                          <div className="p-4 flex flex-wrap gap-2">
+                            <div className="h-8 w-8 rounded bg-green-50 border"></div>
+                            <div className="h-8 w-8 rounded bg-green-100 border"></div>
+                            <div className="h-8 w-8 rounded bg-green-200 border"></div>
+                            <div className="h-8 w-8 rounded bg-green-300 border"></div>
+                            <div className="h-8 w-8 rounded bg-green-400 border"></div>
+                            <div className="h-8 w-8 rounded bg-green-500 border"></div>
+                            <div className="h-8 w-8 rounded bg-green-600 border text-white flex items-center justify-center text-xs">600</div>
+                            <div className="h-8 w-8 rounded bg-green-700 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-green-800 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-green-900 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-green-950 border text-white"></div>
+                          </div>
+                        </div>
+
+                        {/* Red Scale */}
+                        <div className="border rounded-md overflow-hidden">
+                          <div className="p-4 border-b bg-muted/30">
+                            <h4 className="text-lg font-medium">Red Scale</h4>
+                            <p className="text-sm text-muted-foreground">Error states and destructive actions</p>
+                          </div>
+                          <div className="p-4 flex flex-wrap gap-2">
+                            <div className="h-8 w-8 rounded bg-red-50 border"></div>
+                            <div className="h-8 w-8 rounded bg-red-100 border"></div>
+                            <div className="h-8 w-8 rounded bg-red-200 border"></div>
+                            <div className="h-8 w-8 rounded bg-red-300 border"></div>
+                            <div className="h-8 w-8 rounded bg-red-400 border"></div>
+                            <div className="h-8 w-8 rounded bg-red-500 border"></div>
+                            <div className="h-8 w-8 rounded bg-red-600 border text-white flex items-center justify-center text-xs">600</div>
+                            <div className="h-8 w-8 rounded bg-red-700 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-red-800 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-red-900 border text-white"></div>
+                            <div className="h-8 w-8 rounded bg-red-950 border text-white"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Semantic Colors */}
+                  <Card id="colors-semantic">
+                    <CardHeader>
+                      <CardTitle>Semantic Colors</CardTitle>
+                      <CardDescription>Purpose-driven colors that convey meaning in the interface</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-lg mb-6">
+                        Semantic colors map our base colors to specific purposes in the UI, with different values for light and dark modes.
+                      </p>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div className="bg-muted p-6 rounded-md">
+                          <h4 className="text-xl font-medium mb-3">Background Colors</h4>
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-background border"></div>
+                              <div>
+                                <div className="font-medium">Background</div>
+                                <div className="text-xs text-muted-foreground">Primary background color</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-muted border"></div>
+                              <div>
+                                <div className="font-medium">Muted</div>
+                                <div className="text-xs text-muted-foreground">Subdued background</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-card border"></div>
+                              <div>
+                                <div className="font-medium">Card</div>
+                                <div className="text-xs text-muted-foreground">Card and surface background</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-muted p-6 rounded-md">
+                          <h4 className="text-xl font-medium mb-3">Foreground Colors</h4>
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-foreground border"></div>
+                              <div>
+                                <div className="font-medium">Foreground</div>
+                                <div className="text-xs text-muted-foreground">Primary text color</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-muted-foreground border"></div>
+                              <div>
+                                <div className="font-medium">Muted Foreground</div>
+                                <div className="text-xs text-muted-foreground">Secondary text color</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-card-foreground border"></div>
+                              <div>
+                                <div className="font-medium">Card Foreground</div>
+                                <div className="text-xs text-muted-foreground">Text on card surfaces</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-muted p-6 rounded-md">
+                          <h4 className="text-xl font-medium mb-3">Interactive Colors</h4>
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-primary border"></div>
+                              <div>
+                                <div className="font-medium">Primary</div>
+                                <div className="text-xs text-muted-foreground">Main brand color</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-secondary border"></div>
+                              <div>
+                                <div className="font-medium">Secondary</div>
+                                <div className="text-xs text-muted-foreground">Supporting color</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-accent border"></div>
+                              <div>
+                                <div className="font-medium">Accent</div>
+                                <div className="text-xs text-muted-foreground">Highlight color</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-muted p-6 rounded-md">
+                          <h4 className="text-xl font-medium mb-3">Status Colors</h4>
+                          <div className="space-y-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-destructive border"></div>
+                              <div>
+                                <div className="font-medium">Destructive</div>
+                                <div className="text-xs text-muted-foreground">Error states</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-success border"></div>
+                              <div>
+                                <div className="font-medium">Success</div>
+                                <div className="text-xs text-muted-foreground">Positive states</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-md bg-warning border"></div>
+                              <div>
+                                <div className="font-medium">Warning</div>
+                                <div className="text-xs text-muted-foreground">Caution states</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Color Usage */}
+                  <Card id="colors-usage">
+                    <CardHeader>
+                      <CardTitle>Color Usage</CardTitle>
+                      <CardDescription>Guidelines for applying colors effectively in the interface</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="prose dark:prose-invert max-w-none">
+                        <h3 className="text-2xl font-medium mb-4">Best Practices</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                          <div className="border p-5 rounded-md">
+                            <div className="text-xl font-medium mb-3">Use semantic tokens</div>
+                            <div className="bg-muted p-4 rounded-md">
+                              <div className="text-base">Always use semantic color tokens rather than direct base colors</div>
+                            </div>
+                          </div>
+                          
+                          <div className="border p-5 rounded-md">
+                            <div className="text-xl font-medium mb-3">Maintain contrast</div>
+                            <div className="bg-muted p-4 rounded-md">
+                              <div className="text-base">Ensure text has sufficient contrast with its background (WCAG AA minimum)</div>
+                            </div>
+                          </div>
+                          
+                          <div className="border p-5 rounded-md">
+                            <div className="text-xl font-medium mb-3">Be consistent</div>
+                            <div className="bg-muted p-4 rounded-md">
+                              <div className="text-base">Use colors consistently to reinforce their meaning</div>
+                            </div>
+                          </div>
+                          
+                          <div className="border p-5 rounded-md">
+                            <div className="text-xl font-medium mb-3">Don't rely on color alone</div>
+                            <div className="bg-muted p-4 rounded-md">
+                              <div className="text-base">Always pair color with other visual cues for accessibility</div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-muted p-6 rounded-md">
+                          <h4 className="text-xl font-medium mb-3">Usage Examples</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="bg-background p-4 rounded-md">
+                              <p className="text-base mb-2"><strong>✅ Do:</strong> Use semantic tokens</p>
+                              <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
+                                {`// Good: Using semantic tokens
+<Button variant="destructive">
+  Delete Account
+</Button>
+
+<div className="bg-card p-4">
+  Card content
+</div>`}
+                              </pre>
+                            </div>
+                            <div className="bg-background p-4 rounded-md">
+                              <p className="text-base mb-2"><strong>❌ Don't:</strong> Use base colors directly</p>
+                              <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
+                                {`// Bad: Using base colors directly
+<button className="bg-red-600 text-white">
+  Delete Account
+</button>
+
+<div className="bg-gray-100 p-4">
+  Card content
 </div>`}
                               </pre>
                             </div>
