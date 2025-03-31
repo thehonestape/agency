@@ -29,7 +29,7 @@ export const Card: React.FC<CardProps> = ({
   ...rest
 }) => {
   const { theme } = useTheme();
-  
+
   // Determine styles based on variant
   const getVariantStyles = () => {
     switch (variant) {
@@ -47,9 +47,8 @@ export const Card: React.FC<CardProps> = ({
         };
       case 'filled':
         return {
-          backgroundColor: theme.colors.background === '#ffffff' 
-            ? '#f9fafb' 
-            : 'rgba(255,255,255,0.05)',
+          backgroundColor:
+            theme.colors.background === '#ffffff' ? '#f9fafb' : 'rgba(255,255,255,0.05)',
           boxShadow: 'none',
           border: 'none',
         };
@@ -62,10 +61,10 @@ export const Card: React.FC<CardProps> = ({
         };
     }
   };
-  
+
   // Convert padding to string with units if it's a number
   const paddingValue = typeof padding === 'number' ? `${padding}px` : padding;
-  
+
   // Combine styles
   const cardStyles = {
     borderRadius: theme.radius.lg,
@@ -73,30 +72,26 @@ export const Card: React.FC<CardProps> = ({
     ...getVariantStyles(),
     ...style,
   };
-  
+
   // Header styles
   const headerStyles = {
     padding: paddingValue,
     borderBottom: title || description || header ? `1px solid ${theme.colors.border}` : 'none',
   };
-  
+
   // Content styles
   const contentStyles = {
     padding: paddingValue,
   };
-  
+
   // Footer styles
   const footerStyles = {
     padding: paddingValue,
     borderTop: footer ? `1px solid ${theme.colors.border}` : 'none',
   };
-  
+
   return (
-    <div
-      className={`card card-${variant} ${className}`}
-      style={cardStyles}
-      {...rest}
-    >
+    <div className={`card card-${variant} ${className}`} style={cardStyles} {...rest}>
       {/* Render header if provided or if title/description exists */}
       {(header || title || description) && (
         <div className="card-header" style={headerStyles}>
@@ -108,12 +103,12 @@ export const Card: React.FC<CardProps> = ({
           )}
         </div>
       )}
-      
+
       {/* Card content */}
       <div className="card-content" style={contentStyles}>
         {children}
       </div>
-      
+
       {/* Render footer if provided */}
       {footer && (
         <div className="card-footer" style={footerStyles}>
@@ -149,4 +144,4 @@ componentRegistry.register('patterns.card', {
   },
 });
 
-export default Card; 
+export default Card;

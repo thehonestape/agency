@@ -1,0 +1,280 @@
+@import "tailwindcss";
+
+/* 
+ * Tailwind v4 Theme Configuration
+ * This follows the Tailwind v4 approach where we:
+ * - Define themes in CSS using RGB space-separated values
+ * - Apply themes using data-theme attribute 
+ */
+
+/* Define base theme variables */
+@theme {
+  --primary: 14 165 233;
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249;
+  --secondary-foreground: 15 23 42;
+  --background: 255 255 255;
+  --foreground: 15 23 42; 
+  --muted: 241 245 249;
+  --muted-foreground: 100 116 139;
+  --accent: 245 158 11;
+  --accent-foreground: 255 255 255;
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --success: 34 197 94;
+  --success-foreground: 255 255 255;
+  --warning: 245 158 11;
+  --warning-foreground: 255 255 255;
+  --info: 59 130 246;
+  --info-foreground: 255 255 255;
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --popover: 255 255 255;
+  --popover-foreground: 15 23 42;
+  --border: 226 232 240;
+  --input: 226 232 240;
+  --ring: 14 165 233;
+  --radius: 0.5rem;
+}
+
+/* Define utility classes for theme colors */
+@utilities {
+  .bg-theme {
+    background-color: rgb(var(--background) / <alpha-value>);
+  }
+  
+  .text-theme {
+    color: rgb(var(--foreground) / <alpha-value>);
+  }
+  
+  .border-theme {
+    border-color: rgb(var(--border) / <alpha-value>);
+  }
+  
+  .ring-theme {
+    --tw-ring-color: rgb(var(--ring) / <alpha-value>);
+  }
+}
+
+/* Apply themes via data-theme attribute */
+@layer base {
+  /* Blue theme - light */
+  [data-theme="blue-light"] {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
+    --primary: 14 165 233;
+    --primary-foreground: 255 255 255;
+    --secondary: 241 245 249;
+    --secondary-foreground: 15 23 42;
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+    --accent: 245 158 11;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 34 197 94;
+    --success-foreground: 255 255 255;
+    --warning: 245 158 11;
+    --warning-foreground: 255 255 255;
+    --info: 59 130 246;
+    --info-foreground: 255 255 255;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 14 165 233;
+  }
+
+  /* Blue theme - dark */
+  [data-theme="blue-dark"] {
+    --background: 15 23 42;
+    --foreground: 248 250 252;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
+    --popover: 30 41 59;
+    --popover-foreground: 248 250 252;
+    --primary: 56 189 248;
+    --primary-foreground: 255 255 255;
+    --secondary: 51 65 85;
+    --secondary-foreground: 248 250 252;
+    --muted: 51 65 85;
+    --muted-foreground: 148 163 184;
+    --accent: 251 191 36;
+    --accent-foreground: 0 0 0;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 74 222 128;
+    --success-foreground: 0 0 0;
+    --warning: 251 191 36;
+    --warning-foreground: 0 0 0;
+    --info: 96 165 250;
+    --info-foreground: 0 0 0;
+    --border: 51 65 85;
+    --input: 51 65 85;
+    --ring: 56 189 248;
+  }
+
+  /* Green theme - light */
+  [data-theme="green-light"] {
+    --background: 255 255 255;
+    --foreground: 22 101 52;
+    --card: 255 255 255;
+    --card-foreground: 22 101 52;
+    --popover: 255 255 255;
+    --popover-foreground: 22 101 52;
+    --primary: 34 197 94;
+    --primary-foreground: 255 255 255;
+    --secondary: 240 253 244;
+    --secondary-foreground: 22 101 52;
+    --muted: 240 253 244;
+    --muted-foreground: 34 197 94;
+    --accent: 245 158 11;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 34 197 94;
+    --success-foreground: 255 255 255;
+    --warning: 245 158 11;
+    --warning-foreground: 255 255 255;
+    --info: 59 130 246;
+    --info-foreground: 255 255 255;
+    --border: 187 247 208;
+    --input: 187 247 208;
+    --ring: 34 197 94;
+  }
+
+  /* Green theme - dark */
+  [data-theme="green-dark"] {
+    --background: 5 46 22;
+    --foreground: 240 253 244;
+    --card: 20 83 45;
+    --card-foreground: 240 253 244;
+    --popover: 20 83 45;
+    --popover-foreground: 240 253 244;
+    --primary: 74 222 128;
+    --primary-foreground: 0 0 0;
+    --secondary: 22 101 52;
+    --secondary-foreground: 240 253 244;
+    --muted: 22 101 52;
+    --muted-foreground: 187 247 208;
+    --accent: 251 191 36;
+    --accent-foreground: 0 0 0;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 74 222 128;
+    --success-foreground: 0 0 0;
+    --warning: 251 191 36;
+    --warning-foreground: 0 0 0;
+    --info: 96 165 250;
+    --info-foreground: 0 0 0;
+    --border: 22 101 52;
+    --input: 22 101 52;
+    --ring: 74 222 128;
+  }
+
+  /* Zinc theme - light */
+  [data-theme="zinc-light"] {
+    --background: 255 255 255;
+    --foreground: 24 24 27;
+    --card: 255 255 255;
+    --card-foreground: 24 24 27;
+    --popover: 255 255 255;
+    --popover-foreground: 24 24 27;
+    --primary: 113 113 122;
+    --primary-foreground: 255 255 255;
+    --secondary: 244 244 245;
+    --secondary-foreground: 24 24 27;
+    --muted: 244 244 245;
+    --muted-foreground: 113 113 122;
+    --accent: 113 113 122;
+    --accent-foreground: 255 255 255;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 34 197 94;
+    --success-foreground: 255 255 255;
+    --warning: 245 158 11;
+    --warning-foreground: 255 255 255;
+    --info: 59 130 246;
+    --info-foreground: 255 255 255;
+    --border: 228 228 231;
+    --input: 228 228 231;
+    --ring: 113 113 122;
+  }
+
+  /* Zinc theme - dark */
+  [data-theme="zinc-dark"] {
+    --background: 24 24 27;
+    --foreground: 244 244 245;
+    --card: 39 39 42;
+    --card-foreground: 244 244 245;
+    --popover: 39 39 42;
+    --popover-foreground: 244 244 245;
+    --primary: 113 113 122;
+    --primary-foreground: 255 255 255;
+    --secondary: 82 82 91;
+    --secondary-foreground: 255 255 255;
+    --muted: 63 63 70;
+    --muted-foreground: 212 212 216;
+    --accent: 244 244 245;
+    --accent-foreground: 24 24 27;
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --success: 74 222 128;
+    --success-foreground: 0 0 0;
+    --warning: 251 191 36;
+    --warning-foreground: 0 0 0;
+    --info: 96 165 250;
+    --info-foreground: 0 0 0;
+    --border: 63 63 70;
+    --input: 63 63 70;
+    --ring: 113 113 122;
+  }
+}
+
+/* Helper for applying theme colors with proper alpha channel syntax */
+@layer components {
+  .bg-theme-primary {
+    background-color: rgb(var(--primary) / 1);
+  }
+  
+  .bg-theme-primary-hover:hover {
+    background-color: rgb(var(--primary) / 0.9);
+  }
+  
+  .text-theme-primary {
+    color: rgb(var(--primary) / 1);
+  }
+  
+  .border-theme-primary {
+    border-color: rgb(var(--primary) / 1);
+  }
+  
+  .card-theme {
+    background-color: rgb(var(--card) / 1);
+    color: rgb(var(--card-foreground) / 1);
+    border: 1px solid rgb(var(--border) / 1);
+    border-radius: var(--radius);
+  }
+  
+  .button-theme {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(var(--primary) / 1);
+    color: rgb(var(--primary-foreground) / 1);
+    font-weight: 500;
+    border-radius: var(--radius);
+    padding: 0.5rem 1rem;
+    transition: background-color 150ms, transform 150ms;
+  }
+  
+  .button-theme:hover {
+    background-color: rgb(var(--primary) / 0.9);
+  }
+  
+  .button-theme:active {
+    transform: translateY(1px);
+  }
+} 

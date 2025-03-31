@@ -1,6 +1,6 @@
 # Maison Neue Font Files
 
-This directory is where the Maison Neue font files should be placed. 
+This directory is where the Maison Neue font files should be placed.
 
 ## Required Font Files
 
@@ -18,4 +18,4 @@ Once you've added the font files, you'll need to uncomment the font-face declara
 
 ## License Notice
 
-Maison Neue is a commercial font. Make sure you have the appropriate license to use it in your project. 
+Maison Neue is a commercial font. Make sure you have the appropriate license to use it in your project.

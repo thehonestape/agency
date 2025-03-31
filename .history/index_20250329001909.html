@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="blue-light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agency App</title>
+    <script>
+      // Prevent flash of unstyled content (FOUC) by applying theme immediately
+      (function() {
+        // Get saved theme from localStorage or use default
+        try {
+          const savedTheme = localStorage.getItem('theme') || 'blue-light';
+          document.documentElement.dataset.theme = savedTheme;
+          
+          // Detect user's preferred color scheme
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          // Apply dark mode class if this is a dark theme or user prefers dark mode
+          if (savedTheme.includes('-dark') || (prefersDark && !localStorage.getItem('theme'))) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          console.error('Error applying theme:', e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

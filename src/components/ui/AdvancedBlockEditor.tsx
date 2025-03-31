@@ -25,7 +25,7 @@ export function AdvancedBlockEditor({
   theme = 'light',
   className,
   placeholder = 'Type / to insert blocks...',
-  storageKey
+  storageKey,
 }: AdvancedBlockEditorProps) {
   // State to track last saved timestamp
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -65,9 +65,9 @@ export function AdvancedBlockEditor({
   // Save content handler
   const saveContent = () => {
     if (!hasUnsavedChanges) return;
-    
+
     const content = { text: editorContent };
-    
+
     // Save to local storage if storageKey is provided
     if (storageKey && typeof window !== 'undefined') {
       localStorage.setItem(storageKey, JSON.stringify(content));
@@ -90,7 +90,7 @@ export function AdvancedBlockEditor({
           saveContent();
         }
       }, autosaveInterval);
-      
+
       return () => clearInterval(interval);
     }
   }, [autosaveInterval, hasUnsavedChanges]);
@@ -103,31 +103,31 @@ export function AdvancedBlockEditor({
         saveContent();
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [hasUnsavedChanges]);
 
   return (
     <div className={`advanced-block-editor-fallback ${className || ''}`}>
-      <div className="p-4 border rounded-lg bg-yellow-50 mb-3">
+      <div className="mb-3 rounded-lg border bg-yellow-50 p-4">
         <h3 className="font-medium text-yellow-800">Simple Text Editor</h3>
-        <p className="text-sm mt-1 text-yellow-700">
+        <p className="mt-1 text-sm text-yellow-700">
           A simplified version is shown because the advanced editor could not be loaded.
         </p>
       </div>
-      
+
       <textarea
-        className="w-full p-4 border rounded-md min-h-[400px] focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+        className="focus:ring-opacity-50 min-h-[400px] w-full rounded-md border p-4 focus:border-blue-300 focus:ring focus:ring-blue-200"
         value={editorContent}
         onChange={handleTextChange}
         placeholder={placeholder}
         disabled={!isEditable}
       />
-      
+
       {/* Status indicator when editable */}
       {isEditable && (
-        <div className="flex items-center justify-end text-xs text-gray-500 mt-2">
+        <div className="mt-2 flex items-center justify-end text-xs text-gray-500">
           {hasUnsavedChanges ? (
             <span>Unsaved changes</span>
           ) : lastSaved ? (
@@ -136,9 +136,9 @@ export function AdvancedBlockEditor({
             <span>No changes</span>
           )}
           {hasUnsavedChanges && (
-            <button 
+            <button
               onClick={saveContent}
-              className="ml-2 px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+              className="ml-2 rounded bg-blue-100 px-2 py-1 text-blue-700 hover:bg-blue-200"
             >
               Save now
             </button>
@@ -149,4 +149,4 @@ export function AdvancedBlockEditor({
   );
 }
 
-export default AdvancedBlockEditor; 
+export default AdvancedBlockEditor;

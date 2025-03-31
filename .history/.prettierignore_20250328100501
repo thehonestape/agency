@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+dist/
+build/
+
+# Log files
+*.log
+npm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Generated files
+coverage/
+.history/
+
+# Package files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Misc
+.cursor/ 

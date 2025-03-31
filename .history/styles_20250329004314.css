@@ -1,0 +1,508 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import our base styles */
+@import './src/styles/base.css'; 
+@import './src/styles/fonts.css';
+@import './src/styles/globals.css';
+@import './src/styles/theme.css';
+
+:root {
+  /* Base colors using Tailwind v4 RGB format */
+  --primary: 14 165 233; /* sky-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 79 70 229; /* indigo-600 */
+  --secondary-foreground: 255 255 255;
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 255 255 255;
+  --muted: 241 245 249; /* slate-100 */
+  --muted-foreground: 100 116 139; /* slate-500 */
+  
+  /* Semantic colors */
+  --background: 255 255 255;
+  --foreground: 15 23 42; /* slate-900 */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42; /* slate-900 */
+  --border: 226 232 240; /* slate-200 */
+  --input: 226 232 240; /* slate-200 */
+  --ring: 14 165 233; /* sky-500 */
+  
+  /* Other design tokens */
+  --radius: 0.5rem;
+}
+
+/* Dark mode overrides */
+.dark {
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+} 
+
+/* Theme styles */
+:root,
+[data-theme="blue-light"],
+[data-theme="blue-dark"],
+[data-theme="green-light"],
+[data-theme="green-dark"],
+[data-theme="zinc-light"],
+[data-theme="zinc-dark"] {
+  color-scheme: light dark;
+}
+
+/* Fix dark themes by using correct v4 RGB format */
+[data-theme="blue-dark"] {
+  /* Base colors */
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --popover: 30 41 59; /* slate-800 */
+  --popover-foreground: 248 250 252; /* slate-50 */
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --destructive: 220 38 38; /* red-600 */
+  --destructive-foreground: 255 255 255;
+  
+  /* Border/utility colors */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+  --ring: 56 189 248; /* sky-400 */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+[data-theme="green-dark"] {
+  /* Base colors */
+  --background: 5 46 22; /* green-950 */
+  --foreground: 240 253 244; /* green-50 */
+  --card: 20 83 45; /* green-800 */
+  --card-foreground: 240 253 244; /* green-50 */
+  --popover: 20 83 45; /* green-800 */
+  --popover-foreground: 240 253 244; /* green-50 */
+  --primary: 74 222 128; /* green-400 */
+  --primary-foreground: 0 0 0;
+  --secondary: 34 197 94; /* green-500 */
+  --secondary-foreground: 255 255 255;
+  --muted: 22 101 52; /* green-700 */
+  --muted-foreground: 187 247 208; /* green-200 */
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 0 0 0;
+  --destructive: 220 38 38; /* red-600 */
+  --destructive-foreground: 255 255 255;
+  
+  /* Border/utility colors */
+  --border: 22 101 52; /* green-700 */
+  --input: 22 101 52; /* green-700 */
+  --ring: 74 222 128; /* green-400 */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+[data-theme="zinc-dark"] {
+  /* Base colors */
+  --background: 24 24 27; /* zinc-900 */
+  --foreground: 244 244 245; /* zinc-50 */
+  --card: 39 39 42; /* zinc-800 */
+  --card-foreground: 244 244 245; /* zinc-50 */
+  --popover: 39 39 42; /* zinc-800 */
+  --popover-foreground: 244 244 245; /* zinc-50 */
+  --primary: 113 113 122; /* zinc-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 82 82 91; /* zinc-600 */
+  --secondary-foreground: 255 255 255;
+  --muted: 63 63 70; /* zinc-700 */
+  --muted-foreground: 212 212 216; /* zinc-300 */
+  --accent: 244 244 245; /* zinc-50 */
+  --accent-foreground: 24 24 27; /* zinc-900 */
+  --destructive: 220 38 38; /* red-600 */
+  --destructive-foreground: 255 255 255;
+  
+  /* Border/utility colors */
+  --border: 63 63 70; /* zinc-700 */
+  --input: 63 63 70; /* zinc-700 */
+  --ring: 113 113 122; /* zinc-500 */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+/* Initially disable all transitions to prevent FOUC */
+html * {
+  transition: none !important;
+}
+
+/* Once the DOM is ready, transitions can be enabled with faster text changes */
+html.transition-ready * {
+  transition: 
+    background-color 150ms ease-in-out,
+    border-color 150ms ease-in-out !important;
+}
+
+/* Text colors change instantly */
+html.transition-ready *,
+[data-theme] * {
+  transition-property: background-color, border-color !important;
+}
+
+/* Apply theme colors directly to components */
+.btn, .button, button[class*="Button"] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.card, div[class*="Card"] {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-color: var(--border);
+}
+
+/* Force critical UI elements to use their theme colors */
+[data-theme] {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme] .bg-background {
+  background-color: var(--background) !important; 
+}
+
+[data-theme] .text-foreground {
+  color: var(--foreground) !important;
+}
+
+[data-theme] .bg-card {
+  background-color: var(--card) !important;
+}
+
+[data-theme] .text-card-foreground {
+  color: var(--card-foreground) !important;
+}
+
+/* Component-specific theming */
+[data-theme] .bg-primary {
+  background-color: var(--primary) !important;
+}
+
+[data-theme] .bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+[data-theme] .bg-accent {
+  background-color: var(--accent) !important;
+}
+
+[data-theme] .bg-muted {
+  background-color: var(--muted) !important;
+}
+
+[data-theme] .bg-destructive {
+  background-color: var(--destructive) !important;
+}
+
+[data-theme] .border-border {
+  border-color: var(--border) !important;
+}
+
+[data-theme] .border-primary {
+  border-color: var(--primary) !important;
+}
+
+/* Fix theme button display */
+[data-theme="blue-dark"] button, 
+[data-theme="green-dark"] button, 
+[data-theme="zinc-dark"] button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Fix text contrast in dark themes */
+[data-theme="blue-dark"] .text-muted-foreground,
+[data-theme="green-dark"] .text-muted-foreground,
+[data-theme="zinc-dark"] .text-muted-foreground {
+  color: var(--muted-foreground) !important;
+}
+
+/* Direct style overrides for theme demo buttons */
+[data-theme="blue-dark"] .bg-primary {
+  background-color: rgb(56 189 248) !important;
+}
+
+[data-theme="green-dark"] .bg-primary {
+  background-color: rgb(74 222 128) !important;
+}
+
+[data-theme="green-dark"] .text-muted-foreground {
+  color: rgb(167 243 208) !important;
+}
+
+[data-theme="zinc-dark"] .bg-primary {
+  background-color: rgb(113 113 122) !important;
+}
+
+[data-theme="zinc-dark"] .bg-secondary {
+  background-color: rgb(82 82 91) !important;
+}
+
+/* Background color overrides for dark card themes */
+[data-theme="green-dark"] .bg-card {
+  background-color: rgb(17 94 89) !important;
+}
+
+[data-theme="zinc-dark"] .bg-card {
+  background-color: rgb(39 39 42) !important;
+}
+
+/* Force specific color overrides for UI elements */
+[data-theme="green-dark"] .bg-primary {
+  background-color: rgb(var(--primary)) !important;
+}
+
+[data-theme="green-dark"] .text-primary {
+  color: rgb(var(--primary)) !important;
+}
+
+[data-theme="green-dark"] .border-primary {
+  border-color: rgb(var(--primary)) !important;
+}
+
+[data-theme="green-dark"] .bg-card {
+  background-color: rgb(var(--card)) !important;
+}
+
+[data-theme="zinc-dark"] .bg-primary {
+  background-color: rgb(var(--primary)) !important;
+}
+
+[data-theme="zinc-dark"] .text-primary {
+  color: rgb(var(--primary)) !important;
+}
+
+[data-theme="zinc-dark"] .border-primary {
+  border-color: rgb(var(--primary)) !important;
+}
+
+[data-theme="zinc-dark"] .bg-card {
+  background-color: rgb(var(--card)) !important;
+}
+
+/* Select Component Theming - Fixed for Tailwind v4 */
+[data-theme] .select-trigger,
+[data-theme] [class*="SelectTrigger"] {
+  background-color: rgb(var(--background)) !important;
+  color: rgb(var(--foreground)) !important;
+  border-color: rgb(var(--border)) !important;
+}
+
+[data-theme] .select-content,
+[data-theme] [class*="SelectContent"] {
+  background-color: rgb(var(--card)) !important;
+  color: rgb(var(--card-foreground)) !important;
+  border-color: rgb(var(--border)) !important;
+}
+
+[data-theme] .select-item,
+[data-theme] [class*="SelectItem"] {
+  color: rgb(var(--card-foreground)) !important;
+}
+
+[data-theme] .select-item:hover,
+[data-theme] .select-item:focus,
+[data-theme] [class*="SelectItem"]:hover,
+[data-theme] [class*="SelectItem"]:focus {
+  background-color: rgb(var(--muted)) !important;
+  color: rgb(var(--muted-foreground)) !important;
+}
+
+[data-theme] .select-item[data-highlighted],
+[data-theme] [class*="SelectItem"][data-highlighted],
+[data-theme] .select-item[data-state="checked"],
+[data-theme] [class*="SelectItem"][data-state="checked"] {
+  background-color: rgb(var(--primary)) !important;
+  color: rgb(var(--primary-foreground)) !important;
+}
+
+/* Critical overrides to ensure dark theme compatibility */
+[data-theme="blue-dark"] [class*="SelectTrigger"],
+[data-theme="green-dark"] [class*="SelectTrigger"],
+[data-theme="zinc-dark"] [class*="SelectTrigger"] {
+  background-color: rgb(var(--background)) !important;
+  border-color: rgb(var(--border)) !important;
+  color: rgb(var(--foreground)) !important;
+}
+
+[data-theme="blue-dark"] [class*="SelectContent"],
+[data-theme="green-dark"] [class*="SelectContent"],
+[data-theme="zinc-dark"] [class*="SelectContent"] {
+  background-color: rgb(var(--card)) !important;
+  border-color: rgb(var(--border)) !important;
+  color: rgb(var(--card-foreground)) !important;
+}
+
+[data-theme="blue-dark"] [class*="SelectViewport"],
+[data-theme="green-dark"] [class*="SelectViewport"],
+[data-theme="zinc-dark"] [class*="SelectViewport"] {
+  background-color: rgb(var(--card)) !important;
+}
+
+/* Animation overrides for selections */
+[data-theme] [class*="SelectItem"] [class*="ItemIndicator"] svg {
+  animation-duration: 200ms;
+}
+
+/* Fix Select dropdown positioning and transitions */
+[data-theme] [class*="SelectViewport"] {
+  padding: 4px;
+  background-color: rgb(var(--card));
+}
+
+/* Consistent z-index for all select elements */
+[data-theme] [class*="SelectContent"],
+[data-theme] [class*="SelectPortal"],
+[data-theme] [class*="SelectViewport"] {
+  z-index: 50;
+}
+
+/* Fix animations and transitions for Selects */
+[data-theme] [class*="SelectContent"][data-state="open"] {
+  animation: selectContentScaleIn 200ms ease-out;
+}
+
+[data-theme] [class*="SelectContent"][data-state="closed"] {
+  animation: selectContentScaleOut 200ms ease-in;
+}
+
+/* Keyframes for Select animations */
+@keyframes selectContentScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes selectContentScaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Ensure transitions work for Select in dark themes */
+[data-theme="blue-dark"] [class*="SelectContent"],
+[data-theme="green-dark"] [class*="SelectContent"],
+[data-theme="zinc-dark"] [class*="SelectContent"] {
+  transition: 
+    background-color 150ms ease-in-out,
+    border-color 150ms ease-in-out,
+    transform 150ms ease-in-out,
+    opacity 150ms ease-in-out;
+}
+
+/* Fix popover colors */
+[data-theme] .popover-content,
+[data-theme] [class*="PopoverContent"] {
+  background-color: rgb(var(--popover)) !important;
+  color: rgb(var(--popover-foreground)) !important;
+  border-color: rgb(var(--border)) !important;
+}
+
+/* Select States - Selected, Focused, Active */
+[data-theme] .select-content .select-item[data-state="checked"],
+[data-theme] [class*="SelectContent"] [class*="SelectItem"][data-state="checked"] {
+  background-color: rgb(var(--primary) / 0.1) !important;
+}
+
+[data-theme] .select-content .select-item[data-state="checked"] [class*="ItemIndicator"],
+[data-theme] [class*="SelectContent"] [class*="SelectItem"][data-state="checked"] [class*="ItemIndicator"] {
+  color: rgb(var(--primary)) !important;
+}
+
+[data-theme] .select-content .select-item[data-highlighted],
+[data-theme] [class*="SelectContent"] [class*="SelectItem"][data-highlighted] {
+  background-color: rgb(var(--accent) / 0.1) !important;
+  color: rgb(var(--accent-foreground)) !important;
+}
+
+/* Focus ring styles */
+[data-theme] .select-trigger:focus,
+[data-theme] .select-trigger:focus-visible,
+[data-theme] [class*="SelectTrigger"]:focus,
+[data-theme] [class*="SelectTrigger"]:focus-visible {
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 2px rgb(var(--background)), 0 0 0 4px rgb(var(--ring)) !important;
+}
+
+/* Fix animations and transitions for Selects */
+[data-theme] [class*="SelectContent"][data-state="open"] {
+  animation: selectContentScaleIn 200ms ease-out !important;
+}
+
+[data-theme] [class*="SelectContent"][data-state="closed"] {
+  animation: selectContentScaleOut 200ms ease-in !important;
+}
+
+/* Keyframes for Select animations */
+@keyframes selectContentScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes selectContentScaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Critical override for Radix UI Select - Reset styles */
+[data-theme] [class*="SelectViewport"] {
+  padding: 4px !important;
+  background-color: rgb(var(--card)) !important;
+}
+
+/* Consistent z-index for all select elements */
+[data-theme] [class*="SelectContent"],
+[data-theme] [class*="SelectPortal"],
+[data-theme] [class*="SelectViewport"] {
+  z-index: 50 !important;
+} 

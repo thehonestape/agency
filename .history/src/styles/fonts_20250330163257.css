@@ -1,0 +1,54 @@
+/* Maison Neue - Main font family */
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/src/fonts/MaisonNeueWEB-Book.woff2') format('woff2'),
+       url('/src/fonts/MaisonNeueWEB-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/src/fonts/MaisonNeueWEB-Medium.woff2') format('woff2'),
+       url('/src/fonts/MaisonNeueWEB-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/src/fonts/MaisonNeueWEB-Bold.woff2') format('woff2'),
+       url('/src/fonts/MaisonNeueWEB-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Maison Neue Mono - Monospace variant */
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: url('/src/fonts/MaisonNeueMonoWEB-Regular.woff2') format('woff2'),
+       url('/src/fonts/MaisonNeueMonoWEB-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: url('/src/fonts/MaisonNeueMonoWEB-Bold.woff2') format('woff2'),
+       url('/src/fonts/MaisonNeueMonoWEB-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Font variable declarations */
+:root {
+  --font-maison-neue: 'Maison Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-maison-neue-mono: 'Maison Neue Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* The following fallback declarations are no longer needed since we have the actual font files */ 

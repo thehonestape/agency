@@ -151,17 +151,17 @@ const htmlTemplates = {
   <button class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
     Example Button
   </button>
-</div>`
+</div>`,
 };
 
 // Add HTML content to each component
-componentsData.categories.forEach(category => {
-  category.sections.forEach(section => {
-    section.components.forEach(component => {
+componentsData.categories.forEach((category) => {
+  category.sections.forEach((section) => {
+    section.components.forEach((component) => {
       // Determine which template to use based on component name/type
       const componentNameLower = component.name.toLowerCase();
       let template = htmlTemplates.default;
-      
+
       // Check for specific component types
       if (componentNameLower.includes('hero')) {
         template = htmlTemplates.hero;
@@ -174,7 +174,7 @@ componentsData.categories.forEach(category => {
       } else if (componentNameLower.includes('button')) {
         template = htmlTemplates.button;
       }
-      
+
       // Add the HTML to the component
       component.html = template;
     });
@@ -184,4 +184,4 @@ componentsData.categories.forEach(category => {
 // Write the updated data back to the file
 fs.writeFileSync(dataPath, JSON.stringify(componentsData, null, 2));
 
-console.log('HTML content added to components successfully!'); 
+console.log('HTML content added to components successfully!');

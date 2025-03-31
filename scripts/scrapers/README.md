@@ -72,12 +72,12 @@ const COMPONENT_CATEGORIES = [
   {
     id: 'application-ui',
     url: `${BASE_URL}/application-ui`,
-    outputDir: 'agency/src/components'
+    outputDir: 'agency/src/components',
   },
   {
     id: 'marketing',
     url: `${BASE_URL}/marketing`,
-    outputDir: 'agency/src/components'
+    outputDir: 'agency/src/components',
   },
   // Add more categories as needed
 ];
@@ -110,4 +110,4 @@ You may need to further refine the components manually for full theme compliance
 - The first run may take some time as it creates directories and downloads components
 - By default, the scraper will only download 3 components per section to avoid rate limiting
 - To scrape all components, set `COMPONENT_LIMIT=-1` in your `.env.scraper` file
-- The browser window will open during scraping unless `SCRAPER_HEADLESS=true` is set 
+- The browser window will open during scraping unless `SCRAPER_HEADLESS=true` is set

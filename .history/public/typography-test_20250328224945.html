@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography Test</title>
+  <style>
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Set up variables */
+    :root {
+      --font-maison-neue: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --font-maison-neue-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    }
+    
+    /* Base styles */
+    body {
+      font-family: var(--font-maison-neue);
+      line-height: 1.5;
+      color: #333;
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-maison-neue);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    h1 { font-size: 2.5rem; font-weight: 700; }
+    h2 { font-size: 2rem; font-weight: 600; }
+    h3 { font-size: 1.75rem; font-weight: 600; }
+    h4 { font-size: 1.5rem; font-weight: 500; }
+    h5 { font-size: 1.25rem; font-weight: 500; }
+    h6 { font-size: 1rem; font-weight: 500; }
+    
+    p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    
+    code {
+      font-family: var(--font-maison-neue-mono);
+      background-color: #f5f5f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+    
+    .section {
+      margin-bottom: 2rem;
+      padding: 1rem;
+      border: 1px solid #eee;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <h1>Typography Test Page</h1>
+    <p>This page tests the typography setup with system fonts as a fallback.</p>
+  </div>
+  
+  <div class="section">
+    <h2>Heading Level 2</h2>
+    <p>This is a paragraph with <code>code element</code> included. The text should be rendered in the system sans-serif font as defined in our variables.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.</p>
+  </div>
+  
+  <div class="section">
+    <h3>Heading Level 3</h3>
+    <p>Another paragraph to test the typography. The spacing and font rendering should be consistent.</p>
+    <p><strong>Bold text</strong> and <em>italic text</em> should also use the correct font family and weight.</p>
+  </div>
+  
+  <div class="section">
+    <h4>Heading Level 4</h4>
+    <p>Smaller heading with a paragraph below. The font should adapt correctly to different sizes.</p>
+    <p>Code example: <code>const typography = "working";</code></p>
+  </div>
+  
+  <div class="section">
+    <h5>Heading Level 5</h5>
+    <p>Even smaller heading with text below.</p>
+  </div>
+  
+  <div class="section">
+    <h6>Heading Level 6</h6>
+    <p>The smallest heading with text below.</p>
+  </div>
+</body>
+</html> 

@@ -30,10 +30,10 @@ export * from './features/marketing';
 export * from './features/brand';
 export * from './features/editor';
 
-// Individual Utilities 
+// Individual Utilities
 export * from './ErrorBoundary';
 export * from './theme-toggle';
 export * from './theme-provider';
 export * from './TailwindComponentBrowser';
 export * from './TailwindComponentViewer';
-export * from './PreviewImageGenerator'; 
+export * from './PreviewImageGenerator';

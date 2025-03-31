@@ -1,0 +1,352 @@
+@import 'tailwindcss';
+
+/* Import our base styles */
+@import './src/styles/base.css'; 
+@import './src/styles/fonts.css';
+@import './src/styles/globals.css';
+@import './src/styles/theme.css';
+
+:root {
+  /* Base colors using Tailwind v4 RGB format */
+  --primary: 14 165 233; /* sky-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 79 70 229; /* indigo-600 */
+  --secondary-foreground: 255 255 255;
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 255 255 255;
+  --muted: 241 245 249; /* slate-100 */
+  --muted-foreground: 100 116 139; /* slate-500 */
+  
+  /* Semantic colors */
+  --background: 255 255 255;
+  --foreground: 15 23 42; /* slate-900 */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42; /* slate-900 */
+  --border: 226 232 240; /* slate-200 */
+  --input: 226 232 240; /* slate-200 */
+  --ring: 14 165 233; /* sky-500 */
+  
+  /* Other design tokens */
+  --radius: 0.5rem;
+}
+
+/* Dark mode overrides */
+.dark, [data-theme*='-dark'] {
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+} 
+
+/* Theme styles */
+:root,
+[data-theme="blue-light"],
+[data-theme="blue-dark"],
+[data-theme="green-light"],
+[data-theme="green-dark"],
+[data-theme="zinc-light"],
+[data-theme="zinc-dark"] {
+  color-scheme: light dark;
+}
+
+/* Fix dark themes by using correct v4 RGB format */
+[data-theme="blue-dark"] {
+  /* Base colors */
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --popover: 30 41 59; /* slate-800 */
+  --popover-foreground: 248 250 252; /* slate-50 */
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --destructive: 220 38 38; /* red-600 */
+  --destructive-foreground: 255 255 255;
+  
+  /* Border/utility colors */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+  --ring: 56 189 248; /* sky-400 */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+[data-theme="green-dark"] {
+  /* Base colors */
+  --background: 5 46 22; /* green-950 */
+  --foreground: 240 253 244; /* green-50 */
+  --card: 20 83 45; /* green-800 */
+  --card-foreground: 240 253 244; /* green-50 */
+  --popover: 20 83 45; /* green-800 */
+  --popover-foreground: 240 253 244; /* green-50 */
+  --primary: 74 222 128; /* green-400 */
+  --primary-foreground: 0 0 0;
+  --secondary: 34 197 94; /* green-500 */
+  --secondary-foreground: 255 255 255;
+  --muted: 22 101 52; /* green-700 */
+  --muted-foreground: 187 247 208; /* green-200 */
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 0 0 0;
+  --destructive: 220 38 38; /* red-600 */
+  --destructive-foreground: 255 255 255;
+  
+  /* Border/utility colors */
+  --border: 22 101 52; /* green-700 */
+  --input: 22 101 52; /* green-700 */
+  --ring: 74 222 128; /* green-400 */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+[data-theme="zinc-dark"] {
+  /* Base colors */
+  --background: 24 24 27; /* zinc-900 */
+  --foreground: 244 244 245; /* zinc-50 */
+  --card: 39 39 42; /* zinc-800 */
+  --card-foreground: 244 244 245; /* zinc-50 */
+  --popover: 39 39 42; /* zinc-800 */
+  --popover-foreground: 244 244 245; /* zinc-50 */
+  --primary: 113 113 122; /* zinc-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 82 82 91; /* zinc-600 */
+  --secondary-foreground: 255 255 255;
+  --muted: 63 63 70; /* zinc-700 */
+  --muted-foreground: 212 212 216; /* zinc-300 */
+  --accent: 244 244 245; /* zinc-50 */
+  --accent-foreground: 24 24 27; /* zinc-900 */
+  --destructive: 220 38 38; /* red-600 */
+  --destructive-foreground: 255 255 255;
+  
+  /* Border/utility colors */
+  --border: 63 63 70; /* zinc-700 */
+  --input: 63 63 70; /* zinc-700 */
+  --ring: 113 113 122; /* zinc-500 */
+  
+  /* Radius */
+  --radius: 0.5rem;
+}
+
+/* Initially disable all transitions to prevent FOUC */
+html * {
+  transition: none !important;
+}
+
+/* Once the DOM is ready, transitions can be enabled with faster text changes */
+html.transition-ready * {
+  transition: 
+    background-color 150ms ease-in-out,
+    border-color 150ms ease-in-out !important;
+}
+
+/* Text colors change instantly */
+html.transition-ready *,
+[data-theme] * {
+  transition-property: background-color, border-color !important;
+}
+
+/* Apply theme colors directly to components using Tailwind v4 rgb() format */
+.btn, .button, button[class*="Button"] {
+  background-color: rgb(var(--primary) / 1);
+  color: rgb(var(--primary-foreground) / 1);
+  border-color: rgb(var(--primary) / 1);
+}
+
+.card, div[class*="Card"] {
+  background-color: rgb(var(--card) / 1);
+  color: rgb(var(--card-foreground) / 1);
+  border-color: rgb(var(--border) / 1);
+}
+
+/* Force critical UI elements to use their theme colors */
+[data-theme] {
+  background-color: rgb(var(--background) / 1);
+  color: rgb(var(--foreground) / 1);
+}
+
+/* Component-specific theming with proper Tailwind v4 format */
+[data-theme] .bg-background {
+  background-color: rgb(var(--background) / 1) !important; 
+}
+
+[data-theme] .text-foreground {
+  color: rgb(var(--foreground) / 1) !important;
+}
+
+[data-theme] .bg-card {
+  background-color: rgb(var(--card) / 1) !important;
+}
+
+[data-theme] .text-card-foreground {
+  color: rgb(var(--card-foreground) / 1) !important;
+}
+
+[data-theme] .bg-primary {
+  background-color: rgb(var(--primary) / 1) !important;
+}
+
+[data-theme] .bg-secondary {
+  background-color: rgb(var(--secondary) / 1) !important;
+}
+
+[data-theme] .bg-accent {
+  background-color: rgb(var(--accent) / 1) !important;
+}
+
+[data-theme] .bg-muted {
+  background-color: rgb(var(--muted) / 1) !important;
+}
+
+[data-theme] .bg-destructive {
+  background-color: rgb(var(--destructive) / 1) !important;
+}
+
+[data-theme] .text-primary {
+  color: rgb(var(--primary) / 1) !important;
+}
+
+[data-theme] .text-secondary {
+  color: rgb(var(--secondary) / 1) !important;
+}
+
+[data-theme] .text-accent {
+  color: rgb(var(--accent) / 1) !important;
+}
+
+[data-theme] .text-muted {
+  color: rgb(var(--muted) / 1) !important;
+}
+
+[data-theme] .text-muted-foreground {
+  color: rgb(var(--muted-foreground) / 1) !important;
+}
+
+[data-theme] .text-destructive {
+  color: rgb(var(--destructive) / 1) !important;
+}
+
+[data-theme] .border-border {
+  border-color: rgb(var(--border) / 1) !important;
+}
+
+[data-theme] .border-primary {
+  border-color: rgb(var(--primary) / 1) !important;
+}
+
+[data-theme] .border-destructive {
+  border-color: rgb(var(--destructive) / 1) !important;
+}
+
+[data-theme] .ring-primary {
+  --tw-ring-color: rgb(var(--primary) / 1) !important;
+}
+
+/* Select component theming with Tailwind v4 format */
+[data-theme] .select-trigger,
+[data-theme] [class*="SelectTrigger"] {
+  background-color: rgb(var(--background) / 1) !important;
+  color: rgb(var(--foreground) / 1) !important;
+  border-color: rgb(var(--border) / 1) !important;
+}
+
+[data-theme] .select-content,
+[data-theme] [class*="SelectContent"] {
+  background-color: rgb(var(--card) / 1) !important;
+  color: rgb(var(--card-foreground) / 1) !important;
+  border-color: rgb(var(--border) / 1) !important;
+}
+
+[data-theme] .select-item,
+[data-theme] [class*="SelectItem"] {
+  color: rgb(var(--card-foreground) / 1) !important;
+}
+
+[data-theme] .select-item:hover,
+[data-theme] .select-item:focus,
+[data-theme] [class*="SelectItem"]:hover,
+[data-theme] [class*="SelectItem"]:focus {
+  background-color: rgb(var(--muted) / 1) !important;
+  color: rgb(var(--muted-foreground) / 1) !important;
+}
+
+[data-theme] .select-item[data-highlighted],
+[data-theme] [class*="SelectItem"][data-highlighted],
+[data-theme] .select-item[data-state="checked"],
+[data-theme] [class*="SelectItem"][data-state="checked"] {
+  background-color: rgb(var(--primary) / 1) !important;
+  color: rgb(var(--primary-foreground) / 1) !important;
+}
+
+/* Fix animations and transitions for Selects */
+[data-theme] [class*="SelectContent"][data-state="open"] {
+  animation: selectContentScaleIn 200ms ease-out !important;
+}
+
+[data-theme] [class*="SelectContent"][data-state="closed"] {
+  animation: selectContentScaleOut 200ms ease-in !important;
+}
+
+/* Keyframes for Select animations */
+@keyframes selectContentScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes selectContentScaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Ensure CSS variables are accessible by class as well */
+:root {
+  /* Ensure all CSS variables are properly formatted for direct access */
+  --background-rgb: var(--background);
+  --foreground-rgb: var(--foreground);
+  --card-rgb: var(--card);
+  --card-foreground-rgb: var(--card-foreground);
+  --popover-rgb: var(--popover);
+  --popover-foreground-rgb: var(--popover-foreground);
+  --primary-rgb: var(--primary);
+  --primary-foreground-rgb: var(--primary-foreground);
+}
+
+/* Immediate force-refresh for Select component */
+@keyframes forceRepaint {
+  0% { opacity: 0.99; }
+  100% { opacity: 1; }
+}
+
+/* Force repaint on theme change */
+[data-theme] [class*="Select"] {
+  animation: forceRepaint 1ms;
+} 

@@ -73,7 +73,7 @@ export const cardRecipe: CardRecipe = {
     'transition-all',
     'duration-200',
   ].join(' '),
-  
+
   variants: {
     variant: {
       default: 'shadow-sm hover:shadow-md',
@@ -81,25 +81,25 @@ export const cardRecipe: CardRecipe = {
       outlined: 'shadow-none',
       elevated: 'shadow-md hover:shadow-lg',
     },
-    
+
     density: {
       default: '',
       compact: '',
       comfortable: '',
     },
-    
+
     interactive: {
       true: 'cursor-pointer hover:translate-y-[-2px] active:translate-y-[0px]',
       false: '',
     },
   },
-  
+
   defaultVariants: {
     variant: 'default',
     density: 'default',
     interactive: false,
   },
-  
+
   header: {
     base: 'flex flex-col space-y-1.5',
     variants: {
@@ -113,7 +113,7 @@ export const cardRecipe: CardRecipe = {
       density: 'default',
     },
   },
-  
+
   title: {
     base: [
       'text-2xl',
@@ -133,7 +133,7 @@ export const cardRecipe: CardRecipe = {
       size: 'default',
     },
   },
-  
+
   description: {
     base: 'text-[hsl(var(--foreground-muted))]',
     variants: {
@@ -147,7 +147,7 @@ export const cardRecipe: CardRecipe = {
       size: 'default',
     },
   },
-  
+
   content: {
     base: '',
     variants: {
@@ -161,7 +161,7 @@ export const cardRecipe: CardRecipe = {
       density: 'default',
     },
   },
-  
+
   footer: {
     base: 'flex items-center',
     variants: {
@@ -184,4 +184,4 @@ export const cardRecipe: CardRecipe = {
   },
 };
 
-export default cardRecipe; 
+export default cardRecipe;

@@ -18,6 +18,9 @@ An AI-driven branding platform that combines AI automation with human creativity
 - React 18
 - TypeScript
 - Tailwind CSS v4
+  - Uses CSS-first configuration with `@theme` and `@utilities` directives
+  - Leverages the dedicated `@tailwindcss/vite` plugin for Vite integration
+  - See [THEMING.md](THEMING.md) for detailed configuration guidelines
 - React Router for navigation
 - Vite for fast development
 - AI integration for brand analysis and insights
@@ -62,6 +65,7 @@ An AI-driven branding platform that combines AI automation with human creativity
 ## Project Structure
 
 The Workhorse repository contains multiple projects:
+
 - `agency/` - Main application (you are here)
 - `docs/` - Documentation and design specs
 - `src/` - Source code for the application
@@ -76,6 +80,7 @@ The Workhorse repository contains multiple projects:
 ## Next Steps
 
 ### Immediate Priorities:
+
 1. **Connect Dashboard to Marketing Pages**: Ensure smooth navigation between marketing and app sections
 2. **Implement Authentication Flow**: Connect onboarding to user account creation
 3. **Brand Analysis Integration**: Implement actual AI-powered brand analysis from onboarding data
@@ -83,6 +88,7 @@ The Workhorse repository contains multiple projects:
 5. **Mobile Responsiveness**: Ensure all new marketing pages are fully responsive
 
 ### Future Enhancements:
+
 - Develop the AI Brand Concierge functionality
 - Create the Single Source of Truth (SSOT) implementation
 - Build the project collaboration features
@@ -132,17 +138,20 @@ The platform implements a set of advanced design principles aimed at improving u
 These principles have been applied across:
 
 1. **Enhanced UI Components**:
+
    - Button: Improved feedback, loading states, and accessibility
    - Card: Multiple variants for different contexts with consistent spacing
    - Input: Better accessibility with proper ARIA attributes and loading states
    - Select: Enhanced dropdown interactions and keyboard navigation
 
 2. **Dashboard Components**:
+
    - DashboardCard: Status indicators, trend visualization, and loading states
    - DashboardGrid: Responsive layouts with cognitive grouping and priority areas
    - DashboardExample: Comprehensive example showcasing pattern implementation
 
 3. **Design System**:
+
    - Color System: 60-30-10 distribution with semantic color assignments
    - Typography: Hierarchical scale with responsive sizing
    - Spacing: Consistent system for improved readability
@@ -159,6 +168,7 @@ These principles have been applied across:
 To view an example dashboard that showcases these principles:
 
 1. Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -170,26 +180,31 @@ npm run dev
 The following areas have been identified for further development:
 
 ### Component Extensions
+
 - Apply design principles to remaining components (Tabs, Alert, Avatar, Badge)
 - Create additional variants for specialized use cases
 - Implement more interactive patterns for complex workflows
 
 ### Dashboard Enhancements
+
 - Develop Brand Audit dashboard using the new components
 - Create data visualization components for metrics and KPIs
 - Implement interactive filtering and sorting capabilities
 
 ### Theme System Expansion
+
 - Add additional theme variants (high contrast, colorblind modes)
 - Create theme customization capabilities for client branding
 - Build a theme preview and configuration interface
 
 ### AI Integration
+
 - Enhance AI Assistant with design principles
 - Apply theme support to AI interaction patterns
 - Implement accessibility improvements for AI interfaces
 
 ### Documentation and Showcasing
+
 - Build comprehensive component gallery
 - Create interactive examples of component usage
 - Document best practices for implementing design principles
@@ -211,3 +226,14 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 ## License
 
 This project is licensed under the terms of the [LICENSE](LICENSE) file included in this repository.
+
+## Application Structure
+
+The application follows a well-structured architecture to promote reusability and maintainability:
+
+- **Layouts System**: Consistent page templates using MainLayout and DashboardLayout
+- **Component System**: Modular UI components organized by complexity and purpose
+- **Component Registry**: Centralized registry for component discovery and management
+- **Configurable Views**: Pages designed to accept different data sources
+
+For more details on the application structure, see [APP_STRUCTURE.md](./APP_STRUCTURE.md).

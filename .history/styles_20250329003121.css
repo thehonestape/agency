@@ -1,0 +1,251 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import our base styles */
+@import './src/styles/base.css'; 
+@import './src/styles/fonts.css';
+@import './src/styles/globals.css';
+@import './src/styles/theme.css';
+
+:root {
+  /* Base colors using Tailwind v4 RGB format */
+  --primary: 14 165 233; /* sky-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 79 70 229; /* indigo-600 */
+  --secondary-foreground: 255 255 255;
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 255 255 255;
+  --muted: 241 245 249; /* slate-100 */
+  --muted-foreground: 100 116 139; /* slate-500 */
+  
+  /* Semantic colors */
+  --background: 255 255 255;
+  --foreground: 15 23 42; /* slate-900 */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42; /* slate-900 */
+  --border: 226 232 240; /* slate-200 */
+  --input: 226 232 240; /* slate-200 */
+  --ring: 14 165 233; /* sky-500 */
+  
+  /* Other design tokens */
+  --radius: 0.5rem;
+}
+
+/* Dark mode overrides */
+.dark {
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+} 
+
+/* Theme styles */
+:root,
+[data-theme="blue-light"],
+[data-theme="blue-dark"],
+[data-theme="green-light"],
+[data-theme="green-dark"],
+[data-theme="zinc-light"],
+[data-theme="zinc-dark"] {
+  color-scheme: light dark;
+}
+
+/* Fix dark themes by applying direct RGB values */
+[data-theme="blue-dark"] {
+  --background: 15 23 42 !important; /* slate-900 */
+  --foreground: 248 250 252 !important; /* slate-50 */
+  --card: 30 41 59 !important; /* slate-800 */
+  --card-foreground: 248 250 252 !important; /* slate-50 */
+  --border: 51 65 85 !important; /* slate-700 */
+  --input: 51 65 85 !important; /* slate-700 */
+  --muted: 51 65 85 !important; /* slate-700 */
+  --muted-foreground: 148 163 184 !important; /* slate-400 */
+  --primary: 56 189 248 !important; /* sky-400 */
+  --primary-foreground: 255 255 255 !important;
+  --secondary: 99 102 241 !important; /* indigo-500 */
+  --secondary-foreground: 255 255 255 !important;
+  --accent: 251 191 36 !important; /* amber-400 */
+  --accent-foreground: 0 0 0 !important;
+  --destructive: 252 165 165 !important; /* red-400 */
+  --destructive-foreground: 127 29 29 !important; /* red-900 */
+  --ring: 56 189 248 !important; /* sky-400 */
+}
+
+[data-theme="green-dark"] {
+  --background: 2 44 34 !important; /* green-950 */
+  --foreground: 240 253 250 !important; /* green-50 */
+  --card: 17 94 89 !important; /* green-800 */
+  --card-foreground: 240 253 250 !important; /* green-50 */
+  --border: 20 83 45 !important; /* green-800 */
+  --input: 20 83 45 !important; /* green-800 */
+  --muted: 22 101 52 !important; /* green-700 */
+  --muted-foreground: 167 243 208 !important; /* green-200 */
+  --primary: 74 222 128 !important; /* green-400 */
+  --primary-foreground: 0 0 0 !important; /* black for contrast */
+  --secondary: 16 185 129 !important; /* emerald-500 */
+  --secondary-foreground: 255 255 255 !important;
+  --accent: 245 158 11 !important; /* amber-500 */
+  --accent-foreground: 0 0 0 !important;
+  --destructive: 252 165 165 !important; /* red-400 */
+  --destructive-foreground: 127 29 29 !important; /* red-900 */
+  --ring: 74 222 128 !important; /* green-400 */
+}
+
+[data-theme="zinc-dark"] {
+  --background: 24 24 27 !important; /* zinc-900 */
+  --foreground: 244 244 245 !important; /* zinc-50 */
+  --card: 39 39 42 !important; /* zinc-800 */
+  --card-foreground: 244 244 245 !important; /* zinc-50 */
+  --border: 63 63 70 !important; /* zinc-700 */
+  --input: 63 63 70 !important; /* zinc-700 */
+  --muted: 63 63 70 !important; /* zinc-700 */
+  --muted-foreground: 161 161 170 !important; /* zinc-400 */
+  --primary: 113 113 122 !important; /* zinc-500 */
+  --primary-foreground: 255 255 255 !important;
+  --secondary: 82 82 91 !important; /* zinc-600 */
+  --secondary-foreground: 255 255 255 !important;
+  --accent: 212 212 216 !important; /* zinc-300 */
+  --accent-foreground: 24 24 27 !important; /* zinc-900 */
+  --destructive: 252 165 165 !important; /* red-400 */
+  --destructive-foreground: 127 29 29 !important; /* red-900 */
+  --ring: 113 113 122 !important; /* zinc-500 */
+}
+
+/* Initially disable all transitions to prevent FOUC */
+html * {
+  transition: none !important;
+}
+
+/* Once the DOM is ready, transitions can be enabled with faster text changes */
+html.transition-ready * {
+  transition: 
+    background-color 150ms ease-in-out,
+    border-color 150ms ease-in-out !important;
+}
+
+/* Text colors change instantly */
+html.transition-ready *,
+[data-theme] * {
+  transition-property: background-color, border-color !important;
+}
+
+/* Apply theme colors directly to components */
+.btn, .button, button[class*="Button"] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.card, div[class*="Card"] {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-color: var(--border);
+}
+
+/* Force critical UI elements to use their theme colors */
+[data-theme] {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+[data-theme] .bg-background {
+  background-color: var(--background) !important; 
+}
+
+[data-theme] .text-foreground {
+  color: var(--foreground) !important;
+}
+
+[data-theme] .bg-card {
+  background-color: var(--card) !important;
+}
+
+[data-theme] .text-card-foreground {
+  color: var(--card-foreground) !important;
+}
+
+/* Component-specific theming */
+[data-theme] .bg-primary {
+  background-color: var(--primary) !important;
+}
+
+[data-theme] .bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+[data-theme] .bg-accent {
+  background-color: var(--accent) !important;
+}
+
+[data-theme] .bg-muted {
+  background-color: var(--muted) !important;
+}
+
+[data-theme] .bg-destructive {
+  background-color: var(--destructive) !important;
+}
+
+[data-theme] .border-border {
+  border-color: var(--border) !important;
+}
+
+[data-theme] .border-primary {
+  border-color: var(--primary) !important;
+}
+
+/* Fix theme button display */
+[data-theme="blue-dark"] button, 
+[data-theme="green-dark"] button, 
+[data-theme="zinc-dark"] button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Fix text contrast in dark themes */
+[data-theme="blue-dark"] .text-muted-foreground,
+[data-theme="green-dark"] .text-muted-foreground,
+[data-theme="zinc-dark"] .text-muted-foreground {
+  color: var(--muted-foreground) !important;
+}
+
+/* Direct style overrides for theme demo buttons */
+[data-theme="blue-dark"] .bg-primary {
+  background-color: rgb(56 189 248) !important;
+}
+
+[data-theme="green-dark"] .bg-primary {
+  background-color: rgb(74 222 128) !important;
+}
+
+[data-theme="green-dark"] .text-muted-foreground {
+  color: rgb(167 243 208) !important;
+}
+
+[data-theme="zinc-dark"] .bg-primary {
+  background-color: rgb(113 113 122) !important;
+}
+
+[data-theme="zinc-dark"] .bg-secondary {
+  background-color: rgb(82 82 91) !important;
+}
+
+/* Background color overrides for dark card themes */
+[data-theme="green-dark"] .bg-card {
+  background-color: rgb(17 94 89) !important;
+}
+
+[data-theme="zinc-dark"] .bg-card {
+  background-color: rgb(39 39 42) !important;
+} 

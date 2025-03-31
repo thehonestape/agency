@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography Scale Systems</title>
+  <style>
+    :root {
+      --base-size: 16px;
+      /* Default scale */
+      --ratio: 1.25; /* Major Third */
+      
+      /* Font */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      max-width: 100%;
+      padding: clamp(1rem, 5vw, 2rem);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      line-height: 1.2;
+      word-break: break-word;
+      hyphens: auto;
+    }
+    
+    .scale-demo {
+      margin-bottom: 3rem;
+    }
+    
+    h1 { 
+      font-size: clamp(1.8rem, calc(var(--base-size) * var(--ratio) * var(--ratio) * var(--ratio) * var(--ratio)), 4rem);
+    }
+    h2 { 
+      font-size: clamp(1.5rem, calc(var(--base-size) * var(--ratio) * var(--ratio) * var(--ratio)), 3rem);
+    }
+    h3 { 
+      font-size: clamp(1.3rem, calc(var(--base-size) * var(--ratio) * var(--ratio)), 2.25rem);
+    }
+    h4 { 
+      font-size: clamp(1.1rem, calc(var(--base-size) * var(--ratio)), 1.5rem);
+    }
+    h5 { 
+      font-size: clamp(0.9rem, var(--base-size), 1.25rem);
+    }
+    h6 { 
+      font-size: clamp(0.8rem, calc(var(--base-size) / var(--ratio)), 1rem);
+    }
+    
+    small { 
+      font-size: clamp(0.75rem, calc(var(--base-size) / var(--ratio) / var(--ratio)), 0.875rem);
+    }
+    
+    p {
+      margin-top: 0;
+      max-width: 65ch;
+    }
+    
+    .controls {
+      background: #f5f5f5;
+      padding: clamp(1rem, 3vw, 1.5rem);
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+    
+    .control-group {
+      margin-bottom: 1rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    select, input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .scale-info {
+      font-size: 0.875rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+    
+    .fluid-demo {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid #ddd;
+    }
+    
+    .fluid-heading {
+      font-size: clamp(1.5rem, 5vw + 0.5rem, 3rem);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: clamp(0.75rem, 3vw, 1rem);
+    }
+    
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+    
+    th, td {
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f5f5f5;
+      white-space: nowrap;
+    }
+    
+    code {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.9em;
+      word-break: break-all;
+    }
+    
+    @media (max-width: 500px) {
+      .scale-demo h1 {
+        word-break: break-word;
+      }
+      
+      table {
+        table-layout: fixed;
+      }
+      
+      td:last-child {
+        word-break: break-word;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Typography Scale Systems</h1>
+    <p>This demo shows different typography scales and how they affect the visual hierarchy of headings.</p>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label for="scale-select">Choose a typographic scale:</label>
+        <select id="scale-select">
+          <option value="1.067">Minor Second (1.067)</option>
+          <option value="1.125">Major Second (1.125)</option>
+          <option value="1.2">Minor Third (1.2)</option>
+          <option value="1.25" selected>Major Third (1.25)</option>
+          <option value="1.333">Perfect Fourth (1.333)</option>
+          <option value="1.414">Augmented Fourth (1.414)</option>
+          <option value="1.5">Perfect Fifth (1.5)</option>
+          <option value="1.618">Golden Ratio (1.618)</option>
+          <option value="2">Octave (2)</option>
+        </select>
+        <div class="scale-info">Current scale ratio: <span id="current-ratio">1.25</span></div>
+      </div>
+      
+      <div class="control-group">
+        <label for="base-size">Base font size (px):</label>
+        <input type="range" id="base-size" min="12" max="24" value="16" step="1">
+        <div class="scale-info">Current base size: <span id="current-base">16px</span></div>
+      </div>
+    </div>
+    
+    <div class="scale-demo">
+      <h1>Heading Level 1</h1>
+      <h2>Heading Level 2</h2>
+      <h3>Heading Level 3</h3>
+      <h4>Heading Level 4</h4>
+      <h5>Heading Level 5 (Base Size)</h5>
+      <h6>Heading Level 6</h6>
+      <p>This is regular paragraph text, set at the base size.</p>
+      <small>This is small text, scaled down from the base size.</small>
+    </div>
+    
+    <div class="fluid-demo">
+      <h2>Fluid Typography with CSS Clamp</h2>
+      <p>Modern fluid typography uses the CSS <code>clamp()</code> function to automatically scale text based on viewport width.</p>
+      
+      <h3 class="fluid-heading">This heading scales fluidly</h3>
+      <p>The heading above uses: <code>font-size: clamp(1.5rem, 5vw + 0.5rem, 3rem);</code></p>
+      
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Scale Name</th>
+              <th>Ratio</th>
+              <th>Common Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Minor Second</td>
+              <td>1.067</td>
+              <td>Subtle differentiation, dense UI</td>
+            </tr>
+            <tr>
+              <td>Major Second</td>
+              <td>1.125</td>
+              <td>UI interfaces, subtle hierarchy</td>
+            </tr>
+            <tr>
+              <td>Minor Third</td>
+              <td>1.2</td>
+              <td>Good default for long-form content</td>
+            </tr>
+            <tr>
+              <td>Major Third</td>
+              <td>1.25</td>
+              <td>Balanced hierarchy for websites</td>
+            </tr>
+            <tr>
+              <td>Perfect Fourth</td>
+              <td>1.333</td>
+              <td>Clear hierarchy, editorial design</td>
+            </tr>
+            <tr>
+              <td>Augmented Fourth</td>
+              <td>1.414</td>
+              <td>Strong visual differentiation</td>
+            </tr>
+            <tr>
+              <td>Perfect Fifth</td>
+              <td>1.5</td>
+              <td>Dramatic headlines, marketing sites</td>
+            </tr>
+            <tr>
+              <td>Golden Ratio</td>
+              <td>1.618</td>
+              <td>Classical proportion, elegant design</td>
+            </tr>
+            <tr>
+              <td>Octave</td>
+              <td>2</td>
+              <td>Extreme contrast, display typography</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const scaleSelect = document.getElementById('scale-select');
+    const baseSizeInput = document.getElementById('base-size');
+    const currentRatio = document.getElementById('current-ratio');
+    const currentBase = document.getElementById('current-base');
+    const root = document.documentElement;
+    
+    function updateScale() {
+      const ratio = scaleSelect.value;
+      root.style.setProperty('--ratio', ratio);
+      currentRatio.textContent = ratio;
+    }
+    
+    function updateBaseSize() {
+      const baseSize = baseSizeInput.value;
+      root.style.setProperty('--base-size', `${baseSize}px`);
+      currentBase.textContent = `${baseSize}px`;
+    }
+    
+    scaleSelect.addEventListener('change', updateScale);
+    baseSizeInput.addEventListener('input', updateBaseSize);
+  </script>
+</body>
+</html>

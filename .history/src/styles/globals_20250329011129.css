@@ -1,0 +1,217 @@
+@import "./fonts.css";
+@import "./theme.css";
+@import "./fluid-typography.css";
+@import "./tailwind-theme.css";
+@import "tailwindcss";
+@import "./base.css";
+
+/* Define utility classes to map to our CSS variables */
+@utilities {
+  /* Background Colors */
+  .bg-background {
+    background-color: var(--background);
+  }
+  .bg-foreground {
+    background-color: var(--foreground);
+  }
+  .bg-card {
+    background-color: var(--card);
+  }
+  .bg-popover {
+    background-color: var(--popover);
+  }
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  .bg-muted {
+    background-color: var(--muted);
+  }
+  .bg-destructive {
+    background-color: var(--destructive);
+  }
+  .bg-success {
+    background-color: var(--success);
+  }
+  .bg-warning {
+    background-color: var(--warning);
+  }
+  .bg-info {
+    background-color: var(--info);
+  }
+
+  /* Text Colors */
+  .text-foreground {
+    color: var(--foreground);
+  }
+  .text-background {
+    color: var(--background);
+  }
+  .text-card-foreground {
+    color: var(--card-foreground);
+  }
+  .text-popover-foreground {
+    color: var(--popover-foreground);
+  }
+  .text-primary-foreground {
+    color: var(--primary-foreground);
+  }
+  .text-secondary-foreground {
+    color: var(--secondary-foreground);
+  }
+  .text-accent-foreground {
+    color: var(--accent-foreground);
+  }
+  .text-muted-foreground {
+    color: var(--muted-foreground);
+  }
+  .text-destructive-foreground {
+    color: var(--destructive-foreground);
+  }
+  .text-success-foreground {
+    color: var(--success-foreground);
+  }
+  .text-warning-foreground {
+    color: var(--warning-foreground);
+  }
+  .text-info-foreground {
+    color: var(--info-foreground);
+  }
+
+  /* Border Colors */
+  .border-border {
+    border-color: var(--border);
+  }
+  .border-input {
+    border-color: var(--input);
+  }
+  .border-primary {
+    border-color: var(--primary);
+  }
+  .border-secondary {
+    border-color: var(--secondary);
+  }
+  .border-destructive {
+    border-color: var(--destructive);
+  }
+  .border-success {
+    border-color: var(--success);
+  }
+  .border-warning {
+    border-color: var(--warning);
+  }
+  .border-info {
+    border-color: var(--info);
+  }
+
+  /* Ring Colors */
+  .ring-ring {
+    --tw-ring-color: var(--ring);
+  }
+  .ring-primary {
+    --tw-ring-color: var(--primary);
+  }
+  .ring-destructive {
+    --tw-ring-color: var(--destructive);
+  }
+
+  /* Border Radius */
+  .rounded-theme {
+    border-radius: var(--radius);
+  }
+  .rounded-theme-sm {
+    border-radius: var(--radius-sm);
+  }
+  .rounded-theme-md {
+    border-radius: var(--radius-md);
+  }
+  .rounded-theme-lg {
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* Let's use the automatic source detection instead of explicit patterns */
+/* Remove all @source directives that were causing issues */
+
+@layer base {
+  html,
+  body {
+    min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* Theme transitions - quicker for text */
+*:not(svg *, path) {
+  /* Only transition background and border colors */
+  transition: 
+    background-color 150ms ease-in-out, 
+    border-color 150ms ease-in-out;
+}
+
+/* Apply color changes immediately */
+*, *::before, *::after {
+  /* Explicitly disable transition for color */
+  transition-property: background-color, border-color;
+}
+
+/* Animation keyframes */
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* Visual feedback animations */
+@keyframes flash-update {
+  0% { outline-color: rgba(0, 0, 0, 0); }
+  50% { outline-color: #1e293b; opacity: 0.4; }
+  100% { outline-color: rgba(0, 0, 0, 0); }
+}
+
+.typography-updated {
+  outline: 2px solid rgba(0, 0, 0, 0);
+  outline-offset: 2px;
+  animation: flash-update 0.6s ease-in-out;
+}
+
+/* Focus state animations */
+@keyframes focus-pulse {
+  0%, 100% { outline-offset: 2px; }
+  50% { outline-offset: 4px; }
+}
+
+.focus-visible:focus-visible {
+  outline: 2px solid #1e293b;
+  outline-offset: 2px;
+  animation: focus-pulse 2s ease-in-out infinite;
+}
+
+/* Spacing utilities */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* Additional global styles can go here */

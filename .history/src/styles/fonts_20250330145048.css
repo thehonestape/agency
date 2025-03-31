@@ -1,0 +1,91 @@
+/* Maison Neue - Main font family */
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/fonts/MaisonNeue-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/fonts/MaisonNeue-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/fonts/MaisonNeue-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Maison Neue Mono - Monospace variant */
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: url('/fonts/MaisonNeueMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: url('/fonts/MaisonNeueMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Font variable declarations */
+:root {
+  --font-maison-neue: 'Maison Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-maison-neue-mono: 'Maison Neue Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* 
+ * Temporary fallback declarations until font files are available.
+ * These will be overridden by the @font-face declarations above when fonts are added.
+ */
+@font-face {
+  font-family: 'Maison Neue';
+  src: local('Helvetica Neue'), local('Arial');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: local('Helvetica Neue Medium'), local('Arial');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: local('Helvetica Neue Bold'), local('Arial Bold');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: local('Menlo'), local('Consolas'), local('Monaco');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: local('Menlo Bold'), local('Consolas Bold'), local('Monaco Bold');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+} 

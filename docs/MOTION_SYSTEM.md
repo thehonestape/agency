@@ -17,11 +17,11 @@ The motion system is built around these core concepts:
 
 ```typescript
 export const durations = {
-  fastest: 0.1,  // Ultra quick interactions
-  fast: 0.2,     // Button presses, small UI elements
-  normal: 0.3,   // Standard animations
-  slow: 0.5,     // Larger UI elements, emphasis
-  slowest: 0.8,  // Full page transitions, dramatic effects
+  fastest: 0.1, // Ultra quick interactions
+  fast: 0.2, // Button presses, small UI elements
+  normal: 0.3, // Standard animations
+  slow: 0.5, // Larger UI elements, emphasis
+  slowest: 0.8, // Full page transitions, dramatic effects
 };
 ```
 
@@ -30,15 +30,15 @@ export const durations = {
 ```typescript
 export const easings = {
   // Smooth animations
-  smooth: [0.4, 0, 0.2, 1],      // Standard easing
-  smoothOut: [0, 0, 0.2, 1],     // For elements entering the screen
-  smoothIn: [0.4, 0, 1, 1],      // For elements exiting the screen
-  
+  smooth: [0.4, 0, 0.2, 1], // Standard easing
+  smoothOut: [0, 0, 0.2, 1], // For elements entering the screen
+  smoothIn: [0.4, 0, 1, 1], // For elements exiting the screen
+
   // Bouncy animations
   bounce: [0.175, 0.885, 0.32, 1.275], // Bouncy effect
-  
+
   // Elastic animations
-  elastic: [0.25, 0.1, 0.25, 1],  // Slight elastic feeling
+  elastic: [0.25, 0.1, 0.25, 1], // Slight elastic feeling
 };
 ```
 
@@ -47,7 +47,7 @@ export const easings = {
 ```typescript
 export const transitions = {
   fade: { duration: durations.normal, ease: easings.smooth },
-  slide: { type: "spring", stiffness: 300, damping: 30 },
+  slide: { type: 'spring', stiffness: 300, damping: 30 },
   scale: { duration: durations.normal, ease: easings.bounce },
   // and more...
 };
@@ -91,7 +91,7 @@ function MyComponent() {
   return (
     <FadeIn>
       <h1>This content will fade in</h1>
-      
+
       <SlideUp delay={0.2}>
         <p>This will slide up after a small delay</p>
       </SlideUp>
@@ -129,7 +129,7 @@ function MyInteractiveComponent() {
       <WithTapHover>
         <button>Click me</button>
       </WithTapHover>
-      
+
       <MotionCard>
         <div className="card-content">
           <h3>Interactive Card</h3>
@@ -168,10 +168,7 @@ import { createHoverAnimation, createTapAnimation } from '../lib/motion';
 
 function MyCustomComponent() {
   return (
-    <motion.div
-      {...createHoverAnimation(1.05)}
-      {...createTapAnimation(0.95)}
-    >
+    <motion.div {...createHoverAnimation(1.05)} {...createTapAnimation(0.95)}>
       Custom animated element
     </motion.div>
   );
@@ -214,4 +211,4 @@ function MyComponent() {
     </MotionCard>
   );
 }
-``` 
+```

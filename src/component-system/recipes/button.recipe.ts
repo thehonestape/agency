@@ -46,7 +46,7 @@ export const buttonRecipe: ButtonRecipe = {
     'border',
     'border-transparent',
   ].join(' '),
-  
+
   variants: {
     variant: {
       default: [
@@ -56,7 +56,7 @@ export const buttonRecipe: ButtonRecipe = {
         'active:scale-[0.98]',
         'active:bg-[hsl(var(--component-button-background-primary)/0.95)]',
       ].join(' '),
-      
+
       secondary: [
         'bg-[hsl(var(--component-button-background-secondary))]',
         'text-[hsl(var(--component-button-text-secondary))]',
@@ -64,7 +64,7 @@ export const buttonRecipe: ButtonRecipe = {
         'active:scale-[0.98]',
         'active:bg-[hsl(var(--component-button-background-secondary)/0.9)]',
       ].join(' '),
-      
+
       destructive: [
         'bg-[hsl(var(--status-error))]',
         'text-white',
@@ -72,7 +72,7 @@ export const buttonRecipe: ButtonRecipe = {
         'active:scale-[0.98]',
         'active:bg-[hsl(var(--status-error)/0.95)]',
       ].join(' '),
-      
+
       outline: [
         'border',
         'border-[hsl(var(--border-base))]',
@@ -83,7 +83,7 @@ export const buttonRecipe: ButtonRecipe = {
         'active:scale-[0.98]',
         'active:bg-[hsl(var(--background-subtle)/0.95)]',
       ].join(' '),
-      
+
       ghost: [
         'bg-transparent',
         'text-[hsl(var(--foreground-base))]',
@@ -92,7 +92,7 @@ export const buttonRecipe: ButtonRecipe = {
         'active:scale-[0.98]',
         'active:bg-[hsl(var(--background-subtle)/0.95)]',
       ].join(' '),
-      
+
       link: [
         'bg-transparent',
         'text-[hsl(var(--interactive-base))]',
@@ -101,7 +101,7 @@ export const buttonRecipe: ButtonRecipe = {
         'active:text-[hsl(var(--interactive-base)/0.9)]',
       ].join(' '),
     },
-    
+
     size: {
       default: 'h-10 px-4 py-2 min-w-[6rem]',
       sm: 'h-9 rounded-md px-3 text-xs min-w-[4.5rem]',
@@ -109,26 +109,26 @@ export const buttonRecipe: ButtonRecipe = {
       icon: 'h-10 w-10 min-w-0',
       mobile: 'h-12 px-5 py-3 min-w-[6rem] text-base', // Optimized for mobile touch targets
     },
-    
+
     fullWidth: {
       true: 'w-full',
       false: '',
     },
-    
+
     elevation: {
       flat: '',
       raised: 'shadow-sm',
       elevated: 'shadow-md',
     },
   },
-  
+
   defaultVariants: {
     variant: 'default',
     size: 'default',
     fullWidth: false,
     elevation: 'flat',
   },
-  
+
   compoundVariants: [
     {
       variant: ['default', 'destructive'],
@@ -146,4 +146,4 @@ export const buttonRecipe: ButtonRecipe = {
   ],
 };
 
-export default buttonRecipe; 
+export default buttonRecipe;

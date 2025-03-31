@@ -1,0 +1,202 @@
+/**
+ * Fluid Typography System using CSS clamp for Tailwind v4
+ *
+ * This system creates responsive typography that scales smoothly between viewport sizes
+ * using CSS clamp() and integrates with Tailwind's variables.
+ */
+
+@theme {
+  /* Fluid typography variables */
+  --fluid-type-min-screen: 20rem;    /* 320px - Mobile */
+  --fluid-type-mid-screen: 48rem;    /* 768px - Tablet */
+  --fluid-type-max-screen: 96rem;    /* 1536px - Desktop */
+  
+  /* Type scale ratio - can be changed to create different scales */
+  --fluid-type-ratio: 1.25;          /* Major Third (1.25) by default */
+  
+  /* Base size that all other sizes are calculated from */
+  --fluid-type-base: 1rem;           /* 16px */
+
+  /* Calculate min and max sizes based on scale ratio */
+  --fluid-type-xs-min: calc(var(--fluid-type-base) / var(--fluid-type-ratio));      /* ~0.8rem (12.8px) */
+  --fluid-type-xs-max: calc(var(--fluid-type-base) / var(--fluid-type-ratio) * 1.1); /* ~0.88rem (14.08px) */
+  
+  --fluid-type-sm-min: calc(var(--fluid-type-base) * 0.875);    /* 14px */
+  --fluid-type-sm-max: var(--fluid-type-base);                  /* 16px */
+  
+  --fluid-type-base-min: var(--fluid-type-base);                /* 16px */
+  --fluid-type-base-max: calc(var(--fluid-type-base) * 1.125);  /* 18px */
+  
+  --fluid-type-lg-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio));     /* ~1.25rem (20px) */
+  --fluid-type-lg-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * 1.1); /* ~1.375rem (22px) */
+  
+  --fluid-type-xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * 1.1); /* ~1.375rem (22px) */
+  --fluid-type-xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~1.563rem (25px) */
+  
+  --fluid-type-2xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~1.563rem (25px) */
+  --fluid-type-2xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.1); /* ~1.719rem (27.5px) */
+  
+  --fluid-type-3xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.2); /* ~1.875rem (30px) */
+  --fluid-type-3xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~1.953rem (31.25px) */
+  
+  --fluid-type-4xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~1.953rem (31.25px) */
+  --fluid-type-4xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.2); /* ~2.344rem (37.5px) */
+  
+  --fluid-type-5xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.2); /* ~2.344rem (37.5px) */
+  --fluid-type-5xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~2.441rem (39.06px) */
+  
+  --fluid-type-6xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~2.441rem (39.06px) */
+  --fluid-type-6xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.5); /* ~3.662rem (58.59px) */
+  
+  --fluid-type-7xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.5); /* ~3.662rem (58.59px) */
+  --fluid-type-7xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~3.052rem (48.83px) */
+  
+  --fluid-type-8xl-min: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio)); /* ~3.052rem (48.83px) */
+  --fluid-type-8xl-max: calc(var(--fluid-type-base) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * var(--fluid-type-ratio) * 1.5); /* ~4.578rem (73.24px) */
+}
+
+/* Fluid Typography Utility Classes using Tailwind v4 syntax */
+@utilities {
+  /* Fluid text sizes */
+  .text-fluid-xs {
+    font-size: clamp(
+      var(--fluid-type-xs-min),
+      calc(var(--fluid-type-xs-min) + (var(--fluid-type-xs-max) - var(--fluid-type-xs-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-xs-max)
+    );
+  }
+  
+  .text-fluid-sm {
+    font-size: clamp(
+      var(--fluid-type-sm-min),
+      calc(var(--fluid-type-sm-min) + (var(--fluid-type-sm-max) - var(--fluid-type-sm-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-sm-max)
+    );
+  }
+  
+  .text-fluid-base {
+    font-size: clamp(
+      var(--fluid-type-base-min),
+      calc(var(--fluid-type-base-min) + (var(--fluid-type-base-max) - var(--fluid-type-base-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-base-max)
+    );
+  }
+  
+  .text-fluid-lg {
+    font-size: clamp(
+      var(--fluid-type-lg-min),
+      calc(var(--fluid-type-lg-min) + (var(--fluid-type-lg-max) - var(--fluid-type-lg-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-lg-max)
+    );
+  }
+  
+  .text-fluid-xl {
+    font-size: clamp(
+      var(--fluid-type-xl-min),
+      calc(var(--fluid-type-xl-min) + (var(--fluid-type-xl-max) - var(--fluid-type-xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-xl-max)
+    );
+  }
+  
+  .text-fluid-2xl {
+    font-size: clamp(
+      var(--fluid-type-2xl-min),
+      calc(var(--fluid-type-2xl-min) + (var(--fluid-type-2xl-max) - var(--fluid-type-2xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-2xl-max)
+    );
+  }
+  
+  .text-fluid-3xl {
+    font-size: clamp(
+      var(--fluid-type-3xl-min),
+      calc(var(--fluid-type-3xl-min) + (var(--fluid-type-3xl-max) - var(--fluid-type-3xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-3xl-max)
+    );
+  }
+  
+  .text-fluid-4xl {
+    font-size: clamp(
+      var(--fluid-type-4xl-min),
+      calc(var(--fluid-type-4xl-min) + (var(--fluid-type-4xl-max) - var(--fluid-type-4xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-4xl-max)
+    );
+  }
+  
+  .text-fluid-5xl {
+    font-size: clamp(
+      var(--fluid-type-5xl-min),
+      calc(var(--fluid-type-5xl-min) + (var(--fluid-type-5xl-max) - var(--fluid-type-5xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-5xl-max)
+    );
+  }
+  
+  .text-fluid-6xl {
+    font-size: clamp(
+      var(--fluid-type-6xl-min),
+      calc(var(--fluid-type-6xl-min) + (var(--fluid-type-6xl-max) - var(--fluid-type-6xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-6xl-max)
+    );
+  }
+  
+  .text-fluid-7xl {
+    font-size: clamp(
+      var(--fluid-type-7xl-min),
+      calc(var(--fluid-type-7xl-min) + (var(--fluid-type-7xl-max) - var(--fluid-type-7xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-7xl-max)
+    );
+  }
+  
+  .text-fluid-8xl {
+    font-size: clamp(
+      var(--fluid-type-8xl-min),
+      calc(var(--fluid-type-8xl-min) + (var(--fluid-type-8xl-max) - var(--fluid-type-8xl-min)) * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))),
+      var(--fluid-type-8xl-max)
+    );
+  }
+
+  /* Fluid line heights */
+  .leading-fluid-tight {
+    line-height: clamp(1.1, calc(1.1 + 0.2 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 1.3);
+  }
+  
+  .leading-fluid-snug {
+    line-height: clamp(1.3, calc(1.3 + 0.075 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 1.375);
+  }
+  
+  .leading-fluid-normal {
+    line-height: clamp(1.4, calc(1.4 + 0.1 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 1.5);
+  }
+  
+  .leading-fluid-relaxed {
+    line-height: clamp(1.5, calc(1.5 + 0.125 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 1.625);
+  }
+  
+  .leading-fluid-loose {
+    line-height: clamp(1.75, calc(1.75 + 0.25 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 2);
+  }
+
+  /* Fluid spacing utilities */
+  .mb-fluid-xs {
+    margin-bottom: clamp(0.5rem, calc(0.5rem + 0.25 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 0.75rem);
+  }
+  
+  .mb-fluid-sm {
+    margin-bottom: clamp(0.75rem, calc(0.75rem + 0.25 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 1rem);
+  }
+  
+  .mb-fluid-md {
+    margin-bottom: clamp(1rem, calc(1rem + 0.5 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 1.5rem);
+  }
+  
+  .mb-fluid-lg {
+    margin-bottom: clamp(1.5rem, calc(1.5rem + 0.5 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 2rem);
+  }
+  
+  .mb-fluid-xl {
+    margin-bottom: clamp(2rem, calc(2rem + 1 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 3rem);
+  }
+  
+  .mb-fluid-2xl {
+    margin-bottom: clamp(3rem, calc(3rem + 1 * ((100vw - var(--fluid-type-min-screen)) / (var(--fluid-type-max-screen) - var(--fluid-type-min-screen)))), 4rem);
+  }
+} 

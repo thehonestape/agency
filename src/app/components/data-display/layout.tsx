@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function DataDisplayLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
-  
+  const pathname = usePathname();
+
   const dataDisplayCategories = [
     {
       name: 'Stats',
@@ -28,26 +28,26 @@ export default function DataDisplayLayout({ children }: { children: React.ReactN
       href: '/components/data-display/charts',
       current: pathname === '/components/data-display/charts',
     },
-  ]
+  ];
 
   return (
     <div className="relative">
-      <div className="w-full mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-6">Data Display Components</h1>
-        
-        <div className="flex flex-col sm:flex-row gap-8">
+      <div className="mx-auto w-full px-4">
+        <h1 className="mb-6 text-3xl font-bold">Data Display Components</h1>
+
+        <div className="flex flex-col gap-8 sm:flex-row">
           {/* Sidebar navigation */}
           <div className="w-full sm:w-1/5">
-            <nav className="space-y-1 sticky top-4">
+            <nav className="sticky top-4 space-y-1">
               {dataDisplayCategories.map((category) => (
                 <Link
                   key={category.name}
                   href={category.href}
                   className={`${
                     category.current
-                      ? 'bg-blue-50 border-blue-500 text-blue-700'
+                      ? 'border-blue-500 bg-blue-50 text-blue-700'
                       : 'border-transparent text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  } flex items-center px-3 py-2 text-sm font-medium border-l-4`}
+                  } flex items-center border-l-4 px-3 py-2 text-sm font-medium`}
                   aria-current={category.current ? 'page' : undefined}
                 >
                   {category.name}
@@ -55,13 +55,11 @@ export default function DataDisplayLayout({ children }: { children: React.ReactN
               ))}
             </nav>
           </div>
-          
+
           {/* Main content area */}
-          <div className="w-full sm:w-4/5">
-            {children}
-          </div>
+          <div className="w-full sm:w-4/5">{children}</div>
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}

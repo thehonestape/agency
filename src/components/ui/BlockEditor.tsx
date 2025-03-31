@@ -17,9 +17,7 @@ export function BlockEditor({
   className,
 }: BlockEditorProps) {
   // State for the editor content
-  const [textContent, setTextContent] = useState<string>(
-    initialContent?.text || ''
-  );
+  const [textContent, setTextContent] = useState<string>(initialContent?.text || '');
 
   // Simple text change handler
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,15 +29,15 @@ export function BlockEditor({
 
   return (
     <div className={className}>
-      <div className="p-4 border rounded-lg bg-yellow-50 mb-3">
+      <div className="mb-3 rounded-lg border bg-yellow-50 p-4">
         <h3 className="font-medium text-yellow-800">Simple Text Editor</h3>
-        <p className="text-sm mt-1 text-yellow-700">
+        <p className="mt-1 text-sm text-yellow-700">
           A basic text editor is shown because the block editor could not be loaded.
         </p>
       </div>
-      
+
       <textarea
-        className="w-full p-4 border rounded-md min-h-[400px] focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+        className="focus:ring-opacity-50 min-h-[400px] w-full rounded-md border p-4 focus:border-blue-300 focus:ring focus:ring-blue-200"
         value={textContent}
         onChange={handleTextChange}
         placeholder="Start typing..."
@@ -49,4 +47,4 @@ export function BlockEditor({
   );
 }
 
-export default BlockEditor; 
+export default BlockEditor;

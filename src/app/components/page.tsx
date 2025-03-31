@@ -1,18 +1,18 @@
-'use client'
+'use client';
 
-import React from 'react'
-import Link from 'next/link'
-import { 
-  DocumentTextIcon, 
-  DocumentDuplicateIcon, 
-  ChartBarIcon, 
-  CalendarIcon, 
-  TableCellsIcon, 
+import React from 'react';
+import Link from 'next/link';
+import {
+  DocumentTextIcon,
+  DocumentDuplicateIcon,
+  ChartBarIcon,
+  CalendarIcon,
+  TableCellsIcon,
   CubeIcon,
   ArrowRightIcon,
   ClockIcon,
-  ExclamationCircleIcon
-} from '@heroicons/react/24/outline'
+  ExclamationCircleIcon,
+} from '@heroicons/react/24/outline';
 
 export default function ComponentsLanding() {
   const categories = [
@@ -29,7 +29,7 @@ export default function ComponentsLanding() {
         { name: 'Authentication', href: '/components/forms/authentication' },
         { name: 'Action Panels', href: '/components/forms/action-panels' },
         { name: 'Comboboxes', href: '/components/forms/comboboxes' },
-      ]
+      ],
     },
     {
       name: 'Layout Components',
@@ -41,7 +41,7 @@ export default function ComponentsLanding() {
         { name: 'Containers', href: '/components/layout/containers' },
         { name: 'Grids', href: '/components/layout/grids' },
         { name: 'Cards', href: '/components/layout/cards' },
-      ]
+      ],
     },
     {
       name: 'Data Display',
@@ -54,7 +54,7 @@ export default function ComponentsLanding() {
         { name: 'Calendars', href: '/components/data-display/calendars' },
         { name: 'Tables', href: '/components/data-display/tables' },
         { name: 'Charts', href: '/components/data-display/charts' },
-      ]
+      ],
     },
     {
       name: 'Feedback',
@@ -65,20 +65,36 @@ export default function ComponentsLanding() {
       subcategories: [
         { name: 'Alerts', href: '/components/feedback/alerts' },
         { name: 'Empty States', href: '/components/feedback/empty-states' },
-      ]
+      ],
     },
-  ]
+  ];
 
   const recentComponents = [
-    { name: 'MonthView Calendar', category: 'Data Display', href: '/components/data-display/calendars' },
-    { name: 'Stats with Brand Icon', category: 'Data Display', href: '/components/data-display/stats' },
-    { name: 'Input with Leading Icon', category: 'Form Components', href: '/components/forms/input-groups' },
+    {
+      name: 'MonthView Calendar',
+      category: 'Data Display',
+      href: '/components/data-display/calendars',
+    },
+    {
+      name: 'Stats with Brand Icon',
+      category: 'Data Display',
+      href: '/components/data-display/stats',
+    },
+    {
+      name: 'Input with Leading Icon',
+      category: 'Form Components',
+      href: '/components/forms/input-groups',
+    },
     { name: 'Simple Checkbox', category: 'Form Components', href: '/components/forms/checkboxes' },
-    { name: 'Authentication Forms', category: 'Form Components', href: '/components/forms/authentication' },
-  ]
+    {
+      name: 'Authentication Forms',
+      category: 'Form Components',
+      href: '/components/forms/authentication',
+    },
+  ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="text-center">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Tailwind UI Components
@@ -94,7 +110,7 @@ export default function ComponentsLanding() {
           {categories.map((category) => (
             <div
               key={category.name}
-              className="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-all duration-200"
+              className="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md"
             >
               <div>
                 <span className="inline-flex items-center justify-center rounded-md bg-blue-50 p-3">
@@ -116,12 +132,12 @@ export default function ComponentsLanding() {
                 </div>
                 <div className="mt-3 space-y-1">
                   {category.subcategories.map((subcat) => (
-                    <Link 
-                      key={subcat.name} 
-                      href={subcat.href} 
-                      className="relative z-10 text-sm text-blue-600 hover:text-blue-800 flex items-center"
+                    <Link
+                      key={subcat.name}
+                      href={subcat.href}
+                      className="relative z-10 flex items-center text-sm text-blue-600 hover:text-blue-800"
                     >
-                      <ArrowRightIcon className="h-3 w-3 mr-1" />
+                      <ArrowRightIcon className="mr-1 h-3 w-3" />
                       {subcat.name}
                     </Link>
                   ))}
@@ -135,7 +151,10 @@ export default function ComponentsLanding() {
       <div className="mt-16">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-medium text-gray-900">Recently added</h2>
-          <Link href="/components/all" className="text-sm font-medium text-blue-600 hover:text-blue-500">
+          <Link
+            href="/components/all"
+            className="text-sm font-medium text-blue-600 hover:text-blue-500"
+          >
             View all
           </Link>
         </div>
@@ -145,7 +164,7 @@ export default function ComponentsLanding() {
               <li key={component.name} className="group hover:bg-gray-50">
                 <Link href={component.href} className="block p-4">
                   <div className="flex items-center">
-                    <div className="flex-shrink-0 mr-3">
+                    <div className="mr-3 flex-shrink-0">
                       <ClockIcon className="h-5 w-5 text-gray-400" />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -160,7 +179,7 @@ export default function ComponentsLanding() {
         </div>
       </div>
 
-      <div className="mt-16 bg-blue-50 rounded-lg p-8">
+      <div className="mt-16 rounded-lg bg-blue-50 p-8">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900">Getting Started</h2>
           <p className="mt-4 text-lg text-gray-600">
@@ -177,5 +196,5 @@ export default function ComponentsLanding() {
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}

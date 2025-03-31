@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-theme="blue-light">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agency App</title>
+    <style>
+      /* Force theme colors to override everything */
+      body {
+        background-color: rgb(var(--background)) !important;
+        color: rgb(var(--foreground)) !important;
+      }
+
+      [data-theme="blue-dark"] body {
+        background-color: rgb(15 23 42) !important;
+        color: rgb(248 250 252) !important;
+      }
+
+      [data-theme="green-dark"] body {
+        background-color: rgb(2 44 34) !important;
+        color: rgb(240 253 250) !important;
+      }
+
+      [data-theme="zinc-dark"] body {
+        background-color: rgb(24 24 27) !important;
+        color: rgb(244 244 245) !important;
+      }
+
+      [data-theme="blue-light"] body,
+      [data-theme="green-light"] body,
+      [data-theme="zinc-light"] body {
+        background-color: rgb(255 255 255) !important;
+        color: rgb(15 23 42) !important;
+      }
+    </style>
+    <script>
+      // Prevent flash of unstyled content (FOUC) by applying theme immediately
+      (function() {
+        // Get saved theme from localStorage or use default
+        try {
+          const savedTheme = localStorage.getItem('theme') || 'blue-light';
+          document.documentElement.dataset.theme = savedTheme;
+          
+          // Detect user's preferred color scheme
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          // Apply dark mode class if this is a dark theme or user prefers dark mode
+          if (savedTheme.includes('-dark') || (prefersDark && !localStorage.getItem('theme'))) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          console.error('Error applying theme:', e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

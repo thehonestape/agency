@@ -14,4 +14,4 @@ describe('Simple Component', () => {
     expect(element).toBeInTheDocument();
     expect(element.textContent).toBe('Hello, testing!');
   });
-}); 
+});

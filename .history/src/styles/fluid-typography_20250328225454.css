@@ -1,0 +1,192 @@
+/**
+ * Fluid Typography System using CSS clamp
+ *
+ * This system creates responsive typography that scales smoothly between viewport sizes
+ * using CSS clamp(). It provides a set of utility classes that can be used
+ * alongside existing Tailwind classes.
+ */
+
+/* Global CSS variables for viewport sizes */
+:root {
+  /* Viewport sizes in pixels - these determine the min/max range for scaling */
+  --min-viewport: 320px;  /* Mobile */
+  --mid-viewport: 768px;  /* Tablet */
+  --max-viewport: 1536px; /* Large desktop */
+  
+  /* Font size variables (these can be adjusted) */
+  --fluid-min-xs: 0.75rem;
+  --fluid-max-xs: 0.875rem;
+  
+  --fluid-min-sm: 0.875rem;
+  --fluid-max-sm: 1rem;
+  
+  --fluid-min-base: 1rem;
+  --fluid-max-base: 1.125rem;
+  
+  --fluid-min-lg: 1.125rem;
+  --fluid-max-lg: 1.25rem;
+  
+  --fluid-min-xl: 1.25rem;
+  --fluid-max-xl: 1.5rem;
+  
+  --fluid-min-2xl: 1.5rem;
+  --fluid-max-2xl: 2rem;
+  
+  --fluid-min-3xl: 1.875rem;
+  --fluid-max-3xl: 2.5rem;
+  
+  --fluid-min-4xl: 2.25rem;
+  --fluid-max-4xl: 3rem;
+  
+  --fluid-min-5xl: 3rem;
+  --fluid-max-5xl: 4rem;
+  
+  --fluid-min-6xl: 3.75rem;
+  --fluid-max-6xl: 5rem;
+  
+  --fluid-min-7xl: 4.5rem;
+  --fluid-max-7xl: 6rem;
+  
+  --fluid-min-8xl: 6rem;
+  --fluid-max-8xl: 8rem;
+}
+
+/* Fluid Typography Utility Classes to use with Tailwind */
+@layer utilities {
+  /* Extra small text */
+  .fluid-xs {
+    font-size: clamp(
+      var(--fluid-min-xs),
+      calc(var(--fluid-min-xs) + (var(--fluid-max-xs) - var(--fluid-min-xs)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-xs)
+    );
+  }
+  
+  /* Small text */
+  .fluid-sm {
+    font-size: clamp(
+      var(--fluid-min-sm),
+      calc(var(--fluid-min-sm) + (var(--fluid-max-sm) - var(--fluid-min-sm)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-sm)
+    );
+  }
+  
+  /* Base text (body) */
+  .fluid-base {
+    font-size: clamp(
+      var(--fluid-min-base),
+      calc(var(--fluid-min-base) + (var(--fluid-max-base) - var(--fluid-min-base)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-base)
+    );
+  }
+  
+  /* Large text */
+  .fluid-lg {
+    font-size: clamp(
+      var(--fluid-min-lg),
+      calc(var(--fluid-min-lg) + (var(--fluid-max-lg) - var(--fluid-min-lg)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-lg)
+    );
+  }
+  
+  /* Extra large text */
+  .fluid-xl {
+    font-size: clamp(
+      var(--fluid-min-xl),
+      calc(var(--fluid-min-xl) + (var(--fluid-max-xl) - var(--fluid-min-xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-xl)
+    );
+  }
+  
+  /* 2XL text (h2, subheadings) */
+  .fluid-2xl {
+    font-size: clamp(
+      var(--fluid-min-2xl),
+      calc(var(--fluid-min-2xl) + (var(--fluid-max-2xl) - var(--fluid-min-2xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-2xl)
+    );
+  }
+  
+  /* 3XL text (h1, headings) */
+  .fluid-3xl {
+    font-size: clamp(
+      var(--fluid-min-3xl),
+      calc(var(--fluid-min-3xl) + (var(--fluid-max-3xl) - var(--fluid-min-3xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-3xl)
+    );
+  }
+  
+  /* 4XL text (large headings) */
+  .fluid-4xl {
+    font-size: clamp(
+      var(--fluid-min-4xl),
+      calc(var(--fluid-min-4xl) + (var(--fluid-max-4xl) - var(--fluid-min-4xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-4xl)
+    );
+  }
+  
+  /* 5XL text (hero text) */
+  .fluid-5xl {
+    font-size: clamp(
+      var(--fluid-min-5xl),
+      calc(var(--fluid-min-5xl) + (var(--fluid-max-5xl) - var(--fluid-min-5xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-5xl)
+    );
+  }
+  
+  /* 6XL text (display text) */
+  .fluid-6xl {
+    font-size: clamp(
+      var(--fluid-min-6xl),
+      calc(var(--fluid-min-6xl) + (var(--fluid-max-6xl) - var(--fluid-min-6xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-6xl)
+    );
+  }
+  
+  /* 7XL text (jumbo display) */
+  .fluid-7xl {
+    font-size: clamp(
+      var(--fluid-min-7xl),
+      calc(var(--fluid-min-7xl) + (var(--fluid-max-7xl) - var(--fluid-min-7xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-7xl)
+    );
+  }
+  
+  /* 8XL text (super jumbo) */
+  .fluid-8xl {
+    font-size: clamp(
+      var(--fluid-min-8xl),
+      calc(var(--fluid-min-8xl) + (var(--fluid-max-8xl) - var(--fluid-min-8xl)) * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))),
+      var(--fluid-max-8xl)
+    );
+  }
+}
+
+/* Simplified utility classes that can be used directly */
+.text-fluid-xs { @apply fluid-xs; }
+.text-fluid-sm { @apply fluid-sm; }
+.text-fluid-base { @apply fluid-base; }
+.text-fluid-lg { @apply fluid-lg; }
+.text-fluid-xl { @apply fluid-xl; }
+.text-fluid-2xl { @apply fluid-2xl; }
+.text-fluid-3xl { @apply fluid-3xl; }
+.text-fluid-4xl { @apply fluid-4xl; }
+.text-fluid-5xl { @apply fluid-5xl; }
+.text-fluid-6xl { @apply fluid-6xl; }
+.text-fluid-7xl { @apply fluid-7xl; }
+.text-fluid-8xl { @apply fluid-8xl; }
+
+/* Fluid leading (line-height) matching text sizes */
+.leading-fluid-tight { line-height: clamp(1.1, calc(1.1 + 0.2 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 1.3); }
+.leading-fluid-snug { line-height: clamp(1.3, calc(1.3 + 0.075 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 1.375); }
+.leading-fluid-normal { line-height: clamp(1.4, calc(1.4 + 0.1 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 1.5); }
+.leading-fluid-relaxed { line-height: clamp(1.5, calc(1.5 + 0.125 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 1.625); }
+.leading-fluid-loose { line-height: clamp(1.75, calc(1.75 + 0.25 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 2); }
+
+/* Fluid spacing for paragraphs and headings */
+.fluid-space-xs { margin-bottom: clamp(0.5rem, calc(0.5rem + 0.25 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 0.75rem); }
+.fluid-space-sm { margin-bottom: clamp(0.75rem, calc(0.75rem + 0.25 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 1rem); }
+.fluid-space-md { margin-bottom: clamp(1rem, calc(1rem + 0.5 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 1.5rem); }
+.fluid-space-lg { margin-bottom: clamp(1.5rem, calc(1.5rem + 0.5 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 2rem); }
+.fluid-space-xl { margin-bottom: clamp(2rem, calc(2rem + 1 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 3rem); }
+.fluid-space-2xl { margin-bottom: clamp(3rem, calc(3rem + 1 * ((100vw - var(--min-viewport)) / (var(--max-viewport) - var(--min-viewport)))), 4rem); } 

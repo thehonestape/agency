@@ -1,0 +1,109 @@
+/**
+ * Base theme variables - single source of truth
+ */
+:root {
+  /* Color System */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #1e293b;
+  --primary-foreground: #f8fafc;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #1e293b;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #1e293b;
+  --destructive: #ef4444;
+  --destructive-foreground: #f8fafc;
+  --success: #22c55e;
+  --success-foreground: #f8fafc;
+  --warning: #f59e0b;
+  --warning-foreground: #0f172a;
+  --info: #3b82f6;
+  --info-foreground: #f8fafc;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0f172a;
+  
+  /* Navigation Colors */
+  --nav-bg: #ffffff;
+  --nav-border: #e2e8f0;
+  --nav-text: #0f172a;
+  --nav-text-hover: #3b82f6;
+  --nav-bg-hover: #eff6ff;
+  --nav-bg-active: #3b82f6;
+  --nav-text-active: #ffffff;
+  --nav-icon: #64748b;
+  --nav-icon-active: #ffffff;
+  --nav-icon-hover: #3b82f6;
+  --nav-section-text: #64748b;
+  --nav-count: #64748b;
+  
+  /* Button specific colors */
+  --button-background: var(--primary);
+  --button-text: var(--primary-foreground);
+  
+  /* UI Metrics */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  
+  /* Animation Timings */
+  --speed-fastest: 50ms;
+  --speed-fast: 100ms;
+  --speed-normal: 200ms;
+  --speed-slow: 300ms;
+  --speed-slowest: 500ms;
+}
+
+/**
+ * Dark theme overrides
+ */
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+  --primary: #f8fafc;
+  --primary-foreground: #1e293b;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #f8fafc;
+  --success: #166534;
+  --success-foreground: #f8fafc;
+  --warning: #92400e;
+  --warning-foreground: #f8fafc;
+  --info: #1e40af;
+  --info-foreground: #f8fafc;
+  --border: #1e293b;
+  --input: #1e293b;
+  --ring: #94a3b8;
+  
+  /* Navigation Colors - Dark Mode */
+  --nav-bg: #1e293b;
+  --nav-border: #334155;
+  --nav-text: #f8fafc;
+  --nav-text-hover: #3b82f6;
+  --nav-bg-hover: #334155;
+  --nav-bg-active: #3b82f6;
+  --nav-text-active: #1e293b;
+  --nav-icon: #94a3b8;
+  --nav-icon-active: #1e293b;
+  --nav-icon-hover: #3b82f6;
+  --nav-section-text: #94a3b8;
+  --nav-count: #94a3b8;
+} 

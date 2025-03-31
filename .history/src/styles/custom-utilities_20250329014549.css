@@ -1,0 +1,169 @@
+/**
+ * Custom utilities for Tailwind v4
+ * This file contains examples of custom utilities that take advantage of Tailwind v4 features
+ */
+
+/* Custom ring utility with configurable colors and sizes */
+@utility ring-* {
+  outline: none;
+  --tw-ring-width: 2px;
+  --tw-ring-color: rgb(var(--ring) / --value([percentage], [number], 1));
+  box-shadow: 0 0 0 var(--tw-ring-width) var(--tw-ring-color);
+}
+
+@utility ring-width-* {
+  --tw-ring-width: --value([length]);
+}
+
+/* Custom text gradient utility */
+@utility text-gradient-* {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, rgb(var(--primary) / 1), rgb(var(--accent) / 1));
+}
+
+/* Custom badge utility */
+@utility badge-* {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  background-color: rgb(var(--primary) / 1);
+  color: rgb(var(--primary-foreground) / 1);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@utility badge-secondary {
+  background-color: rgb(var(--secondary) / 1);
+  color: rgb(var(--secondary-foreground) / 1);
+}
+
+@utility badge-outline {
+  background-color: transparent;
+  border: 1px solid rgb(var(--border) / 1);
+  color: rgb(var(--foreground) / 1);
+}
+
+@utility badge-success {
+  background-color: rgb(var(--success) / 1);
+  color: rgb(var(--success-foreground) / 1);
+}
+
+@utility badge-destructive {
+  background-color: rgb(var(--destructive) / 1);
+  color: rgb(var(--destructive-foreground) / 1);
+}
+
+/* Custom scrollbar styling */
+@utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+}
+
+@utility scrollbar-thin {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgb(var(--muted) / 0.3);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--muted-foreground) / 0.5);
+    border-radius: 3px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--muted-foreground) / 0.7);
+  }
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--muted-foreground) / 0.5) rgb(var(--muted) / 0.3);
+}
+
+/* Custom animation utilities */
+@utility animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+@utility animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+@utility animate-slide-in-left {
+  animation: slide-in-left 0.3s ease-out forwards;
+}
+
+@utility animate-scale-in {
+  animation: scale-in 0.2s ease-out forwards;
+}
+
+/* Custom keyframes */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Custom backdrop blur utility */
+@utility backdrop-blur-* {
+  backdrop-filter: blur(--value([length]));
+  -webkit-backdrop-filter: blur(--value([length]));
+}
+
+/* Theme-specific variants */
+@custom-variant theme-blue-only (&:where([data-theme="blue-light"] *, [data-theme="blue-dark"] *));
+@custom-variant theme-green-only (&:where([data-theme="green-light"] *, [data-theme="green-dark"] *));
+@custom-variant theme-zinc-only (&:where([data-theme="zinc-light"] *, [data-theme="zinc-dark"] *));
+
+/* Custom interaction variants */
+@custom-variant parent-hover {
+  &:where(*:hover > *) {
+    @slot;
+  }
+}
+
+@custom-variant sibling-hover {
+  &:where(*:hover + *) {
+    @slot;
+  }
+}
+
+/* Custom container queries variant */
+@custom-variant container-small {
+  @container (max-width: 640px) {
+    @slot;
+  }
+}
+
+@custom-variant container-medium {
+  @container (min-width: 641px) and (max-width: 1024px) {
+    @slot;
+  }
+}
+
+@custom-variant container-large {
+  @container (min-width: 1025px) {
+    @slot;
+  }
+} 

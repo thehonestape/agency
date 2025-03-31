@@ -2,14 +2,14 @@
 
 /**
  * Database Migration Script
- * 
+ *
  * This script automates applying SQL migrations to the Supabase database.
  * It parses SQL files in the docs/database directory and applies them either
  * locally or to the remote database based on command line arguments.
- * 
+ *
  * Usage:
  *   node run-migrations.js [--remote] [--local] [--print]
- * 
+ *
  * Options:
  *   --remote: Apply migrations to the remote Supabase instance
  *   --local: Apply migrations to a local Supabase instance
@@ -39,16 +39,17 @@ if (!isRemote && !isLocal && !isPrint) {
 // Create readline interface for user confirmation
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // Get all SQL migration files
 async function getMigrationFiles() {
   try {
-    const files = fs.readdirSync(MIGRATIONS_DIR)
-      .filter(file => file.endsWith('.sql'))
+    const files = fs
+      .readdirSync(MIGRATIONS_DIR)
+      .filter((file) => file.endsWith('.sql'))
       .sort(); // Sort alphabetically to ensure order
-    
+
     return files;
   } catch (error) {
     console.error('Error reading migration files:', error);
@@ -69,30 +70,32 @@ function readMigrationFile(filename) {
 // Apply migrations to remote Supabase
 async function applyRemoteMigrations(files) {
   console.log('Applying migrations to remote Supabase...');
-  
+
   for (const file of files) {
     console.log(`\nProcessing: ${file}`);
     const sql = readMigrationFile(file);
-    
+
     if (!sql) continue;
-    
+
     console.log('SQL content:');
     console.log('----------------------------------------');
     console.log(sql.slice(0, 300) + (sql.length > 300 ? '...' : ''));
     console.log('----------------------------------------');
-    
-    await new Promise(resolve => {
-      rl.question(`Apply this migration? (y/n) `, answer => {
+
+    await new Promise((resolve) => {
+      rl.question(`Apply this migration? (y/n) `, (answer) => {
         if (answer.toLowerCase() === 'y') {
           try {
             // Save SQL to a temporary file
             const tempFile = path.join(__dirname, 'temp-migration.sql');
             fs.writeFileSync(tempFile, sql);
-            
+
             // Run the migration using Supabase CLI
             console.log('Executing...');
-            execSync(`supabase db push --db-url ${process.env.SUPABASE_DB_URL} -f ${tempFile}`, { stdio: 'inherit' });
-            
+            execSync(`supabase db push --db-url ${process.env.SUPABASE_DB_URL} -f ${tempFile}`, {
+              stdio: 'inherit',
+            });
+
             // Clean up temp file
             fs.unlinkSync(tempFile);
             console.log(`✅ Successfully applied migration: ${file}`);
@@ -111,30 +114,30 @@ async function applyRemoteMigrations(files) {
 // Apply migrations to local Supabase
 async function applyLocalMigrations(files) {
   console.log('Applying migrations to local Supabase...');
-  
+
   for (const file of files) {
     console.log(`\nProcessing: ${file}`);
     const sql = readMigrationFile(file);
-    
+
     if (!sql) continue;
-    
+
     console.log('SQL content:');
     console.log('----------------------------------------');
     console.log(sql.slice(0, 300) + (sql.length > 300 ? '...' : ''));
     console.log('----------------------------------------');
-    
-    await new Promise(resolve => {
-      rl.question(`Apply this migration? (y/n) `, answer => {
+
+    await new Promise((resolve) => {
+      rl.question(`Apply this migration? (y/n) `, (answer) => {
         if (answer.toLowerCase() === 'y') {
           try {
             // Save SQL to a temporary file
             const tempFile = path.join(__dirname, 'temp-migration.sql');
             fs.writeFileSync(tempFile, sql);
-            
+
             // Run the migration using Supabase CLI for local instance
             console.log('Executing...');
             execSync(`supabase db push -f ${tempFile}`, { stdio: 'inherit' });
-            
+
             // Clean up temp file
             fs.unlinkSync(tempFile);
             console.log(`✅ Successfully applied migration: ${file}`);
@@ -153,11 +156,11 @@ async function applyLocalMigrations(files) {
 // Just print migration files without executing
 async function printMigrations(files) {
   console.log('Printing all migrations:');
-  
+
   for (const file of files) {
     console.log(`\n===== ${file} =====`);
     const sql = readMigrationFile(file);
-    
+
     if (sql) {
       console.log(sql);
     }
@@ -168,16 +171,16 @@ async function printMigrations(files) {
 async function main() {
   try {
     const files = await getMigrationFiles();
-    
+
     if (files.length === 0) {
       console.log('No migration files found.');
       rl.close();
       return;
     }
-    
+
     console.log(`Found ${files.length} migration files:`);
-    files.forEach(file => console.log(`- ${file}`));
-    
+    files.forEach((file) => console.log(`- ${file}`));
+
     if (isPrint) {
       await printMigrations(files);
     } else if (isRemote) {
@@ -185,7 +188,7 @@ async function main() {
     } else if (isLocal) {
       await applyLocalMigrations(files);
     }
-    
+
     rl.close();
   } catch (error) {
     console.error('Error:', error);
@@ -195,4 +198,4 @@ async function main() {
 }
 
 // Run the main function
-main(); 
+main();

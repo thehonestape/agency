@@ -42,69 +42,66 @@ async function scrapeAlertComponents() {
     // Login to Tailwind Plus
     console.log('Logging in to Tailwind Plus...');
     await page.goto('https://tailwindcss.com/plus/sign-in');
-    
+
     // Wait for the login form to be visible
     await page.waitForSelector('input[type="email"]');
-    
+
     // Fill in the login form
     await page.fill('input[type="email"]', EMAIL);
     await page.fill('input[type="password"]', PASSWORD);
-    
+
     // Submit the form
-    await Promise.all([
-      page.waitForNavigation(),
-      page.click('button[type="submit"]')
-    ]);
-    
+    await Promise.all([page.waitForNavigation(), page.click('button[type="submit"]')]);
+
     console.log('Login successful!');
-    
+
     // Navigate to the alerts page
     console.log(`Navigating to alerts page: ${ALERTS_URL}`);
     await page.goto(ALERTS_URL);
-    
+
     // Wait for the page to load
     await page.waitForSelector('h1:has-text("Alerts")');
-    
+
     // Find all "Get the code" buttons
     const codeButtons = await page.$$('a:has-text("Get the code")');
     console.log(`Found ${codeButtons.length} alert components`);
-    
+
     const alertComponents = [];
-    
+
     // Process each "Get the code" button to extract the React code
     for (let i = 0; i < codeButtons.length; i++) {
       const button = codeButtons[i];
-      
+
       // Get the component name from the preceding h2 or h3 element
-      const componentName = await page.evaluate(btn => {
+      const componentName = await page.evaluate((btn) => {
         const section = btn.closest('section');
         const heading = section?.querySelector('h2') || section?.querySelector('h3');
         return heading?.textContent?.trim() || `Alert Component ${i + 1}`;
       }, button);
-      
+
       console.log(`Extracting code for: ${componentName}`);
-      
+
       try {
         // Click the "Get the code" button to open the code modal
         await button.click();
-        
+
         // Wait for the code modal to appear - try different selectors
         console.log('Waiting for code modal...');
-        
+
         // Take a screenshot of what we're seeing
-        await page.screenshot({ path: `${outputDir}/alert-${i+1}-modal.png` });
-        
+        await page.screenshot({ path: `${outputDir}/alert-${i + 1}-modal.png` });
+
         // Wait for any code block to appear
         await Promise.race([
           page.waitForSelector('[data-language="jsx"]', { timeout: 5000 }),
           page.waitForSelector('[data-language="react"]', { timeout: 5000 }),
           page.waitForSelector('.language-jsx', { timeout: 5000 }),
           page.waitForSelector('.language-tsx', { timeout: 5000 }),
-          page.waitForSelector('pre code', { timeout: 5000 })
-        ]).catch(e => console.log('Using fallback selector method'));
-        
+          page.waitForSelector('pre code', { timeout: 5000 }),
+        ]).catch((e) => console.log('Using fallback selector method'));
+
         console.log('Modal appeared, extracting code...');
-        
+
         // Extract the React code
         const reactCode = await page.evaluate(() => {
           // Try different selectors
@@ -113,46 +110,46 @@ async function scrapeAlertComponents() {
             '[data-language="react"]',
             '.language-jsx',
             '.language-tsx',
-            'pre code'
+            'pre code',
           ];
-          
+
           for (const selector of selectors) {
             const codeElement = document.querySelector(selector);
             if (codeElement) {
               return codeElement.textContent || '';
             }
           }
-          
+
           // Fallback: get any text inside the modal
           const modal = document.querySelector('[role="dialog"]');
           return modal ? modal.textContent.trim() : 'No code found';
         });
-        
+
         console.log(`Code extracted, length: ${reactCode.length} characters`);
-        
+
         // Take a screenshot of the modal
-        await page.screenshot({ path: `${outputDir}/alert-${i+1}-code.png` });
-        
+        await page.screenshot({ path: `${outputDir}/alert-${i + 1}-code.png` });
+
         // Close the modal - try different close buttons
         await Promise.any([
           page.click('button[aria-label="Close"]').catch(() => {}),
           page.click('button:has-text("Close")').catch(() => {}),
           page.click('[role="dialog"] button').catch(() => {}),
-          page.press('Escape').catch(() => {})
+          page.press('Escape').catch(() => {}),
         ]).catch(() => console.log('Could not close modal, continuing anyway'));
-        
+
         // Add the component to our collection
         alertComponents.push({
           name: componentName,
           code: reactCode,
-          extractedAt: new Date().toISOString()
+          extractedAt: new Date().toISOString(),
         });
       } catch (error) {
-        console.error(`Error extracting component ${i+1} (${componentName}):`, error.message);
-        
+        console.error(`Error extracting component ${i + 1} (${componentName}):`, error.message);
+
         // Take a screenshot to debug
-        await page.screenshot({ path: `${outputDir}/alert-${i+1}-error.png` });
-        
+        await page.screenshot({ path: `${outputDir}/alert-${i + 1}-error.png` });
+
         // Try to continue with the next component
         try {
           await page.press('Escape');
@@ -160,19 +157,16 @@ async function scrapeAlertComponents() {
           // Ignore any errors here
         }
       }
-      
+
       // Wait a bit between requests to avoid rate limiting
       await page.waitForTimeout(2000);
     }
-    
+
     // Save the extracted components
     const outputPath = path.join(outputDir, 'alerts.json');
-    await fs.writeFile(
-      outputPath,
-      JSON.stringify({ alertComponents }, null, 2)
-    );
+    await fs.writeFile(outputPath, JSON.stringify({ alertComponents }, null, 2));
     console.log(`Saved alert components to ${outputPath}`);
-    
+
     console.log('Scraping completed successfully');
   } catch (error) {
     console.error('Error during scraping:', error);
@@ -182,4 +176,4 @@ async function scrapeAlertComponents() {
 }
 
 // Run the scraper
-scrapeAlertComponents().catch(console.error); 
+scrapeAlertComponents().catch(console.error);

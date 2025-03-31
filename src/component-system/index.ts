@@ -1,6 +1,6 @@
 /**
  * Component System Exports
- * 
+ *
  * This file provides a convenient way to import all components and utilities
  * from the modular component system.
  */
@@ -29,11 +29,11 @@ export type { Theme, ThemeMode } from '../themes/types';
 // export type { BrandData } from '../themes/generators/brandToTheme';
 
 // Component Composition
-export { 
+export {
   composeComponents,
   createGridLayout,
   createFlexLayout,
-  createStackLayout
+  createStackLayout,
 } from '../lib/composition/composeComponents';
 export { default as ComponentRenderer } from '../lib/composition/ComponentRenderer';
 
@@ -45,4 +45,4 @@ export { componentRegistry, useComponentRegistry } from '../lib/discovery/Compon
 
 // Types
 export * from '../lib/composition/types';
-export * from '../themes/types'; 
+export * from '../themes/types';

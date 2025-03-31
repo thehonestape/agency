@@ -1,0 +1,348 @@
+@import "tailwindcss";
+
+/* 
+ * Tailwind v4 Theme Configuration
+ * This follows the simplified approach where we:
+ * - Define themes in CSS (no RGB space-separated values)
+ * - Apply themes using data-theme attribute 
+ */
+
+/* Define base theme variables */
+@theme {
+  --color-primary: #0ea5e9;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #0f172a;
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #64748b;
+  --color-accent: #f59e0b;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-card: #ffffff;
+  --color-card-foreground: #0f172a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+  --color-border: #e2e8f0;
+  --color-input: #e2e8f0;
+  --color-ring: #0ea5e9;
+  --radius: 0.5rem;
+}
+
+/* Apply themes via data-theme attribute */
+@layer base {
+  /* Blue theme - light */
+  [data-theme="blue-light"] {
+    --color-background: #ffffff;
+    --color-foreground: #0f172a;
+    --color-card: #ffffff;
+    --color-card-foreground: #0f172a;
+    --color-popover: #ffffff;
+    --color-popover-foreground: #0f172a;
+    --color-primary: #0ea5e9;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #f1f5f9;
+    --color-secondary-foreground: #0f172a;
+    --color-muted: #f1f5f9;
+    --color-muted-foreground: #64748b;
+    --color-accent: #f59e0b;
+    --color-accent-foreground: #ffffff;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #e2e8f0;
+    --color-input: #e2e8f0;
+    --color-ring: #0ea5e9;
+  }
+
+  /* Blue theme - dark */
+  [data-theme="blue-dark"] {
+    --color-background: #0f172a;
+    --color-foreground: #f8fafc;
+    --color-card: #1e293b;
+    --color-card-foreground: #f8fafc;
+    --color-popover: #1e293b;
+    --color-popover-foreground: #f8fafc;
+    --color-primary: #38bdf8;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #334155;
+    --color-secondary-foreground: #f8fafc;
+    --color-muted: #334155;
+    --color-muted-foreground: #94a3b8;
+    --color-accent: #fbbf24;
+    --color-accent-foreground: #000000;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #334155;
+    --color-input: #334155;
+    --color-ring: #38bdf8;
+  }
+
+  /* Green theme - light */
+  [data-theme="green-light"] {
+    --color-background: #ffffff;
+    --color-foreground: #166534;
+    --color-card: #ffffff;
+    --color-card-foreground: #166534;
+    --color-popover: #ffffff;
+    --color-popover-foreground: #166534;
+    --color-primary: #22c55e;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #f0fdf4;
+    --color-secondary-foreground: #166534;
+    --color-muted: #f0fdf4;
+    --color-muted-foreground: #22c55e;
+    --color-accent: #f59e0b;
+    --color-accent-foreground: #ffffff;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #bbf7d0;
+    --color-input: #bbf7d0;
+    --color-ring: #22c55e;
+  }
+
+  /* Green theme - dark */
+  [data-theme="green-dark"] {
+    --color-background: #052e16;
+    --color-foreground: #f0fdf4;
+    --color-card: #14532d;
+    --color-card-foreground: #f0fdf4;
+    --color-popover: #14532d;
+    --color-popover-foreground: #f0fdf4;
+    --color-primary: #4ade80;
+    --color-primary-foreground: #000000;
+    --color-secondary: #166534;
+    --color-secondary-foreground: #f0fdf4;
+    --color-muted: #166534;
+    --color-muted-foreground: #bbf7d0;
+    --color-accent: #fbbf24;
+    --color-accent-foreground: #000000;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #166534;
+    --color-input: #166534;
+    --color-ring: #4ade80;
+  }
+
+  /* Zinc theme - light */
+  [data-theme="zinc-light"] {
+    --color-background: #ffffff;
+    --color-foreground: #18181b;
+    --color-card: #ffffff;
+    --color-card-foreground: #18181b;
+    --color-popover: #ffffff;
+    --color-popover-foreground: #18181b;
+    --color-primary: #71717a;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #f4f4f5;
+    --color-secondary-foreground: #18181b;
+    --color-muted: #f4f4f5;
+    --color-muted-foreground: #71717a;
+    --color-accent: #71717a;
+    --color-accent-foreground: #ffffff;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #e4e4e7;
+    --color-input: #e4e4e7;
+    --color-ring: #71717a;
+  }
+
+  /* Zinc theme - dark */
+  [data-theme="zinc-dark"] {
+    --color-background: #18181b;
+    --color-foreground: #f4f4f5;
+    --color-card: #27272a;
+    --color-card-foreground: #f4f4f5;
+    --color-popover: #27272a;
+    --color-popover-foreground: #f4f4f5;
+    --color-primary: #71717a;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #52525b;
+    --color-secondary-foreground: #ffffff;
+    --color-muted: #3f3f46;
+    --color-muted-foreground: #d4d4d8;
+    --color-accent: #f4f4f5;
+    --color-accent-foreground: #18181b;
+    --color-destructive: #ef4444;
+    --color-destructive-foreground: #ffffff;
+    --color-border: #3f3f46;
+    --color-input: #3f3f46;
+    --color-ring: #71717a;
+  }
+}
+
+/* 
+ * Map these variables to the utility classes
+ * This is better than using the raw variables throughout the codebase
+ */
+@utilities {
+  .bg-background {
+    background-color: var(--color-background);
+  }
+  .bg-foreground {
+    background-color: var(--color-foreground);
+  }
+  .bg-card {
+    background-color: var(--color-card);
+  }
+  .bg-card-foreground {
+    background-color: var(--color-card-foreground);
+  }
+  .bg-popover {
+    background-color: var(--color-popover);
+  }
+  .bg-popover-foreground {
+    background-color: var(--color-popover-foreground);
+  }
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-primary-foreground {
+    background-color: var(--color-primary-foreground);
+  }
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+  .bg-secondary-foreground {
+    background-color: var(--color-secondary-foreground);
+  }
+  .bg-muted {
+    background-color: var(--color-muted);
+  }
+  .bg-muted-foreground {
+    background-color: var(--color-muted-foreground);
+  }
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  .bg-accent-foreground {
+    background-color: var(--color-accent-foreground);
+  }
+  .bg-destructive {
+    background-color: var(--color-destructive);
+  }
+  .bg-destructive-foreground {
+    background-color: var(--color-destructive-foreground);
+  }
+
+  .text-background {
+    color: var(--color-background);
+  }
+  .text-foreground {
+    color: var(--color-foreground);
+  }
+  .text-card {
+    color: var(--color-card);
+  }
+  .text-card-foreground {
+    color: var(--color-card-foreground);
+  }
+  .text-popover {
+    color: var(--color-popover);
+  }
+  .text-popover-foreground {
+    color: var(--color-popover-foreground);
+  }
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-primary-foreground {
+    color: var(--color-primary-foreground);
+  }
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  .text-secondary-foreground {
+    color: var(--color-secondary-foreground);
+  }
+  .text-muted {
+    color: var(--color-muted);
+  }
+  .text-muted-foreground {
+    color: var(--color-muted-foreground);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .text-accent-foreground {
+    color: var(--color-accent-foreground);
+  }
+  .text-destructive {
+    color: var(--color-destructive);
+  }
+  .text-destructive-foreground {
+    color: var(--color-destructive-foreground);
+  }
+
+  .border-background {
+    border-color: var(--color-background);
+  }
+  .border-foreground {
+    border-color: var(--color-foreground);
+  }
+  .border-card {
+    border-color: var(--color-card);
+  }
+  .border-card-foreground {
+    border-color: var(--color-card-foreground);
+  }
+  .border-popover {
+    border-color: var(--color-popover);
+  }
+  .border-popover-foreground {
+    border-color: var(--color-popover-foreground);
+  }
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  .border-primary-foreground {
+    border-color: var(--color-primary-foreground);
+  }
+  .border-secondary {
+    border-color: var(--color-secondary);
+  }
+  .border-secondary-foreground {
+    border-color: var(--color-secondary-foreground);
+  }
+  .border-muted {
+    border-color: var(--color-muted);
+  }
+  .border-muted-foreground {
+    border-color: var(--color-muted-foreground);
+  }
+  .border-accent {
+    border-color: var(--color-accent);
+  }
+  .border-accent-foreground {
+    border-color: var(--color-accent-foreground);
+  }
+  .border-destructive {
+    border-color: var(--color-destructive);
+  }
+  .border-destructive-foreground {
+    border-color: var(--color-destructive-foreground);
+  }
+  .border-border {
+    border-color: var(--color-border);
+  }
+  .border-input {
+    border-color: var(--color-input);
+  }
+
+  .ring-ring {
+    --tw-ring-color: var(--color-ring);
+  }
+  .ring-primary {
+    --tw-ring-color: var(--color-primary);
+  }
+  .ring-secondary {
+    --tw-ring-color: var(--color-secondary);
+  }
+  .ring-accent {
+    --tw-ring-color: var(--color-accent);
+  }
+  .ring-destructive {
+    --tw-ring-color: var(--color-destructive);
+  }
+} 

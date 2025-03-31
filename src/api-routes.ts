@@ -32,30 +32,36 @@ export const apiRoutes = [
       try {
         const scriptPath = path.join(__dirname, '../scripts/extract-component-html.js');
         const result = await runScript(scriptPath);
-        
-        return new Response(JSON.stringify({ 
-          success: true, 
-          message: 'HTML content generated successfully' 
-        }), {
-          headers: {
-            'Content-Type': 'application/json'
+
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: 'HTML content generated successfully',
+          }),
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
           }
-        });
+        );
       } catch (error: unknown) {
         console.error('Error generating HTML:', error);
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        
-        return new Response(JSON.stringify({ 
-          success: false, 
-          message: 'Failed to generate HTML content',
-          error: errorMessage
-        }), {
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json'
+
+        return new Response(
+          JSON.stringify({
+            success: false,
+            message: 'Failed to generate HTML content',
+            error: errorMessage,
+          }),
+          {
+            status: 500,
+            headers: {
+              'Content-Type': 'application/json',
+            },
           }
-        });
+        );
       }
-    }
-  }
-]; 
+    },
+  },
+];

@@ -1,0 +1,169 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../components/ui/Card';
+import { Button } from '../components/ui/button';
+import MainLayout from '../layouts/MainLayout';
+
+const HomePage = () => {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="border-b border-border sticky top-0 z-10 bg-background">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Agency App</h1>
+          <nav className="hidden md:flex space-x-6">
+            <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
+            <Link to="/components" className="text-foreground hover:text-primary transition-colors">Components</Link>
+            <Link to="/theme" className="text-foreground hover:text-primary transition-colors">Themes</Link>
+            <Link to="/design-system" className="text-foreground hover:text-primary transition-colors">Design System</Link>
+          </nav>
+        </div>
+      </header>
+      
+      <main className="py-8">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold tracking-tight">Semantic Component System</h1>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mt-4">
+              A modern, accessible, and themeable component system built with React and Tailwind CSS.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Component Library</CardTitle>
+                <CardDescription>
+                  Explore our collection of semantic UI components
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Browse through our comprehensive set of components, from basic primitives to complex patterns.
+                  Each component is built with accessibility and theming in mind.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild className="w-full">
+                  <Link to="/components">View Components</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Theme System</CardTitle>
+                <CardDescription>
+                  Customize and manage your design system
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Create and manage themes with our HSL-based color system. Preview and switch between themes
+                  in real-time.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/theme">Theme Editor</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Design System</CardTitle>
+                <CardDescription>
+                  Explore our design system documentation
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  View our comprehensive design system documentation, including typography, colors, spacing,
+                  and component guidelines.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/design-system">View Design System</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+
+          <h2 className="text-2xl font-semibold mt-16 mb-6">View Switcher Demonstrations</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Simple View Switcher</CardTitle>
+                <CardDescription>
+                  Basic view switching with tabs
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  A straightforward implementation of view switching using state management,
+                  perfect for simple applications that don't require complex routing.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/view-switcher">View Demo</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Advanced View Switcher</CardTitle>
+                <CardDescription>
+                  Interactive view switcher component demo
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Explore different ways to switch between views with our configurable ViewSwitcher
+                  component. Tabs, buttons, and sidebar navigation options.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/view-switcher-demo">Try It Out</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Layout-Compatible Version</CardTitle>
+                <CardDescription>
+                  Fits within existing navigation
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  A streamlined view switcher that integrates directly with your existing layouts
+                  without adding redundant navigation. Perfect for inserting anywhere in your app.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Button asChild variant="outline" className="w-full">
+                  <Link to="/simple-demo">View Demo</Link>
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+      </main>
+      
+      <footer className="border-t border-border py-6 mt-12">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-muted-foreground text-sm">
+            &copy; {new Date().getFullYear()} Agency App. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default HomePage; 

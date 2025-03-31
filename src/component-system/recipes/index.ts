@@ -8,4 +8,4 @@ export { default as cardRecipe, type CardRecipe } from './card.recipe';
 
 // Re-export everything for convenience
 export * from './button.recipe';
-export * from './card.recipe'; 
+export * from './card.recipe';

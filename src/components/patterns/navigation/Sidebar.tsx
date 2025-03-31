@@ -1,10 +1,10 @@
-import { Dialog } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from '../../../lib/utils'
-import { sidebarRecipe } from '../../../component-system/recipes/sidebar.recipe'
-import { BaseComponentProps } from '../../../lib/composition/types'
-import { componentRegistry } from '../../../lib/discovery/ComponentRegistry'
+import { Dialog } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../../../lib/utils';
+import { sidebarRecipe } from '../../../component-system/recipes/sidebar.recipe';
+import { BaseComponentProps } from '../../../lib/composition/types';
+import { componentRegistry } from '../../../lib/discovery/ComponentRegistry';
 
 // Create variants using the recipe
 const sidebarVariants = cva('', {
@@ -26,7 +26,7 @@ const sidebarVariants = cva('', {
     },
   },
   defaultVariants: sidebarRecipe.defaultVariants,
-})
+});
 
 // Create item variants
 const itemVariants = cva(sidebarRecipe.base.item, {
@@ -38,32 +38,32 @@ const itemVariants = cva(sidebarRecipe.base.item, {
     state: 'default',
     type: 'default',
   },
-})
+});
 
 // Omit size from BaseComponentProps to avoid conflict
-type SidebarBaseProps = Omit<BaseComponentProps, 'size'>
+type SidebarBaseProps = Omit<BaseComponentProps, 'size'>;
 
 // Props interface
 export interface SidebarProps extends SidebarBaseProps, VariantProps<typeof sidebarVariants> {
-  navigation?: NavigationItem[]
-  sections?: SidebarSection[]
-  footer?: React.ReactNode
-  isOpen?: boolean
-  onClose?: () => void
+  navigation?: NavigationItem[];
+  sections?: SidebarSection[];
+  footer?: React.ReactNode;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
 interface NavigationItem {
-  name: string
-  href: string
-  current?: boolean
-  icon?: React.ComponentType<{ className?: string }>
-  count?: string
-  initial?: string
+  name: string;
+  href: string;
+  current?: boolean;
+  icon?: React.ComponentType<{ className?: string }>;
+  count?: string;
+  initial?: string;
 }
 
 interface SidebarSection {
-  title: string
-  items: NavigationItem[]
+  title: string;
+  items: NavigationItem[];
 }
 
 // Navigation Item Component
@@ -80,21 +80,37 @@ function NavigationItem({ item }: { item: NavigationItem }) {
         aria-current={item.current ? 'page' : undefined}
       >
         {item.icon ? (
-          <item.icon className={sidebarRecipe.base.itemIcon} aria-hidden="true" data-component={sidebarRecipe.data.itemIcon} />
+          <item.icon
+            className={sidebarRecipe.base.itemIcon}
+            aria-hidden="true"
+            data-component={sidebarRecipe.data.itemIcon}
+          />
         ) : item.initial ? (
-          <span className={sidebarRecipe.base.itemInitial} data-component={sidebarRecipe.data.itemInitial}>
+          <span
+            className={sidebarRecipe.base.itemInitial}
+            data-component={sidebarRecipe.data.itemInitial}
+          >
             {item.initial}
           </span>
         ) : null}
-        <span className={sidebarRecipe.base.itemLabel} data-component={sidebarRecipe.data.itemLabel}>{item.name}</span>
+        <span
+          className={sidebarRecipe.base.itemLabel}
+          data-component={sidebarRecipe.data.itemLabel}
+        >
+          {item.name}
+        </span>
         {item.count && (
-          <span className={sidebarRecipe.base.itemCount} aria-hidden="true" data-component={sidebarRecipe.data.itemCount}>
+          <span
+            className={sidebarRecipe.base.itemCount}
+            aria-hidden="true"
+            data-component={sidebarRecipe.data.itemCount}
+          >
             {item.count}
           </span>
         )}
       </a>
     </li>
-  )
+  );
 }
 
 // Navigation List Component
@@ -105,7 +121,7 @@ function NavigationList({ items }: { items: NavigationItem[] }) {
         <NavigationItem key={item.name} item={item} />
       ))}
     </ul>
-  )
+  );
 }
 
 // Sidebar Content Component
@@ -120,14 +136,21 @@ function SidebarContent({ navigation, sections, footer }: SidebarProps) {
           data-component={sidebarRecipe.data.brand}
         />
       </div>
-      <nav className={sidebarRecipe.base.nav} aria-label="Sidebar navigation" data-component={sidebarRecipe.data.nav}>
+      <nav
+        className={sidebarRecipe.base.nav}
+        aria-label="Sidebar navigation"
+        data-component={sidebarRecipe.data.nav}
+      >
         <div className={sidebarRecipe.base.section} data-component={sidebarRecipe.data.section}>
-          {navigation && (
-            <NavigationList items={navigation} />
-          )}
+          {navigation && <NavigationList items={navigation} />}
           {sections?.map((section) => (
             <div key={section.title} data-component={sidebarRecipe.data.section}>
-              <div className={sidebarRecipe.base.sectionTitle} data-component={sidebarRecipe.data.sectionTitle}>{section.title}</div>
+              <div
+                className={sidebarRecipe.base.sectionTitle}
+                data-component={sidebarRecipe.data.sectionTitle}
+              >
+                {section.title}
+              </div>
               <NavigationList items={section.items} />
             </div>
           ))}
@@ -139,13 +162,13 @@ function SidebarContent({ navigation, sections, footer }: SidebarProps) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 // Main Sidebar Component
-export function Sidebar({ 
-  navigation, 
-  sections, 
+export function Sidebar({
+  navigation,
+  sections,
   footer,
   variant,
   size,
@@ -153,21 +176,25 @@ export function Sidebar({
   isOpen,
   onClose,
   className,
-  ...props 
+  ...props
 }: SidebarProps) {
   // Handle Dialog close
   const handleClose = (value: boolean) => {
     if (!value) {
-      onClose?.()
+      onClose?.();
     }
-  }
+  };
 
   // Mobile sidebar with Dialog
   if (mobile === 'overlay' && isOpen !== undefined) {
     return (
       <Dialog open={isOpen} onClose={handleClose} className="relative z-50">
-        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" aria-hidden="true" data-component={sidebarRecipe.data.backdrop} />
-        <Dialog.Panel 
+        <div
+          className="bg-background/80 fixed inset-0 backdrop-blur-sm"
+          aria-hidden="true"
+          data-component={sidebarRecipe.data.backdrop}
+        />
+        <Dialog.Panel
           className={cn(
             sidebarRecipe.base.root,
             sidebarVariants({ variant, size, mobile }),
@@ -178,46 +205,34 @@ export function Sidebar({
           data-size={size}
           data-mobile={mobile}
         >
-          <button 
-            type="button" 
-            onClick={() => handleClose(false)} 
-            className="absolute right-4 top-4 p-2.5 text-muted-foreground hover:text-foreground"
+          <button
+            type="button"
+            onClick={() => handleClose(false)}
+            className="text-muted-foreground hover:text-foreground absolute top-4 right-4 p-2.5"
             aria-label="Close sidebar"
             data-component={sidebarRecipe.data.close}
           >
             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
           </button>
-          <SidebarContent 
-            navigation={navigation} 
-            sections={sections} 
-            footer={footer} 
-          />
+          <SidebarContent navigation={navigation} sections={sections} footer={footer} />
         </Dialog.Panel>
       </Dialog>
-    )
+    );
   }
 
   // Desktop sidebar
   return (
-    <div 
-      className={cn(
-        sidebarRecipe.base.root,
-        sidebarVariants({ variant, size, mobile }),
-        className
-      )}
+    <div
+      className={cn(sidebarRecipe.base.root, sidebarVariants({ variant, size, mobile }), className)}
       data-component={sidebarRecipe.data.root}
       data-variant={variant}
       data-size={size}
       data-mobile={mobile}
       {...props}
     >
-      <SidebarContent 
-        navigation={navigation} 
-        sections={sections} 
-        footer={footer} 
-      />
+      <SidebarContent navigation={navigation} sections={sections} footer={footer} />
     </div>
-  )
+  );
 }
 
 // Register component
@@ -231,16 +246,17 @@ componentRegistry.register('patterns.navigation.sidebar', {
     props: {
       variant: 'default',
       size: 'default',
-      mobile: 'overlay'
+      mobile: 'overlay',
     },
   },
   metadata: {
     name: 'Sidebar',
-    description: 'Navigation sidebar component with support for sections, counts, initials, and mobile responsiveness',
+    description:
+      'Navigation sidebar component with support for sections, counts, initials, and mobile responsiveness',
     category: 'patterns.navigation',
     tags: ['navigation', 'sidebar', 'layout', 'pattern'],
     created: new Date().toISOString(),
     author: 'Component System',
     version: '1.0.0',
   },
-}) 
+});

@@ -1,0 +1,52 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import our base styles */
+@import './src/styles/base.css'; 
+@import './src/styles/fonts.css';
+@import './src/styles/globals.css';
+@import './src/styles/theme.css';
+
+:root {
+  /* Base colors using Tailwind v4 RGB format */
+  --primary: 14 165 233; /* sky-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 79 70 229; /* indigo-600 */
+  --secondary-foreground: 255 255 255;
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 255 255 255;
+  --muted: 241 245 249; /* slate-100 */
+  --muted-foreground: 100 116 139; /* slate-500 */
+  
+  /* Semantic colors */
+  --background: 255 255 255;
+  --foreground: 15 23 42; /* slate-900 */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42; /* slate-900 */
+  --border: 226 232 240; /* slate-200 */
+  --input: 226 232 240; /* slate-200 */
+  --ring: 14 165 233; /* sky-500 */
+  
+  /* Other design tokens */
+  --radius: 0.5rem;
+}
+
+/* Dark mode overrides */
+.dark {
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+} 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workhorse Design System</title>
+  <link rel="stylesheet" href="/src/styles/globals.css">
+  <link rel="stylesheet" href="/src/styles/fonts.css">
+  <link rel="stylesheet" href="/src/styles/theme.css">
+</head>
+<body>
+  <div id="design-system-root"></div>
+  
+  <script type="module">
+    import React from 'react';
+    import ReactDOM from 'react-dom/client';
+    import DesignSystem from '../../src/pages/DesignSystem';
+    import { ThemeProvider } from '../../src/lib/theme-context';
+    
+    // Mount the DesignSystem component directly without any router or app shell
+    ReactDOM.createRoot(document.getElementById('design-system-root')).render(
+      React.createElement(
+        ThemeProvider,
+        { defaultThemeId: 'salient' },
+        React.createElement(DesignSystem)
+      )
+    );
+  </script>
+</body>
+</html>

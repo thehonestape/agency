@@ -1,0 +1,99 @@
+/**
+ * Application-wide styles that enforce consistent typography
+ */
+
+/* Apply Maison Neue to all elements */
+html, body, button, input, select, textarea {
+  font-family: var(--font-maison-neue);
+}
+
+/* Apply Maison Neue Mono to monospace elements */
+code, pre, kbd, samp {
+  font-family: var(--font-maison-neue-mono);
+}
+
+/* Typography classes with proper font family application */
+.font-sans {
+  font-family: var(--font-maison-neue) !important;
+}
+
+.font-mono {
+  font-family: var(--font-maison-neue-mono) !important;
+}
+
+/* Typographic scale for consistent text sizing */
+.text-heading-1 {
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-family: var(--font-maison-neue);
+}
+
+.text-heading-2 {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  font-family: var(--font-maison-neue);
+}
+
+.text-heading-3 {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  font-family: var(--font-maison-neue);
+}
+
+.text-heading-4 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 600;
+  font-family: var(--font-maison-neue);
+}
+
+.text-body-large {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  font-family: var(--font-maison-neue);
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-family: var(--font-maison-neue);
+}
+
+.text-body-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-family: var(--font-maison-neue);
+}
+
+.text-caption {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  font-family: var(--font-maison-neue);
+}
+
+/* Font weight utilities */
+.font-light {
+  font-weight: 300;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: 700;
+} 

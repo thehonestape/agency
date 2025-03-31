@@ -1,1 +1,1 @@
-// Feedback patterns will be added here 
+// Feedback patterns will be added here

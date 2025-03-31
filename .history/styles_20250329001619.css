@@ -1,0 +1,134 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import our base styles */
+@import './src/styles/base.css'; 
+@import './src/styles/fonts.css';
+@import './src/styles/globals.css';
+@import './src/styles/theme.css';
+
+:root {
+  /* Base colors using Tailwind v4 RGB format */
+  --primary: 14 165 233; /* sky-500 */
+  --primary-foreground: 255 255 255;
+  --secondary: 79 70 229; /* indigo-600 */
+  --secondary-foreground: 255 255 255;
+  --accent: 245 158 11; /* amber-500 */
+  --accent-foreground: 255 255 255;
+  --muted: 241 245 249; /* slate-100 */
+  --muted-foreground: 100 116 139; /* slate-500 */
+  
+  /* Semantic colors */
+  --background: 255 255 255;
+  --foreground: 15 23 42; /* slate-900 */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42; /* slate-900 */
+  --border: 226 232 240; /* slate-200 */
+  --input: 226 232 240; /* slate-200 */
+  --ring: 14 165 233; /* sky-500 */
+  
+  /* Other design tokens */
+  --radius: 0.5rem;
+}
+
+/* Dark mode overrides */
+.dark {
+  --primary: 56 189 248; /* sky-400 */
+  --primary-foreground: 255 255 255;
+  --secondary: 99 102 241; /* indigo-500 */
+  --secondary-foreground: 255 255 255;
+  --accent: 251 191 36; /* amber-400 */
+  --accent-foreground: 0 0 0;
+  --muted: 51 65 85; /* slate-700 */
+  --muted-foreground: 148 163 184; /* slate-400 */
+  
+  --background: 15 23 42; /* slate-900 */
+  --foreground: 248 250 252; /* slate-50 */
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252; /* slate-50 */
+  --border: 51 65 85; /* slate-700 */
+  --input: 51 65 85; /* slate-700 */
+} 
+
+/* Theme styles */
+:root,
+[data-theme="blue-light"],
+[data-theme="blue-dark"],
+[data-theme="green-light"],
+[data-theme="green-dark"],
+[data-theme="zinc-light"],
+[data-theme="zinc-dark"] {
+  color-scheme: light dark;
+}
+
+/* Force immediate application of theme styles without animation */
+html[data-theme] *:not(svg *, path) {
+  transition: none !important;
+}
+
+/* Add a delay before re-enabling transitions */
+html[data-theme].transition-ready *:not(svg *, path) {
+  transition: 
+    background-color 200ms ease-in-out, 
+    color 200ms ease-in-out,
+    border-color 200ms ease-in-out !important;
+}
+
+/* Apply theme colors directly to components */
+.btn, .button, button[class*="Button"] {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-color: var(--primary);
+}
+
+.card, div[class*="Card"] {
+  background-color: var(--card);
+  color: var(--card-foreground);
+  border-color: var(--border);
+}
+
+/* Force repaint for all UI components when theme changes */
+[data-theme="blue-light"] .bg-primary,
+[data-theme="blue-dark"] .bg-primary,
+[data-theme="green-light"] .bg-primary,
+[data-theme="green-dark"] .bg-primary,
+[data-theme="zinc-light"] .bg-primary,
+[data-theme="zinc-dark"] .bg-primary {
+  background-color: var(--primary) !important;
+}
+
+/* Apply theme colors to text */
+[data-theme] .text-foreground {
+  color: var(--foreground) !important;
+}
+
+[data-theme] .bg-background {
+  background-color: var(--background) !important;
+}
+
+/* Add this to ensure the theme demo swatches pick up theme colors */
+[data-theme] .bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+[data-theme] .bg-accent {
+  background-color: var(--accent) !important;
+}
+
+[data-theme] .bg-muted {
+  background-color: var(--muted) !important;
+}
+
+[data-theme] .bg-destructive {
+  background-color: var(--destructive) !important;
+}
+
+/* Add !important to all border colors */
+[data-theme] .border-border {
+  border-color: var(--border) !important;
+}
+
+[data-theme] .border-primary {
+  border-color: var(--primary) !important;
+} 

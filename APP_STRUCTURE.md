@@ -1,0 +1,99 @@
+# Application Structure
+
+This document provides an overview of the application structure and architecture.
+
+## Overall Structure
+
+The application is structured with clear separation of layouts, pages, and components:
+
+```
+src/
+├── layouts/           # Layout components that provide the structure
+├── pages/             # Page components with specific content
+├── components/        # Reusable UI components
+│   ├── patterns/      # Compound components built from primitives
+│   └── ui/            # UI primitives
+├── lib/               # Utilities and services
+└── App.tsx            # Main application with routing
+```
+
+## Layout System
+
+The application uses a layout-based approach for consistent UI:
+
+1. **MainLayout** - For public/marketing pages
+
+   - Uses the AppShell component
+   - Applied to routes like `/`, `/pricing`, etc.
+
+2. **DashboardLayout** - For authenticated dashboard pages
+   - Uses SideNav and TopBar components
+   - Applied to routes like `/dashboard/*`
+   - Provides consistent navigation across dashboard pages
+
+## Component System
+
+The component architecture follows a modular approach:
+
+1. **Core UI Components** (`src/components/ui/*`)
+
+   - Base components with styling (buttons, inputs, cards)
+   - Used throughout the application
+
+2. **Pattern Components** (`src/components/patterns/*`)
+
+   - More complex, composed components
+   - Examples: SideNav, TopBar, dashboards
+
+3. **ComponentView** (`src/components/ui/ComponentView.tsx`)
+   - Reusable component browser
+   - Can be configured for different views and tabs
+   - Connected to the component registry
+
+## Component Registry
+
+The app includes a component registry system:
+
+- Each component can be registered with metadata
+- Components are discoverable by category, tags, or search
+- The ComponentView provides a visual interface to the registry
+
+## Route Structure
+
+The application routing is organized by section:
+
+```jsx
+<Routes>
+  {/* Public Routes */}
+  <Route element={<MainLayout />}>
+    <Route path="/" element={<HomePage />} />
+    <Route path="/work" element={<div>Work Page</div>} />
+    {/* ... other public routes */}
+  </Route>
+
+  {/* Dashboard Routes */}
+  <Route element={<DashboardLayout />}>
+    <Route path="/dashboard" element={<Dashboard />} />
+    <Route path="/dashboard/components" element={<ComponentsPage />} />
+    {/* ... other dashboard routes */}
+  </Route>
+</Routes>
+```
+
+## Adding New Pages
+
+To add a new page to the application:
+
+1. Create a new component in the `src/pages/` directory
+2. Add it to the appropriate route in `App.tsx`
+3. The page will automatically inherit the correct layout
+
+## Data Flow
+
+Pages can be designed to accept different data sources:
+
+1. Mock data for development and testing
+2. API-fetched data for production
+3. User-provided data for interactive features
+
+This allows for flexible data plugging into the established view structure.

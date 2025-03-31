@@ -1,0 +1,247 @@
+/**
+ * Base theme variables - single source of truth
+ */
+@theme {
+  /* Color System - Light Mode */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  
+  /* Primary Colors */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+  --primary-950: #172554;
+  --primary: var(--primary-600);
+  --primary-foreground: #ffffff;
+  
+  /* Secondary Colors */
+  --secondary-50: #f8fafc;
+  --secondary-100: #f1f5f9;
+  --secondary-200: #e2e8f0;
+  --secondary-300: #cbd5e1;
+  --secondary-400: #94a3b8;
+  --secondary-500: #64748b;
+  --secondary-600: #475569;
+  --secondary-700: #334155;
+  --secondary-800: #1e293b;
+  --secondary-900: #0f172a;
+  --secondary-950: #020617;
+  --secondary: var(--secondary-100);
+  --secondary-foreground: var(--secondary-900);
+  
+  /* Accent Colors */
+  --accent-50: #fdf2f8;
+  --accent-100: #fce7f3;
+  --accent-200: #fbcfe8;
+  --accent-300: #f9a8d4;
+  --accent-400: #f472b6;
+  --accent-500: #ec4899;
+  --accent-600: #db2777;
+  --accent-700: #be185d;
+  --accent-800: #9d174d;
+  --accent-900: #831843;
+  --accent-950: #500724;
+  --accent: var(--accent-500);
+  --accent-foreground: #ffffff;
+  
+  /* Muted Colors */
+  --muted: var(--secondary-100);
+  --muted-foreground: var(--secondary-500);
+  
+  /* State Colors */
+  --success-50: #f0fdf4;
+  --success-100: #dcfce7;
+  --success-200: #bbf7d0;
+  --success-300: #86efac;
+  --success-400: #4ade80;
+  --success-500: #22c55e;
+  --success-600: #16a34a;
+  --success-700: #15803d;
+  --success-800: #166534;
+  --success-900: #14532d;
+  --success-950: #052e16;
+  --success: var(--success-500);
+  --success-foreground: #ffffff;
+  
+  --warning-50: #fffbeb;
+  --warning-100: #fef3c7;
+  --warning-200: #fde68a;
+  --warning-300: #fcd34d;
+  --warning-400: #fbbf24;
+  --warning-500: #f59e0b;
+  --warning-600: #d97706;
+  --warning-700: #b45309;
+  --warning-800: #92400e;
+  --warning-900: #78350f;
+  --warning-950: #451a03;
+  --warning: var(--warning-500);
+  --warning-foreground: #ffffff;
+  
+  --destructive-50: #fef2f2;
+  --destructive-100: #fee2e2;
+  --destructive-200: #fecaca;
+  --destructive-300: #fca5a5;
+  --destructive-400: #f87171;
+  --destructive-500: #ef4444;
+  --destructive-600: #dc2626;
+  --destructive-700: #b91c1c;
+  --destructive-800: #991b1b;
+  --destructive-900: #7f1d1d;
+  --destructive-950: #450a0a;
+  --destructive: var(--destructive-500);
+  --destructive-foreground: #ffffff;
+  
+  --info-50: #eff6ff;
+  --info-100: #dbeafe;
+  --info-200: #bfdbfe;
+  --info-300: #93c5fd;
+  --info-400: #60a5fa;
+  --info-500: #3b82f6;
+  --info-600: #2563eb;
+  --info-700: #1d4ed8;
+  --info-800: #1e40af;
+  --info-900: #1e3a8a;
+  --info-950: #172554;
+  --info: var(--info-500);
+  --info-foreground: #ffffff;
+  
+  /* UI Colors */
+  --border: var(--secondary-200);
+  --input: var(--secondary-200);
+  --ring: var(--primary-500);
+  
+  /* Navigation Colors */
+  --nav-bg: var(--background);
+  --nav-border: var(--border);
+  --nav-text: var(--foreground);
+  --nav-text-hover: var(--primary-600);
+  --nav-bg-hover: var(--primary-50);
+  --nav-bg-active: var(--primary-600);
+  --nav-text-active: var(--primary-foreground);
+  --nav-icon: var(--secondary-500);
+  --nav-icon-active: var(--primary-foreground);
+  --nav-icon-hover: var(--primary-600);
+  --nav-section-text: var(--secondary-500);
+  --nav-count: var(--secondary-500);
+  
+  /* Button specific colors */
+  --button-background: var(--primary);
+  --button-text: var(--primary-foreground);
+  
+  /* UI Metrics */
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  
+  /* Animation Timings */
+  --speed-fastest: 50ms;
+  --speed-fast: 100ms;
+  --speed-normal: 200ms;
+  --speed-slow: 300ms;
+  --speed-slowest: 500ms;
+  
+  /* Dark mode variables */
+  --background-dark: var(--secondary-950);
+  --foreground-dark: var(--secondary-50);
+  --card-dark: var(--secondary-950);
+  --card-foreground-dark: var(--secondary-50);
+  --popover-dark: var(--secondary-950);
+  --popover-foreground-dark: var(--secondary-50);
+  --primary-dark: var(--primary-400);
+  --primary-foreground-dark: var(--primary-950);
+  --secondary-dark: var(--secondary-800);
+  --secondary-foreground-dark: var(--secondary-50);
+  --accent-dark: var(--accent-400);
+  --accent-foreground-dark: var(--accent-950);
+  --muted-dark: var(--secondary-800);
+  --muted-foreground-dark: var(--secondary-400);
+  --success-dark: var(--success-400);
+  --success-foreground-dark: var(--success-950);
+  --warning-dark: var(--warning-400);
+  --warning-foreground-dark: var(--warning-950);
+  --destructive-dark: var(--destructive-400);
+  --destructive-foreground-dark: var(--destructive-950);
+  --info-dark: var(--info-400);
+  --info-foreground-dark: var(--info-950);
+  --border-dark: var(--secondary-800);
+  --input-dark: var(--secondary-800);
+  --ring-dark: var(--primary-400);
+  --nav-bg-dark: var(--secondary-900);
+  --nav-border-dark: var(--secondary-800);
+  --nav-text-dark: var(--secondary-50);
+  --nav-text-hover-dark: var(--primary-400);
+  --nav-bg-hover-dark: var(--secondary-800);
+  --nav-bg-active-dark: var(--primary-600);
+  --nav-text-active-dark: var(--primary-50);
+  --nav-icon-dark: var(--secondary-400);
+  --nav-icon-active-dark: var(--primary-50);
+  --nav-icon-hover-dark: var(--primary-400);
+  --nav-section-text-dark: var(--secondary-400);
+  --nav-count-dark: var(--secondary-400);
+}
+
+/**
+ * Dark theme overrides - Now outside the @theme block
+ */
+.dark {
+  --background: var(--background-dark);
+  --foreground: var(--foreground-dark);
+  --card: var(--card-dark);
+  --card-foreground: var(--card-foreground-dark);
+  --popover: var(--popover-dark);
+  --popover-foreground: var(--popover-foreground-dark);
+  
+  /* Improved contrast for dark mode - using hex values */
+  --primary: #60a5fa; /* Brighter blue for better contrast (using primary-400) */
+  --primary-foreground: #0f172a; /* Dark blue background for text */
+  
+  --secondary: var(--secondary-dark);
+  --secondary-foreground: var(--secondary-foreground-dark);
+  --accent: var(--accent-dark);
+  --accent-foreground: var(--accent-foreground-dark);
+  --muted: var(--muted-dark);
+  --muted-foreground: var(--muted-foreground-dark);
+  
+  /* Improved contrast for state colors - using hex values */
+  --success: #4ade80; /* Brighter success color (using success-400) */
+  --success-foreground: #052e16;
+  
+  --warning: #fbbf24; /* Brighter warning color (using warning-400) */
+  --warning-foreground: #451a03;
+  
+  --destructive: #f87171; /* Brighter destructive color (using destructive-400) */
+  --destructive-foreground: #450a0a;
+  
+  --info: #60a5fa; /* Brighter info color (using info-400) */
+  --info-foreground: #172554;
+  
+  --border: var(--border-dark);
+  --input: var(--input-dark);
+  --ring: var(--ring-dark);
+  --nav-bg: var(--nav-bg-dark);
+  --nav-border: var(--nav-border-dark);
+  --nav-text: var(--nav-text-dark);
+  --nav-text-hover: var(--nav-text-hover-dark);
+  --nav-bg-hover: var(--nav-bg-hover-dark);
+  --nav-bg-active: var(--nav-bg-active-dark);
+  --nav-text-active: var(--nav-text-active-dark);
+  --nav-icon: var(--nav-icon-dark);
+  --nav-icon-active: var(--nav-icon-active-dark);
+  --nav-icon-hover: var(--nav-icon-hover-dark);
+  --nav-section-text: var(--nav-section-text-dark);
+  --nav-count: var(--nav-count-dark);
+} 
