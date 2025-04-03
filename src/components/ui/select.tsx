@@ -6,7 +6,6 @@ import { LuCheck, LuChevronDown, LuChevronUp } from "react-icons/lu"
 
 import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
-import { useTheme } from "@/lib/theme-context"
 
 const Select = SelectPrimitive.Root
 
@@ -54,7 +53,7 @@ const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
 >(({ className, children, size, width, state, ...props }, ref) => {
-  const { currentThemeId } = useTheme();
+  // Use the simplified theme context
   
   return (
     <SelectPrimitive.Trigger
@@ -64,7 +63,7 @@ const SelectTrigger = React.forwardRef<
         selectTriggerVariants({ size, width, state, className })
       )}
       {...props}
-      data-theme={currentThemeId}
+      data-theme-refreshable
     >
       {children}
       <SelectPrimitive.Icon asChild>
@@ -144,7 +143,7 @@ const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
   SelectContentProps
 >(({ className, children, position = "popper", contentSize, ...props }, ref) => {
-  const { currentThemeId } = useTheme();
+  // Use the simplified theme context
   
   // Map position prop to positionStyle for our variants
   const positionStyle = position === "popper" ? "popper" : "item";
@@ -159,7 +158,7 @@ const SelectContent = React.forwardRef<
         )}
         position={position}
         {...props}
-        data-theme={currentThemeId}
+        data-theme-refreshable
       >
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
@@ -231,7 +230,7 @@ const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
   SelectItemProps
 >(({ className, children, size, ...props }, ref) => {
-  const { currentThemeId } = useTheme();
+  // Use the simplified theme context
   
   return (
     <SelectPrimitive.Item
@@ -241,7 +240,7 @@ const SelectItem = React.forwardRef<
         selectItemVariants({ size, className })
       )}
       {...props}
-      data-theme={currentThemeId}
+      data-theme-refreshable
     >
       <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>

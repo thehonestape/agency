@@ -1,144 +1,19 @@
 /**
  * Theme tokens based on Tailwind's color palette
- * This system uses CSS variables for dynamic theme switching
+ * Using direct hex values for better compatibility with Tailwind v4
  */
 
-// HSL color type
-export interface HSLColor {
-  h: number;
-  s: number;
-  l: number;
-  a?: number;
-}
+import { baseColors } from '@/tokens/base/colors';
 
-// Convert HSL object to CSS string
-export function hslToString(color: HSLColor): string {
-  return color.a !== undefined
-    ? `${color.h} ${color.s}% ${color.l}% / ${color.a}`
-    : `${color.h} ${color.s}% ${color.l}%`;
-}
-
-// Core color tokens
+// Color tokens for theme system
 export const colorTokens = {
-  // Neutral colors
-  neutral: {
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    300: '#cbd5e1',
-    400: '#94a3b8',
-    500: '#64748b',
-    600: '#475569',
-    700: '#334155',
-    800: '#1e293b',
-    900: '#0f172a',
-    950: '#020617',
-  },
-
-  // Primary brand color
-  primary: {
-    50: '#eff6ff',
-    100: '#dbeafe',
-    200: '#bfdbfe',
-    300: '#93c5fd',
-    400: '#60a5fa',
-    500: '#3b82f6',
-    600: '#2563eb',
-    700: '#1d4ed8',
-    800: '#1e40af',
-    900: '#1e3a8a',
-    950: '#172554',
-  },
-
-  // Secondary color
-  secondary: {
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    300: '#cbd5e1',
-    400: '#94a3b8',
-    500: '#64748b',
-    600: '#475569',
-    700: '#334155',
-    800: '#1e293b',
-    900: '#0f172a',
-    950: '#020617',
-  },
-
-  // Accent color
-  accent: {
-    50: '#fdf2f8',
-    100: '#fce7f3',
-    200: '#fbcfe8',
-    300: '#f9a8d4',
-    400: '#f472b6',
-    500: '#ec4899',
-    600: '#db2777',
-    700: '#be185d',
-    800: '#9d174d',
-    900: '#831843',
-    950: '#500724',
-  },
-
-  // Success color
-  success: {
-    50: '#f0fdf4',
-    100: '#dcfce7',
-    200: '#bbf7d0',
-    300: '#86efac',
-    400: '#4ade80',
-    500: '#22c55e',
-    600: '#16a34a',
-    700: '#15803d',
-    800: '#166534',
-    900: '#14532d',
-    950: '#052e16',
-  },
-
-  // Error color
-  error: {
-    50: '#fef2f2',
-    100: '#fee2e2',
-    200: '#fecaca',
-    300: '#fca5a5',
-    400: '#f87171',
-    500: '#ef4444',
-    600: '#dc2626',
-    700: '#b91c1c',
-    800: '#991b1b',
-    900: '#7f1d1d',
-    950: '#450a0a',
-  },
-
-  // Warning color
-  warning: {
-    50: '#fffbeb',
-    100: '#fef3c7',
-    200: '#fde68a',
-    300: '#fcd34d',
-    400: '#fbbf24',
-    500: '#f59e0b',
-    600: '#d97706',
-    700: '#b45309',
-    800: '#92400e',
-    900: '#78350f',
-    950: '#451a03',
-  },
-
-  // Info color
-  info: {
-    50: '#eff6ff',
-    100: '#dbeafe',
-    200: '#bfdbfe',
-    300: '#93c5fd',
-    400: '#60a5fa',
-    500: '#3b82f6',
-    600: '#2563eb',
-    700: '#1d4ed8',
-    800: '#1e40af',
-    900: '#1e3a8a',
-    950: '#172554',
-  },
+  primary: baseColors.blue[600],
+  secondary: baseColors.gray[600],
+  accent: baseColors.amber[500],
+  success: baseColors.green[600],
+  warning: baseColors.amber[500],
+  error: baseColors.red[600],
+  info: baseColors.blue[500]
 };
 
 // Default theme configuration
@@ -146,77 +21,77 @@ export const defaultTheme = {
   light: {
     // Background colors
     background: {
-      base: colorTokens.neutral[50],
-      subtle: colorTokens.neutral[100],
-      muted: colorTokens.neutral[200],
-      emphasized: colorTokens.neutral[300],
+      base: baseColors.gray[50],
+      subtle: baseColors.gray[100],
+      muted: baseColors.gray[200],
+      emphasized: baseColors.gray[300],
     },
     // Foreground/text colors
     foreground: {
-      base: colorTokens.neutral[900],
-      muted: colorTokens.neutral[700],
-      subtle: colorTokens.neutral[500],
-      accent: colorTokens.primary[700],
+      base: baseColors.gray[900],
+      muted: baseColors.gray[700],
+      subtle: baseColors.gray[500],
+      accent: baseColors.blue[700],
     },
     // Border colors
     border: {
-      base: colorTokens.neutral[200],
-      subtle: colorTokens.neutral[100],
-      emphasized: colorTokens.neutral[300],
-      focus: colorTokens.primary[500],
+      base: baseColors.gray[200],
+      subtle: baseColors.gray[100],
+      emphasized: baseColors.gray[300],
+      focus: baseColors.blue[500],
     },
     // Interactive element colors
     interactive: {
-      base: colorTokens.primary[600],
-      hover: colorTokens.primary[700],
-      active: colorTokens.primary[800],
-      muted: colorTokens.primary[50],
+      base: baseColors.blue[600],
+      hover: baseColors.blue[700],
+      active: baseColors.blue[800],
+      muted: baseColors.blue[50],
     },
     // Status colors
     status: {
-      success: colorTokens.success[600],
-      error: colorTokens.error[600],
-      warning: colorTokens.warning[500],
-      info: colorTokens.info[500],
+      success: baseColors.green[600],
+      error: baseColors.red[600],
+      warning: baseColors.amber[500],
+      info: baseColors.blue[500],
     },
   },
   dark: {
     // Background colors
     background: {
-      base: colorTokens.neutral[950],
-      subtle: colorTokens.neutral[900],
-      muted: colorTokens.neutral[800],
-      emphasized: colorTokens.neutral[700],
+      base: baseColors.gray[950],
+      subtle: baseColors.gray[900],
+      muted: baseColors.gray[800],
+      emphasized: baseColors.gray[700],
     },
     // Foreground/text colors
     foreground: {
-      base: colorTokens.neutral[50],
-      muted: colorTokens.neutral[400],
-      subtle: colorTokens.neutral[500],
-      accent: colorTokens.primary[400],
+      base: baseColors.gray[50],
+      muted: baseColors.gray[400],
+      subtle: baseColors.gray[500],
+      accent: baseColors.blue[400],
     },
     // Border colors
     border: {
-      base: colorTokens.neutral[700],
-      subtle: colorTokens.neutral[800],
-      emphasized: colorTokens.neutral[600],
-      focus: colorTokens.primary[500],
+      base: baseColors.gray[700],
+      subtle: baseColors.gray[800],
+      emphasized: baseColors.gray[600],
+      focus: baseColors.blue[500],
     },
     // Interactive element colors
     interactive: {
-      base: colorTokens.primary[500],
-      hover: colorTokens.primary[400],
-      active: colorTokens.primary[300],
-      muted: colorTokens.primary[950],
+      base: baseColors.blue[500],
+      hover: baseColors.blue[400],
+      active: baseColors.blue[300],
+      muted: baseColors.gray[800],
     },
     // Status colors
     status: {
-      success: colorTokens.success[500],
-      error: colorTokens.error[500],
-      warning: colorTokens.warning[400],
-      info: colorTokens.info[400],
+      success: baseColors.green[500],
+      error: baseColors.red[500],
+      warning: baseColors.amber[500],
+      info: baseColors.blue[500],
     },
   },
 };
 
-export default defaultTheme; 
+export default defaultTheme;

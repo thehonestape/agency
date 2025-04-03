@@ -19,7 +19,7 @@ export { default as FeatureCard } from '../components/blocks/features/FeatureCar
 export { default as FeatureSection } from '../components/blocks/features/FeatureSection';
 
 // Theme System
-export { ThemeProvider, useTheme } from '../lib/theme-context';
+export { default as ThemeProvider, useTheme } from '../lib/ThemeProvider';
 export { getThemeValue, getCssVar, getThemeClass } from '../hooks/useTheme';
 export { salientTheme } from '../lib/theme-adapters/salient-adapter';
 export { protocolTheme } from '../lib/theme-adapters/protocol-adapter';

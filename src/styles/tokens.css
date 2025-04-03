@@ -1,0 +1,290 @@
+/**
+ * CSS Variables for our token system
+ * This file defines CSS custom properties based on our token system
+ * to enable easy theme modification with Tailwind v4.
+ */
+
+:root {
+  /* Spacing scale */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+  --spacing-11: 44px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+  --spacing-28: 112px;
+  --spacing-32: 128px;
+  --spacing-36: 144px;
+  --spacing-40: 160px;
+  --spacing-44: 176px;
+  --spacing-48: 192px;
+  --spacing-52: 208px;
+  --spacing-56: 224px;
+  --spacing-60: 240px;
+  --spacing-64: 256px;
+  --spacing-72: 288px;
+  --spacing-80: 320px;
+  --spacing-96: 384px;
+  
+  /* Component spacing */
+  --component-spacing-xs: var(--spacing-1);
+  --component-spacing-sm: var(--spacing-2);
+  --component-spacing-md: var(--spacing-4);
+  --component-spacing-lg: var(--spacing-6);
+  --component-spacing-xl: var(--spacing-8);
+  
+  /* Content spacing */
+  --content-spacing-xs: var(--spacing-2);
+  --content-spacing-sm: var(--spacing-3);
+  --content-spacing-md: var(--spacing-4);
+  --content-spacing-lg: var(--spacing-6);
+  --content-spacing-xl: var(--spacing-8);
+  
+  /* Layout spacing */
+  --layout-spacing-xs: var(--spacing-2);
+  --layout-spacing-sm: var(--spacing-4);
+  --layout-spacing-md: var(--spacing-6);
+  --layout-spacing-lg: var(--spacing-8);
+  --layout-spacing-xl: var(--spacing-12);
+  
+  /* Section spacing */
+  --section-spacing-xs: var(--spacing-6);
+  --section-spacing-sm: var(--spacing-8);
+  --section-spacing-md: var(--spacing-12);
+  --section-spacing-lg: var(--spacing-16);
+  --section-spacing-xl: var(--spacing-24);
+  
+  /* Button spacing */
+  --button-padding-x-xs: var(--spacing-2);
+  --button-padding-y-xs: var(--spacing-1);
+  --button-padding-x-sm: var(--spacing-3);
+  --button-padding-y-sm: var(--spacing-1);
+  --button-padding-x-md: var(--spacing-4);
+  --button-padding-y-md: var(--spacing-2);
+  --button-padding-x-lg: var(--spacing-6);
+  --button-padding-y-lg: var(--spacing-2);
+  --button-padding-x-xl: var(--spacing-8);
+  --button-padding-y-xl: var(--spacing-3);
+  
+  /* Card spacing */
+  --card-padding-compact: var(--spacing-4);
+  --card-padding-default: var(--spacing-5);
+  --card-padding-comfortable: var(--spacing-6);
+  
+  /* Form spacing */
+  --form-gap: var(--spacing-4);
+  --form-element-gap: var(--spacing-2);
+  --form-group-gap: var(--spacing-6);
+  
+  /* Typography spacing */
+  --text-paragraph-gap: var(--spacing-4);
+  --text-heading-gap: var(--spacing-3);
+  --text-list-item-gap: var(--spacing-2);
+  
+  /* Sizing scale */
+  --size-0: 0px;
+  --size-1: 4px;
+  --size-2: 8px;
+  --size-3: 12px;
+  --size-4: 16px;
+  --size-5: 20px;
+  --size-6: 24px;
+  --size-7: 28px;
+  --size-8: 32px;
+  --size-9: 36px;
+  --size-10: 40px;
+  --size-11: 44px;
+  --size-12: 48px;
+  --size-14: 56px;
+  --size-16: 64px;
+  --size-20: 80px;
+  --size-24: 96px;
+  --size-28: 112px;
+  --size-32: 128px;
+  --size-36: 144px;
+  --size-40: 160px;
+  --size-44: 176px;
+  --size-48: 192px;
+  --size-52: 208px;
+  --size-56: 224px;
+  --size-60: 240px;
+  --size-64: 256px;
+  --size-72: 288px;
+  --size-80: 320px;
+  --size-96: 384px;
+  
+  /* Component heights */
+  --button-height-xs: var(--size-8);
+  --button-height-sm: var(--size-9);
+  --button-height-md: var(--size-10);
+  --button-height-lg: var(--size-11);
+  --button-height-xl: var(--size-12);
+  
+  /* Icon sizes */
+  --icon-size-xs: var(--size-3);
+  --icon-size-sm: var(--size-4);
+  --icon-size-md: var(--size-5);
+  --icon-size-lg: var(--size-6);
+  --icon-size-xl: var(--size-8);
+  
+  /* Input heights */
+  --input-height-xs: var(--size-8);
+  --input-height-sm: var(--size-9);
+  --input-height-md: var(--size-10);
+  --input-height-lg: var(--size-12);
+  --input-height-xl: var(--size-14);
+  
+  /* Avatar sizes */
+  --avatar-size-xs: var(--size-6);
+  --avatar-size-sm: var(--size-8);
+  --avatar-size-md: var(--size-10);
+  --avatar-size-lg: var(--size-12);
+  --avatar-size-xl: var(--size-16);
+  --avatar-size-2xl: var(--size-20);
+  
+  /* Container widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  
+  /* Button min-widths */
+  --button-min-width-xs: 64px;
+  --button-min-width-sm: 72px;
+  --button-min-width-md: 96px;
+  --button-min-width-lg: 128px;
+  --button-min-width-xl: 160px;
+  
+  /* Border radius */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 8px;
+  --radius-2xl: 12px;
+  --radius-3xl: 16px;
+  --radius-full: 9999px;
+  
+  /* Typography sizes */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  --text-5xl: 48px;
+  --text-6xl: 60px;
+  --text-7xl: 72px;
+  --text-8xl: 96px;
+  --text-9xl: 128px;
+}
+
+/* Dark theme overrides if needed */
+[data-theme*="dark"] {
+  /* Adjust spacing for dark theme if needed */
+  --component-spacing-xs: 6px;
+  --component-spacing-sm: 10px;
+  
+  /* Adjust button padding for dark theme */
+  --button-padding-x-md: 18px;
+  --button-padding-y-md: 10px;
+  
+  /* Adjust border radius for dark theme */
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+/* Theme-specific overrides */
+[data-theme="blue-light"] {
+  /* Blue light theme specific spacing */
+  --component-spacing-md: 18px;
+  --section-spacing-md: 52px;
+  
+  /* Blue light theme specific sizing */
+  --button-height-md: 44px;
+  --radius-md: 5px;
+}
+
+[data-theme="blue-dark"] {
+  /* Blue dark theme specific spacing */
+  --component-spacing-md: 20px;
+  --section-spacing-md: 56px;
+  
+  /* Blue dark theme specific sizing */
+  --button-height-md: 46px;
+  --radius-md: 6px;
+}
+
+[data-theme="green-light"] {
+  /* Green light theme specific spacing */
+  --component-spacing-md: 16px;
+  --section-spacing-md: 48px;
+  
+  /* Green light theme specific sizing */
+  --button-height-md: 42px;
+  --radius-md: 4px;
+}
+
+[data-theme="green-dark"] {
+  /* Green dark theme specific spacing */
+  --component-spacing-md: 18px;
+  --section-spacing-md: 52px;
+  
+  /* Green dark theme specific sizing */
+  --button-height-md: 44px;
+  --radius-md: 5px;
+}
+
+[data-theme="zinc-light"] {
+  /* Zinc light theme specific spacing */
+  --component-spacing-md: 16px;
+  --section-spacing-md: 48px;
+  
+  /* Zinc light theme specific sizing */
+  --button-height-md: 40px;
+  --radius-md: 3px;
+}
+
+[data-theme="zinc-dark"] {
+  /* Zinc dark theme specific spacing */
+  --component-spacing-md: 18px;
+  --section-spacing-md: 52px;
+  
+  /* Zinc dark theme specific sizing */
+  --button-height-md: 42px;
+  --radius-md: 4px;
+}
+
+[data-theme="rose-light"] {
+  /* Rose light theme specific spacing */
+  --component-spacing-md: 16px;
+  --section-spacing-md: 48px;
+  
+  /* Rose light theme specific sizing */
+  --button-height-md: 40px;
+  --radius-md: 8px;
+}
+
+[data-theme="rose-dark"] {
+  /* Rose dark theme specific spacing */
+  --component-spacing-md: 18px;
+  --section-spacing-md: 52px;
+  
+  /* Rose dark theme specific sizing */
+  --button-height-md: 42px;
+  --radius-md: 10px;
+}

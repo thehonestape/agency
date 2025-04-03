@@ -1,159 +1,255 @@
+/* Import Tailwind CSS first as per v4 documentation */
+@import "tailwindcss";
+
+/* Base styles */
 @import "./fonts.css";
 @import "./theme.css";
 @import "./fluid-typography.css";
 @import "./tailwind-theme.css";
-@import "tailwindcss";
 @import "./base.css";
 
-/* Define a custom dark variant for data-theme attribute with -dark suffix */
-@custom-variant dark (&:where([data-theme*='-dark'] *));
+/* Dark mode is now handled by Tailwind's dark class */
 
-/* Use RGB values directly in theme variables as recommended by Tailwind v4 */
-@theme {
-  /* Theme color mappings - no circular references */
-  --theme-background: rgb(var(--background));
-  --theme-foreground: rgb(var(--foreground));
-  --theme-card: rgb(var(--card));
-  --theme-card-foreground: rgb(var(--card-foreground));
-  --theme-popover: rgb(var(--popover));
-  --theme-popover-foreground: rgb(var(--popover-foreground));
-  --theme-primary: rgb(var(--primary));
-  --theme-primary-foreground: rgb(var(--primary-foreground));
-  --theme-secondary: rgb(var(--secondary));
-  --theme-secondary-foreground: rgb(var(--secondary-foreground));
-  --theme-muted: rgb(var(--muted));
-  --theme-muted-foreground: rgb(var(--muted-foreground));
-  --theme-accent: rgb(var(--accent));
-  --theme-accent-foreground: rgb(var(--accent-foreground));
-  --theme-destructive: rgb(var(--destructive));
-  --theme-destructive-foreground: rgb(var(--destructive-foreground));
-  --theme-border: rgb(var(--border));
-  --theme-input: rgb(var(--input));
-  --theme-ring: rgb(var(--ring));
+/* Theme variables are now defined in theme.css using hex values */
+:root {
+  /* These variables are used for backward compatibility */
+  --theme-background: var(--background);
+  --theme-foreground: var(--foreground);
+  --theme-card: var(--card);
+  --theme-card-foreground: var(--card-foreground);
+  --theme-popover: var(--popover);
+  --theme-popover-foreground: var(--popover-foreground);
+  --theme-primary: var(--primary);
+  --theme-primary-foreground: var(--primary-foreground);
+  --theme-secondary: var(--secondary);
+  --theme-secondary-foreground: var(--secondary-foreground);
+  --theme-muted: var(--muted);
+  --theme-muted-foreground: var(--muted-foreground);
+  --theme-accent: var(--accent);
+  --theme-accent-foreground: var(--accent-foreground);
+  --theme-destructive: var(--destructive);
+  --theme-destructive-foreground: var(--destructive-foreground);
+  --theme-border: var(--border);
+  --theme-input: var(--input);
+  --theme-ring: var(--ring);
   --theme-radius: var(--radius);
   
   /* Additional feedback colors */
-  --theme-success: rgb(var(--success, 34 197 94));
-  --theme-success-foreground: rgb(var(--success-foreground, 255 255 255));
-  --theme-warning: rgb(var(--warning, 245 158 11));
-  --theme-warning-foreground: rgb(var(--warning-foreground, 255 255 255));
-  --theme-info: rgb(var(--info, 59 130 246));
-  --theme-info-foreground: rgb(var(--info-foreground, 255 255 255));
+  --theme-success: var(--success);
+  --theme-success-foreground: var(--success-foreground);
+  --theme-warning: var(--warning);
+  --theme-warning-foreground: var(--warning-foreground);
+  --theme-info: var(--info);
+  --theme-info-foreground: var(--info-foreground);
 }
 
 /* Define utility classes to map to our CSS variables */
-@utilities {
+@layer utilities {
+  /* Border Colors */
+  .border-border {
+    border-color: var(--border);
+  }
+  .border-border-dark {
+    border-color: var(--border-dark, var(--border));
+  }
+  .border-border-focus {
+    border-color: var(--border-focus, var(--primary));
+  }
+  .border-border-hover {
+    border-color: var(--border-hover, var(--muted));
+  }
   /* Background Colors */
   .bg-background {
-    background-color: rgb(var(--background) / <alpha-value>);
+    background-color: var(--background);
   }
   .bg-foreground {
-    background-color: rgb(var(--foreground) / <alpha-value>);
+    background-color: var(--foreground);
   }
   .bg-card {
-    background-color: rgb(var(--card) / <alpha-value>);
+    background-color: var(--card);
+  }
+  .bg-card-foreground {
+    background-color: var(--card-foreground);
   }
   .bg-popover {
-    background-color: rgb(var(--popover) / <alpha-value>);
+    background-color: var(--popover);
+  }
+  .bg-popover-foreground {
+    background-color: var(--popover-foreground);
   }
   .bg-primary {
-    background-color: rgb(var(--primary) / <alpha-value>);
+    background-color: var(--primary);
+  }
+  .bg-primary-foreground {
+    background-color: var(--primary-foreground);
   }
   .bg-secondary {
-    background-color: rgb(var(--secondary) / <alpha-value>);
+    background-color: var(--secondary);
   }
-  .bg-accent {
-    background-color: rgb(var(--accent) / <alpha-value>);
+  .bg-secondary-foreground {
+    background-color: var(--secondary-foreground);
   }
   .bg-muted {
-    background-color: rgb(var(--muted) / <alpha-value>);
+    background-color: var(--muted);
+  }
+  .bg-muted-foreground {
+    background-color: var(--muted-foreground);
+  }
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  .bg-accent-foreground {
+    background-color: var(--accent-foreground);
   }
   .bg-destructive {
-    background-color: rgb(var(--destructive) / <alpha-value>);
+    background-color: var(--destructive);
+  }
+  .bg-destructive-foreground {
+    background-color: var(--destructive-foreground);
+  }
+  .bg-border {
+    background-color: var(--border);
+  }
+  .bg-input {
+    background-color: var(--input);
+  }
+  .bg-ring {
+    background-color: var(--ring);
   }
   .bg-success {
-    background-color: rgb(var(--success) / <alpha-value>);
+    background-color: var(--success);
+  }
+  .bg-success-foreground {
+    background-color: var(--success-foreground);
   }
   .bg-warning {
-    background-color: rgb(var(--warning) / <alpha-value>);
+    background-color: var(--warning);
+  }
+  .bg-warning-foreground {
+    background-color: var(--warning-foreground);
   }
   .bg-info {
-    background-color: rgb(var(--info) / <alpha-value>);
+    background-color: var(--info);
+  }
+  .bg-info-foreground {
+    background-color: var(--info-foreground);
   }
 
   /* Text Colors */
-  .text-foreground {
-    color: rgb(var(--foreground) / <alpha-value>);
-  }
   .text-background {
-    color: rgb(var(--background) / <alpha-value>);
+    color: var(--background);
+  }
+  .text-foreground {
+    color: var(--foreground);
+  }
+  .text-card {
+    color: var(--card);
   }
   .text-card-foreground {
-    color: rgb(var(--card-foreground) / <alpha-value>);
+    color: var(--card-foreground);
+  }
+  .text-popover {
+    color: var(--popover);
   }
   .text-popover-foreground {
-    color: rgb(var(--popover-foreground) / <alpha-value>);
+    color: var(--popover-foreground);
+  }
+  .text-primary {
+    color: var(--primary);
   }
   .text-primary-foreground {
-    color: rgb(var(--primary-foreground) / <alpha-value>);
+    color: var(--primary-foreground);
+  }
+  .text-secondary {
+    color: var(--secondary);
   }
   .text-secondary-foreground {
-    color: rgb(var(--secondary-foreground) / <alpha-value>);
+    color: var(--secondary-foreground);
   }
-  .text-accent-foreground {
-    color: rgb(var(--accent-foreground) / <alpha-value>);
+  .text-muted {
+    color: var(--muted);
   }
   .text-muted-foreground {
-    color: rgb(var(--muted-foreground) / <alpha-value>);
+    color: var(--muted-foreground);
+  }
+  .text-accent {
+    color: var(--accent);
+  }
+  .text-accent-foreground {
+    color: var(--accent-foreground);
+  }
+  .text-destructive {
+    color: var(--destructive);
   }
   .text-destructive-foreground {
-    color: rgb(var(--destructive-foreground) / <alpha-value>);
+    color: var(--destructive-foreground);
+  }
+  .text-border {
+    color: var(--border);
+  }
+  .text-input {
+    color: var(--input);
+  }
+  .text-ring {
+    color: var(--ring);
+  }
+  .text-success {
+    color: var(--success);
   }
   .text-success-foreground {
-    color: rgb(var(--success-foreground) / <alpha-value>);
+    color: var(--success-foreground);
+  }
+  .text-warning {
+    color: var(--warning);
   }
   .text-warning-foreground {
-    color: rgb(var(--warning-foreground) / <alpha-value>);
+    color: var(--warning-foreground);
+  }
+  .text-info {
+    color: var(--info);
   }
   .text-info-foreground {
-    color: rgb(var(--info-foreground) / <alpha-value>);
+    color: var(--info-foreground);
   }
 
   /* Border Colors */
   .border-border {
-    border-color: rgb(var(--border) / <alpha-value>);
+    border-color: var(--border);
   }
   .border-input {
-    border-color: rgb(var(--input) / <alpha-value>);
+    border-color: var(--input);
   }
   .border-primary {
-    border-color: rgb(var(--primary) / <alpha-value>);
+    border-color: var(--primary);
   }
   .border-secondary {
-    border-color: rgb(var(--secondary) / <alpha-value>);
+    border-color: var(--secondary);
   }
   .border-destructive {
-    border-color: rgb(var(--destructive) / <alpha-value>);
+    border-color: var(--destructive);
   }
   .border-success {
-    border-color: rgb(var(--success) / <alpha-value>);
+    border-color: var(--success);
   }
   .border-warning {
-    border-color: rgb(var(--warning) / <alpha-value>);
+    border-color: var(--warning);
   }
   .border-info {
-    border-color: rgb(var(--info) / <alpha-value>);
+    border-color: var(--info);
   }
 
   /* Ring Colors */
   .ring-ring {
-    --tw-ring-color: rgb(var(--ring) / <alpha-value>);
+    --tw-ring-color: var(--ring);
   }
   .ring-primary {
-    --tw-ring-color: rgb(var(--primary) / <alpha-value>);
+    --tw-ring-color: var(--primary);
+  }
+  .ring-secondary {
+    --tw-ring-color: var(--secondary);
   }
   .ring-destructive {
-    --tw-ring-color: rgb(var(--destructive) / <alpha-value>);
+    --tw-ring-color: var(--destructive);
   }
 
   /* Border Radius */

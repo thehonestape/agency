@@ -16,7 +16,7 @@ import {
 } from '@tremor/react';
 import { Calendar, FileText, MessageSquare, CreditCard, Clock, FileCheck, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { ThemeProvider } from '../lib/theme-context';
+import ThemeProvider from '../lib/ThemeProvider';
 import { DashboardCard } from '../components/dashboard/DashboardCard';
 import { DashboardGrid } from '../components/dashboard/DashboardGrid';
 
@@ -64,8 +64,8 @@ export default function ClientDashboard() {
   const pendingInvoices = clientInvoices.filter(i => i.status === 'Pending').length;
   
   return (
-    <ThemeProvider defaultThemeId="salient">
-      <div className="flex flex-col min-h-screen bg-[var(--background)]" data-theme="wrkhrsco">
+    <ThemeProvider defaultMode="light">
+      <div className="flex flex-col min-h-screen bg-[var(--background)]">
         {/* Header */}
         <header className="px-6 py-4 border-b border-[var(--border)] flex justify-between items-center">
           <div>
@@ -341,7 +341,7 @@ export default function ClientDashboard() {
         {/* Footer */}
         <footer className="px-6 py-4 border-t border-[var(--border)]">
           <div className="flex justify-between items-center">
-            <Text className="text-sm text-[var(--muted-foreground)]">© 2023 Workhorse Co.</Text>
+            <Text className="text-sm text-[var(--muted-foreground)]">&copy; 2023 Workhorse Co.</Text>
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm">Help</Button>
               <Button variant="ghost" size="sm">Support</Button>

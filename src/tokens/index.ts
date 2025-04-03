@@ -1,14 +1,12 @@
 /**
- * Token system exports
+ * Token Index
  * This file provides a convenient way to import all tokens.
  */
 
-// Base tokens
-export { default as baseColors, type ColorToken } from './base/colors';
-
-// Semantic tokens
-export { default as semanticColors, type SemanticColorToken } from './semantic/colors';
-
-// Re-export everything for convenience
+// Export base tokens
 export * from './base/colors';
-export * from './semantic/colors'; 
+export * from './base/spacing';
+export * from './base/sizing';
+
+// Export semantic tokens
+export * from './semantic/colors';

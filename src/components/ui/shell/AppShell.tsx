@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeSwitcher } from '../theme-switcher';
+import { ThemeSwitcher } from '../theme/theme-switcher';
 
 interface AppShellProps {
   children: React.ReactNode;

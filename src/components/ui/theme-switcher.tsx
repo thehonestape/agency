@@ -1,11 +1,19 @@
 import React from 'react';
 import { Button } from './button';
 import { Moon, Sun } from 'lucide-react';
-import { useTheme } from '@/lib/theme-context';
+import { useTheme } from '@/lib/ThemeProvider';
 
 export const ThemeSwitcher = () => {
   // Use the global theme context instead of local state
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  const { isDark: isDarkMode, setTheme } = useTheme();
+  
+  // Toggle between light and dark mode while preserving the color palette
+  const toggleDarkMode = () => {
+    const { theme } = useTheme();
+    const [colorPalette, mode] = theme.split('-');
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    setTheme(`${colorPalette}-${newMode}` as any);
+  };
 
   return (
     <Button

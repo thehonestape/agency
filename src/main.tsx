@@ -2,21 +2,21 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+import ThemeProvider from './lib/ThemeProvider'
+// Import only globals.css which already imports the necessary CSS files
 import './styles/globals.css'
-import './styles/fonts.css'
+// Import additional CSS files that aren't included in globals.css
 import './styles/tremor.css'
 import './styles/blocknote.css'
-import './styles/theme.css'
 import './styles/app.css'
-import { ThemeProvider } from './lib/theme-context'
-import { registerAllThemes } from './lib/theme-adapters/register-all-themes'
+import { initializeTheme } from './lib/theme-init'
 import registerAllUIComponents from './lib/register-ui-components'
-
-// Register all themes on application startup
-registerAllThemes();
 
 // Register all UI components with the component registry
 registerAllUIComponents();
+
+// Initialize theme based on user preference
+initializeTheme();
 
 // Display app identity in console
 const appName = import.meta.env.VITE_APP_NAME || 'Agency App';
@@ -50,10 +50,10 @@ if (typeof document !== 'undefined') {
 // Render the app
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider>
+    <ThemeProvider>
+      <BrowserRouter>
         <App />
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>,
-); 
+);

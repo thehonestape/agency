@@ -7,9 +7,14 @@ const textVariants = cva(
   {
     variants: {
       variant: {
-        default: "text-default",
-        muted: "text-muted",
-        error: "text-error",
+        body: "text-base leading-normal",
+        bodyLarge: "text-lg leading-relaxed",
+        bodySmall: "text-sm leading-snug",
+        caption: "text-xs leading-tight",
+        overline: "text-xs uppercase tracking-wider",
+        default: "text-foreground",
+        muted: "text-muted-foreground",
+        error: "text-destructive",
         success: "text-success",
         warning: "text-warning",
         info: "text-info",
@@ -23,8 +28,8 @@ const textVariants = cva(
       },
       state: {
         default: "",
-        muted: "text-muted",
-        disabled: "text-muted/50",
+        muted: "text-muted-foreground",
+        disabled: "text-muted-foreground/50",
       },
       align: {
         left: "text-left",
@@ -38,13 +43,18 @@ const textVariants = cva(
         semibold: "font-semibold",
         bold: "font-bold",
       },
+      truncate: {
+        true: "truncate",
+        false: "",
+      },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "body",
       size: "base",
       state: "default",
       align: "left",
       weight: "regular",
+      truncate: false,
     },
   }
 );
@@ -53,20 +63,44 @@ export interface TextProps
   extends React.HTMLAttributes<HTMLParagraphElement>,
     VariantProps<typeof textVariants> {
   asChild?: boolean;
+  as?: React.ElementType;
 }
 
 const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
-  ({ className, variant, size, state, align, weight, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, state, align, weight, truncate, asChild = false, as: Component = "p", ...props }, ref) => {
+    const getDefaultSize = () => {
+      if (size) return size;
+      
+      switch (variant) {
+        case 'bodyLarge': return 'lg';
+        case 'bodySmall': return 'sm';
+        case 'caption': return 'xs';
+        case 'overline': return 'xs';
+        default: return 'base';
+      }
+    };
+
+    const resolvedSize = getDefaultSize();
+
     return (
-      <p
+      <Component
         ref={ref}
-        className={cn(textVariants({ variant, size, state, align, weight, className }))}
+        className={cn(textVariants({ 
+          variant, 
+          size: resolvedSize, 
+          state, 
+          align, 
+          weight,
+          truncate,
+          className 
+        }))}
         data-component="text"
         data-text-variant={variant}
-        data-text-size={size}
+        data-text-size={resolvedSize}
         data-text-state={state}
         data-text-align={align}
         data-text-weight={weight}
+        data-text-truncate={truncate}
         {...props}
       />
     );
@@ -75,4 +109,4 @@ const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
 
 Text.displayName = "Text";
 
-export { Text, textVariants }; 
+export { Text, textVariants };

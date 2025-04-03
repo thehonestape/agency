@@ -9,10 +9,10 @@ const bannerVariants = cva(
     variants: {
       variant: {
         default: 'bg-background text-foreground border-border',
-        info: 'bg-info/10 text-info-foreground border-info/30',
-        success: 'bg-success/10 text-success-foreground border-success/30',
-        warning: 'bg-warning/10 text-warning-foreground border-warning/30', 
-        destructive: 'bg-destructive/10 text-destructive-foreground border-destructive/30',
+        info: 'bg-info/20 text-info-foreground border-info/50 font-medium',
+        success: 'bg-success/20 text-success-foreground border-success/50 font-medium',
+        warning: 'bg-warning/20 text-warning-foreground border-warning/50 font-medium', 
+        destructive: 'bg-destructive/20 text-destructive-foreground border-destructive/50 font-medium',
       },
     },
     defaultVariants: {

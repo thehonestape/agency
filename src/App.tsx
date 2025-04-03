@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ErrorBoundary from './components/ui/feedback/ErrorBoundary';
 import HomePage from './pages/HomePage';
 import Dashboard from './pages/Dashboard';
 import ComponentExplorer from './pages/ComponentExplorer';
-import DesignSystemDocsPage from './pages/DesignSystemDocsPage';
+// DesignSystemDocsPage import removed as it's not used
 import MainLayout from './layouts/MainLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import FullViewExample from './views/FullViewExample';
@@ -20,10 +20,10 @@ function App() {
           {/* Design System Route */}
           <Route path="/design-system" element={<DesignSystem />} />
           <Route path="/theme-demo" element={<ThemeDemoPage />} />
-          <Route path="/design-docs" element={<DesignDocsPage />} />
           
           {/* Public Routes - Marketing/Sales Pages */}
           <Route element={<MainLayout />}>
+            <Route path="/design-docs" element={<DesignDocsPage />} />
             {/* Home Page Route (Default) */}
             <Route path="/" element={<HomePage />} />
             <Route path="/home" element={<HomePage />} />

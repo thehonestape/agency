@@ -2,19 +2,29 @@ import React from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../components/ui/select';
-import { useTheme, ThemeId } from '../lib/theme-context';
+import { useTheme } from '../lib/ThemeProvider';
 
 const ThemeDemoPage = () => {
-  const { currentThemeId, setTheme, toggleDarkMode, isDarkMode } = useTheme();
+  const { theme, setTheme, isDark } = useTheme();
+  const mode = theme.split('-')[1];
+  
+  // Function to set the mode while preserving the color palette
+  const setMode = (newMode: 'light' | 'dark') => {
+    const [colorPalette] = theme.split('-');
+    setTheme(`${colorPalette}-${newMode}` as any);
+  };
+  
+  // Toggle between light and dark mode
+  const toggleMode = () => {
+    const [colorPalette, currentMode] = theme.split('-');
+    const newMode = currentMode === 'light' ? 'dark' : 'light';
+    setTheme(`${colorPalette}-${newMode}` as any);
+  };
   
   // Available themes
-  const themeOptions: Array<{id: ThemeId, name: string}> = [
-    { id: 'blue-light', name: 'Blue (Light)' },
-    { id: 'blue-dark', name: 'Blue (Dark)' },
-    { id: 'green-light', name: 'Green (Light)' },
-    { id: 'green-dark', name: 'Green (Dark)' },
-    { id: 'zinc-light', name: 'Zinc (Light)' },
-    { id: 'zinc-dark', name: 'Zinc (Dark)' },
+  const themeOptions = [
+    { id: 'light', name: 'Light Mode' },
+    { id: 'dark', name: 'Dark Mode' },
   ];
 
   return (
@@ -29,21 +39,21 @@ const ThemeDemoPage = () => {
             </CardHeader>
             <CardContent>
               <div className="mb-4">
-                <p>Current theme: <span className="font-bold">{currentThemeId}</span></p>
-                <p>Dark mode: <span className="font-bold">{isDarkMode ? 'Enabled' : 'Disabled'}</span></p>
+                <p>Current theme: <span className="font-bold">{theme}</span></p>
+                <p>Dark mode: <span className="font-bold">{isDark ? 'Enabled' : 'Disabled'}</span></p>
               </div>
               
               <div className="flex flex-col gap-4">
                 <div>
                   <p className="mb-2 font-medium">Dark Mode Toggle</p>
-                  <Button variant="outline" onClick={toggleDarkMode}>
+                  <Button variant="outline" onClick={toggleMode}>
                     Toggle Dark Mode
                   </Button>
                 </div>
                 
                 <div>
                   <p className="mb-2 font-medium">Select Theme</p>
-                  <Select value={currentThemeId} onValueChange={(value) => setTheme(value as ThemeId)}>
+                  <Select value={mode} onValueChange={(value) => setMode(value as 'light' | 'dark')}>
                     <SelectTrigger className="w-full" data-theme-refreshable>
                       <SelectValue placeholder="Select theme" />
                     </SelectTrigger>
@@ -58,14 +68,14 @@ const ThemeDemoPage = () => {
                 </div>
                 
                 <div className="flex flex-wrap gap-2 mt-2">
-                  {themeOptions.map((theme) => (
+                  {themeOptions.map((themeOption) => (
                     <Button
-                      key={theme.id}
-                      variant={currentThemeId === theme.id ? "default" : "outline"}
-                      onClick={() => setTheme(theme.id)}
+                      key={themeOption.id}
+                      variant={mode === themeOption.id ? "default" : "outline"}
+                      onClick={() => setMode(themeOption.id as 'light' | 'dark')}
                       className="text-xs"
                     >
-                      {theme.name}
+                      {themeOption.name}
                     </Button>
                   ))}
                 </div>

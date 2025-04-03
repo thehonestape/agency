@@ -10,6 +10,7 @@ export {
   CardContent, 
   CardFooter 
 } from './Card';
+export { Stack, VStack, HStack } from './stack';
 export { ScrollArea } from './scroll-area';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 export { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './sheet';

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { defaultTheme, HSLColor, hslToString } from "./tokens";
+import defaultTheme from "./tokens";
 
 export type ThemeMode = "light" | "dark" | "system";
 
@@ -23,21 +23,21 @@ export interface ThemeProviderProps {
   disableTransitions?: boolean;
 }
 
-// Applies HSL values to CSS variables
+// Apply theme to CSS variables
 function applyThemeToDOM(
   theme: typeof defaultTheme.light | typeof defaultTheme.dark
 ) {
   const root = document.documentElement;
 
-  // Helper to set nested HSL variables
+  // Helper to set nested properties
   const setNestedProperties = (
     obj: Record<string, any>,
     prefix: string
   ) => {
     Object.entries(obj).forEach(([key, value]) => {
-      // Check if value is an HSL object
-      if (value && typeof value === "object" && "h" in value) {
-        root.style.setProperty(`--${prefix}-${key}`, hslToString(value as HSLColor));
+      // If value is a hex color or other primitive
+      if (value && typeof value !== "object") {
+        root.style.setProperty(`--${prefix}-${key}`, value);
       } 
       // Otherwise, it's a nested object
       else if (value && typeof value === "object") {
@@ -97,79 +97,48 @@ export function ThemeProvider({
     applyThemeToDOM(mode === "dark" ? defaultTheme.dark : defaultTheme.light);
 
     // Save to localStorage
-    localStorage.setItem("theme-mode", mode);
+    localStorage.setItem("theme", mode);
 
-    // Re-enable transitions after a short delay
+    // Re-enable transitions
     if (disableTransitions) {
-      const tid = setTimeout(() => {
+      setTimeout(() => {
         root.classList.remove("disable-transitions");
-      }, 100);
-      return () => clearTimeout(tid);
+      }, 0);
     }
   }, [mode, mounted, disableTransitions]);
 
-  // Handle system theme changes
+  // Set mounted state
   useEffect(() => {
-    if (!mounted) return;
+    setMounted(true);
 
+    // Initialize from localStorage or system preference
+    const savedTheme = localStorage.getItem("theme") as ThemeMode | null;
+    if (savedTheme && ["light", "dark", "system"].includes(savedTheme)) {
+      setMode(savedTheme);
+    }
+
+    // Listen for system preference changes
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    
     const handleChange = () => {
       if (mode === "system") {
-        const newIsDark = mediaQuery.matches;
-        setTheme(newIsDark ? defaultTheme.dark : defaultTheme.light);
-        setIsDark(newIsDark);
+        setIsDark(mediaQuery.matches);
+        setTheme(mediaQuery.matches ? defaultTheme.dark : defaultTheme.light);
         document.documentElement.classList.remove("light", "dark");
-        document.documentElement.classList.add(newIsDark ? "dark" : "light");
-        applyThemeToDOM(newIsDark ? defaultTheme.dark : defaultTheme.light);
+        document.documentElement.classList.add(mediaQuery.matches ? "dark" : "light");
       }
     };
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [mode, mounted]);
-
-  // Initialize on mount - only runs client-side
-  useEffect(() => {
-    setMounted(true);
-    
-    // Read from localStorage
-    const savedMode = localStorage.getItem("theme-mode") as ThemeMode;
-    if (savedMode) {
-      setMode(savedMode);
-    }
-    
-    // Add CSS to disable transitions during theme change
-    const style = document.createElement("style");
-    style.textContent = `
-      .disable-transitions * {
-        transition: none !important;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-
-  // Only render after mounting to avoid hydration issues
-  if (!mounted) {
-    return <div style={{ visibility: "hidden" }}>{children}</div>;
-  }
+  }, [mode]);
 
   return (
-    <ThemeContext.Provider
-      value={{
-        mode,
-        setMode,
-        theme,
-        isDark,
-      }}
-    >
+    <ThemeContext.Provider value={{ mode, setMode, theme, isDark }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
-export const useTheme = () => useContext(ThemeContext); 
+export function useTheme() {
+  return useContext(ThemeContext);
+}

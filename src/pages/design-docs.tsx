@@ -1,19 +1,23 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/Card";
+import { HStack, VStack } from "@/components/ui/stack";
+import { Heading } from "@/components/ui/typography";
+import { Text } from "@/components/ui/typography";
+import { Eyebrow } from "@/components/ui/typography/eyebrow";
+import { Callout } from "@/components/ui/Callout";
+import { Banner } from "@/components/ui/banner";
+import { TypographyStackExample } from "@/components/examples/typography-stack-example";
+import { PaletteIcon, TypeIcon, BoxesIcon, LayersIcon, PuzzleIcon, BookOpenIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { TypeIcon, LayoutIcon, BoxIcon, CircleIcon } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { useTheme } from "@/lib/ThemeProvider";
 
 // Main Design Docs Page
 const DesignDocsPage = () => {
+  // Access the current theme to ensure proper styling
+  const { theme, isDark } = useTheme();
   const [activeSection, setActiveSection] = useState("overview");
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -47,16 +51,26 @@ const DesignDocsPage = () => {
     { 
       id: "colors", 
       label: "Colors", 
-      icon: <CircleIcon className="h-5 w-5" />,
+      icon: <PaletteIcon className="h-5 w-5" />,
       subsections: [
         { id: "colors-palette", label: "Color Palette" },
         { id: "colors-semantic", label: "Semantic Colors" },
       ]
     },
     { 
+      id: "layout", 
+      label: "Layout & Spacing", 
+      icon: <LayersIcon className="h-5 w-5" />,
+      subsections: [
+        { id: "layout-stack", label: "Stack Component" },
+        { id: "layout-grid", label: "Grid System" },
+        { id: "layout-spacing", label: "Spacing Scale" }
+      ]
+    },
+    { 
       id: "base", 
       label: "Base Components", 
-      icon: <BoxIcon className="h-5 w-5" />,
+      icon: <BoxesIcon className="h-5 w-5" />,
       subsections: [
         { id: "base-buttons", label: "Buttons" },
         { id: "base-inputs", label: "Inputs" },
@@ -65,7 +79,7 @@ const DesignDocsPage = () => {
     { 
       id: "components", 
       label: "Components", 
-      icon: <LayoutIcon className="h-5 w-5" />,
+      icon: <LayersIcon className="h-5 w-5" />,
       subsections: [
         { id: "components-buttons", label: "Buttons" },
         { id: "components-cards", label: "Cards" },
@@ -76,7 +90,7 @@ const DesignDocsPage = () => {
     { 
       id: "patterns", 
       label: "Patterns", 
-      icon: <LayoutIcon className="h-5 w-5" />,
+      icon: <PuzzleIcon className="h-5 w-5" />,
       subsections: [
         { id: "patterns-signin", label: "Sign In Form" },
         { id: "patterns-cardgrid", label: "Card Grid" }
@@ -85,102 +99,170 @@ const DesignDocsPage = () => {
     { 
       id: "utilities", 
       label: "Utilities", 
-      icon: <LayoutIcon className="h-5 w-5" />,
+      icon: <BookOpenIcon className="h-5 w-5" />,
       subsections: []
     },
   ];
   
-  // Handle navigation click
-  const handleNavClick = (id: string) => {
-    setActiveSection(id);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMobileMenuOpen(false);
-  };
-
-  // Update active section based on scroll position
+  // Handle scroll to update active section
   useEffect(() => {
     const handleScroll = () => {
-      // Find the section that is currently in view
-      const currentSection = Object.entries(sectionRefs.current)
-        .reverse()
-        .find(([_, element]) => {
-          if (!element) return false;
-          const { top } = element.getBoundingClientRect();
-          return top <= 100;
-        });
+      // Get all section entries from the ref
+      const sectionEntries = Object.entries(sectionRefs.current);
+      if (sectionEntries.length === 0) return;
       
-      if (currentSection) {
-        setActiveSection(currentSection[0]);
+      // Calculate the middle of the viewport
+      const viewportHeight = window.innerHeight;
+      const viewportMiddle = viewportHeight * 0.4; // Slightly above middle for better UX
+      
+      let closestSection: [string, HTMLElement] | null = null;
+      let closestDistance = Infinity;
+      
+      for (const [id, element] of sectionEntries) {
+        if (!element) continue;
+        
+        const rect = element.getBoundingClientRect();
+        // Calculate distance from the section's top to the trigger point
+        const distance = Math.abs(rect.top - viewportMiddle);
+        
+        // If this section is closer to the trigger point than the current closest
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestSection = [id, element];
+        }
+      }
+      
+      // Only update if we're reasonably close to a section
+      // and if it's different from the current active section
+      if (closestSection && closestSection[0] !== activeSection) {
+        setActiveSection(closestSection[0]);
       }
     };
     
-    window.addEventListener('scroll', handleScroll);
+    // Use a debounced version of the scroll handler to improve performance
+    let timeoutId: NodeJS.Timeout | null = null;
+    const debouncedHandleScroll = () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(handleScroll, 50);
+    };
+    
+    window.addEventListener('scroll', debouncedHandleScroll);
     
     // Initial check to set the active section
-    setTimeout(handleScroll, 100);
+    setTimeout(handleScroll, 200);
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', debouncedHandleScroll);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
-  }, []);
-  
-  // Section component
+  }, [activeSection]);
+
+  // Handle navigation click
+  const handleNavClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      // Set active section immediately to avoid flicker
+      setActiveSection(id);
+      
+      // Scroll to the element with smooth behavior
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Close mobile menu if open
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    }
+  };
+
+  // Section component with visual style variants
   const Section = ({ 
     id, 
     title, 
     description, 
     children,
+    variant = "default",
     ...props
   }: { 
     id: string; 
     title: string; 
     description?: string; 
     children: React.ReactNode;
+    variant?: "default" | "alt" | "minimal";
     [key: string]: any;
   }) => {
     const ref = useRef<HTMLElement>(null);
     
+    // Update the section ref when the component mounts or updates
     useEffect(() => {
       if (ref.current) {
         sectionRefs.current[id] = ref.current;
       }
-    }, [id]);
+      
+      // Clean up when the component unmounts
+      return () => {
+        if (sectionRefs.current[id]) {
+          sectionRefs.current[id] = null;
+        }
+      };
+    }, [id, sectionRefs]);
     
     return (
       <section
-        id={id}
         ref={ref}
-        className="mb-16 scroll-mt-16"
+        id={id}
+        className={cn(
+          "mb-16 scroll-mt-24", // Increased scroll margin for better positioning
+          variant === "alt" ? "bg-muted/50 p-8 rounded-lg" : ""
+        )}
         {...props}
       >
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-2">{title}</h2>
-          {description && (
-            <p className="text-xl text-muted-foreground">{description}</p>
-          )}
+          <Heading variant="title" className="mb-2">{title}</Heading>
+          {description && <Text className="text-muted-foreground">{description}</Text>}
         </div>
         {children}
       </section>
     );
   };
 
+  // Use the theme and isDark variables to ensure proper styling
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="border-b border-border sticky top-0 z-10 bg-background" data-component="header" role="banner">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+    <div className={cn(
+      "min-h-screen bg-background text-foreground",
+      isDark ? "dark" : ""
+    )} data-theme={theme}>
+      <header className="border-b border-border sticky top-0 z-10 bg-background/95 backdrop-blur-sm shadow-sm" data-component="header" role="banner">
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold">Design System</h1>
         </div>
       </header>
 
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row">
+      <div className="container mx-auto px-6 py-8">
+        <div className="flex flex-col lg:flex-row gap-10">
           {/* Sidebar Navigation */}
-          <div className="lg:w-64 lg:shrink-0 lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16 hidden lg:block" data-component="sidebar">
-            <div className="py-8 pr-4">
-              <nav className="space-y-1" role="navigation" aria-label="Main Navigation">
+          <div className="lg:w-72 lg:shrink-0 lg:h-[calc(100vh-4rem)] lg:sticky lg:top-16 hidden lg:block" data-component="sidebar">
+            <div className="py-6 pr-6">
+              <div className="mb-8 pb-6 border-b border-border">
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">Theme</h3>
+                  <div className="flex items-center gap-2">
+                    <ThemeToggle 
+                      variant="outline" 
+                      size="sm" 
+                      showLabel={true}
+                      className="w-full justify-start px-3 py-2 h-auto"
+                    />
+                  </div>
+                </div>
+              </div>
+              <nav className="space-y-2" role="navigation" aria-label="Main Navigation">
                 {navItems.map((section) => (
                   <div key={section.id} className="mb-2">
                     <a
@@ -268,6 +350,15 @@ const DesignDocsPage = () => {
                     <XMarkIcon className="h-5 w-5" />
                   </button>
                 </div>
+                <div className="mb-4 pb-2 border-b">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-2">Theme</h3>
+                  <ThemeToggle 
+                    variant="outline" 
+                    size="sm" 
+                    showLabel={true}
+                    className="w-full justify-start px-3 py-2 h-auto"
+                  />
+                </div>
                 <nav>
                   <ul className="space-y-2">
                     {navItems.map((item) => (
@@ -296,1320 +387,1155 @@ const DesignDocsPage = () => {
           
           {/* Main Content */}
           <div className="w-full lg:pl-8">
-            <main className="pt-8 pb-16" data-component="main-content" role="main">
+            <main id="docs-main-content" className="pt-8 pb-16" data-component="main-content" role="main">
               {/* Overview Section */}
               <Section 
                 id="overview" 
                 title="Design System Overview" 
                 description="A comprehensive guide to our design system components, patterns, and principles."
+                variant="alt"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Card id="overview-components">
-                    <CardHeader>
-                      <CardTitle>Components</CardTitle>
-                      <CardDescription>
-                        Reusable UI building blocks for consistent interfaces
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Our component library provides a set of reusable, accessible, and themeable UI elements.</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button onClick={() => handleNavClick("components")}>
-                        View Components
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                  <Card id="overview-tokens">
-                    <CardHeader>
-                      <CardTitle>Design Tokens</CardTitle>
-                      <CardDescription>
-                        Colors, typography, spacing, and other design variables
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Design tokens ensure consistency across all our digital products.</p>
-                    </CardContent>
-                    <CardFooter>
-                      <Button onClick={() => handleNavClick("colors")}>
-                        View Tokens
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </div>
+                <VStack spacing={8}>
+                  <Callout title="Welcome to our Design System">
+                    <Text>
+                      Our design system provides a unified language for our digital products. It's built to help designers and developers 
+                      create consistent, accessible, and beautiful user experiences efficiently.
+                    </Text>
+                  </Callout>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <Card className="shadow-sm hover:shadow transition-shadow">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-xl">Foundations</CardTitle>
+                        <CardDescription>The building blocks of our design</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <VStack spacing={4}>
+                          <Text className="text-muted-foreground">
+                            Our design foundations include typography, color, spacing, and other core elements that form the basis of our visual language.
+                          </Text>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="flex items-center gap-2 text-sm">
+                              <TypeIcon className="h-4 w-4 text-primary" />
+                              <span>Typography</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <PaletteIcon className="h-4 w-4 text-primary" />
+                              <span>Colors</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <span className="i-lucide-ruler h-4 w-4 text-primary" />
+                              <span>Spacing</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <span className="i-lucide-layout h-4 w-4 text-primary" />
+                              <span>Layout</span>
+                            </div>
+                          </div>
+                        </VStack>
+                      </CardContent>
+                      <CardFooter className="pt-0 flex justify-end">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleNavClick("typography")}
+                        >
+                          Explore Foundations
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                    
+                    <Card className="shadow-sm hover:shadow transition-shadow">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-xl">Components</CardTitle>
+                        <CardDescription>Reusable UI building blocks</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <VStack spacing={4}>
+                          <Text className="text-muted-foreground">
+                            Our component library provides consistent, accessible, and customizable elements for building interfaces.
+                          </Text>
+                          <div className="grid grid-cols-2 gap-2">
+                            <div className="flex items-center gap-2 text-sm">
+                              <span className="i-lucide-square h-4 w-4 text-primary" />
+                              <span>Buttons</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <span className="i-lucide-credit-card h-4 w-4 text-primary" />
+                              <span>Cards</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <span className="i-lucide-input h-4 w-4 text-primary" />
+                              <span>Inputs</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm">
+                              <span className="i-lucide-list h-4 w-4 text-primary" />
+                              <span>Navigation</span>
+                            </div>
+                          </div>
+                        </VStack>
+                      </CardContent>
+                      <CardFooter className="pt-0 flex justify-end">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleNavClick("components")}
+                        >
+                          Explore Components
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </div>
+                  
+                  <Banner variant="info" className="mt-4">
+                    <div>
+                      <p className="font-medium mb-1">Design System Principles</p>
+                      <p>Our design system is built on four core principles: consistency, accessibility, flexibility, and simplicity.</p>
+                    </div>
+                  </Banner>
+                  
+                  <div className="bg-muted/30 p-6 rounded-lg border">
+                    <Heading variant="subheading" className="mb-4">How to Use This Documentation</Heading>
+                    <VStack spacing={4}>
+                      <div className="flex gap-3">
+                        <div className="bg-primary/10 text-primary rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">1</div>
+                        <Text>Navigate through sections using the sidebar menu to find specific components or guidelines.</Text>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="bg-primary/10 text-primary rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">2</div>
+                        <Text>Each component includes examples, usage guidelines, and implementation details.</Text>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="bg-primary/10 text-primary rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">3</div>
+                        <Text>Copy code examples directly or reference the component API documentation for implementation.</Text>
+                      </div>
+                    </VStack>
+                  </div>
+                </VStack>
               </Section>
 
               {/* Typography Section */}
               <Section
-                id="typography"
-                title="Typography"
-                description="Typography system and text styles for clear communication"
+                id="typography" 
+                title="Typography" 
+                description="Our typography system creates clear visual hierarchy and ensures readability across all interfaces."
+                variant="default"
               >
-                <div className="space-y-8">
-                  {/* Typography Philosophy */}
-                  <Card id="typography-philosophy">
+                <VStack spacing={8}>
+                  <Callout title="Typography Philosophy">
+                    <Text>
+                      Our typography system is built on the principle of relationships rather than fixed styles. 
+                      Elements are defined by how they relate to each other in the interface, creating a natural 
+                      visual hierarchy while maintaining flexibility across different contexts.
+                    </Text>
+                  </Callout>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="bg-muted/30 p-6 rounded-lg border">
+                      <Heading variant="subheading" className="mb-4">Type Scale</Heading>
+                      <VStack spacing={4}>
+                        <Text>
+                          Our type scale is built on a balanced system that creates clear relationships between text elements.
+                          Each step serves a specific purpose in the interface hierarchy.
+                        </Text>
+                        <div className="space-y-6 w-full">
+                          <div>
+                            <Heading variant="display" className="text-4xl">Display</Heading>
+                            <Text className="text-muted-foreground">Used for hero sections and major feature introductions</Text>
+                          </div>
+                          <div>
+                            <Heading variant="title" className="text-3xl">Page Title</Heading>
+                            <Text className="text-muted-foreground">Used for page titles and major section headings</Text>
+                          </div>
+                          <div>
+                            <Heading variant="heading" className="text-2xl">Section Heading</Heading>
+                            <Text className="text-muted-foreground">Used for section headings and content dividers</Text>
+                          </div>
+                          <div>
+                            <Heading variant="subheading" className="text-xl">Subheading</Heading>
+                            <Text className="text-muted-foreground">Used for subsections and grouping related content</Text>
+                          </div>
+                          <div>
+                            <Heading variant="subtitle" className="text-lg">Subtitle</Heading>
+                            <Text className="text-muted-foreground">Used for supporting headings and emphasized text</Text>
+                          </div>
+                        </div>
+                      </VStack>
+                    </div>
+
+                    <div className="bg-muted/30 p-6 rounded-lg border">
+                      <Heading variant="subheading" className="mb-4">Text Elements</Heading>
+                      <VStack spacing={4}>
+                        <Text>
+                          Our text components are designed for maximum readability and flexibility across different contexts.
+                        </Text>
+                        <div className="space-y-6 w-full">
+                          <div>
+                            <Eyebrow>EYEBROW / BROWLINE</Eyebrow>
+                            <Text className="text-muted-foreground">Used for labels, categories, and section markers</Text>
+                          </div>
+                          <div>
+                            <Text className="text-lg">Body Large</Text>
+                            <Text className="text-muted-foreground">Used for introductory paragraphs and emphasized content</Text>
+                          </div>
+                          <div>
+                            <Text>Body</Text>
+                            <Text className="text-muted-foreground">Default text size for most content</Text>
+                          </div>
+                          <div>
+                            <Text className="text-sm">Small Text</Text>
+                            <Text className="text-muted-foreground">Used for captions, footnotes, and supporting text</Text>
+                          </div>
+                          <div>
+                            <Text className="text-xs">Extra Small</Text>
+                            <Text className="text-muted-foreground">Used for legal text, metadata, and fine print</Text>
+                          </div>
+                        </div>
+                      </VStack>
+                    </div>
+                  </div>
+
+                  <Card>
                     <CardHeader>
-                      <CardTitle>Typography Philosophy</CardTitle>
-                      <CardDescription>Our approach to typography is built on clarity, hierarchy, and flexibility</CardDescription>
+                      <CardTitle>Font Weight Philosophy</CardTitle>
+                      <CardDescription>A balanced approach to weight distribution</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-lg mb-4">
-                          Typography is the foundation of our design system, establishing the voice and tone of our communication while ensuring readability and accessibility across all platforms and devices.
-                        </p>
-                        
-                        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <div className="space-y-2">
-                            <h4 className="font-medium">Core Principles</h4>
-                            <ul className="space-y-2">
-                              <li><strong>Relational Design:</strong> Typography elements are defined by their relationship to each other, not fixed styles</li>
-                              <li><strong>Decoupled Semantics:</strong> HTML semantics are separated from visual styling</li>
-                              <li><strong>Hierarchical Clarity:</strong> Clear visual hierarchy guides users through content</li>
-                              <li><strong>Responsive Scaling:</strong> Typography adapts fluidly across device sizes</li>
-                              <li><strong>Accessibility First:</strong> Meets WCAG standards for readability and contrast</li>
-                              <li><strong>Consistent Rhythm:</strong> Harmonious spacing and line heights</li>
-                            </ul>
-                          </div>
-                          
-                          <div className="space-y-2">
-                            <h4 className="font-medium">Implementation Approach</h4>
-                            <ul className="space-y-2">
-                              <li><strong>Component-Based:</strong> Typography elements are React components with consistent APIs</li>
-                              <li><strong>Contextual Adaptation:</strong> Elements adjust their styling based on their context and relationship to other elements</li>
-                              <li><strong>Semantic Flexibility:</strong> Components can render any HTML element while maintaining visual styling</li>
-                              <li><strong>Tailwind Integration:</strong> Leverages Tailwind's utility classes for styling</li>
-                              <li><strong>Themeable:</strong> Adapts to light/dark modes and custom themes</li>
-                              <li><strong>Composition:</strong> Components can be composed for complex layouts</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Typography Foundations */}
-                  <Card id="typography-foundations">
-                    <CardHeader>
-                      <CardTitle>Foundations</CardTitle>
-                      <CardDescription>Understanding the basics of typography</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-lg mb-4">
-                          Our typography system is built on a set of foundational principles that ensure clarity, readability, and accessibility.
-                        </p>
-                        
-                        <div className="bg-muted p-6 rounded-md mb-6">
-                          <h4 className="text-xl font-medium mb-3">Typefaces</h4>
-                          <p className="text-lg mb-4">
-                            We use a custom typeface designed specifically for our brand, optimized for digital interfaces.
-                          </p>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Font Family</div>
-                              <p className="text-base">Our custom typeface is designed for optimal readability on digital screens</p>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Fallback Fonts</div>
-                              <p className="text-base">In case our custom typeface is not available, we use a system font stack for fallback</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Typography System Architecture */}
-                  <Card id="typography-system">
-                    <CardHeader>
-                      <CardTitle>System Architecture</CardTitle>
-                      <CardDescription>How our typography system is structured for growth and customization</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-lg mb-4">
-                          Our typography system is designed as a composable, extensible foundation that can be customized and expanded while maintaining consistency.
-                        </p>
-                        
-                        <div className="bg-muted p-6 rounded-md mb-6">
-                          <h4 className="text-xl font-medium mb-3">Decoupled Architecture</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Base HTML Elements</div>
-                              <p className="text-base">Semantic HTML with minimal styling</p>
-                              <div className="mt-3 text-base">
-                                <code>&lt;h1&gt;Heading 1&lt;/h1&gt;</code><br />
-                                <code>&lt;h2&gt;Heading 2&lt;/h2&gt;</code><br />
-                                <code>&lt;h3&gt;Heading 3&lt;/h3&gt;</code>
-                              </div>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Styled Components</div>
-                              <p className="text-base">Components with specific visual styling</p>
-                              <div className="mt-3 text-base">
-                                <code>&lt;Heading as="h1" variant="display"&gt;</code><br />
-                                <code>&lt;Heading as="h2" variant="title"&gt;</code><br />
-                                <code>&lt;Text variant="lead"&gt;</code>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="border p-4 rounded-md">
-                            <h4 className="text-lg font-medium">Lockups & Patterns</h4>
-                            <p className="text-base">
-                              Consistent text combinations for common UI elements:
-                            </p>
-                            <ul className="mt-2 space-y-1 text-base">
-                              <li>• Card headers with title + description</li>
-                              <li>• Form labels with optional helpers</li>
-                              <li>• Section headings with subtext</li>
-                              <li>• Navigation items with indicators</li>
-                            </ul>
-                          </div>
-                          
-                          <div className="border p-4 rounded-md">
-                            <h4 className="text-lg font-medium">System Extensibility</h4>
-                            <p className="text-base">
-                              Ways to extend the typography system:
-                            </p>
-                            <ul className="mt-2 space-y-1 text-base">
-                              <li>• Add new font families</li>
-                              <li>• Modify the type scale</li>
-                              <li>• Create custom text styles</li>
-                              <li>• Adjust baseline measurements</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Semantic Scale */}
-                  <Card id="typography-semantic-scale">
-                    <CardHeader>
-                      <CardTitle>Semantic Scale</CardTitle>
-                      <CardDescription>Purpose-driven text styles for specific UI roles</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg mb-4">
-                        Our semantic scale provides purpose-specific text styles that can be applied to any HTML element. These styles are defined by their relationship to each other and can adapt based on context.
-                      </p>
-                      
-                      <div className="bg-muted p-6 rounded-md mb-6">
-                        <h4 className="text-xl font-medium mb-3">Relational Typography</h4>
-                        <p className="text-base mb-4">
-                          Typography elements are defined by their relationship to each other and their context, not by fixed styles. This allows for a more flexible and consistent design system.
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Semantic Variants</h5>
-                            <ul className="space-y-2">
-                              <li><strong>Display:</strong> Largest text for hero sections and major features</li>
-                              <li><strong>Title:</strong> Main headings for pages and major sections</li>
-                              <li><strong>Heading:</strong> Section headings within content</li>
-                              <li><strong>Subheading:</strong> Smaller section dividers</li>
-                              <li><strong>Browline/Eyebrow:</strong> Small text above titles for categorization</li>
-                              <li><strong>Subtitle:</strong> Supporting text for titles and headings</li>
-                              <li><strong>Lead:</strong> Introductory paragraph text</li>
-                              <li><strong>Body:</strong> Standard paragraph text</li>
-                              <li><strong>Small:</strong> Secondary or supporting text</li>
-                              <li><strong>Caption:</strong> Labels and metadata</li>
-                            </ul>
-                          </div>
-                          
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Contextual Adaptation</h5>
-                            <p className="mb-3">The same semantic variant adapts based on its context:</p>
-                            <div className="space-y-4">
-                              <div>
-                                <div className="text-sm font-medium text-muted-foreground">Page Context</div>
-                                <div className="text-2xl font-semibold">Title Variant</div>
-                              </div>
-                              <div>
-                                <div className="text-sm font-medium text-muted-foreground">Card Context</div>
-                                <div className="text-xl font-semibold">Title Variant</div>
-                              </div>
-                              <div>
-                                <div className="text-sm font-medium text-muted-foreground">List Item Context</div>
-                                <div className="text-base font-semibold">Title Variant</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-background p-4 rounded-md">
-                          <h5 className="font-medium mb-2">Relational Principles</h5>
-                          <ul className="space-y-2">
-                            <li><strong>Consistent Relationships:</strong> A title is always larger than its subtitle, regardless of context</li>
-                            <li><strong>Proportional Scaling:</strong> Elements maintain their proportional relationship across different contexts</li>
-                            <li><strong>Contextual Sizing:</strong> The same element may have different absolute sizes in different contexts</li>
-                            <li><strong>Semantic Meaning:</strong> Elements are chosen based on their meaning, not just their appearance</li>
-                            <li><strong>Flexible Implementation:</strong> Can be implemented through components or utility classes</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div className="border p-5 rounded-md">
-                          <div className="uppercase text-sm font-medium tracking-wide text-muted-foreground mb-1">New Feature</div>
-                          <div className="text-5xl font-semibold">Display</div>
-                          <div className="mt-3 text-base text-muted-foreground">Hero sections, major headlines</div>
-                        </div>
-                        
-                        <div className="border p-5 rounded-md">
-                          <div className="uppercase text-sm font-medium tracking-wide text-muted-foreground mb-1">Component</div>
-                          <div className="text-4xl font-semibold">Title</div>
-                          <div className="mt-3 text-base text-muted-foreground">Page headers, section dividers</div>
-                        </div>
-                        
-                        <div className="border p-5 rounded-md">
-                          <div className="text-3xl font-medium">Heading</div>
-                          <div className="mt-3 text-base text-muted-foreground">Content section headers</div>
-                        </div>
-                        
-                        <div className="border p-5 rounded-md">
-                          <div className="text-2xl font-medium">Subheading</div>
-                          <div className="mt-3 text-base text-muted-foreground">Subsection headers, card titles</div>
-                        </div>
-                        
-                        <div className="border p-5 rounded-md">
-                          <div className="text-xl font-medium">Subtitle</div>
-                          <div className="mt-3 text-base text-muted-foreground">Supporting text for headings</div>
-                        </div>
-                        
-                        <div className="border p-5 rounded-md">
-                          <div className="uppercase text-sm font-medium tracking-wide">Browline</div>
-                          <div className="text-lg font-medium mt-1">Label Text</div>
-                          <div className="mt-3 text-base text-muted-foreground">Category labels, context providers</div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-muted p-6 rounded-md mb-6">
-                        <h4 className="text-xl font-medium mb-3">Semantic Variants and HTML Elements</h4>
-                        <p className="text-base mb-4">
-                          Our semantic variants (Display, Title, Heading, etc.) are <strong>visual styles</strong> that can be applied to any HTML element through our component system. They are independent from the semantic HTML elements (h1, h2, h3, etc.).
-                        </p>
-                        
+                      <VStack spacing={6}>
+                        <Text>
+                          Our typography system uses a balanced approach to font weights, creating clear hierarchy without relying on extreme contrasts.
+                        </Text>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="text-base font-medium mb-2">Mapping Variants to HTML Elements</h5>
-                            <p className="text-base mb-3">
-                              While there's no strict 1:1 mapping, here's a common pattern:
-                            </p>
-                            <ul className="text-base space-y-1">
-                              <li><code>Display</code> → typically used with <code>h1</code></li>
-                              <li><code>Title</code> → typically used with <code>h1</code> or <code>h2</code></li>
-                              <li><code>Heading</code> → typically used with <code>h2</code> or <code>h3</code></li>
-                              <li><code>Subheading</code> → typically used with <code>h3</code> or <code>h4</code></li>
-                              <li><code>Subtitle</code> → typically used with <code>h4</code>, <code>h5</code>, or <code>h6</code></li>
-                              <li><code>Label</code> → typically used with <code>h5</code>, <code>h6</code>, or <code>label</code></li>
-                            </ul>
+                          <div className="p-4 border rounded-md">
+                            <VStack spacing={3} align="start">
+                              <Heading variant="subheading">Heading Weights</Heading>
+                              <div className="space-y-3 w-full">
+                                <div className="flex items-center justify-between">
+                                  <Text className="font-semibold">Semibold (600)</Text>
+                                  <Text className="text-muted-foreground">h1-h2</Text>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                  <Text className="font-medium">Medium (500)</Text>
+                                  <Text className="text-muted-foreground">h3-h6</Text>
+                                </div>
+                              </div>
+                            </VStack>
                           </div>
-                          
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="text-base font-medium mb-2">Using Variants in Components</h5>
-                            <p className="text-base mb-3">
-                              Our component system allows you to separate semantics from styling:
-                            </p>
-                            <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                              {`// Main page title with h1 semantics
-<Heading as="h1" variant="display">
-  Welcome to Our Platform
-</Heading>
-
-<Heading as="h2" variant="title">
-  Section Title
-</Heading>
-
-<Heading as="h3" variant="heading">
-  Content Heading
-</Heading>`}
-                            </pre>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-muted p-6 rounded-md">
-                        <h4 className="text-xl font-medium mb-3">Font Weight Philosophy</h4>
-                        <p className="text-lg mb-4">
-                          Our system uses a balanced approach to font weights:
-                        </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="bg-background p-4 rounded-md">
-                            <div className="text-lg font-bold mb-1">Bold (700)</div>
-                            <p className="text-base">Reserved for specific emphasis or the most important elements</p>
-                          </div>
-                          <div className="bg-background p-4 rounded-md">
-                            <div className="text-lg font-semibold mb-1">Semibold (600)</div>
-                            <p className="text-base">Used for titles and primary headings</p>
-                          </div>
-                          <div className="bg-background p-4 rounded-md">
-                            <div className="text-lg font-medium mb-1">Medium (500)</div>
-                            <p className="text-base">Used for most headings and emphasized text</p>
-                          </div>
-                          <div className="bg-background p-4 rounded-md">
-                            <div className="text-lg font-normal mb-1">Regular (400)</div>
-                            <p className="text-base">Used for body text and general content</p>
-                          </div>
-                          <div className="bg-background p-4 rounded-md">
-                            <div className="text-lg font-light mb-1">Light (300)</div>
-                            <p className="text-base">Used for subtle text, captions, and secondary information</p>
+                          <div className="p-4 border rounded-md">
+                            <VStack spacing={3} align="start">
+                              <Heading variant="subheading">Text Weights</Heading>
+                              <div className="space-y-3 w-full">
+                                <div className="flex items-center justify-between">
+                                  <Text className="font-bold">Bold (700)</Text>
+                                  <Text className="text-muted-foreground">Emphasis</Text>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                  <Text className="font-medium">Medium (500)</Text>
+                                  <Text className="text-muted-foreground">Subtle emphasis</Text>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                  <Text className="font-normal">Regular (400)</Text>
+                                  <Text className="text-muted-foreground">Body text</Text>
+                                </div>
+                              </div>
+                            </VStack>
                           </div>
                         </div>
-                        <div className="mt-4 bg-background p-4 rounded-md">
-                          <h5 className="text-base font-medium mb-2">Light Weight Usage Guidelines</h5>
-                          <ul className="space-y-2">
-                            <li className="flex gap-2">
-                              <span className="text-primary">•</span>
-                              <span>Use light weight sparingly to maintain readability</span>
-                            </li>
-                            <li className="flex gap-2">
-                              <span className="text-primary">•</span>
-                              <span>Avoid using light weight for body text or small sizes (below 16px)</span>
-                            </li>
-                            <li className="flex gap-2">
-                              <span className="text-primary">•</span>
-                              <span>Best for large display text, captions, and decorative elements</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
+                      </VStack>
                     </CardContent>
                   </Card>
 
-                  {/* HTML Elements */}
-                  <Card id="typography-html">
+                  <Banner variant="info">
+                    <div>
+                      <p className="font-medium mb-1">Accessibility Note</p>
+                      <p>Our typography system is designed to meet WCAG AA standards for readability and contrast. Always ensure sufficient contrast between text and background colors.</p>
+                    </div>
+                  </Banner>
+
+                  <div className="p-6 border rounded-lg">
+                    <Heading variant="subheading" className="mb-4">Common Text Lockups</Heading>
+                    <VStack spacing={5}>
+                      <Text>
+                        Text lockups are consistent patterns of typography elements used together to create cohesive UI components.
+                      </Text>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="p-4 bg-muted/30 rounded-md">
+                          <VStack spacing={2} align="start">
+                            <Eyebrow>FEATURE HIGHLIGHT</Eyebrow>
+                            <Heading variant="title">Feature Title</Heading>
+                            <Text>A description of the feature that explains its benefits and functionality to the user.</Text>
+                            <Button size="sm" className="mt-2">Learn More</Button>
+                          </VStack>
+                        </div>
+                        
+                        <div className="p-4 bg-muted/30 rounded-md">
+                          <VStack spacing={2} align="start">
+                            <Heading variant="subtitle">Content Section</Heading>
+                            <Text>Main content that provides information to the user in a clear and concise manner.</Text>
+                            <Text className="text-sm text-muted-foreground">Additional supporting information that adds context.</Text>
+                          </VStack>
+                        </div>
+                      </div>
+                    </VStack>
+                  </div>
+                  
+                  <TypographyStackExample />
+                </VStack>
+              </Section>
+              
+              {/* Colors Section */}
+              <Section 
+                id="colors" 
+                title="Colors" 
+                description="Our semantic color system designed for flexibility, consistency, and accessibility."
+              >
+                <VStack spacing={8}>
+                  <Card>
                     <CardHeader>
-                      <CardTitle>HTML Elements</CardTitle>
-                      <CardDescription>Minimal base styling for semantic HTML elements</CardDescription>
+                      <CardTitle>Color System Architecture</CardTitle>
+                      <CardDescription>A three-layer approach to color organization</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-lg mb-4">
-                          Our HTML elements have minimal base styling to ensure proper semantics without imposing visual design. The actual visual styling is applied through our typography components.
-                        </p>
+                      <VStack spacing={6}>
+                        <Text>
+                          Our color system is designed to create accessible, consistent, and visually appealing interfaces.
+                          It's organized in three layers: base colors, semantic colors, and component colors.
+                          We've aligned our color system with Tailwind v4, using direct hex values instead of HSL.
+                        </Text>
                         
-                        <div className="bg-muted p-6 rounded-md mb-6">
-                          <h4 className="text-xl font-medium mb-3">Base HTML vs. Styled Components</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Base HTML Elements</div>
-                              <p className="text-base">Semantic HTML with minimal styling</p>
-                              <div className="mt-3 text-base">
-                                <code>&lt;h1&gt;Heading 1&lt;/h1&gt;</code><br />
-                                <code>&lt;h2&gt;Heading 2&lt;/h2&gt;</code><br />
-                                <code>&lt;h3&gt;Heading 3&lt;/h3&gt;</code>
-                              </div>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Styled Components</div>
-                              <p className="text-base">Components with specific visual styling</p>
-                              <div className="mt-3 text-base">
-                                <code>&lt;Heading as="h1" variant="display"&gt;</code><br />
-                                <code>&lt;Heading as="h2" variant="title"&gt;</code><br />
-                                <code>&lt;Text variant="lead"&gt;</code>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <p className="text-lg mb-4">
-                          The examples below show the base HTML elements with their default sizing. Remember that in our system, you would typically use the <code>Heading</code> and <code>Text</code> components to apply specific visual styles.
-                        </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div className="space-y-6">
-                            <div className="border p-4 rounded-md">
-                              <h1 className="text-4xl">Heading 1</h1>
-                              <div className="mt-3 text-base text-muted-foreground">
-                                <span className="px-2 py-1 bg-background rounded text-base">4xl</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">Base sizing</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">2.25rem</span>
-                              </div>
-                            </div>
-                            
-                            <div className="border p-4 rounded-md">
-                              <h2 className="text-3xl">Heading 2</h2>
-                              <div className="mt-3 text-base text-muted-foreground">
-                                <span className="px-2 py-1 bg-background rounded text-base">3xl</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">Base sizing</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">1.875rem</span>
-                              </div>
-                            </div>
-                            
-                            <div className="border p-4 rounded-md">
-                              <h3 className="text-2xl">Heading 3</h3>
-                              <div className="mt-3 text-base text-muted-foreground">
-                                <span className="px-2 py-1 bg-background rounded text-base">2xl</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">Base sizing</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">1.5rem</span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-6">
-                            <div className="border p-4 rounded-md">
-                              <h4 className="text-xl">Heading 4</h4>
-                              <div className="mt-3 text-base text-muted-foreground">
-                                <span className="px-2 py-1 bg-background rounded text-base">xl</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">Base sizing</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">1.25rem</span>
-                              </div>
-                            </div>
-                            
-                            <div className="border p-4 rounded-md">
-                              <h5 className="text-lg">Heading 5</h5>
-                              <div className="mt-3 text-base text-muted-foreground">
-                                <span className="px-2 py-1 bg-background rounded text-base">lg</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">Base sizing</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">1.125rem</span>
-                              </div>
-                            </div>
-                            
-                            <div className="border p-4 rounded-md">
-                              <h6 className="text-base">Heading 6</h6>
-                              <div className="mt-3 text-base text-muted-foreground">
-                                <span className="px-2 py-1 bg-background rounded text-base">base</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">Base sizing</span>
-                                <span className="mx-2">•</span>
-                                <span className="px-2 py-1 bg-background rounded text-base">1rem</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Typography Usage */}
-                  <Card id="typography-usage">
-                    <CardHeader>
-                      <CardTitle>Typography Usage</CardTitle>
-                      <CardDescription>Practical guidelines for applying our typography system</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <h3 className="text-2xl font-medium mb-4">Best Practices</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Use semantic HTML</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Always use the appropriate HTML element for the content's meaning, regardless of visual style</div>
-                            </div>
-                          </div>
-                          
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Limit font weights</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Avoid overusing bold weights; prefer medium or semibold for most headings</div>
-                            </div>
-                          </div>
-                          
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Maintain hierarchy</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Ensure clear visual distinction between heading levels</div>
-                            </div>
-                          </div>
-                          
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Avoid small text</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Use <code>text-sm</code> sparingly and only for truly secondary information</div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Decoupled Usage Examples</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-background p-4 rounded-md">
-                              <p className="text-base mb-2"><strong>✅ Do:</strong> Separate semantics from styling</p>
-                              <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                                {`// Main page title with display styling
-<Heading as="h1" variant="display">
-  Welcome to our Platform
-</Heading>
-
-<Heading as="h2" variant="title">
-  Section Title
-</Heading>
-
-<Heading as="h3" variant="heading">
-  Content Heading
-</Heading>`}
-                              </pre>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <p className="text-base mb-2"><strong>❌ Don't:</strong> Rely on HTML for styling</p>
-                              <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                                {`// Incorrect: Using h3 just for its styling
-<h3>This is not a heading</h3>
-
-// Incorrect: Using div instead of proper heading
-<div className="text-3xl font-medium">
-  This should be a heading
-</div>`}
-                              </pre>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Semantic Markup Best Practices */}
-                  <Card id="typography-semantic-markup">
-                    <CardHeader>
-                      <CardTitle>Semantic Markup Best Practices</CardTitle>
-                      <CardDescription>Using HTML elements correctly with our typography system</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg mb-4">
-                        Our typography system is designed to separate semantic meaning from visual styling. This allows you to use the correct HTML elements for their semantic purpose while applying visual styles independently.
-                      </p>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div className="border p-5 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">❌ Incorrect Usage</h4>
-                          <div className="bg-muted p-4 rounded-md mb-4">
-                            <p className="text-base text-muted-foreground mb-2">Using heading elements for styling only:</p>
-                            <pre className="text-base bg-background p-2 rounded overflow-x-auto">
-                              {`// Incorrect: Using h3 just for its styling
-<h3>This is not actually a heading</h3>`}
-                            </pre>
-                          </div>
-                          <div className="bg-muted p-4 rounded-md">
-                            <p className="text-base text-muted-foreground mb-2">Using non-semantic elements for headings:</p>
-                            <pre className="text-base bg-background p-2 rounded overflow-x-auto">
-                              {`// Incorrect: Using div instead of proper heading
-<div className="text-3xl font-medium">
-  This should be a heading
-</div>`}
-                            </pre>
-                          </div>
-                        </div>
-                        
-                        <div className="border p-5 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">✅ Correct Usage</h4>
-                          <div className="bg-muted p-4 rounded-md mb-4">
-                            <p className="text-base text-muted-foreground mb-2">Using our component system:</p>
-                            <pre className="text-base bg-background p-2 rounded overflow-x-auto">
-                              {`// Correct: Using Heading component with semantic element
-<Heading as="h3" variant="subtitle">
-  Section subtitle with h3 semantics
-</Heading>
-
-// Correct: Using Text component for non-heading text
-<Text variant="lead">
-  This is an introductory paragraph
-</Text>`}
-                            </pre>
-                          </div>
-                          <div className="bg-muted p-4 rounded-md">
-                            <p className="text-base text-muted-foreground mb-2">Using raw HTML with proper semantics:</p>
-                            <pre className="text-base bg-background p-2 rounded overflow-x-auto">
-                              {`// Correct: Using proper heading element
-<h2 className="text-3xl font-semibold">
-  This is a proper section heading
-</h2>
-
-// Correct: Using paragraph for non-heading text
-<p className="text-xl font-medium">
-  This is emphasized text, not a heading
-</p>`}
-                            </pre>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="bg-muted p-6 rounded-md">
-                        <h4 className="text-xl font-medium mb-3">Key Principles</h4>
-                        <ul className="space-y-2">
-                          <li className="flex gap-2">
-                            <span className="text-primary">•</span>
-                            <span>Always use heading elements (h1-h6) for actual headings in your content</span>
-                          </li>
-                          <li className="flex gap-2">
-                            <span className="text-primary">•</span>
-                            <span>Use paragraph elements (p) for body text and general content</span>
-                          </li>
-                          <li className="flex gap-2">
-                            <span className="text-primary">•</span>
-                            <span>Apply visual styling through our component system or utility classes</span>
-                          </li>
-                          <li className="flex gap-2">
-                            <span className="text-primary">•</span>
-                            <span>Maintain proper heading hierarchy (h1 → h2 → h3) for accessibility</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Typography Relationships */}
-                  <Card id="typography-relationships">
-                    <CardHeader>
-                      <CardTitle>Typography Relationships</CardTitle>
-                      <CardDescription>Understanding how typography elements work together in different contexts</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg mb-4">
-                        Our typography system is built around relationships between elements. These relationships remain consistent across different contexts, even as the specific styles adapt.
-                      </p>
-                      
-                      <div className="bg-muted p-6 rounded-md mb-6">
-                        <h4 className="text-xl font-medium mb-3">Core Relationships</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Browline → Title</h5>
-                            <div className="border p-4 rounded-md">
-                              <div className="uppercase text-xs font-medium tracking-wide text-primary">CATEGORY</div>
-                              <div className="text-xl font-semibold mt-1">Main Title</div>
-                            </div>
-                            <p className="mt-2 text-sm">
-                              Browline provides context for the title. Always smaller, often uppercase with wider tracking.
-                            </p>
-                          </div>
-                          
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Title → Subtitle</h5>
-                            <div className="border p-4 rounded-md">
-                              <div className="text-xl font-semibold">Main Title</div>
-                              <div className="text-base text-muted-foreground mt-1">Supporting description</div>
-                            </div>
-                            <p className="mt-2 text-sm">
-                              Subtitle provides additional context or description for the title. Always smaller and often lighter in weight or color.
-                            </p>
-                          </div>
-                          
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Heading → Body</h5>
-                            <div className="border p-4 rounded-md">
-                              <div className="text-lg font-medium">Section Heading</div>
-                              <div className="text-base mt-2">Body text that follows the heading and provides detailed information about the section topic.</div>
-                            </div>
-                            <p className="mt-2 text-sm">
-                              Body text expands on the heading. Always smaller than its heading, with regular weight.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div className="bg-background p-5 rounded-md">
-                          <h5 className="text-base font-medium mb-3">Page Header</h5>
-                          <div className="border p-4 rounded-md">
-                            <div className="uppercase text-sm font-medium tracking-wide text-primary">Documentation</div>
-                            <div className="text-4xl font-semibold mt-1">Typography System</div>
-                            <div className="text-base text-muted-foreground mt-2">A comprehensive guide to our text styles and usage</div>
-                          </div>
-                          <div className="mt-3 text-base">
-                            <p><strong>Elements:</strong></p>
-                            <ul className="text-base mt-1">
-                              <li>Browline: Provides category context</li>
-                              <li>Title: Main page heading</li>
-                              <li>Subtitle: Supporting description</li>
-                            </ul>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-background p-5 rounded-md">
-                          <h5 className="text-base font-medium mb-3">Card Component</h5>
-                          <div className="border p-4 rounded-md">
-                            <div className="uppercase text-xs font-medium tracking-wide text-muted-foreground">Feature</div>
-                            <div className="text-xl font-semibold mt-1">Responsive Layouts</div>
-                            <div className="text-base mt-2">Create beautiful interfaces that work on any device</div>
-                          </div>
-                          <div className="mt-3 text-base">
-                            <p><strong>Elements:</strong></p>
-                            <ul className="text-base mt-1">
-                              <li>Browline: Smaller, categorizes the card</li>
-                              <li>Title: Smaller than page title</li>
-                              <li>Body: Regular text, not a subtitle</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div className="bg-background p-5 rounded-md">
-                          <h5 className="text-base font-medium mb-3">Form Section</h5>
-                          <div className="border p-4 rounded-md">
-                            <div className="text-xl font-medium">Personal Information</div>
-                            <div className="text-base text-muted-foreground mt-1">We'll use this to customize your experience</div>
-                            <div className="mt-4">
-                              <div className="text-base font-medium mb-1">Full Name</div>
-                              <div className="h-10 bg-muted rounded-md"></div>
-                            </div>
-                          </div>
-                          <div className="mt-3 text-base">
-                            <p><strong>Elements:</strong></p>
-                            <ul className="text-base mt-1">
-                              <li>Section Title: Medium-sized heading</li>
-                              <li>Subtitle: Supporting context</li>
-                              <li>Label: Form field identifier</li>
-                            </ul>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-background p-5 rounded-md">
-                          <h5 className="text-base font-medium mb-3">Article Preview</h5>
-                          <div className="border p-4 rounded-md">
-                            <div className="uppercase text-xs font-medium tracking-wide text-primary-foreground bg-primary inline-block px-2 py-0.5 rounded">New</div>
-                            <div className="text-2xl font-medium mt-2">Designing with Accessibility in Mind</div>
-                            <div className="text-base mt-2 line-clamp-2">Learn how to create interfaces that work for everyone, regardless of abilities or disabilities.</div>
-                            <div className="text-sm text-muted-foreground mt-2">5 min read • June 15, 2025</div>
-                          </div>
-                          <div className="mt-3 text-base">
-                            <p><strong>Elements:</strong></p>
-                            <ul className="text-base mt-1">
-                              <li>Browline: Tag/badge style</li>
-                              <li>Title: Article headline</li>
-                              <li>Body: Article excerpt</li>
-                              <li>Caption: Metadata information (smaller than body)</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-muted p-6 rounded-md">
-                        <h4 className="text-xl font-medium mb-3">Consistent Relationships Across Contexts</h4>
-                        <p className="mb-4">
-                          While the absolute sizes may change based on context, the relationships between elements remain consistent:
-                        </p>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Page Context</h5>
-                            <div className="space-y-1">
-                              <div className="uppercase text-sm font-medium tracking-wide text-primary">Browline</div>
-                              <div className="text-4xl font-semibold">Title</div>
-                              <div className="text-xl text-muted-foreground">Subtitle</div>
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">1. Base Colors</Heading>
+                            <Text className="text-sm">
+                              Foundational color scales from 50 (lightest) to 950 (darkest)
+                            </Text>
+                            <div className="grid grid-cols-5 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-50 rounded-md mb-1"></div>
+                                <span className="text-xs">50</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-200 rounded-md mb-1"></div>
+                                <span className="text-xs">200</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-400 rounded-md mb-1"></div>
+                                <span className="text-xs">400</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-600 rounded-md mb-1"></div>
+                                <span className="text-xs">600</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-800 rounded-md mb-1"></div>
+                                <span className="text-xs">800</span>
+                              </div>
                             </div>
-                          </div>
+                          </VStack>
                           
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">Card Context</h5>
-                            <div className="space-y-1">
-                              <div className="uppercase text-xs font-medium tracking-wide text-primary">Browline</div>
-                              <div className="text-xl font-semibold">Title</div>
-                              <div className="text-base text-muted-foreground">Subtitle</div>
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">2. Semantic Colors</Heading>
+                            <Text className="text-sm">
+                              Colors mapped to their purpose in the UI
+                            </Text>
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-background rounded-md border mb-1"></div>
+                                <span className="text-xs">background</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-foreground rounded-md mb-1"></div>
+                                <span className="text-xs">foreground</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-interactive rounded-md mb-1"></div>
+                                <span className="text-xs">interactive</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-interactive-text rounded-md mb-1"></div>
+                                <span className="text-xs">interactive-text</span>
+                              </div>
                             </div>
-                          </div>
+                          </VStack>
                           
-                          <div className="bg-background p-4 rounded-md">
-                            <h5 className="font-medium mb-2">List Item Context</h5>
-                            <div className="space-y-1">
-                              <div className="uppercase text-xs font-medium tracking-wide text-primary">Browline</div>
-                              <div className="text-base font-semibold">Title</div>
-                              <div className="text-sm text-muted-foreground">Subtitle</div>
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">3. Component Colors</Heading>
+                            <Text className="text-sm">
+                              Specific color applications for UI components
+                            </Text>
+                            <div className="grid grid-cols-1 gap-2">
+                              <Button variant="solid" className="w-full">Solid Button</Button>
+                              <Button variant="outline" className="w-full">Outline Button</Button>
+                              <div className="p-2 bg-card rounded-md border border-border">
+                                <span className="text-xs">Card Component</span>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Browline/Eyebrow Text Section */}
-                  <Card id="typography-browline">
-                    <CardHeader>
-                      <CardTitle>Browline/Eyebrow Text</CardTitle>
-                      <CardDescription>Small text above titles for categorization, context, or additional information</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg mb-4">
-                        Browline (also called eyebrow) text is a small, often uppercase text element placed above a title or heading to provide context, categorization, or additional information.
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                        <div className="bg-background p-4 rounded-md">
-                          <h5 className="font-medium mb-2">Characteristics</h5>
-                          <ul className="space-y-2">
-                            <li><strong>Size:</strong> Typically smaller than the title it accompanies</li>
-                            <li><strong>Case:</strong> Often uppercase for emphasis</li>
-                            <li><strong>Weight:</strong> Usually medium or semibold</li>
-                            <li><strong>Tracking:</strong> Wider letter spacing (tracking)</li>
-                            <li><strong>Color:</strong> May use brand colors or muted colors</li>
-                          </ul>
+                          </VStack>
                         </div>
                         
-                        <div className="bg-background p-4 rounded-md">
-                          <h5 className="font-medium mb-2">Common Uses</h5>
-                          <ul className="space-y-2">
-                            <li><strong>Categories:</strong> Indicating content type or category</li>
-                            <li><strong>Dates:</strong> Publication or event dates</li>
-                            <li><strong>Status:</strong> "New", "Featured", "Popular"</li>
-                            <li><strong>Sections:</strong> Identifying page sections</li>
-                            <li><strong>Metadata:</strong> Author, location, or other metadata</li>
-                          </ul>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-background p-4 rounded-md">
-                        <h5 className="font-medium mb-3">Implementation Examples</h5>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div>
-                            <p className="mb-2">Component API:</p>
-                            <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                              {`<Browline>CATEGORY</Browline>
-<Heading variant="title">Main Title</Heading>
-<Text variant="subtitle">Supporting text</Text>`}
-                            </pre>
-                          </div>
-                          <div>
-                            <p className="mb-2">CSS Classes:</p>
-                            <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                              {`<span class="text-xs uppercase font-medium
-tracking-wide text-primary">CATEGORY</span>
-<h2 class="text-2xl font-semibold mt-1">
-  Main Title
-</h2>`}
-                            </pre>
-                          </div>
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Primary Brand Colors</Heading>
+                            <div className="grid grid-cols-5 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-50 rounded-md mb-1"></div>
+                                <span className="text-xs">50</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-200 rounded-md mb-1"></div>
+                                <span className="text-xs">200</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-400 rounded-md mb-1"></div>
+                                <span className="text-xs">400</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-600 rounded-md mb-1"></div>
+                                <span className="text-xs">600</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-800 rounded-md mb-1"></div>
+                                <span className="text-xs">800</span>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Secondary Colors</Heading>
+                            <div className="grid grid-cols-5 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-gray-50 rounded-md mb-1"></div>
+                                <span className="text-xs">50</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-gray-200 rounded-md mb-1"></div>
+                                <span className="text-xs">200</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-gray-400 rounded-md mb-1"></div>
+                                <span className="text-xs">400</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-gray-600 rounded-md mb-1"></div>
+                                <span className="text-xs">600</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-gray-800 rounded-md mb-1"></div>
+                                <span className="text-xs">800</span>
+                              </div>
+                            </div>
+                          </VStack>
                         </div>
-                      </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Status Colors</Heading>
+                            <div className="grid grid-cols-4 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-success rounded-md mb-1"></div>
+                                <span className="text-xs">Success</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-warning rounded-md mb-1"></div>
+                                <span className="text-xs">Warning</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-error rounded-md mb-1"></div>
+                                <span className="text-xs">Error</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-info rounded-md mb-1"></div>
+                                <span className="text-xs">Info</span>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Surface Colors</Heading>
+                            <div className="grid grid-cols-4 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-background rounded-md border mb-1"></div>
+                                <span className="text-xs">Background</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-background-subtle rounded-md border mb-1"></div>
+                                <span className="text-xs">Subtle</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-card rounded-md border mb-1"></div>
+                                <span className="text-xs">Card</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-muted rounded-md border mb-1"></div>
+                                <span className="text-xs">Muted</span>
+                              </div>
+                            </div>
+                          </VStack>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Feedback Colors</Heading>
+                            <div className="grid grid-cols-4 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-green-600 rounded-md mb-1"></div>
+                                <span className="text-xs">Success</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-amber-500 rounded-md mb-1"></div>
+                                <span className="text-xs">Warning</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-red-600 rounded-md mb-1"></div>
+                                <span className="text-xs">Destructive</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-blue-500 rounded-md mb-1"></div>
+                                <span className="text-xs">Info</span>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">UI Colors</Heading>
+                            <div className="grid grid-cols-4 gap-2">
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-background rounded-md border mb-1"></div>
+                                <span className="text-xs">Background</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-foreground rounded-md mb-1"></div>
+                                <span className="text-xs text-xs">Foreground</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-muted rounded-md mb-1"></div>
+                                <span className="text-xs">Muted</span>
+                              </div>
+                              <div className="flex flex-col items-center">
+                                <div className="w-full h-12 bg-border rounded-md mb-1"></div>
+                                <span className="text-xs">Border</span>
+                              </div>
+                            </div>
+                          </VStack>
+                        </div>
+                      </VStack>
                     </CardContent>
                   </Card>
-                </div>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Semantic Color Categories</CardTitle>
+                      <CardDescription>Organized by purpose and function in the UI</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <VStack spacing={6}>
+                        <Text>
+                          Our semantic colors are organized into logical categories that make it easy to apply consistent styling
+                          across the application. Each category has a specific purpose and contains both light and dark mode variants.
+                        </Text>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Surface Colors</Heading>
+                            <Text className="text-sm">Background colors for different UI layers</Text>
+                            <div className="space-y-2 w-full">
+                              <div className="p-3 bg-background rounded-md border border-border">
+                                <Text className="text-xs">background</Text>
+                                <Text className="text-xs text-muted-foreground">Primary background color</Text>
+                              </div>
+                              <div className="p-3 bg-background-subtle rounded-md border border-border">
+                                <Text className="text-xs">background-subtle</Text>
+                                <Text className="text-xs text-muted-foreground">Secondary background color</Text>
+                              </div>
+                              <div className="p-3 bg-card rounded-md border border-border">
+                                <Text className="text-xs">card</Text>
+                                <Text className="text-xs text-muted-foreground">Card background color</Text>
+                              </div>
+                              <div className="p-3 bg-muted rounded-md border border-border">
+                                <Text className="text-xs">muted</Text>
+                                <Text className="text-xs text-muted-foreground">Muted background color</Text>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Content Colors</Heading>
+                            <Text className="text-sm">Text and icon colors</Text>
+                            <div className="space-y-2 w-full bg-background p-3 rounded-md border border-border">
+                              <div>
+                                <Text className="text-foreground">foreground</Text>
+                                <Text className="text-xs text-muted-foreground">Primary text color</Text>
+                              </div>
+                              <div>
+                                <Text className="text-foreground-muted">foreground-muted</Text>
+                                <Text className="text-xs text-muted-foreground">Secondary text color</Text>
+                              </div>
+                              <div>
+                                <Text className="text-foreground-subtle">foreground-subtle</Text>
+                                <Text className="text-xs text-muted-foreground">Subtle text color</Text>
+                              </div>
+                              <div>
+                                <Text className="text-interactive">interactive</Text>
+                                <Text className="text-xs text-muted-foreground">Interactive text color</Text>
+                              </div>
+                            </div>
+                          </VStack>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Border Colors</Heading>
+                            <Text className="text-sm">Border and divider colors</Text>
+                            <div className="space-y-2 w-full">
+                              <div className="p-3 bg-background rounded-md border border-border">
+                                <Text className="text-xs">border</Text>
+                                <Text className="text-xs text-muted-foreground">Default border color</Text>
+                              </div>
+                              <div className="p-3 bg-background rounded-md border border-border-focus">
+                                <Text className="text-xs">border-focus</Text>
+                                <Text className="text-xs text-muted-foreground">Focus state border color</Text>
+                              </div>
+                              <div className="p-3 bg-background rounded-md border border-border-hover">
+                                <Text className="text-xs">border-hover</Text>
+                                <Text className="text-xs text-muted-foreground">Hover state border color</Text>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Interactive Colors</Heading>
+                            <Text className="text-sm">Colors for interactive elements</Text>
+                            <div className="space-y-2 w-full">
+                              <div className="p-3 bg-interactive rounded-md">
+                                <Text className="text-xs text-interactive-text">interactive</Text>
+                                <Text className="text-xs text-interactive-text/80">Default interactive color</Text>
+                              </div>
+                              <div className="p-3 bg-interactive-hover rounded-md">
+                                <Text className="text-xs text-interactive-text">interactive-hover</Text>
+                                <Text className="text-xs text-interactive-text/80">Hover state</Text>
+                              </div>
+                              <div className="p-3 bg-interactive-active rounded-md">
+                                <Text className="text-xs text-interactive-text">interactive-active</Text>
+                                <Text className="text-xs text-interactive-text/80">Active state</Text>
+                              </div>
+                              <div className="p-3 bg-interactive-muted rounded-md border border-border">
+                                <Text className="text-xs">interactive-muted</Text>
+                                <Text className="text-xs text-muted-foreground">Muted interactive color</Text>
+                              </div>
+                            </div>
+                          </VStack>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Status Colors</Heading>
+                            <Text className="text-sm">Feedback and status colors</Text>
+                            <div className="space-y-2 w-full">
+                              <div className="p-3 bg-success rounded-md">
+                                <Text className="text-xs text-success-foreground">success</Text>
+                                <Text className="text-xs text-success-foreground/80">Success state</Text>
+                              </div>
+                              <div className="p-3 bg-warning rounded-md">
+                                <Text className="text-xs text-warning-foreground">warning</Text>
+                                <Text className="text-xs text-warning-foreground/80">Warning state</Text>
+                              </div>
+                              <div className="p-3 bg-error rounded-md">
+                                <Text className="text-xs text-error-foreground">error</Text>
+                                <Text className="text-xs text-error-foreground/80">Error state</Text>
+                              </div>
+                              <div className="p-3 bg-info rounded-md">
+                                <Text className="text-xs text-info-foreground">info</Text>
+                                <Text className="text-xs text-info-foreground/80">Information state</Text>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Component Colors</Heading>
+                            <Text className="text-sm">Colors for specific UI components</Text>
+                            <div className="space-y-4 w-full">
+                              <div>
+                                <Text className="text-sm font-medium mb-2">Button</Text>
+                                <div className="flex gap-2">
+                                  <Button variant="solid" size="sm">Solid</Button>
+                                  <Button variant="outline" size="sm">Outline</Button>
+                                </div>
+                              </div>
+                              <div>
+                                <Text className="text-sm font-medium mb-2">Card</Text>
+                                <div className="p-3 bg-card rounded-md border border-border">
+                                  <Text className="text-xs">Card component</Text>
+                                </div>
+                              </div>
+                              <div>
+                                <Text className="text-sm font-medium mb-2">Banner</Text>
+                                <div className="p-2 bg-info-subtle rounded-md border border-info/30">
+                                  <Text className="text-xs text-info">Info banner</Text>
+                                </div>
+                              </div>
+                            </div>
+                          </VStack>
+                        </div>
+                      </VStack>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Theme System</CardTitle>
+                      <CardDescription>Multiple color themes with light and dark modes</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <VStack spacing={6}>
+                        <Text>
+                          Our theme system supports multiple color palettes and light/dark modes. Each theme consists of semantic color tokens
+                          that map to our base colors, providing a consistent look and feel while allowing for customization.
+                        </Text>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Theme Generation</Heading>
+                            <Text className="text-sm">
+                              Themes are generated using the <code>createThemeColors</code> function, which takes a primary color
+                              scale and optional secondary and accent colors.
+                            </Text>
+                            <div className="p-3 bg-muted rounded-md">
+                              <pre className="text-xs overflow-x-auto">
+                                <code>
+{`// Create a theme with teal as primary
+const tealTheme = createThemeColors(
+  baseColors.teal,
+  baseColors.gray,
+  baseColors.amber
+);`}
+                                </code>
+                              </pre>
+                            </div>
+                            <div className="grid grid-cols-1 gap-2">
+                              <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 rounded-full bg-blue-600"></div>
+                                <Text>Blue (Default)</Text>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 rounded-full bg-teal-600"></div>
+                                <Text>Teal</Text>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 rounded-full bg-purple-600"></div>
+                                <Text>Purple</Text>
+                              </div>
+                            </div>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Dark Mode</Heading>
+                            <Text className="text-sm">
+                              Each semantic color has a dark mode variant. The theme system automatically switches between
+                              light and dark mode based on user preference.
+                            </Text>
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="p-3 bg-background rounded-md border border-border">
+                                <Text className="text-xs">Light Mode</Text>
+                                <Text className="text-foreground text-sm">Text Color</Text>
+                              </div>
+                              <div className="p-3 bg-background-dark rounded-md border border-border-dark">
+                                <Text className="text-xs text-foreground-dark">Dark Mode</Text>
+                                <Text className="text-foreground-dark text-sm">Text Color</Text>
+                              </div>
+                            </div>
+                            <Text className="text-sm">
+                              Use the theme toggle in the sidebar to switch between light and dark mode.
+                            </Text>
+                          </VStack>
+                        </div>
+                        
+                        <Callout title="Using Semantic Colors">
+                          <Text>
+                            Always use semantic color tokens instead of base colors in your components. This ensures
+                            consistency and makes theme switching easier.
+                          </Text>
+                          <div className="mt-4 p-3 bg-muted rounded-md">
+                            <pre className="text-xs overflow-x-auto">
+                              <code>
+{`// Good
+<div className="bg-background text-foreground"></div>
+
+// Avoid
+<div className="bg-white text-gray-900"></div>`}
+                              </code>
+                            </pre>
+                          </div>
+                        </Callout>
+                      </VStack>
+                    </CardContent>
+                  </Card>
+                </VStack>
               </Section>
 
-              {/* Colors Section */}
-              <Section
-                id="colors"
-                title="Colors"
-                description="Color system and palette for consistent visual language"
+              {/* Layout & Spacing Section */}
+              <Section 
+                id="layout" 
+                title="Layout & Spacing" 
+                description="Consistent spacing and layout systems for harmonious interfaces."
               >
-                <div className="space-y-8">
-                  {/* Color Philosophy */}
-                  <Card id="colors-philosophy">
+                <VStack spacing={8}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Spacing System</CardTitle>
+                        <CardDescription>A consistent scale for margins and padding</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <VStack spacing={4}>
+                          <Text>
+                            Our spacing system uses a 4px grid as its foundation, creating a consistent rhythm throughout the interface.
+                          </Text>
+                          <div className="space-y-3 w-full">
+                            <div className="flex items-center gap-3">
+                              <div className="w-4 h-4 bg-primary/20 border border-primary/30"></div>
+                              <Text>4px (spacing-1) - Micro spacing</Text>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 bg-primary/20 border border-primary/30"></div>
+                              <Text>8px (spacing-2) - Compact elements</Text>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 bg-primary/20 border border-primary/30"></div>
+                              <Text>12px (spacing-3) - Related elements</Text>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-16 h-16 bg-primary/20 border border-primary/30"></div>
+                              <Text>16px (spacing-4) - Default spacing</Text>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <div className="w-24 h-24 bg-primary/20 border border-primary/30"></div>
+                              <Text>24px (spacing-6) - Section spacing</Text>
+                            </div>
+                          </div>
+                        </VStack>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Layout Principles</CardTitle>
+                        <CardDescription>Creating balanced and harmonious interfaces</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <VStack spacing={4}>
+                          <Text>
+                            Our layout system is built on a few core principles that ensure consistency and harmony across all interfaces.
+                          </Text>
+                          <div className="space-y-3 w-full">
+                            <div className="p-3 border rounded-md">
+                              <Text className="font-medium">Hierarchy</Text>
+                              <Text className="text-muted-foreground">Visual importance should be clear and intentional</Text>
+                            </div>
+                            <div className="p-3 border rounded-md">
+                              <Text className="font-medium">Consistency</Text>
+                              <Text className="text-muted-foreground">Similar elements should be treated similarly</Text>
+                            </div>
+                            <div className="p-3 border rounded-md">
+                              <Text className="font-medium">Proximity</Text>
+                              <Text className="text-muted-foreground">Related elements should be grouped together</Text>
+                            </div>
+                            <div className="p-3 border rounded-md">
+                              <Text className="font-medium">Alignment</Text>
+                              <Text className="text-muted-foreground">Elements should align to create visual order</Text>
+                            </div>
+                          </div>
+                        </VStack>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <Card>
                     <CardHeader>
-                      <CardTitle>Color Philosophy</CardTitle>
-                      <CardDescription>Our approach to color is built on flexibility, semantic meaning, and accessibility</CardDescription>
+                      <CardTitle>Stack Component</CardTitle>
+                      <CardDescription>A powerful way to manage spacing in your layouts</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-lg mb-4">
-                          Our color system is designed as a layered architecture that separates base colors from their semantic application, enabling consistent theming and customization.
-                        </p>
+                      <VStack spacing={6}>
+                        <Text>
+                          Our Stack component system makes it easy to create consistent spacing between elements. 
+                          It's inspired by Chakra UI and provides an intuitive way to handle both vertical and horizontal spacing.
+                        </Text>
                         
-                        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <div className="space-y-2">
-                            <h4 className="font-medium">Core Principles</h4>
-                            <ul className="space-y-2">
-                              <li><strong>Layered Architecture:</strong> Base colors are separate from semantic tokens</li>
-                              <li><strong>Context-Driven:</strong> Colors have meaning based on their context</li>
-                              <li><strong>Accessible:</strong> All color combinations meet WCAG AA standards</li>
-                              <li><strong>Themeable:</strong> Easy to customize for different brand identities</li>
-                              <li><strong>Dark Mode Support:</strong> All colors have light and dark variants</li>
-                            </ul>
-                          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Vertical Stack (VStack)</Heading>
+                            <Text>
+                              Creates consistent vertical spacing between elements. Perfect for typography and content sections.
+                            </Text>
+                            <div className="p-4 bg-muted rounded-md w-full">
+                              <VStack spacing={3} align="start">
+                                <Eyebrow>EXAMPLE</Eyebrow>
+                                <Heading variant="subtitle">Vertical Spacing</Heading>
+                                <Text>Each element has the same spacing between them.</Text>
+                                <Button size="sm">Action</Button>
+                              </VStack>
+                            </div>
+                          </VStack>
                           
-                          <div className="space-y-2">
-                            <h4 className="font-medium">Implementation Approach</h4>
-                            <ul className="space-y-2">
-                              <li><strong>Hex Format:</strong> Colors defined in hex for better compatibility with Tailwind v4</li>
-                              <li><strong>Flatter Structure:</strong> Simplified naming convention for easier usage</li>
-                              <li><strong>Tailwind Integration:</strong> Direct mapping to Tailwind utility classes</li>
-                              <li><strong>Semantic Naming:</strong> Named by purpose, not visual appearance</li>
-                              <li><strong>Component Tokens:</strong> Component-specific color tokens</li>
-                            </ul>
-                          </div>
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Horizontal Stack (HStack)</Heading>
+                            <Text>
+                              Creates consistent horizontal spacing between elements. Great for buttons, tags, and inline elements.
+                            </Text>
+                            <div className="p-4 bg-muted rounded-md w-full">
+                              <HStack spacing={3} align="center">
+                                <Button size="sm" variant="outline">Button 1</Button>
+                                <Button size="sm" variant="outline">Button 2</Button>
+                                <Button size="sm" variant="outline">Button 3</Button>
+                              </HStack>
+                            </div>
+                          </VStack>
                         </div>
-                      </div>
+                        
+                        <VStack spacing={4} className="p-4 border rounded-md">
+                          <Heading variant="subheading">Stack Props</Heading>
+                          <div className="w-full overflow-x-auto">
+                            <table className="min-w-full border-collapse">
+                              <thead>
+                                <tr className="border-b">
+                                  <th className="py-2 px-4 text-left">Prop</th>
+                                  <th className="py-2 px-4 text-left">Type</th>
+                                  <th className="py-2 px-4 text-left">Default</th>
+                                  <th className="py-2 px-4 text-left">Description</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr className="border-b">
+                                  <td className="py-2 px-4">spacing</td>
+                                  <td className="py-2 px-4">0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 12 | 16</td>
+                                  <td className="py-2 px-4">4</td>
+                                  <td className="py-2 px-4">The spacing between child elements</td>
+                                </tr>
+                                <tr className="border-b">
+                                  <td className="py-2 px-4">direction</td>
+                                  <td className="py-2 px-4">"row" | "column"</td>
+                                  <td className="py-2 px-4">"column"</td>
+                                  <td className="py-2 px-4">The direction of the stack</td>
+                                </tr>
+                                <tr className="border-b">
+                                  <td className="py-2 px-4">align</td>
+                                  <td className="py-2 px-4">"start" | "center" | "end" | "stretch"</td>
+                                  <td className="py-2 px-4">"stretch"</td>
+                                  <td className="py-2 px-4">How to align items on the cross axis</td>
+                                </tr>
+                                <tr className="border-b">
+                                  <td className="py-2 px-4">justify</td>
+                                  <td className="py-2 px-4">"start" | "center" | "end" | "between" | "around" | "evenly"</td>
+                                  <td className="py-2 px-4">"start"</td>
+                                  <td className="py-2 px-4">How to align items on the main axis</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </VStack>
+                      </VStack>
                     </CardContent>
                   </Card>
+                  
+                  <Callout title="When to Use Stack Components">
+                    <VStack spacing={3}>
+                      <Text>
+                        Stack components are ideal for creating consistent spacing relationships between elements. Use them when:
+                      </Text>
+                      <ul className="list-disc pl-6 space-y-2">
+                        <li>You need to maintain consistent spacing between multiple elements</li>
+                        <li>You want to create a clear visual hierarchy through spacing</li>
+                        <li>You need to align elements along a single axis</li>
+                        <li>You want to simplify responsive layout adjustments</li>
+                      </ul>
+                    </VStack>
+                  </Callout>
+                </VStack>
+              </Section>
 
-                  {/* Color System Architecture */}
-                  <Card id="colors-system">
+              {/* Components Section */}
+              <Section 
+                id="components" 
+                title="Components" 
+                description="Reusable UI building blocks for consistent interfaces."
+              >
+                <VStack spacing={8}>
+                  <Card>
                     <CardHeader>
-                      <CardTitle>System Architecture</CardTitle>
-                      <CardDescription>How our color system is structured for flexibility and consistency</CardDescription>
+                      <CardTitle>Button</CardTitle>
+                      <CardDescription>Interactive elements for user actions</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <p className="text-lg mb-4">
-                          Our color system follows a three-layer architecture that separates base colors from their application, enabling consistent theming and customization.
-                        </p>
+                      <VStack spacing={6}>
+                        <Text>
+                          Buttons allow users to take actions and make choices with a single tap. 
+                          Our button component supports various sizes, variants, and states.
+                        </Text>
                         
-                        <div className="bg-muted p-6 rounded-md mb-6">
-                          <h4 className="text-xl font-medium mb-3">Three-Layer Architecture</h4>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div className="bg-background p-4 rounded-md border">
-                              <div className="text-lg font-medium mb-2">1. Base Colors</div>
-                              <p className="text-base">Raw color values without semantic meaning</p>
-                              <div className="mt-3 text-base">
-                                <code>blue.500: "#0ea5e9"</code><br />
-                                <code>gray.200: "#e2e8f0"</code><br />
-                                <code>red.600: "#dc2626"</code>
-                              </div>
-                            </div>
-                            <div className="bg-background p-4 rounded-md border">
-                              <div className="text-lg font-medium mb-2">2. Semantic Tokens</div>
-                              <p className="text-base">Mapping base colors to their UI purpose with a flat structure</p>
-                              <div className="mt-3 text-base">
-                                <code>brand-primary: blue.600</code><br />
-                                <code>text: gray.900</code><br />
-                                <code>text-dark: gray.50</code>
-                              </div>
-                            </div>
-                            <div className="bg-background p-4 rounded-md border">
-                              <div className="text-lg font-medium mb-2">3. Component Tokens</div>
-                              <p className="text-base">Component-specific color applications</p>
-                              <div className="mt-3 text-base">
-                                <code>button.primary-bg: brand-primary</code><br />
-                                <code>card.bg: background</code><br />
-                                <code>alert.error-bg: error-subtle</code>
-                              </div>
-                            </div>
-                          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Variants</Heading>
+                            <VStack spacing={3} className="w-full">
+                              <HStack spacing={3} className="flex-wrap">
+                                <Button variant="default">Default</Button>
+                                <Button variant="destructive">Destructive</Button>
+                                <Button variant="outline">Outline</Button>
+                                <Button variant="secondary">Secondary</Button>
+                                <Button variant="ghost">Ghost</Button>
+                                <Button variant="link">Link</Button>
+                              </HStack>
+                            </VStack>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Color Schemes</Heading>
+                            <VStack spacing={3} className="w-full">
+                              <HStack spacing={3} className="flex-wrap">
+                                <Button colorScheme="primary">Primary</Button>
+                                <Button colorScheme="secondary">Secondary</Button>
+                                <Button colorScheme="destructive">Destructive</Button>
+                                <Button colorScheme="success">Success</Button>
+                                <Button colorScheme="warning">Warning</Button>
+                                <Button colorScheme="info">Info</Button>
+                              </HStack>
+                            </VStack>
+                          </VStack>
+                          
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Sizes</Heading>
+                            <HStack spacing={3} className="flex-wrap" align="center">
+                              <Button size="sm">Small</Button>
+                              <Button size="default">Default</Button>
+                              <Button size="lg">Large</Button>
+                              <Button size="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+                                  <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 002.25 21h15A2.25 2.25 0 0021.75 18.75m-18-9.5A2.25 2.25 0 004.5 7.5h15A2.25 2.25 0 0021.75 7.5m-18 9.5A2.25 2.25 0 002.25 18.75h15A2.25 2.25 0 0021.75 18.75" />
+                                </svg>
+                              </Button>
+                            </HStack>
+                          </VStack>
                         </div>
                         
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Tailwind v4 Alignment</h4>
-                          <div className="bg-background p-4 rounded-md">
-                            <p className="text-base">
-                              <strong>Note:</strong> Our color system now uses hex format for base colors and a flatter structure for semantic tokens, 
-                              aligning with Tailwind v4's approach. This simplifies usage and improves developer experience by reducing the complexity 
-                              of the color system while maintaining semantic meaning.
-                            </p>
-                          </div>
-                        </div>
+                        <VStack spacing={4} className="p-4 border rounded-md">
+                          <Heading variant="subheading">States</Heading>
+                          <HStack spacing={4} className="flex-wrap" align="center">
+                            <Button>Default</Button>
+                            <Button isLoading>Loading</Button>
+                            <Button disabled>Disabled</Button>
+                            <Button variant="outline">Outline</Button>
+                            <Button variant="outline" disabled>Disabled Outline</Button>
+                          </HStack>
+                        </VStack>
                         
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Benefits of This Approach</h4>
+                        <VStack spacing={4} className="p-4 border rounded-md">
+                          <Heading variant="subheading">Usage Guidelines</Heading>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Theme Customization</div>
-                              <p className="text-base">Change only base colors to create an entirely new theme while maintaining semantic relationships</p>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Dark Mode Support</div>
-                              <p className="text-base">Semantic tokens have both light and dark values, making dark mode implementation straightforward</p>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Consistency</div>
-                              <p className="text-base">Ensures consistent color usage across the entire interface</p>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <div className="text-lg font-medium mb-2">Maintainability</div>
-                              <p className="text-base">Easier to update and maintain as the system grows</p>
-                            </div>
+                            <VStack spacing={2} align="start">
+                              <Text className="font-medium">Do</Text>
+                              <ul className="list-disc pl-5 space-y-1">
+                                <li>Use the primary button for the main action</li>
+                                <li>Use clear, action-oriented labels</li>
+                                <li>Maintain consistent button styling across the interface</li>
+                              </ul>
+                            </VStack>
+                            <VStack spacing={2} align="start">
+                              <Text className="font-medium">Don't</Text>
+                              <ul className="list-disc pl-5 space-y-1">
+                                <li>Use too many buttons in a single view</li>
+                                <li>Use buttons for navigation (use links instead)</li>
+                                <li>Use vague labels like "Click Here"</li>
+                              </ul>
+                            </VStack>
                           </div>
-                        </div>
-                      </div>
+                        </VStack>
+                      </VStack>
                     </CardContent>
                   </Card>
-
-                  {/* Base Colors */}
-                  <Card id="colors-palette">
+                  
+                  <Card>
                     <CardHeader>
-                      <CardTitle>Base Color Palette</CardTitle>
-                      <CardDescription>The foundation colors that serve as building blocks for our system</CardDescription>
+                      <CardTitle>Card</CardTitle>
+                      <CardDescription>Container for related content and actions</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-lg mb-6">
-                        Our base palette consists of carefully crafted color scales in hex format. Each scale includes 11 steps from 50 (lightest) to 950 (darkest).
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        {/* Gray Scale */}
-                        <div className="border rounded-md overflow-hidden">
-                          <div className="p-4 border-b bg-muted/30">
-                            <h4 className="text-lg font-medium">Gray Scale</h4>
-                            <p className="text-base text-muted-foreground">Neutral colors for text, backgrounds, and borders</p>
-                          </div>
-                          <div className="p-4 flex flex-wrap gap-2">
-                            <div className="h-8 w-8 rounded bg-gray-50 border"></div>
-                            <div className="h-8 w-8 rounded bg-gray-100 border"></div>
-                            <div className="h-8 w-8 rounded bg-gray-200 border"></div>
-                            <div className="h-8 w-8 rounded bg-gray-300 border"></div>
-                            <div className="h-8 w-8 rounded bg-gray-400 border"></div>
-                            <div className="h-8 w-8 rounded bg-gray-500 border"></div>
-                            <div className="h-8 w-8 rounded bg-gray-600 border text-white flex items-center justify-center text-base">600</div>
-                            <div className="h-8 w-8 rounded bg-gray-700 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-gray-800 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-gray-900 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-gray-950 border text-white"></div>
-                          </div>
-                        </div>
-
-                        {/* Blue Scale */}
-                        <div className="border rounded-md overflow-hidden">
-                          <div className="p-4 border-b bg-muted/30">
-                            <h4 className="text-lg font-medium">Blue Scale</h4>
-                            <p className="text-base text-muted-foreground">Primary brand color for interactive elements</p>
-                          </div>
-                          <div className="p-4 flex flex-wrap gap-2">
-                            <div className="h-8 w-8 rounded bg-blue-50 border"></div>
-                            <div className="h-8 w-8 rounded bg-blue-100 border"></div>
-                            <div className="h-8 w-8 rounded bg-blue-200 border"></div>
-                            <div className="h-8 w-8 rounded bg-blue-300 border"></div>
-                            <div className="h-8 w-8 rounded bg-blue-400 border"></div>
-                            <div className="h-8 w-8 rounded bg-blue-500 border"></div>
-                            <div className="h-8 w-8 rounded bg-blue-600 border text-white flex items-center justify-center text-base">600</div>
-                            <div className="h-8 w-8 rounded bg-blue-700 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-blue-800 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-blue-900 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-blue-950 border text-white"></div>
-                          </div>
-                        </div>
-
-                        {/* Green Scale */}
-                        <div className="border rounded-md overflow-hidden">
-                          <div className="p-4 border-b bg-muted/30">
-                            <h4 className="text-lg font-medium">Green Scale</h4>
-                            <p className="text-base text-muted-foreground">Success states and positive indicators</p>
-                          </div>
-                          <div className="p-4 flex flex-wrap gap-2">
-                            <div className="h-8 w-8 rounded bg-green-50 border"></div>
-                            <div className="h-8 w-8 rounded bg-green-100 border"></div>
-                            <div className="h-8 w-8 rounded bg-green-200 border"></div>
-                            <div className="h-8 w-8 rounded bg-green-300 border"></div>
-                            <div className="h-8 w-8 rounded bg-green-400 border"></div>
-                            <div className="h-8 w-8 rounded bg-green-500 border"></div>
-                            <div className="h-8 w-8 rounded bg-green-600 border text-white flex items-center justify-center text-base">600</div>
-                            <div className="h-8 w-8 rounded bg-green-700 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-green-800 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-green-900 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-green-950 border text-white"></div>
-                          </div>
-                        </div>
-
-                        {/* Red Scale */}
-                        <div className="border rounded-md overflow-hidden">
-                          <div className="p-4 border-b bg-muted/30">
-                            <h4 className="text-lg font-medium">Red Scale</h4>
-                            <p className="text-base text-muted-foreground">Error states and destructive actions</p>
-                          </div>
-                          <div className="p-4 flex flex-wrap gap-2">
-                            <div className="h-8 w-8 rounded bg-red-50 border"></div>
-                            <div className="h-8 w-8 rounded bg-red-100 border"></div>
-                            <div className="h-8 w-8 rounded bg-red-200 border"></div>
-                            <div className="h-8 w-8 rounded bg-red-300 border"></div>
-                            <div className="h-8 w-8 rounded bg-red-400 border"></div>
-                            <div className="h-8 w-8 rounded bg-red-500 border"></div>
-                            <div className="h-8 w-8 rounded bg-red-600 border text-white flex items-center justify-center text-base">600</div>
-                            <div className="h-8 w-8 rounded bg-red-700 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-red-800 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-red-900 border text-white"></div>
-                            <div className="h-8 w-8 rounded bg-red-950 border text-white"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Semantic Colors */}
-                  <Card id="colors-semantic">
-                    <CardHeader>
-                      <CardTitle>Semantic Colors</CardTitle>
-                      <CardDescription>Purpose-driven colors that convey meaning in the interface</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-lg mb-6">
-                        Semantic colors map our base colors to specific purposes in the UI, with different values for light and dark modes.
-                      </p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Background Colors</h4>
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-background border"></div>
-                              <div>
-                                <div className="font-medium">Background</div>
-                                <div className="text-base text-muted-foreground">Primary background color</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-muted border"></div>
-                              <div>
-                                <div className="font-medium">Muted</div>
-                                <div className="text-base text-muted-foreground">Subdued background</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-card border"></div>
-                              <div>
-                                <div className="font-medium">Card</div>
-                                <div className="text-base text-muted-foreground">Card and surface background</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                      <VStack spacing={6}>
+                        <Text>
+                          Cards are used to group related content and actions. They can contain various elements such as text, images, and buttons.
+                        </Text>
                         
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Foreground Colors</h4>
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-foreground border"></div>
-                              <div>
-                                <div className="font-medium">Foreground</div>
-                                <div className="text-base text-muted-foreground">Primary text color</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-muted-foreground border"></div>
-                              <div>
-                                <div className="font-medium">Muted Foreground</div>
-                                <div className="text-base text-muted-foreground">Secondary text color</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-card-foreground border"></div>
-                              <div>
-                                <div className="font-medium">Card Foreground</div>
-                                <div className="text-base text-muted-foreground">Text on card surfaces</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Interactive Colors</h4>
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-primary border"></div>
-                              <div>
-                                <div className="font-medium">Primary</div>
-                                <div className="text-base text-muted-foreground">Main brand color</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-secondary border"></div>
-                              <div>
-                                <div className="font-medium">Secondary</div>
-                                <div className="text-base text-muted-foreground">Supporting color</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-accent border"></div>
-                              <div>
-                                <div className="font-medium">Accent</div>
-                                <div className="text-base text-muted-foreground">Highlight color</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Status Colors</h4>
-                          <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-destructive border"></div>
-                              <div>
-                                <div className="font-medium">Destructive</div>
-                                <div className="text-base text-muted-foreground">Error states</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-success border"></div>
-                              <div>
-                                <div className="font-medium">Success</div>
-                                <div className="text-base text-muted-foreground">Positive states</div>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-md bg-warning border"></div>
-                              <div>
-                                <div className="font-medium">Warning</div>
-                                <div className="text-base text-muted-foreground">Caution states</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Color Usage */}
-                  <Card id="colors-usage">
-                    <CardHeader>
-                      <CardTitle>Color Usage</CardTitle>
-                      <CardDescription>Guidelines for applying colors effectively in the interface</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="prose dark:prose-invert max-w-none">
-                        <h3 className="text-2xl font-medium mb-4">Best Practices</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Use semantic tokens</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Always use semantic color tokens rather than direct base colors</div>
-                            </div>
-                          </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <Card className="shadow-sm">
+                            <CardHeader>
+                              <CardTitle>Card Title</CardTitle>
+                              <CardDescription>Card description goes here</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <VStack spacing={3}>
+                                <Text>This is the main content area of the card.</Text>
+                                <Text className="text-muted-foreground">You can add any content here.</Text>
+                              </VStack>
+                            </CardContent>
+                            <CardFooter className="flex justify-end">
+                              <Button variant="outline" size="sm">Action</Button>
+                            </CardFooter>
+                          </Card>
                           
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Maintain contrast</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Ensure text has sufficient contrast with its background (WCAG AA minimum)</div>
-                            </div>
-                          </div>
-                          
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Be consistent</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Use colors consistently to reinforce their meaning</div>
-                            </div>
-                          </div>
-                          
-                          <div className="border p-5 rounded-md">
-                            <div className="text-xl font-medium mb-3">Don't rely on color alone</div>
-                            <div className="bg-muted p-4 rounded-md">
-                              <div className="text-base">Always pair color with other visual cues for accessibility</div>
-                            </div>
-                          </div>
+                          <VStack spacing={4} className="p-4 border rounded-md">
+                            <Heading variant="subheading">Card Composition</Heading>
+                            <VStack spacing={2} align="start">
+                              <Text className="font-medium">Card Components</Text>
+                              <ul className="list-disc pl-5 space-y-1">
+                                <li><code>Card</code> - The main container</li>
+                                <li><code>CardHeader</code> - Contains title and description</li>
+                                <li><code>CardTitle</code> - The card's title</li>
+                                <li><code>CardDescription</code> - Supporting text</li>
+                                <li><code>CardContent</code> - Main content area</li>
+                                <li><code>CardFooter</code> - Actions area, typically at the bottom</li>
+                              </ul>
+                            </VStack>
+                          </VStack>
                         </div>
                         
-                        <div className="bg-muted p-6 rounded-md">
-                          <h4 className="text-xl font-medium mb-3">Usage Examples</h4>
+                        <VStack spacing={4} className="p-4 border rounded-md">
+                          <Heading variant="subheading">Usage Guidelines</Heading>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-background p-4 rounded-md">
-                              <p className="text-base mb-2"><strong>✅ Do:</strong> Use semantic tokens</p>
-                              <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                                {`// Good: Using semantic tokens
-<Button variant="destructive">
-  Delete Account
-</Button>
-
-<div className="bg-card p-4">
-  Card content
-</div>`}
-                              </pre>
-                            </div>
-                            <div className="bg-background p-4 rounded-md">
-                              <p className="text-base mb-2"><strong>❌ Don't:</strong> Use base colors directly</p>
-                              <pre className="text-base bg-muted p-2 rounded overflow-x-auto">
-                                {`// Bad: Using base colors directly
-<button className="bg-red-600 text-white">
-  Delete Account
-</button>
-
-<div className="bg-gray-100 p-4">
-  Card content
-</div>`}
-                              </pre>
-                            </div>
+                            <VStack spacing={2} align="start">
+                              <Text className="font-medium">Do</Text>
+                              <ul className="list-disc pl-5 space-y-1">
+                                <li>Use cards to group related content</li>
+                                <li>Keep card content concise and focused</li>
+                                <li>Use consistent card styling across the interface</li>
+                              </ul>
+                            </VStack>
+                            <VStack spacing={2} align="start">
+                              <Text className="font-medium">Don't</Text>
+                              <ul className="list-disc pl-5 space-y-1">
+                                <li>Overload cards with too much content</li>
+                                <li>Nest cards within cards</li>
+                                <li>Use cards for single elements that don't need grouping</li>
+                              </ul>
+                            </VStack>
                           </div>
-                        </div>
-                      </div>
+                        </VStack>
+                      </VStack>
                     </CardContent>
                   </Card>
-                </div>
+                </VStack>
+              </Section>
+
+              {/* Base Components Section */}
+              <Section 
+                id="base" 
+                title="Base Components" 
+                description="Foundational UI elements for building interfaces."
+              >
+                <VStack spacing={8}>
+                  <Text>
+                    Base components are the fundamental building blocks of our design system.
+                    They provide the foundation for more complex components and patterns.
+                  </Text>
+                </VStack>
               </Section>
             </main>
           </div>

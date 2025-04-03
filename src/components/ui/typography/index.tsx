@@ -5,6 +5,10 @@ export * from "./paragraph";
 export * from "./caption";
 export * from "./vertical-rhythm";
 export * from "./prose";
+export * from "./eyebrow";
 
 // Re-export TextLabel (renamed from Label)
 export { TextLabel, textLabelVariants } from "./label";
+
+// Explicitly export Eyebrow component
+export { Eyebrow, eyebrowVariants } from "./eyebrow";

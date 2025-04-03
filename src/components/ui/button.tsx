@@ -2,50 +2,108 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
 
+// Button class utilities for the dual API
+export const buttonClasses = {
+  base: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 relative",
+  
+  // Variant classes (style)
+  variant: {
+    solid: "bg-interactive hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active text-interactive-text",
+    outline: "border border-border bg-background hover:bg-background-hover active:bg-background-active text-foreground",
+    ghost: "text-foreground hover:bg-background-hover active:bg-background-active",
+    link: "text-interactive underline-offset-4 hover:underline active:text-interactive-hover",
+  },
+  
+  // Color scheme classes
+  colorScheme: {
+    primary: "bg-interactive text-interactive-text hover:bg-interactive-hover",
+    secondary: "bg-interactive-secondary text-interactive-secondaryText hover:bg-interactive-secondaryHover",
+    destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+    success: "bg-success text-success-foreground hover:bg-success/90",
+    warning: "bg-warning text-warning-foreground hover:bg-warning/90",
+    info: "bg-info text-info-foreground hover:bg-info/90",
+  },
+  
+  // Size classes
+  size: {
+    xs: "h-8 px-2 text-xs min-w-[4rem] rounded-sm",
+    sm: "h-9 px-3 text-xs min-w-[4.5rem] rounded-md",
+    md: "h-10 px-4 py-2 min-w-[6rem] rounded-md",
+    lg: "h-11 px-6 text-base min-w-[8rem] rounded-md",
+    xl: "h-12 px-8 text-lg min-w-[10rem] rounded-lg",
+    icon: "h-10 w-10 p-0 min-w-0 rounded-md",
+    // For backward compatibility
+    default: "h-10 px-4 py-2 min-w-[6rem] rounded-md",
+  },
+  
+  // Shape classes for icon buttons
+  shape: {
+    default: "",
+    circle: "rounded-full aspect-square p-0",
+    square: "aspect-square p-0",
+  },
+  
+  // Elevation classes
+  elevation: {
+    flat: "",
+    raised: "shadow-sm hover:shadow-md active:shadow-sm",
+    elevated: "shadow-md hover:shadow-lg active:shadow-md",
+  },
+  
+  // State classes
+  state: {
+    loading: "opacity-80 cursor-wait",
+    disabled: "opacity-50 cursor-not-allowed",
+    fullWidth: "w-full",
+  },
+};
+
+// Define types for the button variants
+type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link' | 'brand' | 'success' | 'warning' | 'info' | 'default' | 'solid';
+type ButtonSize = 'default' | 'sm' | 'lg' | 'icon' | 'mobile' | 'md';
+type ButtonElevation = 'flat' | 'raised' | 'elevated';
+
+// Legacy buttonVariants for backward compatibility
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 relative',
+  buttonClasses.base,
   {
     variants: {
       variant: {
-        default:
-          'bg-button-background text-button-text hover:bg-button-background/90 active:scale-[0.98] active:bg-button-background/95',
-        destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90 active:scale-[0.98] active:bg-destructive/95',
-        outline:
-          'border border-input bg-background hover:bg-accent hover:text-accent-foreground active:scale-[0.98] active:bg-accent/95',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80 active:scale-[0.98] active:bg-secondary/90',
-        ghost:
-          'hover:bg-accent hover:text-accent-foreground active:scale-[0.98] active:bg-accent/95',
-        link: 'text-primary underline-offset-4 hover:underline active:text-primary/90',
-        brand:
-          'bg-button-background text-button-text hover:bg-button-background/90 active:scale-[0.98] active:bg-button-background/95',
-        success:
-          'bg-success text-success-foreground hover:bg-success/90 active:scale-[0.98] active:bg-success/95',
-        warning:
-          'bg-warning text-warning-foreground hover:bg-warning/90 active:scale-[0.98] active:bg-warning/95',
-        info: 'bg-info text-info-foreground hover:bg-info/90 active:scale-[0.98] active:bg-info/95',
+        primary: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
+        secondary: "bg-interactive-secondary hover:bg-interactive-secondaryHover active:bg-interactive-secondaryActive text-interactive-secondaryText",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80",
+        outline: "border border-border bg-background hover:bg-background-hover active:bg-background-active text-foreground",
+        ghost: "hover:bg-background-hover active:bg-background-active text-foreground",
+        link: "text-interactive underline-offset-4 hover:underline",
+        brand: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
+        success: "bg-success text-success-foreground hover:bg-success/90 active:scale-[0.98] active:bg-success/95",
+        warning: "bg-warning text-warning-foreground hover:bg-warning/90 active:scale-[0.98] active:bg-warning/95",
+        info: "bg-info text-info-foreground hover:bg-info/90 active:scale-[0.98] active:bg-info/95",
+        // For backward compatibility
+        default: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
+        solid: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
       },
       size: {
-        default: 'h-10 px-4 py-2 min-w-[6rem]',
-        sm: 'h-9 rounded-md px-3 text-xs min-w-[4.5rem]',
-        lg: 'h-11 rounded-md px-8 text-base min-w-[8rem]',
-        icon: 'h-10 w-10 min-w-0',
-        mobile: 'h-12 px-5 py-3 min-w-[6rem] text-base', // Optimized for thumb zone on mobile
+        default: buttonClasses.size.md,
+        sm: buttonClasses.size.sm,
+        lg: buttonClasses.size.lg,
+        icon: buttonClasses.size.icon,
+        mobile: "h-12 px-5 py-3 min-w-[6rem] text-base", // Optimized for thumb zone on mobile
+        // For backward compatibility
+        md: buttonClasses.size.md,
       },
       fullWidth: {
-        true: 'w-full',
+        true: buttonClasses.state.fullWidth,
       },
       elevation: {
-        flat: '',
-        raised: 'shadow-sm',
-        elevated: 'shadow-md',
+        flat: buttonClasses.elevation.flat,
+        raised: buttonClasses.elevation.raised,
+        elevated: buttonClasses.elevation.elevated,
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: 'primary',
       size: 'default',
       fullWidth: false,
       elevation: 'flat',
@@ -57,68 +115,127 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
+  // Common props
   asChild?: boolean;
-  fullWidth?: boolean;
-  elevation?: 'flat' | 'raised' | 'elevated';
+  
+  // Prop-based API (Chakra-like)
+  colorScheme?: "primary" | "secondary" | "destructive" | "success" | "warning" | "info";
+  isLoading?: boolean;
+  isDisabled?: boolean;
+  isFullWidth?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  shape?: "default" | "circle" | "square";
+  
+  // Legacy loading prop for backward compatibility
   loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
+      // Common props
       className,
-      variant,
-      size,
-      elevation,
-      fullWidth,
       asChild = false,
-      loading,
       children,
+      
+      // Legacy props (for backward compatibility)
+      variant = 'primary',
+      size = 'default',
+      elevation = 'flat',
+      fullWidth = false,
+      loading,
       disabled,
+      
+      // Prop-based API (Chakra-like)
+      colorScheme,
+      isLoading = loading || false,
+      isDisabled = disabled || false,
+      isFullWidth = fullWidth,
+      leftIcon,
+      rightIcon,
+      shape = "default",
+      
       ...props
     },
     ref
   ) => {
     const Comp = asChild ? Slot : 'button';
+    
+    // Determine if we're using legacy variant props or new colorScheme
+    const hasColorScheme = !!colorScheme;
+    
+    // Ensure variant and size are valid
+    const validVariant = (variant as ButtonVariant) || 'primary';
+    const validSize = (size as ButtonSize) || 'default';
+    
+    // Generate appropriate classes
+    const classes = cn(
+      // Base button classes
+      buttonClasses.base,
+      
+      // Apply variant/colorScheme
+      hasColorScheme ? (
+        // New API: separate variant and colorScheme
+        buttonClasses.variant[(validVariant === 'default' ? 'solid' : validVariant) as keyof typeof buttonClasses.variant],
+        buttonClasses.colorScheme[colorScheme as keyof typeof buttonClasses.colorScheme]
+      ) : (
+        // Legacy API: combined variant
+        buttonVariants({ 
+          variant: validVariant, 
+          size: validSize, 
+          fullWidth: isFullWidth, 
+          elevation: elevation as ButtonElevation
+        })
+      ),
+      
+      // Apply shape for icon buttons
+      buttonClasses.shape[shape],
+      
+      // Apply states
+      isFullWidth && buttonClasses.state.fullWidth,
+      isLoading && buttonClasses.state.loading,
+      isDisabled && buttonClasses.state.disabled,
+      
+      // Apply custom classes
+      className
+    );
+    
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, fullWidth, elevation, className }))}
+        className={classes}
         ref={ref}
-        disabled={disabled || loading}
-        aria-busy={loading}
+        disabled={isDisabled || isLoading}
+        aria-busy={isLoading}
+        data-component="button"
+        data-button-variant={variant}
+        data-button-color-scheme={colorScheme}
+        data-button-size={size}
+        data-button-shape={shape}
         {...props}
       >
-        {loading ? (
-          <span className="flex items-center justify-center">
-            <svg
-              className="mr-2 -ml-1 h-4 w-4 animate-spin"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
+        {isLoading && (
+          <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            {children}
           </span>
-        ) : (
-          children
         )}
+        
+        <span className={cn(
+          "flex items-center gap-2",
+          isLoading && "invisible"
+        )}>
+          {leftIcon && <span className="inline-flex">{leftIcon}</span>}
+          {children}
+          {rightIcon && <span className="inline-flex">{rightIcon}</span>}
+        </span>
       </Comp>
     );
   }
 );
-Button.displayName = 'Button';
+
+Button.displayName = "Button";
 
 export { Button, buttonVariants };

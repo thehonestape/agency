@@ -6,14 +6,13 @@
 export { ThemeProvider, useTheme, type ThemeMode } from './theme-provider';
 
 // Export theme switcher component
-export { ThemeSwitcher, type ThemeSwitcherProps } from './theme-switcher';
+export { ThemeSwitcher } from './theme-switcher';
+export type { ThemeSwitcherProps } from './theme-switcher';
 
 // Export token system
 export { 
-  colorTokens, 
-  defaultTheme, 
-  hslToString,
-  type HSLColor 
+  defaultTheme,
+  colorTokens
 } from './tokens';
 
 // Export CSS variable utilities

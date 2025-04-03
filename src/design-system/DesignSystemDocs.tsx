@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Button,
   Card,
@@ -6,14 +6,9 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
   Switch,
 } from '../components/ui';
-import { useTheme, ThemeId } from '../lib/theme-context';
+import { useTheme } from '../lib/ThemeProvider';
 import { themeRegistry } from '../lib/theme-registry';
 import { registerAllThemes } from '../lib/theme-adapters/register-all-themes';
 
@@ -24,7 +19,21 @@ interface Section {
 }
 
 export const DesignSystemDocs = () => {
-  const { currentThemeId, setTheme, isDarkMode, toggleDarkMode } = useTheme();
+  const { theme, setTheme, isDark } = useTheme();
+  const mode = theme.split('-')[1];
+  
+  // Function to set the mode while preserving the color palette
+  const setMode = (newMode: 'light' | 'dark') => {
+    const [colorPalette] = theme.split('-');
+    setTheme(`${colorPalette}-${newMode}` as any);
+  };
+  
+  // Toggle between light and dark mode
+  const toggleMode = () => {
+    const [colorPalette, currentMode] = theme.split('-');
+    const newMode = currentMode === 'light' ? 'dark' : 'light';
+    setTheme(`${colorPalette}-${newMode}` as any);
+  };
   const [activeSection, setActiveSection] = useState('intro');
   const [themeChanged, setThemeChanged] = useState(0);
   const [availableThemes, setAvailableThemes] = useState<Array<any>>([]);
@@ -32,17 +41,22 @@ export const DesignSystemDocs = () => {
 
   // Ensure all themes are registered
   useEffect(() => {
+    // Register all themes
     registerAllThemes();
-    // Get all available themes from registry
-    setAvailableThemes(themeRegistry.getAllThemes());
-  }, []);
+    
+    // Get available themes
+    const themes = themeRegistry.getAllThemes();
+    setAvailableThemes(themes);
+    
+    console.log(`Current theme mode: ${mode}, isDark: ${isDark}`);
+  }, [mode, isDark]);
 
   // Update theme changed counter when theme changes
   useEffect(() => {
     setThemeChanged(prev => prev + 1);
     // Refresh available themes
     setAvailableThemes(themeRegistry.getAllThemes());
-  }, [currentThemeId, isDarkMode]);
+  }, [mode, isDark]);
 
   // Define sections with introduction first
   const sections: Section[] = [
@@ -98,12 +112,14 @@ export const DesignSystemDocs = () => {
   };
 
   // Function to handle theme change
-  const handleThemeChange = (themeId: string) => {
-    setTheme(themeId as ThemeId);
-    // Force select components to rerender after a short delay
-    setTimeout(() => {
-      setThemeChanged(prev => prev + 1);
-    }, 100);
+  const handleThemeChange = (themeValue: string) => {
+    // For backward compatibility, check if the theme contains 'dark'
+    if (themeValue.includes('dark')) {
+      setMode('dark');
+    } else {
+      setMode('light');
+    }
+    setThemeChanged(prev => prev + 1);
   };
 
   return (
@@ -125,35 +141,13 @@ export const DesignSystemDocs = () => {
               {/* Row 1: Light/Dark Toggle */}
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm">Mode</span>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs text-muted-foreground">Light</span>
-                  <Switch 
-                    checked={isDarkMode} 
-                    onCheckedChange={toggleDarkMode} 
-                    aria-label="Toggle dark mode"
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Dark Mode</span>
+                  <Switch
+                    checked={isDark}
+                    onCheckedChange={toggleMode}
                   />
-                  <span className="text-xs text-muted-foreground">Dark</span>
                 </div>
-              </div>
-              
-              {/* Row 2: Theme Family Selector */}
-              <div>
-                <Select 
-                  value={currentThemeId} 
-                  onValueChange={handleThemeChange}
-                  key={`theme-selector-${themeChanged}`}
-                >
-                  <SelectTrigger className="w-full" data-theme-refreshable>
-                    <SelectValue placeholder="Select a theme" />
-                  </SelectTrigger>
-                  <SelectContent data-theme-refreshable>
-                    {availableThemes?.map(theme => (
-                      <SelectItem key={`${theme.metadata.id}-${themeChanged}`} value={theme.metadata.id} data-theme-refreshable>
-                        {theme.metadata.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               </div>
             </div>
             
@@ -253,7 +247,7 @@ export const DesignSystemDocs = () => {
                         key={`theme-button-${theme.metadata.id}-${themeChanged}`}
                         onClick={() => handleThemeChange(theme.metadata.id)}
                         className={`p-4 text-left rounded-lg border transition-all ${
-                          currentThemeId === theme.metadata.id
+                          mode === (theme.metadata.id.includes('dark') ? 'dark' : 'light')
                             ? 'border-primary bg-primary/5 shadow-sm'
                             : 'border-border hover:border-primary/50 hover:bg-background'
                         }`}
@@ -269,9 +263,9 @@ export const DesignSystemDocs = () => {
                   <h3 className="text-xl font-semibold mb-6">Theme Demo</h3>
                   <div className="border border-border rounded-lg p-6 space-y-6">
                     <div>
-                      <p className="mb-2">Current theme: <span className="font-semibold">{currentThemeId}</span></p>
+                      <p className="mb-2">Current theme mode: <span className="font-semibold">{mode}</span></p>
                       <p className="text-sm text-muted-foreground">
-                        {availableThemes?.find(theme => theme?.metadata?.id === currentThemeId)?.metadata?.description || 'Theme description'}
+                        {availableThemes?.find(theme => theme?.metadata?.id === (mode === 'dark' ? 'dark' : 'light'))?.metadata?.description || 'Theme description'}
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-4">
@@ -322,6 +316,17 @@ export const DesignSystemDocs = () => {
                       <div className="flex flex-col items-center">
                         <div className="w-12 h-12 rounded-full border border-border"></div>
                         <div className="text-xs mt-2">Border</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-4 mt-4">
+                      <div className="p-4 bg-background border border-border rounded-md">
+                        <span className="font-semibold">Background</span>
+                        <div className="mt-2 space-y-2">
+                          <div className="h-8 bg-background border border-border rounded flex items-center px-2">Default</div>
+                          <div className="h-8 bg-background-subtle border border-border rounded flex items-center px-2">Subtle</div>
+                          <div className="h-8 bg-background-muted border border-border rounded flex items-center px-2">Muted</div>
+                        </div>
                       </div>
                     </div>
                   </div>
