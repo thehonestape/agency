@@ -6,6 +6,7 @@ export * from "./caption";
 export * from "./vertical-rhythm";
 export * from "./prose";
 export * from "./eyebrow";
+export * from "./code";
 
 // Re-export TextLabel (renamed from Label)
 export { TextLabel, textLabelVariants } from "./label";

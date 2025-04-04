@@ -9,41 +9,97 @@
 
 /* Define base theme variables */
 @theme {
+  /* Surface Colors - Used for backgrounds of different UI elements */
+  --background: 255 255 255;
+  --foreground: 15 23 42;
+  --background-subtle: 248 250 252;
+  --background-muted: 241 245 249;
+  --background-hover: 248 250 252;
+  --background-active: 241 245 249;
+  --background-disabled: 248 250 252;
+  
+  /* Card and Popover Surfaces */
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --card-hover: 248 250 252;
+  --card-border: 226 232 240;
+  
+  --popover: 255 255 255;
+  --popover-foreground: 15 23 42;
+  
   /* Primary colors */
-  --primary: 14 165 233;
+  --primary: 37 99 235;
   --primary-foreground: 255 255 255;
+  --primary-subtle: 239 246 255;
+  --primary-hover: 29 78 216;
+  --primary-active: 30 64 175;
   
   /* Secondary colors */
   --secondary: 241 245 249;
   --secondary-foreground: 15 23 42;
+  --secondary-hover: 226 232 240;
+  --secondary-active: 203 213 225;
   
-  /* Background colors */
-  --background: 255 255 255;
-  --foreground: 15 23 42; 
+  /* Accent colors */
+  --accent: 236 72 153;
+  --accent-foreground: 255 255 255;
+  --accent-subtle: 253 242 248;
+  
+  /* Muted Colors */
   --muted: 241 245 249;
   --muted-foreground: 100 116 139;
   
-  /* Accent colors */
-  --accent: 245 158 11;
-  --accent-foreground: 255 255 255;
+  /* Interactive Colors */
+  --interactive-default: 37 99 235;
+  --interactive-hover: 29 78 216;
+  --interactive-active: 30 64 175;
+  --interactive-subtle: 239 246 255;
+  --interactive-on-interactive: 255 255 255;
+  --interactive-secondary: 226 232 240;
+  --interactive-secondary-hover: 203 213 225;
+  --interactive-secondary-active: 148 163 184;
+  --interactive-on-secondary: 15 23 42;
   
-  /* Border colors - aligned with semantic tokens */
-  --border: 226 232 240; /* This maps to baseColors.gray[200] */
-  --destructive: 239 68 68;
-  --destructive-foreground: 255 255 255;
+  /* Content Colors - Used for text, icons, and other content */
+  --content-primary: 15 23 42;
+  --content-secondary: 71 85 105;
+  --content-muted: 100 116 139;
+  --content-placeholder: 148 163 184;
+  --content-disabled: 148 163 184;
+  --content-inverted: 255 255 255;
+  --content-brand: 30 64 175;
+  
+  /* State Colors */
   --success: 34 197 94;
   --success-foreground: 255 255 255;
+  --success-subtle: 220 252 231;
+  --success-border: 134 239 172;
+  
   --warning: 245 158 11;
   --warning-foreground: 255 255 255;
+  --warning-subtle: 254 243 199;
+  --warning-border: 252 211 77;
+  
+  --destructive: 239 68 68;
+  --destructive-foreground: 255 255 255;
+  --destructive-subtle: 254 226 226;
+  --destructive-border: 252 165 165;
+  
   --info: 59 130 246;
   --info-foreground: 255 255 255;
-  --card: 255 255 255;
-  --card-foreground: 15 23 42;
-  --popover: 255 255 255;
-  --popover-foreground: 15 23 42;
+  --info-subtle: 219 234 254;
+  --info-border: 147 197 253;
+  
+  /* Border and Ring */
   --border: 226 232 240;
+  --border-subtle: 241 245 249;
+  --border-strong: 203 213 225;
+  --border-focus: 59 130 246;
+  --border-hover: 203 213 225;
+  --border-disabled: 226 232 240;
+  
   --input: 226 232 240;
-  --ring: 14 165 233;
+  --ring: 59 130 246;
   --radius: 0.5rem;
 }
 
@@ -117,30 +173,95 @@
 @layer base {
   /* Blue theme - light */
   [data-theme="blue-light"] {
+    /* Surface Colors - Used for backgrounds of different UI elements */
     --background: 255 255 255;
     --foreground: 15 23 42;
-    --card: 255 255 255;
+    --background-subtle: 248 250 252;
+    --background-muted: 241 245 249;
+    --background-hover: 248 250 252;
+    --background-active: 241 245 249;
+    --background-disabled: 248 250 252;
+    
+    /* Card and Popover Surfaces */
+    --card: 248 250 252;
     --card-foreground: 15 23 42;
+    --card-hover: 248 250 252;
+    --card-border: 226 232 240;
+    
     --popover: 255 255 255;
     --popover-foreground: 15 23 42;
+    
+    /* Primary colors */
     --primary: 14 165 233;
     --primary-foreground: 255 255 255;
-    --secondary: 241 245 249;
+    --primary-subtle: 224 242 254;
+    --primary-hover: 2 132 199;
+    --primary-active: 3 105 161;
+    
+    /* Secondary colors */
+    --secondary: 226 232 240;
     --secondary-foreground: 15 23 42;
-    --muted: 241 245 249;
-    --border: 226 232 240;
-    --muted-foreground: 100 116 139;
+    --secondary-hover: 203 213 225;
+    --secondary-active: 148 163 184;
+    
+    /* Accent colors */
     --accent: 245 158 11;
     --accent-foreground: 255 255 255;
-    --destructive: 239 68 68;
-    --destructive-foreground: 255 255 255;
+    --accent-subtle: 255 247 237;
+    
+    /* Muted Colors */
+    --muted: 241 245 249;
+    --muted-foreground: 100 116 139;
+    
+    /* Interactive Colors */
+    --interactive-default: 37 99 235;
+    --interactive-hover: 29 78 216;
+    --interactive-active: 30 64 175;
+    --interactive-subtle: 239 246 255;
+    --interactive-on-interactive: 255 255 255;
+    --interactive-secondary: 226 232 240;
+    --interactive-secondary-hover: 203 213 225;
+    --interactive-secondary-active: 148 163 184;
+    --interactive-on-secondary: 15 23 42;
+    
+    /* Content Colors - Used for text, icons, and other content */
+    --content-primary: 15 23 42;
+    --content-secondary: 71 85 105;
+    --content-muted: 100 116 139;
+    --content-placeholder: 148 163 184;
+    --content-disabled: 148 163 184;
+    --content-inverted: 255 255 255;
+    --content-brand: 37 99 235;
+    
+    /* State Colors */
     --success: 34 197 94;
     --success-foreground: 255 255 255;
+    --success-subtle: 220 252 231;
+    --success-border: 134 239 172;
+    
     --warning: 245 158 11;
     --warning-foreground: 255 255 255;
+    --warning-subtle: 254 243 199;
+    --warning-border: 252 211 77;
+    
+    --destructive: 239 68 68;
+    --destructive-foreground: 255 255 255;
+    --destructive-subtle: 254 226 226;
+    --destructive-border: 252 165 165;
+    
     --info: 59 130 246;
     --info-foreground: 255 255 255;
+    --info-subtle: 219 234 254;
+    --info-border: 147 197 253;
+    
+    /* Border and Ring */
     --border: 226 232 240;
+    --border-subtle: 241 245 249;
+    --border-strong: 203 213 225;
+    --border-focus: 14 165 233;
+    --border-hover: 203 213 225;
+    --border-disabled: 226 232 240;
+    
     --input: 226 232 240;
     --ring: 14 165 233;
   }
@@ -208,8 +329,8 @@
   [data-theme="green-dark"] {
     --background: 5 46 22;
     --foreground: 240 253 244;
-    --card: 20 83 45;
-    --card-foreground: 240 253 244;
+    --card: 30 41 59;
+    --card-foreground: 248 250 252;
     --popover: 20 83 45;
     --popover-foreground: 240 253 244;
     --primary: 74 222 128;

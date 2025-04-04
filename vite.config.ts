@@ -1,17 +1,19 @@
-import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import * as path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    tailwindcss(),
     react(),
+    tailwindcss(),
   ],
   css: {
-    // Enable CSS source maps in development
-    devSourcemap: true
+    devSourcemap: true, // Optional: good for debugging
+    postcss: {
+      // PostCSS configuration is handled in postcss.config.mjs
+    },
   },
   resolve: {
     alias: {

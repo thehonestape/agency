@@ -9,14 +9,10 @@ import './styles/globals.css'
 import './styles/tremor.css'
 import './styles/blocknote.css'
 import './styles/app.css'
-import { initializeTheme } from './lib/theme-init'
 import registerAllUIComponents from './lib/register-ui-components'
 
 // Register all UI components with the component registry
 registerAllUIComponents();
-
-// Initialize theme based on user preference
-initializeTheme();
 
 // Display app identity in console
 const appName = import.meta.env.VITE_APP_NAME || 'Agency App';

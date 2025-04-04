@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { useTheme } from "@/lib/ThemeProvider";
+import { ButtonDocumentation } from "@/components/design-system/documentation";
 
 // Main Design Docs Page
 const DesignDocsPage = () => {
@@ -1361,97 +1362,7 @@ const tealTheme = createThemeColors(
                 description="Reusable UI building blocks for consistent interfaces."
               >
                 <VStack spacing={8}>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Button</CardTitle>
-                      <CardDescription>Interactive elements for user actions</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <VStack spacing={6}>
-                        <Text>
-                          Buttons allow users to take actions and make choices with a single tap. 
-                          Our button component supports various sizes, variants, and states.
-                        </Text>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <VStack spacing={4} className="p-4 border rounded-md">
-                            <Heading variant="subheading">Variants</Heading>
-                            <VStack spacing={3} className="w-full">
-                              <HStack spacing={3} className="flex-wrap">
-                                <Button variant="default">Default</Button>
-                                <Button variant="destructive">Destructive</Button>
-                                <Button variant="outline">Outline</Button>
-                                <Button variant="secondary">Secondary</Button>
-                                <Button variant="ghost">Ghost</Button>
-                                <Button variant="link">Link</Button>
-                              </HStack>
-                            </VStack>
-                          </VStack>
-                          
-                          <VStack spacing={4} className="p-4 border rounded-md">
-                            <Heading variant="subheading">Color Schemes</Heading>
-                            <VStack spacing={3} className="w-full">
-                              <HStack spacing={3} className="flex-wrap">
-                                <Button colorScheme="primary">Primary</Button>
-                                <Button colorScheme="secondary">Secondary</Button>
-                                <Button colorScheme="destructive">Destructive</Button>
-                                <Button colorScheme="success">Success</Button>
-                                <Button colorScheme="warning">Warning</Button>
-                                <Button colorScheme="info">Info</Button>
-                              </HStack>
-                            </VStack>
-                          </VStack>
-                          
-                          <VStack spacing={4} className="p-4 border rounded-md">
-                            <Heading variant="subheading">Sizes</Heading>
-                            <HStack spacing={3} className="flex-wrap" align="center">
-                              <Button size="sm">Small</Button>
-                              <Button size="default">Default</Button>
-                              <Button size="lg">Large</Button>
-                              <Button size="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-                                  <path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 002.25 21h15A2.25 2.25 0 0021.75 18.75m-18-9.5A2.25 2.25 0 004.5 7.5h15A2.25 2.25 0 0021.75 7.5m-18 9.5A2.25 2.25 0 002.25 18.75h15A2.25 2.25 0 0021.75 18.75" />
-                                </svg>
-                              </Button>
-                            </HStack>
-                          </VStack>
-                        </div>
-                        
-                        <VStack spacing={4} className="p-4 border rounded-md">
-                          <Heading variant="subheading">States</Heading>
-                          <HStack spacing={4} className="flex-wrap" align="center">
-                            <Button>Default</Button>
-                            <Button isLoading>Loading</Button>
-                            <Button disabled>Disabled</Button>
-                            <Button variant="outline">Outline</Button>
-                            <Button variant="outline" disabled>Disabled Outline</Button>
-                          </HStack>
-                        </VStack>
-                        
-                        <VStack spacing={4} className="p-4 border rounded-md">
-                          <Heading variant="subheading">Usage Guidelines</Heading>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <VStack spacing={2} align="start">
-                              <Text className="font-medium">Do</Text>
-                              <ul className="list-disc pl-5 space-y-1">
-                                <li>Use the primary button for the main action</li>
-                                <li>Use clear, action-oriented labels</li>
-                                <li>Maintain consistent button styling across the interface</li>
-                              </ul>
-                            </VStack>
-                            <VStack spacing={2} align="start">
-                              <Text className="font-medium">Don't</Text>
-                              <ul className="list-disc pl-5 space-y-1">
-                                <li>Use too many buttons in a single view</li>
-                                <li>Use buttons for navigation (use links instead)</li>
-                                <li>Use vague labels like "Click Here"</li>
-                              </ul>
-                            </VStack>
-                          </div>
-                        </VStack>
-                      </VStack>
-                    </CardContent>
-                  </Card>
+                  <ButtonDocumentation />
                   
                   <Card>
                     <CardHeader>

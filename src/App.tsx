@@ -49,6 +49,13 @@ function App() {
             {/* Documentation Pages */}
             <Route path="/docs" element={<div>Documentation Page</div>} />
             <Route path="/docs/:slug" element={<div>Documentation Topic Page</div>} />
+            
+            {/* Catch-all route for 404 errors */}
+            <Route path="*" element={<div className="p-8 text-center">
+              <h1 className="text-2xl font-bold mb-4">Page Not Found</h1>
+              <p className="mb-4">The page you're looking for doesn't exist or has been moved.</p>
+              <a href="/" className="text-blue-600 hover:underline">Return to Home</a>
+            </div>} />
             <Route path="/guides" element={<div>Guides Page</div>} />
             <Route path="/guides/:slug" element={<div>Guide Detail Page</div>} />
             <Route path="/api" element={<div>API Documentation Page</div>} />

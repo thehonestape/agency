@@ -3,132 +3,82 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-// Button class utilities for the dual API
-export const buttonClasses = {
-  base: "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 relative",
-  
-  // Variant classes (style)
-  variant: {
-    solid: "bg-interactive hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active text-interactive-text",
-    outline: "border border-border bg-background hover:bg-background-hover active:bg-background-active text-foreground",
-    ghost: "text-foreground hover:bg-background-hover active:bg-background-active",
-    link: "text-interactive underline-offset-4 hover:underline active:text-interactive-hover",
-  },
-  
-  // Color scheme classes
-  colorScheme: {
-    primary: "bg-interactive text-interactive-text hover:bg-interactive-hover",
-    secondary: "bg-interactive-secondary text-interactive-secondaryText hover:bg-interactive-secondaryHover",
-    destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-    success: "bg-success text-success-foreground hover:bg-success/90",
-    warning: "bg-warning text-warning-foreground hover:bg-warning/90",
-    info: "bg-info text-info-foreground hover:bg-info/90",
-  },
-  
-  // Size classes
-  size: {
-    xs: "h-8 px-2 text-xs min-w-[4rem] rounded-sm",
-    sm: "h-9 px-3 text-xs min-w-[4.5rem] rounded-md",
-    md: "h-10 px-4 py-2 min-w-[6rem] rounded-md",
-    lg: "h-11 px-6 text-base min-w-[8rem] rounded-md",
-    xl: "h-12 px-8 text-lg min-w-[10rem] rounded-lg",
-    icon: "h-10 w-10 p-0 min-w-0 rounded-md",
-    // For backward compatibility
-    default: "h-10 px-4 py-2 min-w-[6rem] rounded-md",
-  },
-  
-  // Shape classes for icon buttons
-  shape: {
-    default: "",
-    circle: "rounded-full aspect-square p-0",
-    square: "aspect-square p-0",
-  },
-  
-  // Elevation classes
-  elevation: {
-    flat: "",
-    raised: "shadow-sm hover:shadow-md active:shadow-sm",
-    elevated: "shadow-md hover:shadow-lg active:shadow-md",
-  },
-  
-  // State classes
-  state: {
-    loading: "opacity-80 cursor-wait",
-    disabled: "opacity-50 cursor-not-allowed",
-    fullWidth: "w-full",
-  },
-};
-
-// Define types for the button variants
-type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link' | 'brand' | 'success' | 'warning' | 'info' | 'default' | 'solid';
-type ButtonSize = 'default' | 'sm' | 'lg' | 'icon' | 'mobile' | 'md';
-type ButtonElevation = 'flat' | 'raised' | 'elevated';
-
-// Legacy buttonVariants for backward compatibility
+// Define button variants using cva
 const buttonVariants = cva(
-  buttonClasses.base,
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 relative",
   {
     variants: {
       variant: {
-        primary: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
-        secondary: "bg-interactive-secondary hover:bg-interactive-secondaryHover active:bg-interactive-secondaryActive text-interactive-secondaryText",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80",
-        outline: "border border-border bg-background hover:bg-background-hover active:bg-background-active text-foreground",
-        ghost: "hover:bg-background-hover active:bg-background-active text-foreground",
-        link: "text-interactive underline-offset-4 hover:underline",
-        brand: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
-        success: "bg-success text-success-foreground hover:bg-success/90 active:scale-[0.98] active:bg-success/95",
-        warning: "bg-warning text-warning-foreground hover:bg-warning/90 active:scale-[0.98] active:bg-warning/95",
-        info: "bg-info text-info-foreground hover:bg-info/90 active:scale-[0.98] active:bg-info/95",
-        // For backward compatibility
-        default: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
-        solid: "bg-interactive text-interactive-text hover:bg-interactive-hover active:scale-[0.98] active:bg-interactive-active",
+        default: "bg-secondary text-secondary-foreground hover:bg-secondary/90 active:bg-secondary/70",
+        solid: "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/70",
+        primary: "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/70",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground active:bg-accent/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground active:bg-accent/80",
+        link: "text-primary underline-offset-4 hover:underline active:text-primary/70",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 active:bg-secondary/60",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/70",
+        success: "bg-success text-success-foreground hover:bg-success/90 active:bg-success/80",
+        warning: "bg-warning text-warning-foreground hover:bg-warning/90 active:bg-warning/80",
+        info: "bg-info text-info-foreground hover:bg-info/90 active:bg-info/80",
       },
       size: {
-        default: buttonClasses.size.md,
-        sm: buttonClasses.size.sm,
-        lg: buttonClasses.size.lg,
-        icon: buttonClasses.size.icon,
-        mobile: "h-12 px-5 py-3 min-w-[6rem] text-base", // Optimized for thumb zone on mobile
-        // For backward compatibility
-        md: buttonClasses.size.md,
+        xs: "h-8 px-2 text-xs min-w-[4rem] rounded-sm",
+        sm: "h-9 px-3 text-xs min-w-[4.5rem] rounded-md",
+        md: "h-10 px-4 py-2 min-w-[6rem] rounded-md",
+        lg: "h-11 px-6 text-base min-w-[8rem] rounded-md",
+        xl: "h-12 px-8 text-lg min-w-[10rem] rounded-lg",
+        icon: "h-10 w-10 p-0 min-w-0 rounded-md",
+        default: "h-10 px-4 py-2 min-w-[6rem] rounded-md",
+        mobile: "h-12 px-5 py-3 min-w-[6rem] text-base",
       },
       fullWidth: {
-        true: buttonClasses.state.fullWidth,
+        true: "w-full",
+      },
+      shape: {
+        default: "",
+        circle: "rounded-full aspect-square p-0",
+        square: "aspect-square p-0",
       },
       elevation: {
-        flat: buttonClasses.elevation.flat,
-        raised: buttonClasses.elevation.raised,
-        elevated: buttonClasses.elevation.elevated,
+        flat: "",
+        raised: "shadow-sm hover:shadow-md active:shadow-sm",
+        elevated: "shadow-md hover:shadow-lg active:shadow-md",
       },
     },
     defaultVariants: {
-      variant: 'primary',
-      size: 'default',
+      variant: "primary",
+      size: "default",
       fullWidth: false,
-      elevation: 'flat',
+      elevation: "flat",
+      shape: "default",
     },
-    compoundVariants: [],
   }
 );
 
+// Define types for the button variants
+type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link' | 'success' | 'warning' | 'info' | 'default' | 'solid';
+type ButtonSize = 'default' | 'sm' | 'lg' | 'icon' | 'mobile' | 'md' | 'xs' | 'xl';
+type ButtonElevation = 'flat' | 'raised' | 'elevated';
+type ButtonShape = 'default' | 'circle' | 'square';
+
+// Define the props for the Button component
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  // Common props
   asChild?: boolean;
-  
-  // Prop-based API (Chakra-like)
-  colorScheme?: "primary" | "secondary" | "destructive" | "success" | "warning" | "info";
+  // Legacy props
+  loading?: boolean;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  elevation?: ButtonElevation;
+  // Prop-based API
   isLoading?: boolean;
   isDisabled?: boolean;
   isFullWidth?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  shape?: "default" | "circle" | "square";
-  
-  // Legacy loading prop for backward compatibility
-  loading?: boolean;
+  colorScheme?: string;
+  shape?: ButtonShape;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -162,40 +112,24 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : 'button';
     
-    // Determine if we're using legacy variant props or new colorScheme
-    const hasColorScheme = !!colorScheme;
-    
     // Ensure variant and size are valid
     const validVariant = (variant as ButtonVariant) || 'primary';
     const validSize = (size as ButtonSize) || 'default';
     
     // Generate appropriate classes
     const classes = cn(
-      // Base button classes
-      buttonClasses.base,
+      // Apply variant styling through buttonVariants
+      buttonVariants({ 
+        variant: validVariant, 
+        size: validSize, 
+        fullWidth: isFullWidth, 
+        elevation: elevation as ButtonElevation,
+        shape: shape as ButtonShape
+      }),
       
-      // Apply variant/colorScheme
-      hasColorScheme ? (
-        // New API: separate variant and colorScheme
-        buttonClasses.variant[(validVariant === 'default' ? 'solid' : validVariant) as keyof typeof buttonClasses.variant],
-        buttonClasses.colorScheme[colorScheme as keyof typeof buttonClasses.colorScheme]
-      ) : (
-        // Legacy API: combined variant
-        buttonVariants({ 
-          variant: validVariant, 
-          size: validSize, 
-          fullWidth: isFullWidth, 
-          elevation: elevation as ButtonElevation
-        })
-      ),
-      
-      // Apply shape for icon buttons
-      buttonClasses.shape[shape],
-      
-      // Apply states
-      isFullWidth && buttonClasses.state.fullWidth,
-      isLoading && buttonClasses.state.loading,
-      isDisabled && buttonClasses.state.disabled,
+      // Apply loading and disabled states
+      isLoading && "opacity-80 cursor-wait",
+      isDisabled && "opacity-50 cursor-not-allowed",
       
       // Apply custom classes
       className

@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 
 // Card class utilities for the dual API
 export const cardClasses = {
-  base: 'rounded-lg border bg-card text-card-foreground transition-all duration-200',
+  base: 'rounded-lg border border-card-border bg-card text-card-foreground transition-all duration-200 shadow-sm',
   
   // Variant classes
   variant: {

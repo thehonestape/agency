@@ -32,10 +32,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   defaultTheme = 'blue-light',
 }) => {
   const [theme, setTheme] = useState<ThemeOption>(() => {
-    // Try to get the theme from localStorage
+    // Try to get the theme from localStorage or use system preference
     try {
       const savedTheme = localStorage.getItem('theme') as ThemeOption;
-      return savedTheme || defaultTheme;
+      if (savedTheme) return savedTheme;
+      
+      // If no saved theme, check system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const colorPalette = defaultTheme.split('-')[0];
+      return `${colorPalette}-${prefersDark ? 'dark' : 'light'}` as ThemeOption;
     } catch (error) {
       return defaultTheme;
     }

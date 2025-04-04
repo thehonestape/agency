@@ -1,16 +1,81 @@
-/* Import Tailwind CSS first as per v4 documentation */
+/* Tailwind CSS v4 configuration and import */
 @import "tailwindcss";
+
+/* Explicitly define hover and active state styles */
+@layer utilities {
+  .hover\:bg-primary\/90:hover {
+    background-color: color-mix(in srgb, var(--primary) 90%, transparent);
+  }
+  .hover\:bg-secondary\/90:hover {
+    background-color: color-mix(in srgb, var(--secondary) 90%, transparent);
+  }
+  .hover\:bg-secondary\/80:hover {
+    background-color: color-mix(in srgb, var(--secondary) 80%, transparent);
+  }
+  .hover\:bg-accent:hover {
+    background-color: var(--accent);
+  }
+  .hover\:text-accent-foreground:hover {
+    color: var(--accent-foreground);
+  }
+  .hover\:underline:hover {
+    text-decoration-line: underline;
+  }
+  
+  /* More pronounced active states for better visual feedback */
+  .active\:bg-primary\/70:active {
+    background-color: color-mix(in srgb, var(--primary) 70%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:bg-secondary\/70:active {
+    background-color: color-mix(in srgb, var(--secondary) 70%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:bg-secondary\/60:active {
+    background-color: color-mix(in srgb, var(--secondary) 60%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:bg-accent\/80:active {
+    background-color: color-mix(in srgb, var(--accent) 80%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:text-primary\/70:active {
+    color: color-mix(in srgb, var(--primary) 70%, transparent);
+  }
+  
+  /* Original active states (keeping for backward compatibility) */
+  .active\:bg-primary\/80:active {
+    background-color: color-mix(in srgb, var(--primary) 80%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:bg-secondary\/80:active {
+    background-color: color-mix(in srgb, var(--secondary) 80%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:bg-secondary\/70:active {
+    background-color: color-mix(in srgb, var(--secondary) 70%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:bg-accent\/90:active {
+    background-color: color-mix(in srgb, var(--accent) 90%, transparent);
+    transform: scale(0.98);
+  }
+  .active\:text-primary\/80:active {
+    color: color-mix(in srgb, var(--primary) 80%, transparent);
+  }
+}
 
 /* Base styles */
 @import "./fonts.css";
 @import "./theme.css";
 @import "./fluid-typography.css";
 @import "./tailwind-theme.css";
+@import "./tailwind-colors.css";
 @import "./base.css";
 
 /* Dark mode is now handled by Tailwind's dark class */
 
-/* Theme variables are now defined in theme.css using hex values */
+/* Theme variables are now defined in tailwind-theme.css using RGB space-separated values for Tailwind v4 compatibility */
 :root {
   /* These variables are used for backward compatibility */
   --theme-background: var(--background);
@@ -49,18 +114,39 @@
   .border-border {
     border-color: var(--border);
   }
-  .border-border-dark {
-    border-color: var(--border-dark, var(--border));
+  .border-border-subtle {
+    border-color: var(--border-subtle);
+  }
+  .border-border-strong {
+    border-color: var(--border-strong);
   }
   .border-border-focus {
-    border-color: var(--border-focus, var(--primary));
+    border-color: var(--border-focus);
   }
   .border-border-hover {
-    border-color: var(--border-hover, var(--muted));
+    border-color: var(--border-hover);
+  }
+  .border-border-disabled {
+    border-color: var(--border-disabled);
   }
   /* Background Colors */
   .bg-background {
     background-color: var(--background);
+  }
+  .bg-background-subtle {
+    background-color: var(--background-subtle);
+  }
+  .bg-background-muted {
+    background-color: var(--background-muted);
+  }
+  .bg-background-hover {
+    background-color: var(--background-hover);
+  }
+  .bg-background-active {
+    background-color: var(--background-active);
+  }
+  .bg-background-disabled {
+    background-color: var(--background-disabled);
   }
   .bg-foreground {
     background-color: var(--foreground);
@@ -70,6 +156,9 @@
   }
   .bg-card-foreground {
     background-color: var(--card-foreground);
+  }
+  .bg-card-hover {
+    background-color: var(--card-hover);
   }
   .bg-popover {
     background-color: var(--popover);
@@ -142,6 +231,65 @@
   .text-foreground {
     color: var(--foreground);
   }
+  .text-content-primary {
+    color: var(--content-primary);
+  }
+  .text-content-secondary {
+    color: var(--content-secondary);
+  }
+  .text-content-muted {
+    color: var(--content-muted);
+  }
+  .text-content-placeholder {
+    color: var(--content-placeholder);
+  }
+  .text-content-disabled {
+    color: var(--content-disabled);
+  }
+  .text-content-inverted {
+    color: var(--content-inverted);
+  }
+  .text-content-brand {
+    color: var(--content-brand);
+  }
+  
+  /* Interactive Colors */
+  .bg-interactive-default {
+    background-color: var(--interactive-default);
+  }
+  .bg-interactive-hover {
+    background-color: var(--interactive-hover);
+  }
+  .bg-interactive-active {
+    background-color: var(--interactive-active);
+  }
+  .bg-interactive-subtle {
+    background-color: var(--interactive-subtle);
+  }
+  .text-interactive-default {
+    color: var(--interactive-default);
+  }
+  .text-interactive-hover {
+    color: var(--interactive-hover);
+  }
+  .text-interactive-active {
+    color: var(--interactive-active);
+  }
+  .text-interactive-on-interactive {
+    color: var(--interactive-on-interactive);
+  }
+  .bg-interactive-secondary {
+    background-color: var(--interactive-secondary);
+  }
+  .bg-interactive-secondary-hover {
+    background-color: var(--interactive-secondary-hover);
+  }
+  .bg-interactive-secondary-active {
+    background-color: var(--interactive-secondary-active);
+  }
+  .text-interactive-on-secondary {
+    color: var(--interactive-on-secondary);
+  }
   .text-card {
     color: var(--card);
   }
@@ -210,6 +358,9 @@
   }
   .text-info-foreground {
     color: var(--info-foreground);
+  }
+  .text-info-content {
+    color: var(--info-content);
   }
 
   /* Border Colors */

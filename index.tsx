@@ -1,6 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { DesignSystemDocs } from './DesignSystemDocs';
+import { BrowserRouter } from 'react-router-dom';
+import App from './src/App';
+import ThemeProvider from './src/lib/ThemeProvider';
 
 // Import global styles for Tailwind v4
 import './styles.css';
@@ -10,7 +12,11 @@ if (container) {
   const root = createRoot(container);
   root.render(
     <React.StrictMode>
-      <DesignSystemDocs />
+      <ThemeProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
     </React.StrictMode>
   );
 } 

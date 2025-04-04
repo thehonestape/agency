@@ -71,12 +71,12 @@ export function ThemeToggle({
       {isDark ? (
         <>
           <SunIcon className="h-[1.2em] w-[1.2em]" />
-          {showLabel && <span className="ml-2">Light</span>}
+          {showLabel && <span className="ml-2">Switch to Light</span>}
         </>
       ) : (
         <>
           <MoonIcon className="h-[1.2em] w-[1.2em]" />
-          {showLabel && <span className="ml-2">Dark</span>}
+          {showLabel && <span className="ml-2">Switch to Dark</span>}
         </>
       )}
     </button>

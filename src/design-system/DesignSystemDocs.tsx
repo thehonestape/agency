@@ -1,3 +1,9 @@
+/**
+ * @deprecated This component is deprecated and will be removed in a future version.
+ * Please use the /design-docs route instead, which provides a more comprehensive
+ * and up-to-date documentation of the design system.
+ */
+
 import { useState, useEffect, useRef } from 'react';
 import {
   Button,

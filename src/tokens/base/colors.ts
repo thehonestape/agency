@@ -5,6 +5,11 @@
  * 
  * This file defines our global color palette that serves as the foundation
  * for all semantic colors in the system.
+ * 
+ * Following a structured approach with three layers:
+ * 1. Base Colors: Foundational color scales from 50-950
+ * 2. Semantic Colors: Colors mapped to their purpose in the UI
+ * 3. Component Colors: Specific color applications for UI components
  */
 
 export const baseColors = {

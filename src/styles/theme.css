@@ -49,44 +49,105 @@
 
 :root {
   /* Color System - Light Mode */
+  /* Surface Colors - Used for backgrounds of different UI elements */
   --background: #ffffff;
   --foreground: #0f172a;
-  --card: #ffffff;
+  --background-subtle: #f8fafc;
+  --background-muted: #f1f5f9;
+  --background-hover: #f8fafc;
+  --background-active: #f1f5f9;
+  --background-disabled: #f8fafc;
+  
+  /* Content Colors - Used for text, icons, and other content */
+  --content-primary: #0f172a;
+  --content-secondary: #475569;
+  --content-muted: #64748b;
+  --content-placeholder: #94a3b8;
+  --content-disabled: #94a3b8;
+  --content-inverted: #ffffff;
+  --content-brand: #2563eb;
+  
+  /* Card and Popover Surfaces */
+  --card: #f8fafc;
   --card-foreground: #0f172a;
+  --card-hover: #f1f5f9;
+  --card-border: #e2e8f0;
+  
   --popover: #ffffff;
   --popover-foreground: #0f172a;
   
   /* Primary Colors */
   --primary: #2563eb;
   --primary-foreground: #ffffff;
+  --primary-subtle: #eff6ff;
+  --primary-hover: #1d4ed8;
+  --primary-active: #1e40af;
+  
+  /* Interactive Colors */
+  --interactive-default: #2563eb;
+  --interactive-hover: #1d4ed8;
+  --interactive-active: #1e40af;
+  --interactive-subtle: #eff6ff;
+  --interactive-on-interactive: #ffffff;
+  --interactive-secondary: #e2e8f0;
+  --interactive-secondary-hover: #cbd5e1;
+  --interactive-secondary-active: #94a3b8;
+  --interactive-on-secondary: #0f172a;
   
   /* Secondary Colors */
-  --secondary: #f1f5f9;
+  --secondary: #e2e8f0;
   --secondary-foreground: #0f172a;
+  --secondary-hover: #cbd5e1;
+  --secondary-active: #94a3b8;
   
   /* Accent Colors */
   --accent: #ec4899;
   --accent-foreground: #ffffff;
+  --accent-subtle: #fdf2f8;
   
   /* Muted Colors */
   --muted: #f1f5f9;
   --muted-foreground: #64748b;
   
+  /* Content Colors - Used for text, icons, and other content */
+  --content-primary: #0f172a;
+  --content-secondary: #475569;
+  --content-muted: #64748b;
+  --content-placeholder: #94a3b8;
+  --content-disabled: #94a3b8;
+  --content-inverted: #ffffff;
+  --content-brand: #2563eb;
+  
   /* State Colors */
   --success: #22c55e;
   --success-foreground: #ffffff;
+  --success-subtle: #dcfce7;
+  --success-border: #86efac;
   
   --warning: #f59e0b;
   --warning-foreground: #ffffff;
+  --warning-subtle: #fef3c7;
+  --warning-border: #fcd34d;
   
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
+  --destructive-subtle: #fee2e2;
+  --destructive-border: #fca5a5;
   
   --info: #3b82f6;
   --info-foreground: #ffffff;
+  --info-subtle: #dbeafe;
+  --info-border: #93c5fd;
+  --info-content: #1e40af;
   
   /* Border and Ring */
   --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-strong: #cbd5e1;
+  --border-focus: #3b82f6;
+  --border-hover: #cbd5e1;
+  --border-disabled: #e2e8f0;
+  
   --input: #e2e8f0;
   --ring: #3b82f6;
   
@@ -136,44 +197,105 @@
  */
 .dark {
   /* Color System - Dark Mode */
+  /* Surface Colors - Used for backgrounds of different UI elements */
   --background: #020617;
   --foreground: #f8fafc;
-  --card: #020617;
+  --background-subtle: #0f172a;
+  --background-muted: #1e293b;
+  --background-hover: #0f172a;
+  --background-active: #1e293b;
+  --background-disabled: #0f172a;
+  
+  /* Content Colors - Used for text, icons, and other content */
+  --content-primary: #f8fafc;
+  --content-secondary: #cbd5e1;
+  --content-muted: #94a3b8;
+  --content-placeholder: #64748b;
+  --content-disabled: #64748b;
+  --content-inverted: #020617;
+  --content-brand: #60a5fa;
+  
+  /* Card and Popover Surfaces */
+  --card: #1e293b;
   --card-foreground: #f8fafc;
-  --popover: #020617;
+  --card-hover: #334155;
+  --card-border: #334155;
+  
+  --popover: #0f172a;
   --popover-foreground: #f8fafc;
   
   /* Primary Colors */
   --primary: #60a5fa;
   --primary-foreground: #172554;
+  --primary-subtle: #0c4a6e;
+  --primary-hover: #38bdf8;
+  --primary-active: #7dd3fc;
+  
+  /* Interactive Colors */
+  --interactive-default: #60a5fa;
+  --interactive-hover: #38bdf8;
+  --interactive-active: #7dd3fc;
+  --interactive-subtle: #0c4a6e;
+  --interactive-on-interactive: #f8fafc;
+  --interactive-secondary: #334155;
+  --interactive-secondary-hover: #475569;
+  --interactive-secondary-active: #64748b;
+  --interactive-on-secondary: #f8fafc;
   
   /* Secondary Colors */
   --secondary: #1e293b;
   --secondary-foreground: #f8fafc;
+  --secondary-hover: #334155;
+  --secondary-active: #475569;
   
   /* Accent Colors */
   --accent: #f472b6;
   --accent-foreground: #500724;
+  --accent-subtle: #831843;
   
   /* Muted Colors */
   --muted: #1e293b;
   --muted-foreground: #94a3b8;
   
+  /* Content Colors - Used for text, icons, and other content */
+  --content-primary: #f8fafc;
+  --content-secondary: #cbd5e1;
+  --content-muted: #94a3b8;
+  --content-placeholder: #64748b;
+  --content-disabled: #64748b;
+  --content-inverted: #020617;
+  --content-brand: #60a5fa;
+  
   /* State Colors */
   --success: #4ade80;
   --success-foreground: #052e16;
+  --success-subtle: #052e16;
+  --success-border: #15803d;
   
   --warning: #fbbf24;
   --warning-foreground: #451a03;
+  --warning-subtle: #451a03;
+  --warning-border: #b45309;
   
   --destructive: #f87171;
   --destructive-foreground: #450a0a;
+  --destructive-subtle: #450a0a;
+  --destructive-border: #b91c1c;
   
   --info: #60a5fa;
-  --info-foreground: #172554;
+  --info-foreground: #f8fafc;
+  --info-subtle: #0c4a6e;
+  --info-border: #1d4ed8;
+  --info-content: #60a5fa;
   
   /* Border and Ring */
   --border: #1e293b;
+  --border-subtle: #0f172a;
+  --border-strong: #334155;
+  --border-focus: #60a5fa;
+  --border-hover: #334155;
+  --border-disabled: #1e293b;
+  
   --input: #1e293b;
   --ring: #60a5fa;
   
