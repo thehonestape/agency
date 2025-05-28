@@ -1,0 +1,17 @@
+{
+  "database": {
+    "url": "http://localhost:8529",
+    "name": "spidergram",
+    "user": "root",
+    "password": ""
+  },
+  "crawler": {
+    "maxConcurrent": 5,
+    "maxDepth": 3,
+    "maxPages": 1000,
+    "delay": 500
+  },
+  "reporting": {
+    "outputDir": "spidergram-reports"
+  }
+}

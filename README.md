@@ -237,3 +237,130 @@ The application follows a well-structured architecture to promote reusability an
 - **Configurable Views**: Pages designed to accept different data sources
 
 For more details on the application structure, see [APP_STRUCTURE.md](./APP_STRUCTURE.md).
+
+# Website Scraper and Report Generator
+
+A powerful tool for scraping websites and generating comprehensive reports about their structure, content, SEO, performance, and accessibility.
+
+## Features
+
+- **Comprehensive Scraping**: Crawls websites up to a specified depth
+- **SEO Analysis**: Collects meta tags, titles, and canonical URLs
+- **Performance Metrics**: Measures page load times and resource usage
+- **Accessibility Checks**: Identifies common accessibility issues
+- **Spidergram Integration**: Advanced structural analysis for complex web properties
+
+## Integrations
+
+### Spidergram
+
+The scraper now integrates with [Spidergram](https://github.com/autogram-is/spidergram), a powerful tool designed for analyzing complex web properties. This integration provides:
+
+- **Graph Database Storage**: Website structure stored in ArangoDB for powerful querying
+- **Advanced Relationship Analysis**: Visualize connections between pages and domains
+- **Structural Insights**: Identify navigation patterns, content hierarchies, and site architecture
+- **In-depth Reports**: Generate comprehensive site structure reports
+
+To set up the Spidergram integration:
+
+```bash
+# Install dependencies
+npm install
+
+# Set up Spidergram integration
+npm run setup-spidergram
+```
+
+For detailed instructions, see [docs/spidergram-integration.md](docs/spidergram-integration.md).
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd website-scraper
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Install Playwright browsers:
+```bash
+npx playwright install chromium
+```
+
+## Usage
+
+### Basic Usage
+
+To scrape a website, run:
+
+```bash
+npm run scrape <url>
+```
+
+For example:
+```bash
+npm run scrape https://example.com
+```
+
+### Configuration
+
+You can modify the scraping behavior by editing the `CONFIG` object in `scripts/website-scraper.js`:
+
+```javascript
+const CONFIG = {
+  maxPages: 100,    // Maximum number of pages to scrape
+  maxDepth: 3,      // Maximum depth for crawling
+  timeout: 30000,   // Page load timeout in ms
+  outputDir: '...'  // Output directory for reports
+};
+```
+
+### Output
+
+The tool generates reports in the `src/data/scraped-sites/<timestamp>` directory:
+
+- `pages.csv`: Detailed information about each scraped page
+- `report.json`: Comprehensive report including:
+  - Site structure
+  - SEO data
+  - Performance metrics
+  - Accessibility issues
+  - Page type analysis
+
+## Report Structure
+
+### CSV Report (pages.csv)
+
+Contains the following columns:
+- URL
+- Title
+- Type
+- Elements (headings, links, images, forms)
+
+### JSON Report (report.json)
+
+Contains:
+- Base URL
+- Timestamp
+- Summary statistics
+- Detailed data for each page:
+  - SEO information
+  - Performance metrics
+  - Accessibility issues
+  - Page type classification
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
+
+## License
+
+MIT License - see LICENSE file for details
